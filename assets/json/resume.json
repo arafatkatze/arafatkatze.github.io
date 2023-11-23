@@ -1,61 +1,115 @@
 {
   "basics": {
-    "name": "Albert Einstein",
-    "label": "Scientist",
+    "name": "Arafat Khan",
     "image": "",
-    "email": "albert@einstein.de",
-    "phone": "(912) 123-4567",
-    "url": "https://alshedivat.github.io/al-folio/",
-    "summary": "A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time",
+    "email": "arafat.da.khan@gmail.com",
+    "phone": "+1-343-999-5219",
+    "url": "https://arafatkatze.github.io/",
+    "summary": "A backend engineer who does a little bit of everything.",
     "location": {
-      "address": "2712 Broadway St",
-      "postalCode": "CA 94115",
-      "city": "San Francisco",
-      "countryCode": "US",
-      "region": "California"
+      "region": "Canada"
     },
     "profiles": [
       {
         "network": "Twitter",
-        "username": "AlbertEinstein",
-        "url": "https://twitter.com/AlbertEinstein"
+        "username": "Arafatkatze",
+        "url": "https://twitter.com/Arafatkatze"
       }
     ]
   },
   "work": [
     {
-      "name": "Institute for Advanced Study, Princeton University",
-      "position": "Professor of Theoretical Physics",
-      "url": "https://example.com",
-      "startDate": "1933-01-01",
-      "endDate": "1955-01-01",
-      "summary": "Teaching at Palmer Physical Laboratory (now 302 Frist Campus Center). While not a professor at Princeton, I associated with the physics professors and continued to give lectures on campus.",
+      "name": "Sourcegraph",
+      "position": "AI Engineer",
+      "url": "https://sourcegraph.com/",
+      "startDate": "2024",
+      "endDate": "",
+      "summary": "AI Engineer at Cody Strategy Team",
       "highlights": [
-        "Relativity"
+        "Building the best AI tooling for programmers that world will ever see"
+      ]
+    },
+    {
+      "name": "ImmigrantFirst",
+      "position": "Founder",
+      "url": "https://immigrantfirst.ai/",
+      "startDate": "2023",
+      "endDate": "2023",
+      "summary": "",
+      "highlights": [
+        "Built a state of the Art LLM framework to build O1 Visa applications for US immigration using Generative AI."
+      ]
+    },
+    {
+      "name": "Shopify",
+      "position": "Infrastructure Engineer",
+      "url": "https://shopify.ca",
+      "startDate": "2021",
+      "endDate": "2023",
+      "summary": "Restricted Infrastructure and Stacks Team",
+      "highlights": [
+        "Co-Implemented a load balancerlevel splitting ofread and write requests using Kubernetes for Shopify’s financial transaction application which improved the p99 request times across most of Shopify’s payment transactions by 50%.", 
+        "Enhanced networking/infra pipeline to make our payments infrastructure fully compliant with PCI/DSS regulations to pass the audit.", 
+        "Built, maintained and upgraded highly scalable, fault tolerant Mysql database for critical credit card data"
+      ]
+    },
+    {
+      "name": "Shopify",
+      "position": "Backend Engineer",
+      "url": "https://shopify.ca",
+      "startDate": "2019",
+      "endDate": "2021",
+      "summary": "Risk Engineering Team",
+      "highlights": [
+        "Built a majortech design for a technical pipeline touching multiple rails services to find major bottlenecks in Shopify’s fraud assessment flow and to improve the checkout latency by 60%.",
+        "Managed autoscaling for Black Friday sales as the traffic spiked 10x the normal limit"
+      ]
+    },
+    {
+      "name": "Simon Fraser University",
+      "position": "Researcher",
+      "url": "https://sfu.ca",
+      "startDate": "2017",
+      "endDate": "2018",
+      "summary": "",
+      "highlights": [
+        "Applied ML techniques on CT Scans of Body segements for FAT analysis and body composition labelling for cancer patients"
       ]
     }
   ],
   "volunteer": [],
   "education": [
     {
-      "institution": "University of Zurich, Zurich, Switzerland",
-      "url": "https://www.uzh.ch/",
-      "area": "Software Development",
-      "studyType": "PhD",
-      "startDate": "1905-01-01",
-      "endDate": "1905-01-01",
+      "institution": "Indian Institute of Technology, Kharagpur",
+      "url": "https://www.iitkgp.ac.in/",
+      "studyType": "Bachelors and Masters in Technology",
+      "startDate": "2014",
+      "endDate": "2019",
       "score": "",
       "courses": [
-        "Theory of Relativity"
+        "Probability",
+        "Algorithms",
+        "Programming Languages",
+        "Introduction to Electronics",
+        "Stochastic Processes",
+        "Machine Learning",
+        "Operating Systems",
+        "Distributed Systems"
       ]
     }
   ],
   "awards": [
     {
-      "title": "Nobel Prize in Physics",
-      "date": "1921-11-01",
-      "awarder": "Royal Swedish Academy of Sciences",
-      "summary": "The Nobel Prizes are five separate prizes that, according to Alfred Nobel's will of 1895, are awarded to 'those who, during the preceding year, have conferred the greatest benefit to humankind.'"
+      "title": "Google Summer of Code",
+      "date": "2018",
+      "awarder": "Scientific Ruby Foundation",
+      "summary": "Built the best plotting library for Ruby to support visulations for Science expermentation in Ruby -> https://github.com/SciRuby/rubyplot"
+    },
+    {
+      "title": "Ruby Grant",
+      "date": "2016",
+      "awarder": "Ruby Association",
+      "summary": "Official Grant from Ruby Association to build Tensorflow in Ruby -> https://github.com/somaticio/tensorflow.rb"
     }
   ],
   "certificates": [],
@@ -63,15 +117,84 @@
   "skills": [],
   "languages": [
     {
-      "language": "German",
+      "language": "Hindi",
       "fluency": "Native speaker"
     },
     {
       "language": "English",
-      "fluency": "Fluent"
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "Urdu",
+      "fluency": "Native speaker"
     }
   ],
-  "interests": [],
+  "speaking": [
+    {
+      "name": "DevopsDays Recife",
+      "icon": "fa fa-music",
+      "items": ["Sub-interest 1", "Sub-interest 2"],
+      "keywords": ["2022","Talked about how to be a digital nomad as a tech worker"]
+    },  
+  {
+    "name": "Google Developers Windsor",
+    "icon": "fa fa-music",
+    "items": ["Sub-interest 1", "Sub-interest 2"],
+    "keywords": ["2020","Presented Tensorflow Ruby in the context of Google"]
+  },
+  {
+    "name": "Gophercon India",
+    "icon": "fa fa-book",
+    "items": ["Sub-interest 1", "Sub-interest 2"],
+    "keywords": ["2019","Presented Data and Algorithm visualizations in Golang at the largest Golang conference in India"]
+  },
+  {
+    "name": "GowayFest Belarus",
+    "icon": "fa fa-music",
+    "items": ["Sub-interest 1", "Sub-interest 2"],
+    "keywords": ["2018","Presented visualizations in Golang at GowayFest Belarus"]
+  },
+  {
+    "name": "Ruby on Ice, Tegernsee, Germany",
+    "icon": "fa fa-book",
+    "items": ["Sub-interest 1", "Sub-interest 2"],
+    "keywords": ["2018","Presented a 3 hour workshop on Machine learning and Tensorflow in Ruby"]
+  },
+  {
+    "name": "Euroko Ruby Conference",
+    "icon": "fa fa-book",
+    "items": ["Sub-interest 1", "Sub-interest 2"],
+    "keywords": ["2017","Presented as the youngest speaker at European Ruby Conference: the largest ruby conference in Europe", "500+ Attendees", "This was the first time I introduced Tensorflow Ruby to the world"]
+  }],
   "references": [],
-  "projects": []
+  "projects": [
+    {
+      "url": "https://github.com/somaticio/tensorflow.rb",
+      "name": "Tensorflow.rb",
+      "summary": "I wrote Tensorflow for Ruby",
+      "highlights": [
+        "Spoke about this project at many tech conferences all over Europe and North America",
+        "Project was eventually endorsed by Ruby Association",
+        "Project trended on Github for a few days"
+      ]
+    },
+    {
+      "url": "https://github.com/arafatkatze/dataviz",
+      "name": "Dataviz",
+      "summary": "A perfect algorithms explaination library written in Golang",
+      "highlights": [
+        "Designed a user-friendly codebase to understand complex algorithms visually",
+        "Presented my work at Gophercon in Belarus and India"
+      ]
+    },
+    {
+      "url": "https://github.com/arafatkatze/glot",
+      "name": "Glot",
+      "summary": "A plotting library in Golang built on top of GNU Plot",
+      "highlights": [
+        "Added golang support for styles like lines, points, bars, steps, histogram, circle",
+        "Presented my work at Gophercon in Belarus and India"
+      ]
+    }
+  ]
 }
