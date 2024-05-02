@@ -1,16 +1,16 @@
 ---
 layout: page
-title: Life
-permalink: /projects/
-description: Some of my favourite life stories and photos
+title: Blog
+permalink: /posts/
+description: My 2 cents on life
 nav: true
 nav_order: 2
-display_categories: [fun, work]
+display_categories: [philosophy]
 horizontal: true
 ---
 
-<!-- pages/projects.md -->
-<div class="projects">
+<!-- pages/posts.md -->
+<div class="posts">
 {%- if site.enable_project_categories and page.display_categories %}
   <!-- Display categorized projects -->
   {%- for category in page.display_categories %}
