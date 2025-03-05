@@ -1,17 +1,15 @@
 ---
 layout: about
-title: about
+title: About
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: 
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: basepic.jpeg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    <p>  </p>
 
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -27,8 +25,12 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Hi,   
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+This is Ara. I find myself at the intersection of many things that entail art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days playing with AI to build beautiful things for others.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+I really enjoy knowing more about the world and its complexity in deeper ways so I read and explore a lot. I hop between many different places. Recently, I had to send an application that required mentioning of all my addresses and turns out I had 17 addresses in the last 5 years. I have travelled to 25 and lived in 7 different countries and in many different provinces of Canada(The closest thing I have to a home). 
+
+As a proud Canadian with Indian and South Asian heritage, I am a huge fan of nature. I have spent a lot of time hiking, skiing and snowboarding in the Rockies. I have learnt so much about beauty, love and friendship through the times I have spent in the mountains with my friends. I even had a few close encounters with death, but it all worked out in the end. 
+
+I have a lot of socials and I am learning how to document and share more of life and thoughts with the world. You can check them out below:
