@@ -5,19 +5,17 @@ CONFIG_FILE=_config.yml
 # Function to manage Gemfile.lock
 manage_gemfile_lock() {
     git config --global --add safe.directory '*'
-    if command -v git &> /dev/null && [ -f Gemfile.lock ]; then
-        if git ls-files --error-unmatch Gemfile.lock &> /dev/null; then
-            echo "Gemfile.lock is tracked by git, keeping it intact"
-            git restore Gemfile.lock 2>/dev/null || true
-        else
-            echo "Gemfile.lock is not tracked by git, removing it"
-            rm Gemfile.lock
-        fi
+    if [ -f Gemfile.lock ]; then
+        echo "Removing existing Gemfile.lock to force rebuild for current architecture"
+        rm -f Gemfile.lock
     fi
 }
 
 start_jekyll() {
     manage_gemfile_lock
+    # Uncomment to force rebuild for current architecture
+    # bundle config set --local force_ruby_platform true
+    # bundle install --no-cache
     bundle exec jekyll serve --watch --port=8080 --host=0.0.0.0 --livereload --verbose --trace --force_polling &
 }
 
