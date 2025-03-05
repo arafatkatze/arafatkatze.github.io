@@ -1,21 +1,29 @@
 #!/bin/bash
+set -euo pipefail
+
+echo "Entry point script running"
 
 CONFIG_FILE=_config.yml
 
 # Function to manage Gemfile.lock
 manage_gemfile_lock() {
     git config --global --add safe.directory '*'
+    
+    # Remove the Gemfile.lock to regenerate it for the current architecture
     if [ -f Gemfile.lock ]; then
-        echo "Removing existing Gemfile.lock to force rebuild for current architecture"
+        echo "Removing Gemfile.lock to regenerate it for the current architecture"
         rm -f Gemfile.lock
     fi
+    
+    # Run bundle install with the correct platform
+    echo "Running bundle install to generate a new Gemfile.lock"
+    bundle config set --local path vendor/bundle
+    bundle config set --local build.nokogiri --use-system-libraries
+    bundle install
 }
 
 start_jekyll() {
     manage_gemfile_lock
-    # Uncomment to force rebuild for current architecture
-    # bundle config set --local force_ruby_platform true
-    # bundle install --no-cache
     bundle exec jekyll serve --watch --port=8080 --host=0.0.0.0 --livereload --verbose --trace --force_polling &
 }
 
