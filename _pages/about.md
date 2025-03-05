@@ -17,12 +17,12 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Hi,   
+Hi,
+This is Ara. I find myself at the intersection of many things that entail art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days playing with AI to build experiences that surprise and delight people.
 
-This is Ara. I find myself at the intersection of many things that entail art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days playing with AI to build beautiful things for others.
+I really enjoy knowing more about the world and its complexity in deeper ways so I read and explore a lot. I hop between many different places. Recently, I had to send an application that required mentioning of all my addresses and turns out I had 17 addresses in the last 5 years. I have travelled to 30 and lived in 7 different countries and in many different provinces of Canada(The closest thing I have to a home). 
 
-I really enjoy knowing more about the world and its complexity in deeper ways so I read and explore a lot. I hop between many different places. Recently, I had to send an application that required mentioning of all my addresses and turns out I had 17 addresses in the last 5 years. I have travelled to 25 and lived in 7 different countries and in many different provinces of Canada(The closest thing I have to a home). 
+As a proud Canadian with Indian and South Asian heritage, I am a huge fan of nature. The Rockies have taught me more about beauty and connection than any classroom could. Whether I'm skiing down fresh powder or watching the sunset from a summit I've hiked, these moments with close friends have shaped who I am. One of my favorite stories involves being 10 feet away from a bear that taught me to love my short life more(I have pics and it did HAPPEN). 
 
-As a proud Canadian with Indian and South Asian heritage, I am a huge fan of nature. I have spent a lot of time hiking, skiing and snowboarding in the Rockies. I have learnt so much about beauty, love and friendship through the times I have spent in the mountains with my friends. I even had a few close encounters with death, but it all worked out in the end. 
+I'm documenting more of my adventures and creative process these days. If you're curious about seeing life through my lens..
 
-I have a lot of socials and I am learning how to document and share more of life and thoughts with the world. You can check them out below:
