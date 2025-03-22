@@ -1,0 +1,9 @@
+---
+layout: page
+title: Faith is all you need
+description: 
+importance: 1
+category: philosophy
+---
+
+I think that, like, one of the things the Stoics say is that the mind can make a heaven of hell and a hell of heaven—and underneath that idea is the truth that it's not really about the external situation you're in, but about how it feels internally to be doing whatever you're doing; back in university, I struggled to keep up and couldn't seem to justify or mentally gymnastics my way into becoming a good student, and I even blamed myself until a professor straight-up told me, "Your grades reflect your belief in the system," and at first I thought this was supposed to motivate me, but after a few days I realized he was right—I simply didn't believe in the system, and that pattern kept repeating itself in my life: like, later at my dream job, I'd work weekends, grind late into Friday nights, and it felt joyful, almost like drinking from a firehose, but then something inside me died, and no matter how much I tried to blame external factors like sleep or health, deep down I knew I'd lost faith; when I moved on to my next gig, though, that faith was back and I worked harder than ever, yet it felt effortless—so yeah, the Stoics had it right: the mind really does shape your reality, but it does so based on how much faith you have, and that's why next time I find a job, faith is literally the only thing I'm optimizing for—I've made enough money; I don't care anymore—because faith single-handedly transforms your internal experience, and that's why people willingly go barefoot on these epic religious pilgrimages but take the car to a grocery store two blocks away; you can't trick yourself into believing, so the real move is finding something worth believing in, something that genuinely pulls you instead of something you have to keep dragging yourself toward, because that subtle shift in ordering is literally everything.

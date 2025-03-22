@@ -28,6 +28,7 @@ As you get closer and closer to skiing the joy grows on you. There's something s
 
 I have had countless trips, close encounters with death, some life long friends, some short term friends but mostly an incredibly transformation: I am almost at a point in my life where given the circumstantial nature of my goal and commitments I might not be able to ski for a couple of years(but who knows). I know deep down the love I feel for it remains strong and the heroes I found in this community will direct the course of my life no matter where I go.
 
+
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/skiing/14.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
@@ -52,6 +53,8 @@ I have had countless trips, close encounters with death, some life long friends,
 </div>
 
 I honestly don't know if and when I get back to snowboarding/skiing, maybe it's this year maybe the next one(who really knows) but I do know the impact it had on me and how I approach and learn anything that challenges me whether its surfing, hiking or just about anything challenging. 
+Update: I was able to go snowboarding 2 years after I wrote this and had one of the best trips of my life. 
+
 
 In my journey as a skier and snowboarder, I've discovered a passion for outdoor sports. There are a few more activities I'm eager to learn:
 
