@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Faith is all you need
+title: Messages to 23 people I know
 description: 
 importance: 1
 category: philosophy
