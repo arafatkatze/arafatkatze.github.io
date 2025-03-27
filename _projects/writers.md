@@ -3,7 +3,7 @@ layout: page
 title: But you are just a "content creator"
 description: 
 importance: 1
-category: philosophy
+category: unpublished
 ---
  
 There's this weird new grift lately—people in their mid-to-late 20s hopping on TikTok or Substack telling everyone how to live, when honestly, their only real achievement is building a following. It's wild how confidently they dish out life advice while clearly still figuring stuff out themselves. The more I read their content, the clearer it gets: they're mostly repackaging other people's insights, and it's starting to annoy me.

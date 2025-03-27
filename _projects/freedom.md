@@ -3,7 +3,7 @@ layout: page
 title: Freedom and Safety
 description: 
 importance: 1
-category: philosophy
+category: unpublished
 ---
 
 People often ask me how I manage to travel so much. They seem curious, even envious, about this lifestyle that looks like a never-ending adventure. And yes, it is an adventure. But there's a deeper truth beneath the surface, one that most people don't see.
