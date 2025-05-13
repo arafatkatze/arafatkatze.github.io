@@ -19,14 +19,25 @@
   },
   "work": [
     {
-      "name": "",
+      "name": "Cline",
       "position": "AI Engineer",
       "url": "",
-      "startDate": "2024",
+      "startDate": "2025",
       "endDate": "",
-      "summary": "AI Engineer at  Strategy Team",
+      "summary": "",
       "highlights": [
-        "Building the best AI tooling for programmers that world will ever see"
+        "Building the world's best AI Coding Agent"
+      ]
+    },
+    {
+      "name": "Sourcegraph",
+      "position": "AI Engineer at Cody Team",
+      "url": "",
+      "startDate": "2024",
+      "endDate": "2025",
+      "summary": "",
+      "highlights": [
+        "Built an Enteprise AI coding assistant"
       ]
     },
     {
