@@ -7,5 +7,6 @@ github_repos:
   - somaticio/tensorflow.rb
   - arafatkatze/dataviz
   - arafatkatze/glot
-  - sourcegraph/cody
+  - sourcegraph/cody-public-snapshot
   - SciRuby/rubyplot
+  - cline/cline
