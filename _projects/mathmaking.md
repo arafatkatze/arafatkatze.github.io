@@ -9,17 +9,21 @@ Love is a divine endeavor and perhaps some would say the same thing about mathem
 BookBear Express has been one of my favorite blogs for many years. I have read Ava's work for four years and the ideas there have helped me tremendously in how I meet people with grace and love.
 Ava wanted to organize a matchmaking event where you find the readers of BookBear Express and then try to pair them with each other. Hopefully some of them get married, and I get invited to a wedding.
 
-<div class="col-sm mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760330692/Screenshot_2025-10-12_at_9.44.44_PM_i5uvtk.png" title="example image" class="img-fluid rounded z-depth-1" %}
+<div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
+  {% include figure.html
+     path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760330692/Screenshot_2025-10-12_at_9.44.44_PM_i5uvtk.png"
+     title="example image"
+     class="img-fluid rounded z-depth-1"
+     max_width="50px" %}
 </div>
-    
+
 To make this event more fun, our idea was to gather a lot of data from people. We asked everyone 26 questions to figure out who they were, what their preferences were, and then do a very comprehensive analysis of figuring out the kind of person they are, what kind of books/blogs they read and generally try to model their personality in the least number of questions.
 Based on the results we invite a lot of people to the event and then give them a pair wise matching between each other. In the event, we had mainly people looking for romantic relationships and then a few people were looking for platonic relationships. Let's analyze some data to figure out how that works.
 Lets start with some simple facts like gender distribution
 
 
 
-<div class="col-sm mt-3 mt-md-0">
+<div class="col-sm mt-3 mt-md-0" >
     {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760330865/2_imqlyj.png" title="example image" class="img-fluid " %}
 </div>
     
@@ -28,7 +32,7 @@ This was a complete surprise for me. Knowing that the Bay Area is HEAVILY Male d
 
  
 
-<div class="col-sm mt-3 mt-md-0">
+<div class="col-sm mt-3 mt-md-0"  style="max-width: 450px;">
     {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760330865/3_cqhuwy.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
@@ -38,14 +42,14 @@ This part wasn't exactly a surprise because it would make sense that most people
 
 
 
-<div class="col-sm mt-3 mt-md-0">
+<div class="col-sm mt-3 mt-md-0" style="max-width: 480px;">
     {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760330864/4_dvp0uu.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
 This was somewhat surprising given the Bay Area's typically diverse representation of sexual orientations. However, our data was limited by technical constraints. We had to restrict the form to single-choice selections because Typeform's multi-selection export format makes data analysis extremely difficult(Ava wanted to offer multiple selections but I had to force things this way as typeform parsing gets totally messed up).
 This unfortunately skewed our results. I later learned many bisexual attendees selected single options rather than accurately representing their orientation. I sincerely apologize for this limitation, it's clearly an area I need to improve. I appreciate the feedback and we are committed to finding better solutions for future events.
 
-<div class="col-sm mt-3 mt-md-0">
+<div class="col-sm mt-3 mt-md-0" style="max-width: 450px;">
     {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760330865/9_ltgt18.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
@@ -98,13 +102,15 @@ This algorithm led to everyone getting a matching score, which would define how 
 Total → 730 Pairs of Matches
 In terms of algorithmic complexity, this was fine so far.
 If we look at the score distribution of the people who matched, it turns out, given the algorithm, most people who matched were only 60-65% compatible. On a philosophical level, what this means is that, it was basically impossible to find your near perfect opposite pair. I think that what this broadly means is that, don't assume you know what you're looking for. Who knows what magical thing, you might find in another person as long as you're matching on most things.
-The Final Match Making
+
+### The Final Match Making
+
 The craziest part of the whole endeavor was that while it is true that there were 700+ pairs of matches between people, we couldn't overwhelm people with all of their matches. The idea was to give every one three matches:
 Two people were their best matches
 One person was their match that was the least compatible
 We were not going to tell them which was which, There were many people who had multiple matches. Some had up to 8, 6, or 7 matches, but we couldn't overwhelm them with all their matches, so we had to restrict the number of matches people had because we didn't want to overwhelm them with the choice of having to talk to too many people.
 
-<div class="col-sm mt-3 mt-md-0">
+<div class="col-sm mt-3 mt-md-0" >
     {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760330866/10_mgqoew.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
