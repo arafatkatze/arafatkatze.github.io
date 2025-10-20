@@ -5,9 +5,10 @@ description:
 importance: 1
 category: philosophy
 ---
-Love is a divine endeavor and perhaps some would say the same thing about mathematics, maybe they're right. In this post I want to reflect on the mathematics behind the in-person matchmaking experience from Book Bear Express, organized by Ava.
-BookBear Express has been one of my favorite blogs for many years. I have read Ava's work for four years and the ideas there have helped me tremendously in how I meet people with grace and love.
-Ava wanted to organize a matchmaking event where you find the readers of BookBear Express and then try to pair them with each other. Hopefully some of them get married, and I get invited to a wedding.
+Love is a divine endeavor and perhaps some would say the same thing about mathematics, maybe they're right. In this post I want to reflect on the mathematics behind the in-person matchmaking experience from [Book Bear Express](https://www.avabear.xyz/), organized by Ava. To explore the emotional and philosophical reasons behind this experiment, [read another post here](https://arafatkatze.github.io/projects/love_happens/).
+
+[BookBear Express](https://www.avabear.xyz/) has been one of my favorite blogs for many years. I have read Ava's work for four years and the ideas there have helped me tremendously in how I meet people with grace and love.
+Ava wanted to organize a matchmaking event where you find the readers of [BookBear Express](https://www.avabear.xyz/) and then try to pair them with each other. Hopefully some of them get married, and I get invited to a wedding.
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
   {% include figure.html
