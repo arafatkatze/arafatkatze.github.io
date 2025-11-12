@@ -14,7 +14,7 @@ I want to find “My person”, I really want to. I was looking so hard that it 
 I accidentally stumbled upon a post from one of my favorite authors, Ava from [BookBear Express](https://www.avabear.xyz/):
 
 <div class="col-sm mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760332858/1_syukzp.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1760332858/1_syukzp.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
     
 
@@ -24,7 +24,7 @@ So I just DM'd her to become a self-appointed tech support for this. To make thi
 We gathered roughly 105 people and 80 of them showed up to the event which was incredible. We had cards built out for all of them
 
 <div class="col-sm mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760332858/2_zhbbye.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1760332858/2_zhbbye.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
 The cards looked like this(name changed).
@@ -34,7 +34,7 @@ One person they were least compatible with
 We were now going to tell you which is which.
 
 <div class="col-sm mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1760332858/3_rgtiln.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1760332858/3_rgtiln.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
 The truth is, what people say they want and what they actually want are very different things. Matchmaking, like everything else here, is a little bit of math and a lot of magic. By keeping this element of surprise, we added that magic.
