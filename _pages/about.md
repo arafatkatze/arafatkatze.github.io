@@ -25,12 +25,10 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-Hi,   
+This is Ara (pronounced era like the beginning of an era). I find myself at the intersection of many things that entail art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days playing with AI to build experiences that delight people. 
 
-This is Ara. I find myself at the intersection of many things that entail art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days playing with AI to build beautiful things for others.
+I like to find art and beauty wherever I go and whatever I do, sometimes it's staring at graffiti, other times it's in the delight of seeing an old friend. In the past, I had been a wandering spirit so I travelled a lot and after fulfilling this rite of passage I want to settle down in the bay area and build relationships that last for the rest of my life. 
 
-I really enjoy knowing more about the world and its complexity in deeper ways so I read and explore a lot. I hop between many different places. Recently, I had to send an application that required mentioning of all my addresses and turns out I had 17 addresses in the last 5 years. I have travelled to 25 and lived in 7 different countries and in many different provinces of Canada(The closest thing I have to a home). 
+As a Canadian with Indian and Asian heritage, I am a huge fan of nature, the Rockies have taught me so much about beauty, connection and self discovery. Whether I'm skiing down fresh powder or watching the sunset from a summit I've hiked, these moments with close friends have shaped my life. I would love to do intense adventures in nature as much as I can to get me out of my mind and into my own body (PS. If you drive me to a ski hill, I will come). 
 
-As a proud Canadian with Indian and South Asian heritage, I am a huge fan of nature. I have spent a lot of time hiking, skiing and snowboarding in the Rockies. I have learnt so much about beauty, love and friendship through the times I have spent in the mountains with my friends. I even had a few close encounters with death, but it all worked out in the end. 
-
-I have a lot of socials and I am learning how to document and share more of life and thoughts with the world. You can check them out below:
+I'm documenting more of my adventures and creative process these days. If you're curious about seeing life through my lens, here's a few links...

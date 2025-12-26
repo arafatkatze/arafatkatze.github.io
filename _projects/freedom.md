@@ -3,7 +3,7 @@ layout: page
 title: Freedom and Safety
 description: 
 importance: 1
-category: philosophy
+category: unpublished
 ---
 
 People often ask me how I manage to travel so much. They seem curious, even envious, about this lifestyle that looks like a never-ending adventure. And yes, it is an adventure. But there's a deeper truth beneath the surface, one that most people don't see.
@@ -29,4 +29,4 @@ The more freedom you have, the more unique your experiences become. But the more
 
 Founding a company, surviving a snowstorm alone, pursuing adventures that few dare attempt—these are thrilling experiences, but they often leave you feeling like you’re navigating a storm with no one else around. Freedom lets you rise above the constraints of ordinary life, but it also leaves you alone in the clouds. Instagram shows the highlights, not the nights spent in isolation. So should you pursue freedom? Absolutely. But understand what you’re giving up. The coolest things in life come with risks, with uncertainty, and yes, with loneliness. If you want big rewards, you have to accept the discomfort that comes with them.
 
-In the end, freedom isn’t about escaping constraints. It’s about choosing which constraints to bear, and having the courage to walk paths that others won’t. The reward? The view from the top is worth the climb.
+In the end, freedom isn’t about escaping constraints. It’s about choosing which ones to bear.

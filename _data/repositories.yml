@@ -4,8 +4,9 @@ github_users:
 repo_description_lines_max: 2
 
 github_repos:
+  - cline/cline
+  - sourcegraph/cody-public-snapshot
   - somaticio/tensorflow.rb
   - arafatkatze/dataviz
   - arafatkatze/glot
-  - sourcegraph/cody
   - SciRuby/rubyplot

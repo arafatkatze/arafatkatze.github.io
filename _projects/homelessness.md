@@ -3,7 +3,7 @@ layout: page
 title: Priviledged Homelessness
 description: 
 importance: 1
-category: philosophy
+category: unpublished
 ---
 
 Somewhere around last year, I lost my job. It was one of those moments that should have felt catastrophic—like the floor falling out from under you—but instead, it felt oddly freeing, like a door swinging wide open. I was living in a nice apartment, the kind with a rental agreement that eats a chunk of your paycheck every month, and I had all the usual trappings of stability. But the minute I got that layoff notice, I felt something unexpected: a sense of fulfillment, a strange thrill that whispered, “Finally.”
