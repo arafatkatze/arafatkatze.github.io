@@ -4,15 +4,9 @@ title: Life
 permalink: /projects/
 description: Some of my favourite life stories and photos
 nav: true
-<<<<<<< HEAD
 nav_order: 3
 display_categories: [work, fun]
 horizontal: false
-=======
-nav_order: 2
-display_categories: [fun, work]
-horizontal: true
->>>>>>> 9b6454ed (Initial commit with all changes)
 ---
 
 <!-- pages/projects.md -->
@@ -26,27 +20,16 @@ horizontal: true
   {% assign categorized_projects = site.projects | where: "category", category %}
   {% assign sorted_projects = categorized_projects | sort: "importance" %}
   <!-- Generate cards for each project -->
-<<<<<<< HEAD
   {% if page.horizontal %}
   <div class="container">
     <div class="row row-cols-1 row-cols-md-2">
     {% for project in sorted_projects %}
       {% include projects_horizontal.liquid %}
     {% endfor %}
-=======
-  {% if page.horizontal -%}
-  <div class="container mb-5">
-    <div class="row row-cols-2 g-3">
-    {%- for project in sorted_projects -%}
-      <div class="col mb-3">
-        {% include projects_horizontal.html %}
-      </div>
-    {%- endfor %}
->>>>>>> 9b6454ed (Initial commit with all changes)
     </div>
   </div>
   {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
+  <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
     {% for project in sorted_projects %}
       {% include projects.liquid %}
     {% endfor %}
@@ -72,17 +55,11 @@ horizontal: true
     </div>
   </div>
   {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
+  <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
     {% for project in sorted_projects %}
       {% include projects.liquid %}
     {% endfor %}
   </div>
-<<<<<<< HEAD
   {% endif %}
 {% endif %}
 </div>
-=======
-  {%- endif -%}
-{%- endif -%}
-</div>
->>>>>>> 9b6454ed (Initial commit with all changes)
