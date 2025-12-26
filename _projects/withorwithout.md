@@ -18,8 +18,13 @@ My answer to finding the people to do weird shit with is always: **Find the peop
 Sketch a Venn diagram of your circles X, Y, and Z and notice where they overlap.
 
 So for my case: One circle is the dirtbag travelers who spend every spare dollar getting to the middle of nowhere. The second circle is a circle of skiers and snowboarders. The third circle is the people who spend 14 hours a day grinding to optimize AI models. Maybe there’s a fourth circle for gym bros, and a fifth for philosophy/art nerds who obsess about why brutalist architecture is a crime against humanity.
-
-{% include figure.html path="assets/img/withorwithout.png" title="example image" class="img-fluid rounded z-depth-1" %}
+<div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
+      {% include figure.html
+     path="https://res.cloudinary.com/dozxd4znm/image/upload/v1766714080/venndiagram_ew1e1g.png"
+     title="example image"
+     class="img-fluid rounded z-depth-1"
+     max_width="50px" %}
+</div>
 
 I don't necessarily think that any of those circles, taken alone, are unique. Being in two or maybe three of those groups simultaneously is very plausible. But being present in all of them together is very unlikely.
 
