@@ -1,9 +1,10 @@
 ---
-layout: page
-title: Faith is all you need
-description: 
-importance: 1
+layout: post
+title: Faith is All You Need
+date: 2024-12-15 14:00:00
+description: Why belief in your work transforms everything
 category: philosophy
+tags: philosophy work motivation
 ---
 
 A famous line, echoing Stoic thought, says "The mind can make a heaven of hell and a hell of heaven". 

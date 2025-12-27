@@ -1,9 +1,10 @@
 ---
-layout: page
-title: Messages to 24 people I know
-description: 
-importance: 1
+layout: post
+title: Messages to 24 People I Know
+date: 2025-01-05 14:00:00
+description: Anonymous letters to people who shaped my life
 category: philosophy
+tags: philosophy relationships personal
 ---
 
 These are messages to people I've known, loved, disappointed, or been shaped by. Names are omitted intentionally, because perhaps you've known these people too.
@@ -33,7 +34,7 @@ These are messages to people I've known, loved, disappointed, or been shaped by.
 
 16. Was it you? really just tell me the truth, if it was you or was it somebody else?  
 
-17.  I see so much light in you but I don’t know why that is, I hope you make the best of your 20s.
+17.  I see so much light in you but I don't know why that is, I hope you make the best of your 20s.
 18. Your life can literally be a movie and it would still be underwhelming.  You made me want to be a better person, I wish we were friends in real life and not just online talking every few weeks.  
 
 19. I can't believe how your real life and professional life are so different. And as much as I like to troll  whenever I am around you, I really respect and look up to you.  
@@ -46,4 +47,4 @@ These are messages to people I've known, loved, disappointed, or been shaped by.
 
 23. You have such a deep moral compass, I really admire that about you. I wish I had matured as fast  as you did but knowing you, I know it's not too late, I can still do it.  
       
-24. You taught me how to be a good man, I will never be able to repay you for that but I will try to be a good person and hope that works out.   
+24. You taught me how to be a good man, I will never be able to repay you for that but I will try to be a good person and hope that works out.

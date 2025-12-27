@@ -1,16 +1,17 @@
 ---
-layout: page
-title: I hope it happens for you
-description: 
-importance: 1
+layout: post
+title: I Hope It Happens For You
+date: 2024-12-10 14:00:00
+description: On matchmaking, love, and the magic of bringing people together
 category: philosophy
+tags: philosophy relationships love
 ---
 
 I want to fall in love again, but this time I want to do it once for the rest of my life with the right person. *"Speak now or forever hold your peace"* kinda thing. There are very few things that fascinate me as much as the idea of people falling in love. This mystery has perplexed me for most of my 20s. I wish I had an easy answer but since I'm not selling you a course, I might as well admit I'm lost and share my confusion with you.
 
 If you asked me what made me love each person in my life, I wouldn't have a good answer. I can never chalk it up to a fixed set of traits because its not that easy. Sometimes it was the love of art, sometimes it was the love of skiing and sometimes it was just being stuck together in a horrible situation. I never saw it coming, one day I just woke up thinking this person's so fucking cool, and I have no idea how it happened but I'm glad it did.
 
-I want to find “My person”, I really want to. I was looking so hard that it actually made it harder to find. I was trying too hard. I figured that if I could take myself out of it the fear, the anxiety, the rush, the yearning might make it easier. As I write this, I see how unfair it is to put so much burden on another person, the burden of all your hidden desires and yearning. But somehow the twisted machinery of your psyche and your angst can do wonders on you.
+I want to find "My person", I really want to. I was looking so hard that it actually made it harder to find. I was trying too hard. I figured that if I could take myself out of it the fear, the anxiety, the rush, the yearning might make it easier. As I write this, I see how unfair it is to put so much burden on another person, the burden of all your hidden desires and yearning. But somehow the twisted machinery of your psyche and your angst can do wonders on you.
 I accidentally stumbled upon a post from one of my favorite authors, Ava from [BookBear Express](https://www.avabear.xyz/):
 
 <div class="col-sm mt-3 mt-md-0">
@@ -53,11 +54,11 @@ A few magical things that happened:
 - The whole system ran on algorithms and weighted matching—a blend of hard filters, compatibility scores, and a bit of LLM magic to parse personalities. If you're curious about how we actually built the matching system (or want to geek out on the math), I wrote a technical deep-dive [here](https://arafatkatze.github.io/projects/mathmaking/).
 
 I really hope that everyone had a good time.
-Overall the intent of this event was to get the room “popping” just get people to talk to each feel their “vibes” and then people get each other's numbers and hopefully they talk and feel some spark.
-You can’t really have a heart to heart conversation in a long event like this, there’s too many people around you, there’s so much pressure, there’s so much yearning and pent up trauma when the intent is so clear. How much of you should you expose to this stranger? How much is too much and how much is too little? Am I too proud by holding back or too desperate by showing all my cards?
+Overall the intent of this event was to get the room "popping" just get people to talk to each feel their "vibes" and then people get each other's numbers and hopefully they talk and feel some spark.
+You can't really have a heart to heart conversation in a long event like this, there's too many people around you, there's so much pressure, there's so much yearning and pent up trauma when the intent is so clear. How much of you should you expose to this stranger? How much is too much and how much is too little? Am I too proud by holding back or too desperate by showing all my cards?
 
-We encourage people to spend 10-15 minutes “feeling it out”. Just have a conversation, say a hello to your “match” person: say what you like, what excites you. You both read this blog on love and relationships, its not the most eccentric niche in the world but it is like a twisted 4d space where the more you try to go in the further you go out. Where you are in this 4d space doesn’t matter as much as your intention of where you want to go. Perhaps the person you matched with also wants to go “there” and hopefully with you.
+We encourage people to spend 10-15 minutes "feeling it out". Just have a conversation, say a hello to your "match" person: say what you like, what excites you. You both read this blog on love and relationships, its not the most eccentric niche in the world but it is like a twisted 4d space where the more you try to go in the further you go out. Where you are in this 4d space doesn't matter as much as your intention of where you want to go. Perhaps the person you matched with also wants to go "there" and hopefully with you.
 
-But let's not get ahead of ourselves, let's be nimble, why don’t you just exchange numbers/insta/snap(uggh genZ)? You are both nice to each other(you kinda have to be) some of your friends are here(And Ava who you love very much).
-You go home, and get something to eat, your mind comes out of this strange social “rush” feeling, you want it to quiet down. Maybe then you “look each other up”, maybe you like what you see, maybe you want to know more and maybe just maybe, you like them enough that you want more of this person.
+But let's not get ahead of ourselves, let's be nimble, why don't you just exchange numbers/insta/snap(uggh genZ)? You are both nice to each other(you kinda have to be) some of your friends are here(And Ava who you love very much).
+You go home, and get something to eat, your mind comes out of this strange social "rush" feeling, you want it to quiet down. Maybe then you "look each other up", maybe you like what you see, maybe you want to know more and maybe just maybe, you like them enough that you want more of this person.
 I hope it happens for you, I really do.
