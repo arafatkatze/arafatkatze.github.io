@@ -1,10 +1,12 @@
 ---
-layout: page
+layout: post
 title: Mountain of Spirits
-description: 
-importance: 1
+date: 2025-12-15 14:00:00
+description: Finding transcendence on the slopes of Mont Tremblant
 category: philosophy
+tags: philosophy skiing travel
 ---
+
 I'm not a woo-woo person. I don't really believe in spirits or mysticism in general. I walked into a hostel here in Mont tremblant and it read that the ancient Algonquin tribe called this place *Manitonga Soutana,* "The Mountain of Spirits."
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">

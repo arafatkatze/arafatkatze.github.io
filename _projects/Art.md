@@ -4,7 +4,7 @@ title: Art
 description:
 img: assets/img/art/7.jpeg
 importance: 3
-category: fun
+category: art
 ---
 
 I have always been a huge fan of art in all its forms, whether contemporary/ancient/modern or just about a random tiktoker with a beautiful outlook on life. The only thing I truly despise is the post modern stuff(Seems too glim, despondent and cynical). 

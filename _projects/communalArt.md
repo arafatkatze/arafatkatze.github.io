@@ -3,7 +3,7 @@ layout: page
 title: White Shirt Project
 description:
 importance: 3
-category: philosophy
+category: art
 ---
 
 

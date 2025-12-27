@@ -3,7 +3,7 @@ layout: page
 title: Mathematics of Love
 description: 
 importance: 1
-category: philosophy
+category: art
 ---
 Love is a divine endeavor and perhaps some would say the same thing about mathematics, maybe they're right. In this post I want to reflect on the mathematics behind the in-person matchmaking experience from [Book Bear Express](https://www.avabear.xyz/), organized by Ava. To explore the emotional and philosophical reasons behind this experiment, [read another post here](https://arafatkatze.github.io/projects/love_happens/).
 
