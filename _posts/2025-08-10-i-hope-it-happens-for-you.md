@@ -1,7 +1,7 @@
 ---
 layout: post
 title: I Hope It Happens For You
-date: 2024-12-10 14:00:00
+date: 2025-08-10 14:00:00
 description: On matchmaking, love, and the magic of bringing people together
 category: philosophy
 tags: philosophy relationships love
