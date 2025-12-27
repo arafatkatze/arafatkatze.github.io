@@ -2,6 +2,7 @@
 layout: page
 title: Mathematics of Love
 description: 
+img: https://res.cloudinary.com/dozxd4znm/image/upload/v1766803299/59a8cbc7-95fc-5b34-8d83-53f7729a6786_vvlnqo.jpg
 importance: 1
 category: art
 ---
