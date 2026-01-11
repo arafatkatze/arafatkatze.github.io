@@ -66,6 +66,17 @@ ninja.data = [{
             window.location.href = "/philosophy/2025/08/10/i-hope-it-happens-for-you.html";
           
         },
+      },{id: "post-messages-to-24-people-i-know",
+        
+          title: "Messages to 24 People I Know",
+        
+        description: "Anonymous letters to people who shaped my life",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/philosophy/2025/03/05/messages-to-24-people.html";
+          
+        },
       },{id: "post-with-or-without-you",
         
           title: "With or Without You",
@@ -75,17 +86,6 @@ ninja.data = [{
         handler: () => {
           
             window.location.href = "/philosophy/2025/01/10/with-or-without-you.html";
-          
-        },
-      },{id: "post-messages-to-24-people-i-know",
-        
-          title: "Messages to 24 People I Know",
-        
-        description: "Anonymous letters to people who shaped my life",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/philosophy/2025/01/05/messages-to-24-people.html";
           
         },
       },{id: "post-the-bike-trip-that-never-was",
@@ -131,6 +131,11 @@ ninja.data = [{
           description: "",
           section: "News",handler: () => {
               window.location.href = "/news/announcement_2.html";
+            },},{id: "projects-agentic-ai-writings",
+          title: 'Agentic AI writings',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/AgenticAi/";
             },},{id: "projects-art",
           title: 'Art',
           description: "",
@@ -179,6 +184,13 @@ ninja.data = [{
         section: 'Socials',
         handler: () => {
           window.open("mailto:%61%72%61%66%61%74.%64%61.%6B%68%61%6E@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/arafatkatze", "_blank");
         },
       },{
         id: 'social-instagram',
