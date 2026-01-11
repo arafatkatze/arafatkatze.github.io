@@ -44,7 +44,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-mountain-of-spirits",
+        },{id: "post-lessons-from-traveling-to-30-countries",
+        
+          title: "Lessons from Traveling to 30 Countries",
+        
+        description: "Lessons from traveling to 30 countries",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/philosophy/2026/01/05/travelling.html";
+          
+        },
+      },{id: "post-mountain-of-spirits",
         
           title: "Mountain of Spirits",
         
