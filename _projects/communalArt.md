@@ -68,3 +68,23 @@ We made this shirt and it has many easter eggs like:
 I don't know what's going to come of this shirt in the future. I think it's an interesting shirt but I don't think it's pretty (not even close), but it's still cool. If you would like to leave a mark on this work of communal art, just DM me and if we meet each other we will spend some time painting on this together. I want this to be a compendium of memories, some good and some BAAAD but that's kinda what life's all about.
 
 **Cheers!!**
+
+---
+
+
+
+This project grew:
+
+<div class="row">
+    <div class="col-sm-4 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/v1768106230/2026-01-02_09-29-08_347_2_dmmlfc.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+    <div class="col-sm-4 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/v1768106232/2026-01-02_09-30-48_642_2_rrey1r.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+    <div class="col-sm-4 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/v1768106227/2025-12-30_09-09-11_765_2_vn9drv.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+
+---
