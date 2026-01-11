@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Messages to 24 People I Know
-date: 2025-01-05 14:00:00
+date: 2025-03-05 14:00:00
 description: Anonymous letters to people who shaped my life
 category: philosophy
 tags: philosophy relationships personal
