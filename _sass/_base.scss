@@ -1501,3 +1501,182 @@ figure.cover {
 mjx-container[jax="CHTML"][display="true"] {
   overflow-x: auto;
 }
+
+// Contact Form - Floating Button & Modal
+.contact-fab {
+  position: fixed;
+  bottom: 50px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--global-theme-color);
+  color: var(--global-bg-color);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.contact-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1001;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &.open {
+    display: flex;
+    opacity: 1;
+  }
+}
+
+.contact-modal-content {
+  background-color: var(--global-bg-color);
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.contact-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--global-text-color);
+  line-height: 1;
+  padding: 0;
+
+  &:hover {
+    color: var(--global-theme-color);
+  }
+}
+
+.contact-modal-title {
+  margin: 0 0 8px 0;
+  font-size: 1.4rem;
+  color: var(--global-text-color);
+}
+
+.contact-modal-subtitle {
+  margin: 0 0 20px 0;
+  font-size: 0.9rem;
+  color: var(--global-text-color-light);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.contact-form {
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .contact-input,
+  .contact-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    background-color: var(--global-bg-color);
+    color: var(--global-text-color);
+    font-size: 1rem;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: var(--global-theme-color);
+    }
+
+    &::placeholder {
+      color: var(--global-text-color-light);
+    }
+  }
+
+  .contact-textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .contact-submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--global-theme-color);
+    color: var(--global-bg-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .contact-error {
+    display: block;
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 6px;
+  }
+
+  .contact-input.input-error,
+  .contact-textarea.input-error {
+    border-color: #e74c3c;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-fab {
+    bottom: 50px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+
+  .contact-modal-content {
+    padding: 25px;
+    margin: 16px;
+  }
+}
