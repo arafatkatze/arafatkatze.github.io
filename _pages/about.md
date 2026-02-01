@@ -22,7 +22,7 @@ announcements:
 latest_posts:
   enabled: true
   scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 4 # leave blank to include all the blog posts
+  limit: 5 # leave blank to include all the blog posts
 ---
 
 This is Ara (pronounced era like the beginning of an era). I live at the intersection of art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days [playing with AI](/projects/AgenticAi) to build experiences that delight people. 
