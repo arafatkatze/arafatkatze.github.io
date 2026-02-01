@@ -7,9 +7,18 @@ category: philosophy
 tags: philosophy relationships life
 ---
 
+<div style="display: flex; justify-content: center;">
+  <div style="width: 100%; max-width: 550px;">
+    {% twitter https://x.com/bluewmist/status/2006044097845350754 %}
+  </div>
+</div>
+
+
 People always find it strange that I'm at the intersection of many different circles. A question I often get, "How do you enter this circle of people who do something completely antithetical to how you've lived so far?" Or more bluntly "How do you end up with people who do this shit?"
 
 My answer to finding the people to do weird shit with is always: **Find the people who do weird shit with or without you.** I personally think this is the greatest recruiting and selection technique for just about anything.
+
+
 
  There are two mental models for searching friends, partners, lovers this way:
 
@@ -41,7 +50,7 @@ I'm sure you can get people interested in things you love(I've gotten many peopl
 
 But to me? You want to find people who just *do* weird shit with or without you and ideally before you even asked them. Respect people's autonomy, respect their desire, because trying to "rah-rah" people past a certain age(say 29) is much harder and I like to think that if you haven't figured out a genuine love for something are you only doing it to make someone happy or do you actually love it? 
 
-One of my best life habits has just been being able to hang out with people who are nothing like me. For me, if I am really into something I'll even step away from my usual friend group without neglecting them if that's what it takes. If that means moving to a new city, I'm open.Even if I have to do it alone, as long as I'm with people who would do it anyway, I'm good.
+One of my best life habits has just been being able to hang out with people who are nothing like me. For me, if I am really into something I'll even step away from my usual friend group without neglecting them if that's what it takes. If that means moving to a new city, I'm open. Even if I have to do it alone, as long as I'm with people who would do it anyway, I'm good.
 
 **With or without you** is also  a hiring metric, a relationship filter, a friendship test, a way to find collaborators. It takes away the friction of needing to be nice, to charm, to entice as it self-selects! You really can find community anywhere, It may not be how you would have imagined it to be but you can find it. 
 
