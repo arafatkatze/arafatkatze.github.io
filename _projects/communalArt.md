@@ -77,14 +77,33 @@ This project grew:
 
 <div class="row">
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/v1768106230/2026-01-02_09-29-08_347_2_dmmlfc.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768106230/2026-01-02_09-29-08_347_2_dmmlfc.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/v1768106232/2026-01-02_09-30-48_642_2_rrey1r.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768106232/2026-01-02_09-30-48_642_2_rrey1r.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/v1768106227/2025-12-30_09-09-11_765_2_vn9drv.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768106227/2025-12-30_09-09-11_765_2_vn9drv.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+
+    <div class="col-sm-4 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797412/2026-01-19_19-50-16_763_mgvxvq.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
+
 ---
+
+I also learned that you can draw cute if you really really tried 
+
+<div class="row">
+    <div class="col-sm-4 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797231/2026-02-10_21-37-17_079_jsgss7.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+
+    <div class="col-sm-4 mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797226/2026-01-01_18-20-24_194_xtqb79.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+
+Beauty is what makes life worth living!
