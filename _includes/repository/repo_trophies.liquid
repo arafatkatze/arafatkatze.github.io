@@ -5,11 +5,13 @@
         class="only-light"
         alt="{{ include.username }}"
         src="https://github-profile-trophy.vercel.app/?username={{ include.username }}&theme={{ site.repo_trophies.theme_light }}&locale={{ site.lang }}&margin-w=15&margin-h=15&no-bg=true&rank=-C&column=6"
+        onerror="repoImgError(this)"
       >
       <img
         class="only-dark"
         alt="{{ include.username }}"
         src="https://github-profile-trophy.vercel.app/?username={{ include.username }}&theme={{ site.repo_trophies.theme_dark }}&locale={{ site.lang }}&margin-w=15&margin-h=15&no-bg=true&rank=-C&column=6"
+        onerror="repoImgError(this)"
       >
     </span>
 
@@ -18,11 +20,13 @@
         class="only-light"
         alt="{{ include.username }}"
         src="https://github-profile-trophy.vercel.app/?username={{ include.username }}&theme={{ site.repo_trophies.theme_light }}&locale={{ site.lang }}&margin-w=15&margin-h=15&no-bg=true&rank=-C&column=4"
+        onerror="repoImgError(this)"
       >
       <img
         class="only-dark"
         alt="{{ include.username }}"
         src="https://github-profile-trophy.vercel.app/?username={{ include.username }}&theme={{ site.repo_trophies.theme_dark }}&locale={{ site.lang }}&margin-w=15&margin-h=15&no-bg=true&rank=-C&column=4"
+        onerror="repoImgError(this)"
       >
     </span>
 
@@ -31,12 +35,19 @@
         class="only-light"
         alt="{{ include.username }}"
         src="https://github-profile-trophy.vercel.app/?username={{ include.username }}&theme={{ site.repo_trophies.theme_light }}&locale={{ site.lang }}&margin-w=15&margin-h=15&no-bg=true&rank=-C&column=3"
+        onerror="repoImgError(this)"
       >
       <img
         class="only-dark"
         alt="{{ include.username }}"
         src="https://github-profile-trophy.vercel.app/?username={{ include.username }}&theme={{ site.repo_trophies.theme_dark }}&locale={{ site.lang }}&margin-w=15&margin-h=15&no-bg=true&rank=-C&column=3"
+        onerror="repoImgError(this)"
       >
     </span>
+    <div class="repo-fallback">
+      <i class="fas fa-trophy"></i>
+      <span class="repo-fallback-name">GitHub Trophies</span>
+      <span class="repo-fallback-label">View Trophies →</span>
+    </div>
   </a>
 </div>

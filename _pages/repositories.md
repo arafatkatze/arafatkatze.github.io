@@ -7,6 +7,17 @@ nav: true
 nav_order: 4
 ---
 
+<script>
+function repoImgError(img) {
+  var wasVisible = getComputedStyle(img).display !== 'none';
+  img.style.display = 'none';
+  if (wasVisible) {
+    var fallback = img.closest('.repo').querySelector('.repo-fallback');
+    if (fallback) fallback.style.display = 'flex';
+  }
+}
+</script>
+
 ## Github Profile
 
 <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center">
