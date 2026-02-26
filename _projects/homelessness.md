@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Priviledged Homelessness
-description: 
+description:
 importance: 1
 category: unpublished
 ---

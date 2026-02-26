@@ -7,9 +7,9 @@ importance: 1
 category: fun
 ---
 
-Altough I have travelled a fair bit, Brazil is one of my favourite places on the planet. I can't love it enough, I felt so at home there. The warmth and the love I felt was so profound that all my angst melted and it gave me a new perspective on life. 
+Altough I have travelled a fair bit, Brazil is one of my favourite places on the planet. I can't love it enough, I felt so at home there. The warmth and the love I felt was so profound that all my angst melted and it gave me a new perspective on life.
 
-It's perhaps now out of bounds for me to say that Brazil literally changed my life for the better and gave me a new outlook on life. As soon as I got there I was bombarded by beautiful things in every direction 
+It's perhaps now out of bounds for me to say that Brazil literally changed my life for the better and gave me a new outlook on life. As soon as I got there I was bombarded by beautiful things in every direction
 
 To give your project a background in the portfolio page, just add the img tag to the front matter like so:
 
@@ -36,8 +36,6 @@ To give your project a background in the portfolio page, just add the img tag to
     And here's my favourite photo from Brazil from the city of Recife, that was the main purpose of my visit to brazil. Such a lovely and inviting city with some very welcoming hosts. Someday for sure I will go back there.
 </div>
 
-
-
 <div class="row justify-content-sm-center">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/brazil/7.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
@@ -51,8 +49,8 @@ To give your project a background in the portfolio page, just add the img tag to
 </div>
 
 The fundamental question of my brazil trip was _why do I have to live a certain way?_
-I suppose there are no rules and there is no right answer to live but if you feel that your day to day humdrum existence feels a bit hollowed out wouldn't it make sense to change things for yourself. 
+I suppose there are no rules and there is no right answer to live but if you feel that your day to day humdrum existence feels a bit hollowed out wouldn't it make sense to change things for yourself.
 
-It's quite painful to be self aware enough to make the harsh changes needed to uproot most of your existence and it's habits to create a new life from first principles but often times its worth it. 
+It's quite painful to be self aware enough to make the harsh changes needed to uproot most of your existence and it's habits to create a new life from first principles but often times its worth it.
 
-The short term pain is absolutely worth the long term fulfillment. 
+The short term pain is absolutely worth the long term fulfillment.

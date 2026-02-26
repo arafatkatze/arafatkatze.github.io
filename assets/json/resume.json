@@ -24,9 +24,7 @@
       "startDate": "2025",
       "endDate": "",
       "summary": "",
-      "highlights": [
-        "Building the world's best AI Coding Agent"
-      ]
+      "highlights": ["Building the world's best AI Coding Agent"]
     },
     {
       "name": "Sourcegraph",
@@ -35,9 +33,7 @@
       "startDate": "2024",
       "endDate": "2025",
       "summary": "",
-      "highlights": [
-        "Built an enteprise AI coding assistant"
-      ]
+      "highlights": ["Built an enteprise AI coding assistant"]
     },
     {
       "name": "ImmigrantFirst",
@@ -46,9 +42,7 @@
       "startDate": "2023",
       "endDate": "2023",
       "summary": "",
-      "highlights": [
-        "Built a state of the Art LLM framework to build O1 Visa applications for US immigration using Generative AI."
-      ]
+      "highlights": ["Built a state of the Art LLM framework to build O1 Visa applications for US immigration using Generative AI."]
     },
     {
       "name": "Shopify",
@@ -58,8 +52,8 @@
       "endDate": "2023",
       "summary": "Restricted Infrastructure and Stacks Team",
       "highlights": [
-        "Co-Implemented a load balancerlevel splitting ofread and write requests using Kubernetes for Shopify’s financial transaction application which improved the p99 request times across most of Shopify’s payment transactions by 50%.", 
-        "Enhanced networking/infra pipeline to make our payments infrastructure fully compliant with PCI/DSS regulations to pass the audit.", 
+        "Co-Implemented a load balancerlevel splitting ofread and write requests using Kubernetes for Shopify’s financial transaction application which improved the p99 request times across most of Shopify’s payment transactions by 50%.",
+        "Enhanced networking/infra pipeline to make our payments infrastructure fully compliant with PCI/DSS regulations to pass the audit.",
         "Built, maintained and upgraded highly scalable, fault tolerant Mysql database for critical credit card data"
       ]
     },
@@ -82,9 +76,7 @@
       "startDate": "2017",
       "endDate": "2018",
       "summary": "",
-      "highlights": [
-        "Applied ML techniques on CT Scans of Body segements for FAT analysis and body composition labelling for cancer patients"
-      ]
+      "highlights": ["Applied ML techniques on CT Scans of Body segements for FAT analysis and body composition labelling for cancer patients"]
     }
   ],
   "education": [
@@ -121,21 +113,20 @@
       "summary": "Official Grant from Ruby Association to build Tensorflow in Ruby -> https://github.com/somaticio/tensorflow.rb"
     }
   ],
-"skills": [
-  {
-    "name": "Public Speaking",
-    "icon": "fa fa-microphone",
-    "keywords": [
-      "DevopsDays Recife: Digital nomading in tech",
-      "Google Developers Windsor: Tensorflow Ruby",
-      "Gophercon India: Algo visualizations in Go",
-      "GowayFest Belarus: Visualizations in Go",
-      "Ruby on Ice, Germany: ML workshop",
-      "Euroko Ruby Conf: Introduced Tensorflow "
-    ]
-  }
-]
-,
+  "skills": [
+    {
+      "name": "Public Speaking",
+      "icon": "fa fa-microphone",
+      "keywords": [
+        "DevopsDays Recife: Digital nomading in tech",
+        "Google Developers Windsor: Tensorflow Ruby",
+        "Gophercon India: Algo visualizations in Go",
+        "GowayFest Belarus: Visualizations in Go",
+        "Ruby on Ice, Germany: ML workshop",
+        "Euroko Ruby Conf: Introduced Tensorflow "
+      ]
+    }
+  ],
   "languages": [
     {
       "language": "Hindi",

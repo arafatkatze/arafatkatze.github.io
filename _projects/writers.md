@@ -1,11 +1,11 @@
 ---
 layout: page
 title: But you are just a "content creator"
-description: 
+description:
 importance: 1
 category: unpublished
 ---
- 
+
 There's this weird new grift lately—people in their mid-to-late 20s hopping on TikTok or Substack telling everyone how to live, when honestly, their only real achievement is building a following. It's wild how confidently they dish out life advice while clearly still figuring stuff out themselves. The more I read their content, the clearer it gets: they're mostly repackaging other people's insights, and it's starting to annoy me.
 
 I've noticed the more someone's income depends solely on creating content, the less I trust their advice. If your job demands weekly posts, eventually you're just recycling shallow takes on "creativity" and "authenticity" to keep followers happy. We say creativity is spontaneous, yet we act like a weekly schedule magically generates fresh insights—it doesn't. At that point, they're not sharing wisdom; they're meeting quotas.
