@@ -16,7 +16,10 @@
   </head>
 
   <!-- Body -->
-  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+  {% assign body_page_class = page.layout | default: 'default' | slugify %}
+  <body
+    class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %} page-{{ body_page_class }}{% if page.permalink == '/' %} home-page{% endif %}"
+  >
     <!-- Header -->
     {% include header.liquid %}
 
