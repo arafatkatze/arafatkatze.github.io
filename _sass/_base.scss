@@ -35,15 +35,20 @@ h2 {
   font-size: 1.6rem;
   text-transform: lowercase;
   position: relative;
-  display: inline-block;
 
   &::after {
     content: '';
     display: inline-block;
-    width: 200px;
-    border-bottom: 2px dotted var(--global-divider-color);
+    width: 180px;
+    border-bottom: 2px dotted rgba(0,0,0,0.15);
     vertical-align: middle;
     margin-left: 12px;
+  }
+}
+
+h1 {
+  &::after {
+    display: none !important;
   }
 }
 
@@ -355,6 +360,12 @@ ul.task-list input[type="checkbox"] {
     font-weight: 700;
     font-size: 1.35rem;
     letter-spacing: -0.02em;
+    text-decoration: none !important;
+
+    &:hover {
+      text-decoration: none !important;
+      color: var(--global-text-color);
+    }
   }
 
   .navbar-nav .nav-item .nav-link {
@@ -366,11 +377,13 @@ ul.task-list input[type="checkbox"] {
     font-size: 0.9rem;
     font-weight: 500;
     transition: all 0.25s ease;
+    text-decoration: none !important;
 
     &:hover {
       color: var(--global-hover-text-color);
       background-color: var(--global-hover-color);
       border-color: var(--global-hover-color);
+      text-decoration: none !important;
     }
   }
 
@@ -477,6 +490,31 @@ ul.task-list input[type="checkbox"] {
 
   &:hover {
     color: var(--global-hover-color);
+  }
+
+  .nav-link {
+    border: 2px solid var(--global-text-color) !important;
+    border-radius: 24px !important;
+    padding: 0.35rem 0.8rem !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: transparent !important;
+    color: var(--global-text-color) !important;
+
+    &:hover {
+      color: var(--global-hover-text-color) !important;
+      background-color: var(--global-hover-color) !important;
+      border-color: var(--global-hover-color) !important;
+    }
+  }
+}
+
+.toggle-container {
+  #light-toggle {
+    padding: 0.35rem 0.5rem;
   }
 }
 
