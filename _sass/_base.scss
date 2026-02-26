@@ -1520,7 +1520,9 @@ mjx-container[jax="CHTML"][display="true"] {
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
     transform: scale(1.1);
