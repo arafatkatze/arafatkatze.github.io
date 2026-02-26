@@ -33,7 +33,7 @@ I tried it for five minutes and felt something I hadn't felt since I was 18 writ
 
 And that's when I realized I was caught. My twenties are ending. There are certain things you can only do once that cross-continental bike trip being one of them. I've traveled to 30 countries but my stomach and soul still have this endless desire to explore more. Like something's missing and I need to see more of the world to fill it.
 
-But then there's this other thing. AGI is coming. And I mean really coming.(For my non-tech friends: AGI is basically a super intelligent computer like Samantha from "Her" that can do anything a human can do, but faster and smarter). 
+But then there's this other thing. AGI is coming. And I mean really coming.(For my non-tech friends: AGI is basically a super intelligent computer like Samantha from "Her" that can do anything a human can do, but faster and smarter).
 
 Within the next one or two years, the world as we know it will fundamentally change. You'll say things and magic will come to life. Every time I tell my hippie friends this, they roll their eyes like I'm fucking insane. And every single day, this vision gets closer to reality(While I am not waiting for an "I told you so moment", I do know that it will come).
 
@@ -43,6 +43,6 @@ The AGI pulled me harder. It pulled me so fucking hard I couldn't think of doing
 
 Which brings me to the absurd part: I'm actively working to make my own career obsolete. I am working at [cline.bot](http://cline.bot) and this AI coding agent I'm building? If it works and it will the world of software as we know it will cease to exist. Or become so different it'll never feel the same again.
 
-I am ending my biking trip to end my career. And it seems like every line of code I write is a eulogy. Every feature I ship brings us closer to not needing me anymore. It's a personal crusade  to basically make myself irrelevant.
+I am ending my biking trip to end my career. And it seems like every line of code I write is a eulogy. Every feature I ship brings us closer to not needing me anymore. It's a personal crusade to basically make myself irrelevant.
 
 My hippie friends think I'm insane for caring about AGI. My tech friends think I'm insane for wanting to bike across continents instead of building the future. And I think they're both right.

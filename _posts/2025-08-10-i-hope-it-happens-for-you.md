@@ -7,7 +7,7 @@ category: philosophy
 tags: philosophy relationships love
 ---
 
-I want to fall in love again, but this time I want to do it once for the rest of my life with the right person. *"Speak now or forever hold your peace"* kinda thing. There are very few things that fascinate me as much as the idea of people falling in love. This mystery has perplexed me for most of my 20s. I wish I had an easy answer but since I'm not selling you a course, I might as well admit I'm lost and share my confusion with you.
+I want to fall in love again, but this time I want to do it once for the rest of my life with the right person. _"Speak now or forever hold your peace"_ kinda thing. There are very few things that fascinate me as much as the idea of people falling in love. This mystery has perplexed me for most of my 20s. I wish I had an easy answer but since I'm not selling you a course, I might as well admit I'm lost and share my confusion with you.
 
 If you asked me what made me love each person in my life, I wouldn't have a good answer. I can never chalk it up to a fixed set of traits because its not that easy. Sometimes it was the love of art, sometimes it was the love of skiing and sometimes it was just being stuck together in a horrible situation. I never saw it coming, one day I just woke up thinking this person's so fucking cool, and I have no idea how it happened but I'm glad it did.
 
@@ -17,7 +17,6 @@ I accidentally stumbled upon a post from one of my favorite authors, Ava from [B
 <div class="col-sm mt-3 mt-md-0">
     {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1760332858/1_syukzp.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
-    
 
 [BookBear Express](https://www.avabear.xyz/) has been one of my favorite blogs for many years. The ideas from it have helped me tremendously in my relationships and how I lived and how I met people with grace and love. I also think that it taught me a lot of self-compassion and made me slightly more self-adjusted both romantically and career-wise in other ways. The purpose of this event was to find a ton of readers of [BookBear Express](https://www.avabear.xyz/) and then try to pair them with each other. Hopefully some of them get married, and I get invited to a wedding.
 
@@ -49,6 +48,7 @@ There's a deep part of me that believes that at least a few people in the matchm
 At the same time, it hit me that so many people in this discourse of matchmaking have perverse incentives. Every single day, yet another dating app just wants you to pay more to keep coming back. They have very little interest in you actually getting married. I made a vow to get nothing out of it, that's the only way this could ever really work. I want to do it right.
 
 A few magical things that happened:
+
 - Mrs X met Mr H(another guy we know) matched with each other. I knew both of them and they know each other. The sheer surprise of this boggles my brain. We live in a small world.
 - A guy got there late, so he couldn't pick his card in time. Later, when I showed him matches with the card of his name, one match was actually his friend and she was hanging out with him the whole time.
 - The whole system ran on algorithms and weighted matching—a blend of hard filters, compatibility scores, and a bit of LLM magic to parse personalities. If you're curious about how we actually built the matching system (or want to geek out on the math), I wrote a technical deep-dive [here](https://arafatkatze.github.io/projects/mathmaking/).
