@@ -1,24 +1,34 @@
     {% if site.footer_fixed %}
     <footer class="fixed-bottom">
       <div class="container mt-0">
-        &copy; Copyright {{ site.time | date: '%Y' }} {{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}. {{ site.footer_text }}
+        <div class="footer-brand" style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">
+          {%- if site.first_name -%}{{ site.first_name }}{%- endif -%}
+          {%- if site.middle_name -%}&nbsp;{{ site.middle_name }}{%- endif -%}
+          {%- if site.last_name -%}&nbsp;{{ site.last_name }}{%- endif -%}
+        </div>
+        <span style="opacity: 0.6;">&copy; {{ site.time | date: '%Y' }}. {{ site.footer_text }}</span>
         {%- if site.impressum_path -%}
         <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>.
         {%- endif -%}
         {%- if site.last_updated -%}
-        Last updated: {{ "now" | date: '%B %d, %Y' }}.
+        <span style="opacity: 0.5;"> Last updated: {{ "now" | date: '%B %d, %Y' }}.</span>
         {%- endif %}
       </div>
     </footer>
     {%- else -%}
     <footer class="sticky-bottom mt-5">
       <div class="container">
-        &copy; Copyright {{ site.time | date: '%Y' }} {{ site.first_name }} {{ site.middle_name }} {{ site.last_name }}. {{ site.footer_text }}
+        <div class="footer-brand" style="font-weight: 700; font-size: 1.1rem; margin-bottom: 6px;">
+          {%- if site.first_name -%}{{ site.first_name }}{%- endif -%}
+          {%- if site.middle_name -%}&nbsp;{{ site.middle_name }}{%- endif -%}
+          {%- if site.last_name -%}&nbsp;{{ site.last_name }}{%- endif -%}
+        </div>
+        <span style="opacity: 0.6;">&copy; {{ site.time | date: '%Y' }}. {{ site.footer_text }}</span>
         {%- if site.impressum_path -%}
         <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>.
         {%- endif -%}
         {%- if site.last_updated -%}
-        Last updated: {{ "now" | date: '%B %d, %Y' }}.
+        <span style="opacity: 0.5;"> Last updated: {{ "now" | date: '%B %d, %Y' }}.</span>
         {%- endif %}
       </div>
     </footer>

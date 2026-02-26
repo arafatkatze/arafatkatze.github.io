@@ -17,23 +17,25 @@ table.table-cv {
 
 a.btncv {
   color: var(--global-text-color) !important;
-  border: 1px solid var(--global-text-color) !important;
-  border-radius: 0.125rem;
+  border: 2px solid var(--global-text-color) !important;
+  border-radius: 20px;
   padding-left: 1rem;
   padding-right: 1rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
   text-decoration: none;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 0.7rem;
   text-align: center;
   vertical-align: middle;
   text-transform: uppercase;
   white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
 a.btncv:hover {
-  color: var(--global-theme-color) !important;
+  color: #fff !important;
+  background-color: var(--global-theme-color) !important;
   border-color: var(--global-theme-color) !important;
   text-decoration: none !important;
 }
@@ -174,10 +176,10 @@ ul.timeline li {
 }
 
 span.badge-toc {
-  color: var(--global-bg-color);
+  color: #fff;
   background-color: var(--global-theme-color);
-  border-radius: 0.125rem;
-  padding: 0.125rem 0.5rem 0.125rem 0.5rem;
+  border-radius: 12px;
+  padding: 0.2rem 0.7rem;
   font-weight: 700 !important;
   display: inline-block;
   inline-size: fit-content;

@@ -6,6 +6,7 @@ body {
   padding-bottom: 70px;
   color: var(--global-text-color);
   background-color: var(--global-bg-color);
+  line-height: 1.7;
 
   h1,
   h2,
@@ -18,12 +19,10 @@ body {
 }
 
 body.fixed-top-nav {
-  // Add some padding for the nav-bar.
   padding-top: 56px;
 }
 
 body.sticky-bottom-footer {
-  // Remove padding below footer.
   padding-bottom: 0;
 }
 
@@ -38,16 +37,41 @@ body.sticky-bottom-footer {
   }
 }
 
-// TODO: redefine content layout.
+// About page post header
+.post-header {
+  h1.post-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+// About page content
+.post .post-content {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+// News/Announcements section
+.news {
+  h2 a {
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
 
 /******************************************************************************
  * Publications
  ******************************************************************************/
 
-// TODO: redefine publications layout.
-
 /*****************************************************************************
 * Projects
 *****************************************************************************/
-
-// TODO: redefine projects layout.

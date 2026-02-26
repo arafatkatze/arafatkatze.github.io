@@ -18,16 +18,17 @@
   text-align: center;
   padding: 9px 20px;
   color: var(--global-text-color-light);
-  border-bottom: 2px solid transparent;
-  border-bottom-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 20px;
   font-size: 12px;
   text-transform: uppercase;
-  transition: color 0.1s ease-in-out;
+  transition: all 0.2s ease;
   line-height: 20px;
 }
 
 .tab > .active > a {
-  color: var(--global-text-color);
+  color: #fff;
+  background-color: var(--global-theme-color);
   border-color: var(--global-theme-color);
 }
 
