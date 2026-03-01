@@ -311,21 +311,43 @@ nav_order: 5
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   var destinations = [
-    { name: "San Francisco", country: "USA", lat: 37.7749, lng: -122.4194, note: "Home base — where I build and create" },
-    { name: "Banff", country: "Canada", lat: 51.1784, lng: -115.5708, note: "The Rockies — skiing, summits, and sunsets" },
-    { name: "Calgary", country: "Canada", lat: 51.0447, lng: -114.0719, note: "Gateway to the mountains" },
-    { name: "Vancouver", country: "Canada", lat: 49.2827, lng: -123.1207, note: "West coast beauty" },
-    { name: "Toronto", country: "Canada", lat: 43.6532, lng: -79.3832, note: "Canada's big city energy" },
-    { name: "Recife", country: "Brazil", lat: -8.0476, lng: -34.8770, note: "The trip that changed my life" },
-    { name: "São Paulo", country: "Brazil", lat: -23.5505, lng: -46.6333, note: "Brazil's vibrant heart" },
-    { name: "New Delhi", country: "India", lat: 28.6139, lng: 77.2090, note: "Roots and heritage" },
-    { name: "Mumbai", country: "India", lat: 19.0760, lng: 72.8777, note: "City of dreams" },
-    { name: "New York", country: "USA", lat: 40.7128, lng: -74.0060, note: "The city that never sleeps" },
-    { name: "Los Angeles", country: "USA", lat: 34.0522, lng: -118.2437, note: "Sunshine and creativity" },
-    { name: "London", country: "UK", lat: 51.5074, lng: -0.1278, note: "History meets modernity" },
-    { name: "Paris", country: "France", lat: 48.8566, lng: 2.3522, note: "The city of light" },
-    { name: "Tokyo", country: "Japan", lat: 35.6762, lng: 139.6503, note: "Where tradition meets the future" },
-    { name: "Bangkok", country: "Thailand", lat: 13.7563, lng: 100.5018, note: "Sensory overload in the best way" }
+    { name: "Hong Kong", country: "Hong Kong", lat: 22.3193, lng: 114.1694 },
+    { name: "Zurich", country: "Switzerland", lat: 47.3769, lng: 8.5417 },
+    { name: "Geneva", country: "Switzerland", lat: 46.2044, lng: 6.1432 },
+    { name: "Udaipur", country: "India", lat: 24.5854, lng: 73.7125 },
+    { name: "Delhi", country: "India", lat: 28.6139, lng: 77.2090 },
+    { name: "Kharagpur", country: "India", lat: 22.3460, lng: 87.2320 },
+    { name: "Calgary", country: "Canada", lat: 51.0447, lng: -114.0719 },
+    { name: "Montreal", country: "Canada", lat: 45.5017, lng: -73.5673 },
+    { name: "Mont-Tremblant", country: "Canada", lat: 46.2088, lng: -74.5844 },
+    { name: "Ottawa", country: "Canada", lat: 45.4215, lng: -75.6972 },
+    { name: "Vancouver", country: "Canada", lat: 49.2827, lng: -123.1207 },
+    { name: "Toronto", country: "Canada", lat: 43.6532, lng: -79.3832 },
+    { name: "Antigua Guatemala", country: "Guatemala", lat: 14.5586, lng: -90.7295 },
+    { name: "São Paulo", country: "Brazil", lat: -23.5505, lng: -46.6333 },
+    { name: "La Libertad", country: "El Salvador", lat: 13.4884, lng: -89.3222 },
+    { name: "Amsterdam", country: "Netherlands", lat: 52.3676, lng: 4.9041 },
+    { name: "Brussels", country: "Belgium", lat: 50.8503, lng: 4.3517 },
+    { name: "Bruges", country: "Belgium", lat: 51.2093, lng: 3.2247 },
+    { name: "Paris", country: "France", lat: 48.8566, lng: 2.3522 },
+    { name: "Annecy", country: "France", lat: 45.8992, lng: 6.1294 },
+    { name: "Munich", country: "Germany", lat: 48.1351, lng: 11.5820 },
+    { name: "Berlin", country: "Germany", lat: 52.5200, lng: 13.4050 },
+    { name: "Oslo", country: "Norway", lat: 59.9139, lng: 10.7522 },
+    { name: "Sofia", country: "Bulgaria", lat: 42.6977, lng: 23.3219 },
+    { name: "Botevgrad", country: "Bulgaria", lat: 42.9079, lng: 23.7926 },
+    { name: "Tirana", country: "Albania", lat: 41.3275, lng: 19.8187 },
+    { name: "Kyiv", country: "Ukraine", lat: 50.4501, lng: 30.5234 },
+    { name: "Krakow", country: "Poland", lat: 50.0647, lng: 19.9450 },
+    { name: "Minsk", country: "Belarus", lat: 53.9006, lng: 27.5590 },
+    { name: "Vietnam", country: "Vietnam", lat: 21.0285, lng: 105.8542 },
+    { name: "Tbilisi", country: "Georgia", lat: 41.7151, lng: 44.8271 },
+    { name: "Belgrade", country: "Serbia", lat: 44.7866, lng: 20.4489 },
+    { name: "Rome", country: "Italy", lat: 41.9028, lng: 12.4964 },
+    { name: "Vienna", country: "Austria", lat: 48.2082, lng: 16.3738 },
+    { name: "Prague", country: "Czech Republic", lat: 50.0755, lng: 14.4378 },
+    { name: "Tokyo", country: "Japan", lat: 35.6762, lng: 139.6503 },
+    { name: "Doha", country: "Qatar", lat: 25.2854, lng: 51.5310 }
   ];
 
   var today = new Date();
@@ -343,10 +365,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var continents = { "North America": 0, "South America": 0, "Europe": 0, "Asia": 0 };
   var continentMap = {
-    "USA": "North America", "Canada": "North America",
+    "Canada": "North America", "Guatemala": "North America", "El Salvador": "North America",
     "Brazil": "South America",
-    "India": "Asia", "Japan": "Asia", "Thailand": "Asia",
-    "UK": "Europe", "France": "Europe"
+    "Switzerland": "Europe", "Netherlands": "Europe", "Belgium": "Europe",
+    "France": "Europe", "Germany": "Europe", "Norway": "Europe",
+    "Bulgaria": "Europe", "Albania": "Europe", "Ukraine": "Europe",
+    "Poland": "Europe", "Belarus": "Europe", "Georgia": "Europe",
+    "Serbia": "Europe", "Italy": "Europe", "Austria": "Europe", "Czech Republic": "Europe",
+    "Hong Kong": "Asia", "India": "Asia", "Vietnam": "Asia",
+    "Japan": "Asia", "Qatar": "Asia"
   };
   destinations.forEach(function(d) {
     var c = continentMap[d.country];
