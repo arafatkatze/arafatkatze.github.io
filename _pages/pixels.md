@@ -23,7 +23,6 @@ nav_order: 6
     <canvas id="pixel-canvas"></canvas>
   </div>
   <div class="pixel-actions">
-    <button class="pixel-btn" id="clear-board" title="Clear the board">clear board</button>
     <button class="pixel-btn" id="download-board" title="Download as image">download</button>
   </div>
 </div>
