@@ -1,15 +1,222 @@
 <!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Opensource | Arafat Khan (a.k.a Ara) </title> <meta name="author" content="Arafat Khan (a.k.a Ara)"> <meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. "> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5"> <link defer rel="stylesheet" href="/assets/css/scholar-icons.css?62b2ac103a88034e6882a5be5f3e2772"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e"> <link rel="canonical" href="https://arafatkatze.github.io/repositories/"> <script src="/assets/js/theme.js?a81d82887dd692e91686b43de4542f18"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
     initTheme();
-  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse" id="navbarNav"> <div class="pill-nav-row"> <div class="pill-nav-wrapper"> <a class="pill-nav-link " href="/">About</a> <a class="pill-nav-link " href="/blog/">Blog</a> <a class="pill-nav-link " href="/projects/">Projects</a> <a class="pill-nav-link " href="/cv/">Resume</a> <a class="pill-nav-link active" href="/repositories/">Opensource</a> <a class="pill-nav-link " href="/travel/">Travel</a> <a class="pill-nav-link " href="/pixels/">Pixel Board</a> </div> <div class="pill-nav-actions"> <button id="search-toggle" class="pill-nav-icon" title="Search" onclick="openSearchModal()"> <i class="ti ti-search"></i> </button> <button id="light-toggle" class="pill-nav-icon" title="Change theme"> <i class="ti ti-sun-moon" id="light-toggle-system"></i> <i class="ti ti-moon-filled" id="light-toggle-dark"></i> <i class="ti ti-sun-filled" id="light-toggle-light"></i> </button> </div> </div> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Opensource</h1> <p class="post-description"></p> </header> <article> <script>
-function repoImgError(img) {
-  var wasVisible = getComputedStyle(img).display !== 'none';
-  img.style.display = 'none';
-  if (wasVisible) {
-    var fallback = img.closest('.repo').querySelector('.repo-fallback');
-    if (fallback) fallback.style.display = 'flex';
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse" id="navbarNav"> <div class="pill-nav-row"> <div class="pill-nav-wrapper"> <a class="pill-nav-link " href="/">About</a> <a class="pill-nav-link " href="/blog/">Blog</a> <a class="pill-nav-link " href="/projects/">Projects</a> <a class="pill-nav-link " href="/cv/">Resume</a> <a class="pill-nav-link active" href="/repositories/">Opensource</a> <a class="pill-nav-link " href="/travel/">Travel</a> <a class="pill-nav-link " href="/pixels/">Pixel Board</a> </div> <div class="pill-nav-actions"> <button id="search-toggle" class="pill-nav-icon" title="Search" onclick="openSearchModal()"> <i class="ti ti-search"></i> </button> <button id="light-toggle" class="pill-nav-icon" title="Change theme"> <i class="ti ti-sun-moon" id="light-toggle-system"></i> <i class="ti ti-moon-filled" id="light-toggle-dark"></i> <i class="ti ti-sun-filled" id="light-toggle-light"></i> </button> </div> </div> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Opensource</h1> <p class="post-description"></p> </header> <article> <div class="contrib-page"> <div class="contrib-hero"> <div class="contrib-hero__inner"> <div class="contrib-avatar-wrap"> <img class="contrib-avatar" id="contrib-avatar" src="https://github.com/arafatkatze.png?size=240" alt="arafatkatze"> </div> <div class="contrib-info"> <h1 class="contrib-name" id="contrib-name">Arafat Khan (a.k.a Ara)</h1> <p class="contrib-bio" id="contrib-bio"></p> <div class="contrib-meta" id="contrib-meta"></div> </div> </div> <div class="contrib-stats"> <div class="contrib-stat"> <span class="contrib-stat__number is-loading" data-stat="repos"> </span> <span class="contrib-stat__label">Repositories</span> </div> <div class="contrib-stat"> <span class="contrib-stat__number is-loading" data-stat="stars"> </span> <span class="contrib-stat__label">Stars Earned</span> </div> <div class="contrib-stat"> <span class="contrib-stat__number is-loading" data-stat="followers"> </span> <span class="contrib-stat__label">Followers</span> </div> <div class="contrib-stat"> <span class="contrib-stat__number is-loading" data-stat="following"> </span> <span class="contrib-stat__label">Following</span> </div> </div> </div> <div class="contrib-section"> <h2 class="contrib-section__title">Technical Palette</h2> <div class="contrib-languages" id="contrib-languages"> <div class="contrib-lang-bar" id="contrib-lang-bar"></div> <div class="contrib-lang-legend" id="contrib-lang-legend"></div> </div> </div> <div class="contrib-section"> <h2 class="contrib-section__title">Open Source Contributions</h2> <div class="contrib-grid"> <a href="https://github.com/cline/cline" class="contrib-card" data-repo="cline/cline" style="--card-index: 0" rel="external nofollow noopener" target="_blank"> <div class="contrib-card__accent"></div> <div class="contrib-card__header"> <div class="contrib-card__title-row"> <span class="contrib-card__owner">cline / </span> <span class="contrib-card__name">cline</span> </div> <span class="contrib-card__role">Founding Engineer</span> </div> <p class="contrib-card__desc is-loading" data-desc-for="cline/cline">Fetching project info…</p> <p class="contrib-card__highlight"> <i class="fas fa-quote-left"></i> Contributing to one of the most-loved AI coding agents in the open source community </p> <div class="contrib-card__footer"> <span class="contrib-card__lang" data-lang-for="cline/cline"></span> <div class="contrib-card__stats"> <span class="contrib-card__stat" data-stars-for="cline/cline"> <i class="far fa-star"></i> — </span> <span class="contrib-card__stat" data-forks-for="cline/cline"> <i class="fas fa-code-branch"></i> — </span> </div> </div> </a> <a href="https://github.com/sourcegraph/cody-public-snapshot" class="contrib-card" data-repo="sourcegraph/cody-public-snapshot" style="--card-index: 1" rel="external nofollow noopener" target="_blank"> <div class="contrib-card__accent"></div> <div class="contrib-card__header"> <div class="contrib-card__title-row"> <span class="contrib-card__owner">sourcegraph / </span> <span class="contrib-card__name">cody-public-snapshot</span> </div> <span class="contrib-card__role">Core Engineer</span> </div> <p class="contrib-card__desc is-loading" data-desc-for="sourcegraph/cody-public-snapshot">Fetching project info…</p> <p class="contrib-card__highlight"> <i class="fas fa-quote-left"></i> Helped build Cody, Sourcegraph's AI coding assistant powering millions of developers </p> <div class="contrib-card__footer"> <span class="contrib-card__lang" data-lang-for="sourcegraph/cody-public-snapshot"></span> <div class="contrib-card__stats"> <span class="contrib-card__stat" data-stars-for="sourcegraph/cody-public-snapshot"> <i class="far fa-star"></i> — </span> <span class="contrib-card__stat" data-forks-for="sourcegraph/cody-public-snapshot"> <i class="fas fa-code-branch"></i> — </span> </div> </div> </a> <a href="https://github.com/somaticio/tensorflow.rb" class="contrib-card" data-repo="somaticio/tensorflow.rb" style="--card-index: 2" rel="external nofollow noopener" target="_blank"> <div class="contrib-card__accent"></div> <div class="contrib-card__header"> <div class="contrib-card__title-row"> <span class="contrib-card__owner">somaticio / </span> <span class="contrib-card__name">tensorflow.rb</span> </div> <span class="contrib-card__role">Creator</span> </div> <p class="contrib-card__desc is-loading" data-desc-for="somaticio/tensorflow.rb">Fetching project info…</p> <p class="contrib-card__highlight"> <i class="fas fa-quote-left"></i> Brought the power of TensorFlow machine learning to the Ruby ecosystem </p> <div class="contrib-card__footer"> <span class="contrib-card__lang" data-lang-for="somaticio/tensorflow.rb"></span> <div class="contrib-card__stats"> <span class="contrib-card__stat" data-stars-for="somaticio/tensorflow.rb"> <i class="far fa-star"></i> — </span> <span class="contrib-card__stat" data-forks-for="somaticio/tensorflow.rb"> <i class="fas fa-code-branch"></i> — </span> </div> </div> </a> <a href="https://github.com/arafatkatze/dataviz" class="contrib-card" data-repo="arafatkatze/dataviz" style="--card-index: 3" rel="external nofollow noopener" target="_blank"> <div class="contrib-card__accent"></div> <div class="contrib-card__header"> <div class="contrib-card__title-row"> <span class="contrib-card__name">dataviz</span> </div> <span class="contrib-card__role">Creator</span> </div> <p class="contrib-card__desc is-loading" data-desc-for="arafatkatze/dataviz">Fetching project info…</p> <p class="contrib-card__highlight"> <i class="fas fa-quote-left"></i> Explorations in making data beautiful and accessible </p> <div class="contrib-card__footer"> <span class="contrib-card__lang" data-lang-for="arafatkatze/dataviz"></span> <div class="contrib-card__stats"> <span class="contrib-card__stat" data-stars-for="arafatkatze/dataviz"> <i class="far fa-star"></i> — </span> <span class="contrib-card__stat" data-forks-for="arafatkatze/dataviz"> <i class="fas fa-code-branch"></i> — </span> </div> </div> </a> <a href="https://github.com/arafatkatze/glot" class="contrib-card" data-repo="arafatkatze/glot" style="--card-index: 4" rel="external nofollow noopener" target="_blank"> <div class="contrib-card__accent"></div> <div class="contrib-card__header"> <div class="contrib-card__title-row"> <span class="contrib-card__name">glot</span> </div> <span class="contrib-card__role">Creator</span> </div> <p class="contrib-card__desc is-loading" data-desc-for="arafatkatze/glot">Fetching project info…</p> <p class="contrib-card__highlight"> <i class="fas fa-quote-left"></i> A creative toolkit for programming language experimentation </p> <div class="contrib-card__footer"> <span class="contrib-card__lang" data-lang-for="arafatkatze/glot"></span> <div class="contrib-card__stats"> <span class="contrib-card__stat" data-stars-for="arafatkatze/glot"> <i class="far fa-star"></i> — </span> <span class="contrib-card__stat" data-forks-for="arafatkatze/glot"> <i class="fas fa-code-branch"></i> — </span> </div> </div> </a> <a href="https://github.com/SciRuby/rubyplot" class="contrib-card" data-repo="SciRuby/rubyplot" style="--card-index: 5" rel="external nofollow noopener" target="_blank"> <div class="contrib-card__accent"></div> <div class="contrib-card__header"> <div class="contrib-card__title-row"> <span class="contrib-card__owner">SciRuby / </span> <span class="contrib-card__name">rubyplot</span> </div> <span class="contrib-card__role">Contributor</span> </div> <p class="contrib-card__desc is-loading" data-desc-for="SciRuby/rubyplot">Fetching project info…</p> <p class="contrib-card__highlight"> <i class="fas fa-quote-left"></i> Advancing scientific visualization capabilities in Ruby </p> <div class="contrib-card__footer"> <span class="contrib-card__lang" data-lang-for="SciRuby/rubyplot"></span> <div class="contrib-card__stats"> <span class="contrib-card__stat" data-stars-for="SciRuby/rubyplot"> <i class="far fa-star"></i> — </span> <span class="contrib-card__stat" data-forks-for="SciRuby/rubyplot"> <i class="fas fa-code-branch"></i> — </span> </div> </div> </a> </div> </div> </div> <script>
+(function () {
+  var GITHUB_USER = 'arafatkatze';
+  var CACHE_TTL = 3600000;
+
+  var LANG_COLORS = {
+    JavaScript: '#f1e05a', TypeScript: '#3178c6', Python: '#3572A5',
+    Ruby: '#701516', Go: '#00ADD8', Rust: '#dea584', Java: '#b07219',
+    'C++': '#f34b7d', C: '#555555', 'C#': '#178600', PHP: '#4F5D95',
+    Swift: '#F05138', Kotlin: '#A97BFF', Dart: '#00B4AB', Scala: '#c22d40',
+    Shell: '#89e051', HTML: '#e34c26', CSS: '#563d7c', SCSS: '#c6538c',
+    Vue: '#41b883', Svelte: '#ff3e00', Lua: '#000080', Perl: '#0298c3',
+    R: '#198CE7', Haskell: '#5e5086', Elixir: '#6e4a7e', Clojure: '#db5855',
+    'Jupyter Notebook': '#DA5B0B', Makefile: '#427819', Dockerfile: '#384d54',
+    SWIG: '#FFA500', Cuda: '#3A4E3A'
+  };
+
+  function getCached(key) {
+    try {
+      var raw = localStorage.getItem('contrib_' + key);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      if (Date.now() - obj.ts > CACHE_TTL) { localStorage.removeItem('contrib_' + key); return null; }
+      return obj.data;
+    } catch (e) { return null; }
   }
-}
-</script> <h2 id="github-profile">Github Profile</h2> <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center"> <div class="repo p-2 text-center"> <a href="https://github.com/arafatkatze" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="arafatkatze" src="https://github-readme-stats.vercel.app/api/?username=arafatkatze&amp;theme=default&amp;locale=en&amp;show_icons=true" onerror="repoImgError(this)"> <img class="only-dark w-100" alt="arafatkatze" src="https://github-readme-stats.vercel.app/api/?username=arafatkatze&amp;theme=dark&amp;locale=en&amp;show_icons=true" onerror="repoImgError(this)"> <div class="repo-fallback"> <i class="fab fa-github"></i> <span class="repo-fallback-name">arafatkatze</span> <span class="repo-fallback-label">View GitHub Profile →</span> </div> </a> </div> </div> <hr> <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center"> <div class="repo p-2 text-center"> <a href="https://github.com/ryo-ma/github-profile-trophy" rel="external nofollow noopener" target="_blank"> <span class="d-none d-sm-none d-md-block"> <img class="only-light" alt="arafatkatze" src="https://github-profile-trophy.vercel.app/?username=arafatkatze&amp;theme=flat&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=6" onerror="repoImgError(this)"> <img class="only-dark" alt="arafatkatze" src="https://github-profile-trophy.vercel.app/?username=arafatkatze&amp;theme=gitdimmed&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=6" onerror="repoImgError(this)"> </span> <span class="d-none d-sm-block d-md-none"> <img class="only-light" alt="arafatkatze" src="https://github-profile-trophy.vercel.app/?username=arafatkatze&amp;theme=flat&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=4" onerror="repoImgError(this)"> <img class="only-dark" alt="arafatkatze" src="https://github-profile-trophy.vercel.app/?username=arafatkatze&amp;theme=gitdimmed&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=4" onerror="repoImgError(this)"> </span> <span class="d-block d-sm-none"> <img class="only-light" alt="arafatkatze" src="https://github-profile-trophy.vercel.app/?username=arafatkatze&amp;theme=flat&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=3" onerror="repoImgError(this)"> <img class="only-dark" alt="arafatkatze" src="https://github-profile-trophy.vercel.app/?username=arafatkatze&amp;theme=gitdimmed&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=3" onerror="repoImgError(this)"> </span> <div class="repo-fallback"> <i class="fas fa-trophy"></i> <span class="repo-fallback-name">GitHub Trophies</span> <span class="repo-fallback-label">View Trophies →</span> </div> </a> </div> </div> <hr> <h2 id="github-repositories">Github Repositories</h2> <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center"> <div class="repo p-2 text-center"> <a href="https://github.com/cline/cline" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="cline/cline" src="https://github-readme-stats.vercel.app/api/pin/?username=cline&amp;repo=cline&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="repoImgError(this)"> <img class="only-dark w-100" alt="cline/cline" src="https://github-readme-stats.vercel.app/api/pin/?username=cline&amp;repo=cline&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="repoImgError(this)"> <div class="repo-fallback"> <i class="fab fa-github"></i> <span class="repo-fallback-name">cline/cline</span> <span class="repo-fallback-label">View on GitHub →</span> </div> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/sourcegraph/cody-public-snapshot" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="sourcegraph/cody-public-snapshot" src="https://github-readme-stats.vercel.app/api/pin/?username=sourcegraph&amp;repo=cody-public-snapshot&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="repoImgError(this)"> <img class="only-dark w-100" alt="sourcegraph/cody-public-snapshot" src="https://github-readme-stats.vercel.app/api/pin/?username=sourcegraph&amp;repo=cody-public-snapshot&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="repoImgError(this)"> <div class="repo-fallback"> <i class="fab fa-github"></i> <span class="repo-fallback-name">sourcegraph/cody-public-snapshot</span> <span class="repo-fallback-label">View on GitHub →</span> </div> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/somaticio/tensorflow.rb" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="somaticio/tensorflow.rb" src="https://github-readme-stats.vercel.app/api/pin/?username=somaticio&amp;repo=tensorflow.rb&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="repoImgError(this)"> <img class="only-dark w-100" alt="somaticio/tensorflow.rb" src="https://github-readme-stats.vercel.app/api/pin/?username=somaticio&amp;repo=tensorflow.rb&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="repoImgError(this)"> <div class="repo-fallback"> <i class="fab fa-github"></i> <span class="repo-fallback-name">somaticio/tensorflow.rb</span> <span class="repo-fallback-label">View on GitHub →</span> </div> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/arafatkatze/dataviz" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="arafatkatze/dataviz" src="https://github-readme-stats.vercel.app/api/pin/?username=arafatkatze&amp;repo=dataviz&amp;theme=default&amp;locale=en&amp;show_owner=false&amp;description_lines_count=2" onerror="repoImgError(this)"> <img class="only-dark w-100" alt="arafatkatze/dataviz" src="https://github-readme-stats.vercel.app/api/pin/?username=arafatkatze&amp;repo=dataviz&amp;theme=dark&amp;locale=en&amp;show_owner=false&amp;description_lines_count=2" onerror="repoImgError(this)"> <div class="repo-fallback"> <i class="fab fa-github"></i> <span class="repo-fallback-name">dataviz</span> <span class="repo-fallback-label">View on GitHub →</span> </div> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/arafatkatze/glot" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="arafatkatze/glot" src="https://github-readme-stats.vercel.app/api/pin/?username=arafatkatze&amp;repo=glot&amp;theme=default&amp;locale=en&amp;show_owner=false&amp;description_lines_count=2" onerror="repoImgError(this)"> <img class="only-dark w-100" alt="arafatkatze/glot" src="https://github-readme-stats.vercel.app/api/pin/?username=arafatkatze&amp;repo=glot&amp;theme=dark&amp;locale=en&amp;show_owner=false&amp;description_lines_count=2" onerror="repoImgError(this)"> <div class="repo-fallback"> <i class="fab fa-github"></i> <span class="repo-fallback-name">glot</span> <span class="repo-fallback-label">View on GitHub →</span> </div> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/SciRuby/rubyplot" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="SciRuby/rubyplot" src="https://github-readme-stats.vercel.app/api/pin/?username=SciRuby&amp;repo=rubyplot&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="repoImgError(this)"> <img class="only-dark w-100" alt="SciRuby/rubyplot" src="https://github-readme-stats.vercel.app/api/pin/?username=SciRuby&amp;repo=rubyplot&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="repoImgError(this)"> <div class="repo-fallback"> <i class="fab fa-github"></i> <span class="repo-fallback-name">SciRuby/rubyplot</span> <span class="repo-fallback-label">View on GitHub →</span> </div> </a> </div> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Arafat Khan (a.k.a Ara). </div> </footer> <button class="contact-fab" onclick="openContactModal()" aria-label="Contact me"> <i class="fa-solid fa-envelope"></i> </button> <div id="contactModal" class="contact-modal" onclick="closeContactModalOutside(event)"> <div class="contact-modal-content"> <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">×</button> <div id="contactFormState"> <h4 class="contact-modal-title">Get in Touch</h4> <p class="contact-modal-subtitle"> Some of my best relationships started with a random message out of the blue. Whether you want to reconnect, share something, or just say hello I'm here and I'd love to hear from you. I read everything and I always respond. </p> <form id="contactForm" class="contact-form"> <div class="form-group"> <input type="email" name="email" id="contactEmail" class="form-control contact-input" placeholder="Your email" required> <span id="emailError" class="contact-error" style="display: none;">Please enter a valid email address</span> </div> <div class="form-group"> <textarea name="message" id="contactMessage" class="form-control contact-textarea" placeholder="Your message" rows="4" required></textarea> </div> <button type="submit" class="btn contact-submit-btn" id="contactSubmitBtn">Send Message</button> <span id="submitError" class="contact-error" style="display: none; margin-top: 10px;">Something went wrong. Please try again.</span> </form> </div> <div id="contactSuccessState" style="display: none; text-align: center; padding: 20px 0;"> <div style="font-size: 2.5rem; margin-bottom: 16px; color: var(--global-theme-color);"><i class="fa-solid fa-check-circle"></i></div> <h4 class="contact-modal-title">Message Sent!</h4> <p class="contact-modal-subtitle" style="margin-bottom: 0;">Thanks for reaching out. I'll get back to you soon!</p> </div> </div> </div> <script>
+
+  function setCache(key, data) {
+    try { localStorage.setItem('contrib_' + key, JSON.stringify({ data: data, ts: Date.now() })); }
+    catch (e) { /* quota exceeded */ }
+  }
+
+  function fetchGH(url) {
+    var cached = getCached(url);
+    if (cached) return Promise.resolve(cached);
+    return fetch(url).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      return r.json();
+    }).then(function (data) {
+      setCache(url, data);
+      return data;
+    });
+  }
+
+  function formatNum(n) {
+    if (n >= 100000) return (n / 1000).toFixed(0) + 'k';
+    if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+    return String(n);
+  }
+
+  function animateCounter(el, target) {
+    var duration = 1200;
+    var start = performance.now();
+    el.classList.remove('is-loading');
+    function tick(now) {
+      var t = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = formatNum(Math.round(target * eased));
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function populateProfile(user) {
+    var nameEl = document.getElementById('contrib-name');
+    var bioEl = document.getElementById('contrib-bio');
+    var metaEl = document.getElementById('contrib-meta');
+    if (user.name) nameEl.textContent = user.name;
+    bioEl.textContent = user.bio || '';
+    var metaParts = [];
+    if (user.location) metaParts.push('<span><i class="fas fa-map-marker-alt"></i> ' + user.location + '</span>');
+    if (user.company) metaParts.push('<span><i class="fas fa-building"></i> ' + user.company + '</span>');
+    if (user.blog) {
+      var blogDisplay = user.blog.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      metaParts.push('<span><i class="fas fa-link"></i> <a href="' + (user.blog.match(/^https?:\/\//) ? user.blog : 'https://' + user.blog) + '">' + blogDisplay + '</a></span>');
+    }
+    metaEl.innerHTML = metaParts.join('');
+  }
+
+  function populateCard(card, repo) {
+    var fullName = card.getAttribute('data-repo');
+    var descEl = card.querySelector('[data-desc-for="' + fullName + '"]');
+    var starsEl = card.querySelector('[data-stars-for="' + fullName + '"]');
+    var forksEl = card.querySelector('[data-forks-for="' + fullName + '"]');
+    var langEl = card.querySelector('[data-lang-for="' + fullName + '"]');
+    var accentEl = card.querySelector('.contrib-card__accent');
+
+    if (descEl) {
+      descEl.classList.remove('is-loading');
+      descEl.textContent = repo.description || 'No description available';
+    }
+    if (starsEl) starsEl.innerHTML = '<i class="far fa-star"></i> ' + formatNum(repo.stargazers_count);
+    if (forksEl) forksEl.innerHTML = '<i class="fas fa-code-branch"></i> ' + formatNum(repo.forks_count);
+    if (langEl && repo.language) {
+      var color = LANG_COLORS[repo.language] || '#888';
+      langEl.innerHTML = '<span class="lang-dot" style="background:' + color + '"></span> ' + repo.language;
+      if (accentEl) accentEl.style.background = color;
+    }
+  }
+
+  function buildLanguageChart(repos) {
+    var langBytes = {};
+    repos.forEach(function (r) {
+      if (r.language) langBytes[r.language] = (langBytes[r.language] || 0) + (r.size || 1);
+    });
+    var total = Object.values(langBytes).reduce(function (a, b) { return a + b; }, 0);
+    if (total === 0) return;
+    var sorted = Object.entries(langBytes).sort(function (a, b) { return b[1] - a[1]; });
+    var bar = document.getElementById('contrib-lang-bar');
+    var legend = document.getElementById('contrib-lang-legend');
+    if (!bar || !legend) return;
+    bar.innerHTML = '';
+    legend.innerHTML = '';
+    sorted.forEach(function (entry) {
+      var lang = entry[0], bytes = entry[1];
+      var pct = ((bytes / total) * 100).toFixed(1);
+      var color = LANG_COLORS[lang] || '#888';
+      var seg = document.createElement('div');
+      seg.className = 'lang-segment';
+      seg.style.flexBasis = pct + '%';
+      seg.style.background = color;
+      seg.title = lang + ' ' + pct + '%';
+      bar.appendChild(seg);
+      var item = document.createElement('span');
+      item.className = 'contrib-lang-item';
+      item.innerHTML = '<span class="lang-dot" style="background:' + color + '"></span> ' + lang + ' <span class="lang-pct">' + pct + '%</span>';
+      legend.appendChild(item);
+    });
+  }
+
+  function fetchLanguageDetails(repos) {
+    var langTotals = {};
+    var promises = repos.map(function (r) {
+      return fetchGH('https://api.github.com/repos/' + r.full_name + '/languages').then(function (langs) {
+        Object.keys(langs).forEach(function (lang) {
+          langTotals[lang] = (langTotals[lang] || 0) + langs[lang];
+        });
+      }).catch(function () {});
+    });
+    return Promise.all(promises).then(function () {
+      if (Object.keys(langTotals).length === 0) return;
+      var total = Object.values(langTotals).reduce(function (a, b) { return a + b; }, 0);
+      var sorted = Object.entries(langTotals).sort(function (a, b) { return b[1] - a[1]; });
+      var bar = document.getElementById('contrib-lang-bar');
+      var legend = document.getElementById('contrib-lang-legend');
+      if (!bar || !legend) return;
+      bar.innerHTML = '';
+      legend.innerHTML = '';
+      sorted.forEach(function (entry) {
+        var lang = entry[0], bytes = entry[1];
+        var pct = ((bytes / total) * 100).toFixed(1);
+        if (parseFloat(pct) < 0.5) return;
+        var color = LANG_COLORS[lang] || '#888';
+        var seg = document.createElement('div');
+        seg.className = 'lang-segment';
+        seg.style.flexBasis = pct + '%';
+        seg.style.background = color;
+        seg.title = lang + ' ' + pct + '%';
+        bar.appendChild(seg);
+        var item = document.createElement('span');
+        item.className = 'contrib-lang-item';
+        item.innerHTML = '<span class="lang-dot" style="background:' + color + '"></span> ' + lang + ' <span class="lang-pct">' + pct + '%</span>';
+        legend.appendChild(item);
+      });
+    });
+  }
+
+  function init() {
+    var repoCards = document.querySelectorAll('.contrib-card');
+    var repoNames = [];
+    repoCards.forEach(function (c) { repoNames.push(c.getAttribute('data-repo')); });
+
+    var userPromise = fetchGH('https://api.github.com/users/' + GITHUB_USER);
+    var repoPromises = repoNames.map(function (name) {
+      return fetchGH('https://api.github.com/repos/' + name).catch(function () { return null; });
+    });
+
+    userPromise.then(function (user) {
+      populateProfile(user);
+      animateCounter(document.querySelector('[data-stat="repos"]'), user.public_repos);
+      animateCounter(document.querySelector('[data-stat="followers"]'), user.followers);
+      animateCounter(document.querySelector('[data-stat="following"]'), user.following);
+    }).catch(function () {
+      document.querySelectorAll('.contrib-stat__number').forEach(function (el) {
+        el.classList.remove('is-loading');
+        el.textContent = '--';
+      });
+    });
+
+    Promise.all(repoPromises).then(function (repos) {
+      var validRepos = [];
+      repos.forEach(function (repo, i) {
+        if (repo) {
+          populateCard(repoCards[i], repo);
+          validRepos.push(repo);
+        } else {
+          var card = repoCards[i];
+          var descEl = card.querySelector('.contrib-card__desc');
+          if (descEl) { descEl.classList.remove('is-loading'); descEl.textContent = 'Visit on GitHub for details'; }
+        }
+      });
+
+      var totalStars = validRepos.reduce(function (sum, r) { return sum + (r.stargazers_count || 0); }, 0);
+      animateCounter(document.querySelector('[data-stat="stars"]'), totalStars);
+
+      buildLanguageChart(validRepos);
+      fetchLanguageDetails(validRepos);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Arafat Khan (a.k.a Ara). </div> </footer> <button class="contact-fab" onclick="openContactModal()" aria-label="Contact me"> <i class="fa-solid fa-envelope"></i> </button> <div id="contactModal" class="contact-modal" onclick="closeContactModalOutside(event)"> <div class="contact-modal-content"> <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">×</button> <div id="contactFormState"> <h4 class="contact-modal-title">Get in Touch</h4> <p class="contact-modal-subtitle"> Some of my best relationships started with a random message out of the blue. Whether you want to reconnect, share something, or just say hello I'm here and I'd love to hear from you. I read everything and I always respond. </p> <form id="contactForm" class="contact-form"> <div class="form-group"> <input type="email" name="email" id="contactEmail" class="form-control contact-input" placeholder="Your email" required> <span id="emailError" class="contact-error" style="display: none;">Please enter a valid email address</span> </div> <div class="form-group"> <textarea name="message" id="contactMessage" class="form-control contact-textarea" placeholder="Your message" rows="4" required></textarea> </div> <button type="submit" class="btn contact-submit-btn" id="contactSubmitBtn">Send Message</button> <span id="submitError" class="contact-error" style="display: none; margin-top: 10px;">Something went wrong. Please try again.</span> </form> </div> <div id="contactSuccessState" style="display: none; text-align: center; padding: 20px 0;"> <div style="font-size: 2.5rem; margin-bottom: 16px; color: var(--global-theme-color);"><i class="fa-solid fa-check-circle"></i></div> <h4 class="contact-modal-title">Message Sent!</h4> <p class="contact-modal-subtitle" style="margin-bottom: 0;">Thanks for reaching out. I'll get back to you soon!</p> </div> </div> </div> <script>
   function openContactModal() {
     document.getElementById('contactModal').classList.add('open');
     document.body.style.overflow = 'hidden';
