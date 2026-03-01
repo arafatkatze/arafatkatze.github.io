@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   const GRID_SIZE = 32;
   const STORAGE_KEY = "pixel-board-state";
+  const SYNC_URL =
+    "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/pixelboard";
+  var syncTimeout = null;
 
   const COLORS = [
     { hex: "#E8A6A6", name: "blush" },
@@ -31,11 +34,19 @@ document.addEventListener("DOMContentLoaded", function () {
   let cellSize = 0;
   let isDrawing = false;
 
-  function initGrid() {
-    const saved = localStorage.getItem(STORAGE_KEY);
+  function emptyGrid() {
+    return Array.from({ length: GRID_SIZE }, function () {
+      return Array.from({ length: GRID_SIZE }, function () {
+        return null;
+      });
+    });
+  }
+
+  function loadLocal() {
+    var saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       try {
-        const parsed = JSON.parse(saved);
+        var parsed = JSON.parse(saved);
         grid = parsed.grid || [];
         pixelCount = parsed.pixelCount || 0;
       } catch (e) {
@@ -44,12 +55,34 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
     if (!grid.length || grid.length !== GRID_SIZE) {
-      grid = Array.from({ length: GRID_SIZE }, () =>
-        Array.from({ length: GRID_SIZE }, () => null)
-      );
+      grid = emptyGrid();
       pixelCount = 0;
     }
+  }
+
+  function initGrid() {
+    loadLocal();
     updateCount();
+
+    if (SYNC_URL) {
+      fetch(SYNC_URL, { headers: { Accept: "application/json" } })
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (data) {
+          if (data && data.grid && data.grid.length === GRID_SIZE) {
+            grid = data.grid;
+            pixelCount = data.pixelCount || 0;
+            updateCount();
+            drawGrid();
+            localStorage.setItem(
+              STORAGE_KEY,
+              JSON.stringify({ grid: grid, pixelCount: pixelCount })
+            );
+          }
+        })
+        .catch(function () {});
+    }
   }
 
   function saveGrid() {
@@ -57,6 +90,16 @@ document.addEventListener("DOMContentLoaded", function () {
       STORAGE_KEY,
       JSON.stringify({ grid: grid, pixelCount: pixelCount })
     );
+    if (SYNC_URL) {
+      clearTimeout(syncTimeout);
+      syncTimeout = setTimeout(function () {
+        fetch(SYNC_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ grid: grid, pixelCount: pixelCount }),
+        }).catch(function () {});
+      }, 500);
+    }
   }
 
   function sizeCanvas() {
@@ -216,11 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   clearBtn.addEventListener("click", function () {
     if (confirm("Clear the entire board? This cannot be undone.")) {
-      grid = Array.from({ length: GRID_SIZE }, function () {
-        return Array.from({ length: GRID_SIZE }, function () {
-          return null;
-        });
-      });
+      grid = emptyGrid();
       pixelCount = 0;
       updateCount();
       drawGrid();
