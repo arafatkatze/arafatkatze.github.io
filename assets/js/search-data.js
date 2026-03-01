@@ -51,6 +51,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/travel/";
           },
+        },{id: "nav-pixel-board",
+          title: "pixel board",
+          description: "collaborative pixel art — leave your mark",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/pixels/";
+          },
         },{id: "post-to-my-future-son",
         
           title: "To My Future Son",
