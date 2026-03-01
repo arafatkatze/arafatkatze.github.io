@@ -1,7 +1,7 @@
 ---
 layout: default
 permalink: /blog/
-title: Blog
+title: Writing
 nav: true
 nav_order: 1
 pagination:
@@ -17,6 +17,11 @@ pagination:
 ---
 
 <div class="post">
+
+<div class="blog-hero">
+  <h1>writing.</h1>
+  <p>I have a blog that doesn't really adhere to any fixed themes. From philosophy essays to travel stories to love letters, it really is the wild west.</p>
+</div>
 
 {% if page.pagination.enabled %}
   {% assign postlist = paginator.posts %}
