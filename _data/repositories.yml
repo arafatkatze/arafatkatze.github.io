@@ -1,12 +1,22 @@
 github_users:
   - arafatkatze
 
-repo_description_lines_max: 2
-
 github_repos:
-  - cline/cline
-  - sourcegraph/cody-public-snapshot
-  - somaticio/tensorflow.rb
-  - arafatkatze/dataviz
-  - arafatkatze/glot
-  - SciRuby/rubyplot
+  - repo: cline/cline
+    role: Founding Engineer
+    highlight: Contributing to one of the most-loved AI coding agents in the open source community
+  - repo: sourcegraph/cody-public-snapshot
+    role: Core Engineer
+    highlight: Helped build Cody, Sourcegraph's AI coding assistant powering millions of developers
+  - repo: somaticio/tensorflow.rb
+    role: Creator
+    highlight: Brought the power of TensorFlow machine learning to the Ruby ecosystem
+  - repo: arafatkatze/dataviz
+    role: Creator
+    highlight: Explorations in making data beautiful and accessible
+  - repo: arafatkatze/glot
+    role: Creator
+    highlight: A creative toolkit for programming language experimentation
+  - repo: SciRuby/rubyplot
+    role: Contributor
+    highlight: Advancing scientific visualization capabilities in Ruby
