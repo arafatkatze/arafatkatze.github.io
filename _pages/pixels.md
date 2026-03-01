@@ -5,6 +5,19 @@ permalink: /pixels/
 description: collaborative pixel art — leave your mark
 nav: true
 nav_order: 6
+_styles: >
+  .post {
+    background: #0b0b14;
+    color: #ccc;
+    margin: -1.5rem calc(-1 * (50vw - 50%)) -1rem;
+    padding: 2.5rem calc(50vw - 50%) 3rem;
+  }
+  .post .post-header .post-title {
+    color: #ec4899;
+  }
+  .post .post-header .post-description {
+    color: rgba(255, 255, 255, 0.4);
+  }
 ---
 
 <div id="pixel-board-app">
