@@ -5,13 +5,12 @@ permalink: /travel/
 description: Places I've been lucky enough to explore
 nav: true
 nav_order: 5
-map: true
 ---
 
 <style>
   .travel-wrapper {
     position: relative;
-    background: #0d0d0d;
+    background: #0a0a0f;
     border-radius: 8px;
     overflow: hidden;
     margin: -1rem 0 2rem;
@@ -23,7 +22,7 @@ map: true
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 10;
     pointer-events: none;
     padding: 16px 20px;
     display: flex;
@@ -34,7 +33,7 @@ map: true
 
   .travel-hud-left,
   .travel-hud-right {
-    background: rgba(13, 13, 13, 0.75);
+    background: rgba(10, 10, 15, 0.7);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 8px 14px;
@@ -74,16 +73,21 @@ map: true
     margin: 2px 0 0;
   }
 
-  #travel-map {
+  #globe-container {
     width: 100%;
-    height: 500px;
-    background: #0d0d0d;
-    z-index: 1;
+    height: 560px;
+    cursor: grab;
+  }
+  #globe-container:active {
+    cursor: grabbing;
+  }
+  #globe-container canvas {
+    outline: none;
   }
 
-  @media (min-width: 768px) {
-    #travel-map {
-      height: 520px;
+  @media (max-width: 767px) {
+    #globe-container {
+      height: 400px;
     }
   }
 
@@ -93,22 +97,22 @@ map: true
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 999;
+    z-index: 5;
     pointer-events: none;
     background: repeating-linear-gradient(
       0deg,
       transparent,
-      transparent 2px,
-      rgba(0, 0, 0, 0.04) 2px,
-      rgba(0, 0, 0, 0.04) 4px
+      transparent 3px,
+      rgba(0, 0, 0, 0.03) 3px,
+      rgba(0, 0, 0, 0.03) 6px
     );
-    opacity: 0.5;
+    opacity: 0.4;
   }
 
   .travel-corners {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 998;
+    z-index: 6;
     pointer-events: none;
   }
   .travel-corners::before,
@@ -132,7 +136,7 @@ map: true
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 40px;
-    z-index: 998;
+    z-index: 6;
     pointer-events: none;
   }
   .travel-corners-bottom::before,
@@ -154,7 +158,7 @@ map: true
   }
 
   .travel-dest-panel {
-    background: #0d0d0d;
+    background: #0a0a0f;
     border: 1px solid rgba(232, 166, 166, 0.15);
     border-radius: 8px;
     margin-top: 1.5rem;
@@ -224,7 +228,7 @@ map: true
   }
 
   .travel-stat-card {
-    background: #0d0d0d;
+    background: #0a0a0f;
     border: 1px solid rgba(232, 166, 166, 0.15);
     border-radius: 8px;
     padding: 16px 20px;
@@ -247,56 +251,35 @@ map: true
     text-transform: uppercase;
   }
 
-  .leaflet-tile-pane {
-    filter: saturate(0.3) brightness(0.6);
-  }
-
-  .travel-pulse-marker {
-    width: 14px;
-    height: 14px;
-    background: #e8a6a6;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(232, 166, 166, 0.7), 0 0 20px rgba(232, 166, 166, 0.3);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    animation: travel-pulse 2s ease-in-out infinite;
-    cursor: pointer;
-  }
-
-  @keyframes travel-pulse {
-    0%, 100% { box-shadow: 0 0 10px rgba(232, 166, 166, 0.7), 0 0 20px rgba(232, 166, 166, 0.3); }
-    50% { box-shadow: 0 0 14px rgba(232, 166, 166, 0.9), 0 0 28px rgba(232, 166, 166, 0.5); }
-  }
-
-  .travel-popup .leaflet-popup-content-wrapper {
-    background: rgba(13, 13, 13, 0.92);
+  .globe-tooltip {
+    background: rgba(10, 10, 15, 0.92) !important;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(232, 166, 166, 0.25);
-    border-radius: 6px;
-    color: #d4d4d4;
-    font-family: 'Courier New', Courier, monospace;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-  }
-  .travel-popup .leaflet-popup-content {
-    margin: 10px 14px;
-    font-size: 0.8rem;
+    border: 1px solid rgba(232, 166, 166, 0.3) !important;
+    border-radius: 6px !important;
+    padding: 10px 14px !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    color: #d4d4d4 !important;
+    font-size: 0.8rem !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+    pointer-events: none;
+    max-width: 220px;
     line-height: 1.4;
   }
-  .travel-popup .leaflet-popup-content strong {
+  .globe-tooltip strong {
     color: #e8a6a6;
     font-weight: 600;
   }
-  .travel-popup .leaflet-popup-tip {
-    background: rgba(13, 13, 13, 0.92);
-    border: 1px solid rgba(232, 166, 166, 0.25);
-    border-top: none;
-    border-left: none;
+  .globe-tooltip .tt-country {
+    color: rgba(232, 166, 166, 0.5);
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
-  .travel-popup .leaflet-popup-close-button {
-    color: rgba(232, 166, 166, 0.6);
-  }
-  .travel-popup .leaflet-popup-close-button:hover {
-    color: #e8a6a6;
+  .globe-tooltip .tt-note {
+    color: #999;
+    font-size: 0.72rem;
+    margin-top: 3px;
   }
 </style>
 
@@ -314,7 +297,7 @@ map: true
   <div class="travel-scanline"></div>
   <div class="travel-corners"></div>
   <div class="travel-corners-bottom"></div>
-  <div id="travel-map"></div>
+  <div id="globe-container"></div>
 </div>
 
 <div class="travel-stats" id="travel-stats"></div>
@@ -324,6 +307,7 @@ map: true
   <ul class="travel-dest-list" id="travel-dest-list"></ul>
 </div>
 
+<script src="//unpkg.com/globe.gl@2.41.4/dist/globe.gl.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   var destinations = [
@@ -354,11 +338,9 @@ document.addEventListener("DOMContentLoaded", function () {
   destinations.forEach(function(d) {
     if (countries.indexOf(d.country) === -1) countries.push(d.country);
   });
-
   document.getElementById('travel-count').textContent =
     destinations.length + ' locations · ' + countries.length + ' countries';
 
-  var statsEl = document.getElementById('travel-stats');
   var continents = { "North America": 0, "South America": 0, "Europe": 0, "Asia": 0 };
   var continentMap = {
     "USA": "North America", "Canada": "North America",
@@ -370,66 +352,100 @@ document.addEventListener("DOMContentLoaded", function () {
     var c = continentMap[d.country];
     if (c) continents[c]++;
   });
-  var statsHTML = '<div class="travel-stat-card"><div class="travel-stat-num">' +
-    destinations.length + '</div><div class="travel-stat-label">Locations</div></div>' +
-    '<div class="travel-stat-card"><div class="travel-stat-num">' +
-    countries.length + '</div><div class="travel-stat-label">Countries</div></div>' +
-    '<div class="travel-stat-card"><div class="travel-stat-num">' +
-    Object.keys(continents).length + '</div><div class="travel-stat-label">Continents</div></div>';
-  statsEl.innerHTML = statsHTML;
 
-  var map = L.map('travel-map', {
-    center: [20, 0],
-    zoom: 2,
-    minZoom: 2,
-    maxZoom: 12,
-    zoomControl: false,
-    attributionControl: false
-  });
+  var statsEl = document.getElementById('travel-stats');
+  statsEl.innerHTML =
+    '<div class="travel-stat-card"><div class="travel-stat-num">' + destinations.length +
+    '</div><div class="travel-stat-label">Locations</div></div>' +
+    '<div class="travel-stat-card"><div class="travel-stat-num">' + countries.length +
+    '</div><div class="travel-stat-label">Countries</div></div>' +
+    '<div class="travel-stat-card"><div class="travel-stat-num">' + Object.keys(continents).length +
+    '</div><div class="travel-stat-label">Continents</div></div>';
 
-  L.control.zoom({ position: 'bottomright' }).addTo(map);
-  L.control.attribution({ position: 'bottomright', prefix: false }).addTo(map);
+  var containerEl = document.getElementById('globe-container');
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 19
-  }).addTo(map);
+  var arcsData = [];
+  for (var i = 0; i < destinations.length - 1; i++) {
+    arcsData.push({
+      startLat: destinations[i].lat,
+      startLng: destinations[i].lng,
+      endLat: destinations[i + 1].lat,
+      endLng: destinations[i + 1].lng
+    });
+  }
 
-  var markerIcon = L.divIcon({
-    className: 'travel-pulse-marker',
-    iconSize: [14, 14],
-    iconAnchor: [7, 7],
-    popupAnchor: [0, -10]
-  });
-
-  var markers = [];
-  destinations.forEach(function(d, i) {
-    var marker = L.marker([d.lat, d.lng], { icon: markerIcon })
-      .addTo(map)
-      .bindPopup(
+  var globe = Globe()
+    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+    .pointsData(destinations)
+    .pointLat('lat')
+    .pointLng('lng')
+    .pointAltitude(0.06)
+    .pointRadius(0.35)
+    .pointColor(function() { return '#e8a6a6'; })
+    .pointLabel(function(d) {
+      return '<div class="globe-tooltip">' +
         '<strong>' + d.name + '</strong><br>' +
-        '<span style="color:rgba(232,166,166,0.5);font-size:0.7rem;letter-spacing:1px;">' +
-        d.country.toUpperCase() + '</span>' +
-        (d.note ? '<br><span style="color:#999;font-size:0.75rem;">' + d.note + '</span>' : ''),
-        { className: 'travel-popup', maxWidth: 220 }
-      );
-    markers.push(marker);
+        '<span class="tt-country">' + d.country + '</span>' +
+        (d.note ? '<div class="tt-note">' + d.note + '</div>' : '') +
+        '</div>';
+    })
+    .labelsData(destinations)
+    .labelLat('lat')
+    .labelLng('lng')
+    .labelText('name')
+    .labelSize(1.2)
+    .labelDotRadius(0.4)
+    .labelDotOrientation(function() { return 'right'; })
+    .labelColor(function() { return 'rgba(232, 166, 166, 0.75)'; })
+    .labelResolution(2)
+    .labelAltitude(0.01)
+    .arcsData(arcsData)
+    .arcColor(function() { return ['rgba(232, 166, 166, 0.3)', 'rgba(232, 166, 166, 0.3)']; })
+    .arcAltitudeAutoScale(0.3)
+    .arcStroke(0.4)
+    .arcDashLength(0.4)
+    .arcDashGap(0.2)
+    .arcDashAnimateTime(2000)
+    .atmosphereColor('#e8a6a6')
+    .atmosphereAltitude(0.2)
+    .width(containerEl.offsetWidth)
+    .height(containerEl.offsetHeight)
+    (containerEl);
+
+  globe.controls().autoRotate = true;
+  globe.controls().autoRotateSpeed = 0.4;
+  globe.controls().enableDamping = true;
+  globe.controls().dampingFactor = 0.1;
+
+  globe.pointOfView({ lat: 30, lng: -40, altitude: 2.2 });
+
+  window.addEventListener('resize', function() {
+    globe.width(containerEl.offsetWidth);
+    globe.height(containerEl.offsetHeight);
   });
+
+  function flyToPoint(d) {
+    globe.controls().autoRotate = false;
+    globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.5 }, 1200);
+    setTimeout(function() {
+      globe.controls().autoRotate = true;
+      globe.controls().autoRotateSpeed = 0.2;
+    }, 4000);
+  }
 
   var listEl = document.getElementById('travel-dest-list');
-  destinations.forEach(function(d, i) {
+  destinations.forEach(function(d) {
     var li = document.createElement('li');
     li.className = 'travel-dest-item';
     li.innerHTML =
       '<span class="travel-dest-marker"></span>' +
       '<span class="travel-dest-name">' + d.name + '</span>' +
       '<span class="travel-dest-country">' + d.country + '</span>';
-    li.addEventListener('click', function() {
-      map.flyTo([d.lat, d.lng], 6, { duration: 1.2 });
-      setTimeout(function() { markers[i].openPopup(); }, 1300);
-    });
+    li.addEventListener('click', function() { flyToPoint(d); });
     listEl.appendChild(li);
   });
+
+  globe.onPointClick(function(point) { flyToPoint(point); });
 });
 </script>
