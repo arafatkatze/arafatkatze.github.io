@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<style>
+  .container:has(.reading-page) {
+    max-width: 1200px;
+  }
+</style>
+
+<div class="reading-page">
+  <div class="reading-header">
+    <h1>reading.</h1>
+    {{ content }}
+  </div>
+
+  <div class="reading-grid">
+    {% assign books = site.books | sort: "date" | reverse %}
+    {% for book in books %}
+      {% assign s = book.status | downcase | strip %}
+      {% if s == "reading" %}
+        {% assign badge = "reading" %}
+      {% elsif s == "interested" or s == "queued" or s == "to-read" %}
+        {% assign badge = "to-read" %}
+      {% else %}
+        {% assign badge = "read" %}
+      {% endif %}
+      {% include reading_card.liquid book=book badge=badge %}
+    {% endfor %}
+  </div>
+</div>
