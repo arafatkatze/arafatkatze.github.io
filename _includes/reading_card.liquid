@@ -1,7 +1,7 @@
 {% assign book = include.book %}
 {% assign badge = include.badge %}
 <a class="book-card" href="{{ book.buy_link | default: book.url | relative_url }}">
-  <div class="card-header">
+  <div class="book-card-top">
     <span class="card-label">Reading · Books</span>
     <span class="card-arrow">↗</span>
   </div>
