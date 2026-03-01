@@ -1,0 +1,30 @@
+{% assign book = include.book %}
+{% assign badge = include.badge %}
+<a class="book-card" href="{{ book.buy_link | default: book.url | relative_url }}">
+  <div class="book-card-top">
+    <span class="card-label">Reading · Books</span>
+    <span class="card-arrow">↗</span>
+  </div>
+  <div class="card-body">
+    <div class="book-cover">
+      {% if book.cover %}
+        <img alt="{{ book.title }}" src="{{ book.cover | relative_url }}" loading="lazy">
+      {% elsif book.olid %}
+        <img alt="{{ book.title }}" src="https://covers.openlibrary.org/b/olid/{{ book.olid }}-L.jpg?default=false" loading="lazy">
+      {% elsif book.isbn %}
+        <img alt="{{ book.title }}" src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg?default=false" loading="lazy">
+      {% endif %}
+    </div>
+    <div class="book-info">
+      {% if badge == "read" %}
+        <span class="book-status status-read">Read</span>
+      {% elsif badge == "reading" %}
+        <span class="book-status status-reading">Reading</span>
+      {% elsif badge == "to-read" %}
+        <span class="book-status status-to-read">To Read</span>
+      {% endif %}
+      <span class="book-title">{{ book.title }}</span>
+      <span class="book-author">{{ book.author }}</span>
+    </div>
+  </div>
+</a>
