@@ -37,6 +37,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
+        },{id: "nav-reading",
+          title: "Reading",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/reading/";
+          },
         },{id: "nav-travel",
           title: "Travel",
           description: "Places I&#39;ve been lucky enough to explore",
@@ -150,11 +157,86 @@ ninja.data = [{
             window.location.href = "/philosophy/2024/05/06/inwards.html";
           
         },
-      },{id: "books-the-godfather",
+      },{id: "books-an-elegant-puzzle",
+          title: 'An Elegant Puzzle',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/an_elegant_puzzle.html";
+            },},{id: "books-atomic-habits",
+          title: 'Atomic Habits',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/atomic_habits.html";
+            },},{id: "books-deep-work",
+          title: 'Deep Work',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/deep_work.html";
+            },},{id: "books-dune",
+          title: 'Dune',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/dune.html";
+            },},{id: "books-never-split-the-difference",
+          title: 'Never Split the Difference',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/never_split_the_difference.html";
+            },},{id: "books-project-hail-mary",
+          title: 'Project Hail Mary',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/project_hail_mary.html";
+            },},{id: "books-sapiens",
+          title: 'Sapiens',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/sapiens.html";
+            },},{id: "books-the-alchemist",
+          title: 'The Alchemist',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_alchemist.html";
+            },},{id: "books-the-design-of-everyday-things",
+          title: 'The Design of Everyday Things',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_design_of_everyday_things.html";
+            },},{id: "books-the-godfather",
           title: 'The Godfather',
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/the_godfather.html";
+            },},{id: "books-the-innovator-39-s-dilemma",
+          title: 'The Innovator&amp;#39;s Dilemma',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_innovators_dilemma.html";
+            },},{id: "books-the-lean-startup",
+          title: 'The Lean Startup',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_lean_startup.html";
+            },},{id: "books-the-midnight-library",
+          title: 'The Midnight Library',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_midnight_library.html";
+            },},{id: "books-the-pragmatic-programmer",
+          title: 'The Pragmatic Programmer',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_pragmatic_programmer.html";
+            },},{id: "books-the-psychology-of-money",
+          title: 'The Psychology of Money',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/the_psychology_of_money.html";
+            },},{id: "books-thinking-fast-and-slow",
+          title: 'Thinking, Fast and Slow',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/thinking_fast_and_slow.html";
             },},{id: "news-i-have-joined-cline",
           title: 'I have joined Cline',
           description: "",
