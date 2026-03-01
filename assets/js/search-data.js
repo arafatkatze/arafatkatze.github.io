@@ -44,6 +44,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
+        },{id: "nav-travel",
+          title: "Travel",
+          description: "Places I&#39;ve been lucky enough to explore",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/travel/";
+          },
         },{id: "post-to-my-future-son",
         
           title: "To My Future Son",
