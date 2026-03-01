@@ -16,13 +16,6 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/blog/";
           },
-        },{id: "nav-publications",
-          title: "Publications",
-          description: "Back in the day I wrote some research papers and also got published in a book",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/publications/";
-          },
         },{id: "nav-projects",
           title: "Projects",
           description: "Some of my favourite life stories and photos",
@@ -52,7 +45,7 @@ ninja.data = [{
             window.location.href = "/travel/";
           },
         },{id: "nav-pixel-board",
-          title: "pixel board",
+          title: "Pixel Board",
           description: "collaborative pixel art — leave your mark",
           section: "Navigation",
           handler: () => {
