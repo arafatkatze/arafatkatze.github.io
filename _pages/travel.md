@@ -347,7 +347,17 @@ document.addEventListener("DOMContentLoaded", function () {
     { name: "Vienna", country: "Austria", lat: 48.2082, lng: 16.3738 },
     { name: "Prague", country: "Czech Republic", lat: 50.0755, lng: 14.4378 },
     { name: "Tokyo", country: "Japan", lat: 35.6762, lng: 139.6503 },
-    { name: "Doha", country: "Qatar", lat: 25.2854, lng: 51.5310 }
+    { name: "Doha", country: "Qatar", lat: 25.2854, lng: 51.5310 },
+    { name: "San Francisco", country: "USA", lat: 37.7749, lng: -122.4194 },
+    { name: "San José", country: "Costa Rica", lat: 9.9281, lng: -84.0907 },
+    { name: "Florianópolis", country: "Brazil", lat: -27.5954, lng: -48.5480 },
+    { name: "Recife", country: "Brazil", lat: -8.0476, lng: -34.8770 },
+    { name: "Rio de Janeiro", country: "Brazil", lat: -22.9068, lng: -43.1729 },
+    { name: "London", country: "UK", lat: 51.5074, lng: -0.1278 },
+    { name: "Vatican City", country: "Vatican City", lat: 41.9029, lng: 12.4534 },
+    { name: "Florence", country: "Italy", lat: 43.7696, lng: 11.2558 },
+    { name: "Istanbul", country: "Turkey", lat: 41.0082, lng: 28.9784 },
+    { name: "Dubai", country: "UAE", lat: 25.2048, lng: 55.2708 }
   ];
 
   var today = new Date();
@@ -372,8 +382,10 @@ document.addEventListener("DOMContentLoaded", function () {
     "Bulgaria": "Europe", "Albania": "Europe", "Ukraine": "Europe",
     "Poland": "Europe", "Belarus": "Europe", "Georgia": "Europe",
     "Serbia": "Europe", "Italy": "Europe", "Austria": "Europe", "Czech Republic": "Europe",
+    "USA": "North America", "Costa Rica": "North America",
+    "UK": "Europe", "Vatican City": "Europe", "Turkey": "Europe",
     "Hong Kong": "Asia", "India": "Asia", "Vietnam": "Asia",
-    "Japan": "Asia", "Qatar": "Asia"
+    "Japan": "Asia", "Qatar": "Asia", "UAE": "Asia"
   };
   destinations.forEach(function(d) {
     var c = continentMap[d.country];
