@@ -1,7 +1,7 @@
 .reading-page {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem 4rem;
+  padding: 0 2rem 4rem;
 
   .reading-header {
     margin-bottom: 2.5rem;
@@ -53,6 +53,7 @@
     color: inherit;
     display: flex;
     flex-direction: column;
+    padding: 14px;
 
     &:hover {
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -61,27 +62,29 @@
       color: inherit;
     }
 
-    .card-header {
+    .book-card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 14px 0;
+      margin-bottom: 12px;
       font-size: 12px;
       color: var(--global-text-color-light);
+      background: transparent;
+      border: none;
+      padding: 0;
 
       .card-label {
         letter-spacing: 0.01em;
-        opacity: 0.7;
+        opacity: 0.55;
       }
 
       .card-arrow {
         font-size: 14px;
-        opacity: 0.35;
+        opacity: 0.3;
       }
     }
 
     .card-body {
-      padding: 10px 14px 16px;
       display: flex;
       gap: 12px;
       align-items: flex-end;
@@ -151,6 +154,7 @@
     }
   }
 }
+
 
 html[data-theme="dark"] {
   .reading-page .book-card {
