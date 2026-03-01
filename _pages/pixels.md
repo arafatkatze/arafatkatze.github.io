@@ -1,6 +1,6 @@
 ---
 layout: page
-title: pixel board
+title: Pixel Board
 permalink: /pixels/
 description: collaborative pixel art — leave your mark
 nav: true
