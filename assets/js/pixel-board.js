@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const GRID_SIZE = 32;
+  const GRID_SIZE = 100;
   const STORAGE_KEY = "pixel-board-state";
   const SYNC_URL =
     "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/pixelboard";
@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const positionEl = document.getElementById("pixel-position");
   const metaEl = document.getElementById("pixel-meta");
   const countEl = document.getElementById("pixel-count");
-  const clearBtn = document.getElementById("clear-board");
   const downloadBtn = document.getElementById("download-board");
 
   let selectedColor = COLORS[7].hex;
@@ -104,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function sizeCanvas() {
     const wrapper = canvas.parentElement;
-    const maxSize = Math.min(wrapper.clientWidth, 560);
+    const maxSize = Math.min(wrapper.clientWidth, 700);
     cellSize = Math.floor(maxSize / GRID_SIZE);
     const canvasSize = cellSize * GRID_SIZE;
     canvas.width = canvasSize;
@@ -255,16 +254,6 @@ document.addEventListener("DOMContentLoaded", function () {
   canvas.addEventListener("touchend", function (e) {
     e.preventDefault();
     canvas.dispatchEvent(new MouseEvent("mouseup"));
-  });
-
-  clearBtn.addEventListener("click", function () {
-    if (confirm("Clear the entire board? This cannot be undone.")) {
-      grid = emptyGrid();
-      pixelCount = 0;
-      updateCount();
-      drawGrid();
-      saveGrid();
-    }
   });
 
   downloadBtn.addEventListener("click", function () {
