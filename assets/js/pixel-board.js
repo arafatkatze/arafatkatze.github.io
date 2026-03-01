@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const GRID_SIZE = 100;
+  const GRID_SIZE = 50;
   const STORAGE_KEY = "pixel-board-state";
   const SYNC_URL =
     "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/pixelboard";
