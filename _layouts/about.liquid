@@ -41,6 +41,11 @@ layout: default
 
     <div class="clearfix">{{ content }}</div>
 
+    <!-- Content Blocks -->
+    {% if page.content_blocks %}
+      {% include content_blocks.liquid %}
+    {% endif %}
+
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
       <h2>

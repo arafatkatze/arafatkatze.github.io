@@ -1,0 +1,138 @@
+<script>
+function openContentModal(id) {
+  var modal = document.getElementById('modal-' + id);
+  if (!modal) return;
+  document.body.style.overflow = 'hidden';
+  modal.style.display = 'flex';
+  requestAnimationFrame(function() {
+    modal.classList.add('active');
+  });
+}
+
+function closeContentModal(event, id) {
+  if (event.target !== event.currentTarget && !event.target.classList.contains('content-modal-close')) return;
+  var modal = document.getElementById('modal-' + id);
+  if (!modal) return;
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+  setTimeout(function() { modal.style.display = 'none'; }, 250);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var modals = document.querySelectorAll('.content-modal-backdrop.active');
+    modals.forEach(function(modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+      setTimeout(function() { modal.style.display = 'none'; }, 250);
+    });
+  }
+});
+</script>
+
+<div class="content-blocks-grid">
+  {% for block in page.content_blocks %}
+    {% assign block_id = block.title | slugify %}
+    <div class="content-block" data-block-id="{{ block_id }}" onclick="openContentModal('{{ block_id }}')">
+      <div class="content-block-image">
+        {% if block.image contains '://' %}
+          <img src="{{ block.image }}" alt="{{ block.title }}" loading="eager" />
+        {% else %}
+          <img src="{{ block.image | relative_url }}" alt="{{ block.title }}" loading="eager" />
+        {% endif %}
+      </div>
+      <div class="content-block-overlay">
+        <h3 class="content-block-title">{{ block.title }}</h3>
+        {% if block.subtitle %}
+          <p class="content-block-subtitle">{{ block.subtitle }}</p>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% for block in page.content_blocks %}
+  {% assign block_id = block.title | slugify %}
+  <div class="content-modal-backdrop" id="modal-{{ block_id }}" onclick="closeContentModal(event, '{{ block_id }}')">
+    <div class="content-modal" onclick="event.stopPropagation()">
+      <button class="content-modal-close" onclick="closeContentModal(event, '{{ block_id }}')" aria-label="Close">&times;</button>
+      <div class="content-modal-header">
+        <h2>{{ block.title }}</h2>
+        {% if block.subtitle %}
+          <p>{{ block.subtitle }}</p>
+        {% endif %}
+      </div>
+      <div class="content-modal-body">
+        {% if block.collection == 'posts' %}
+          {% assign items = site.posts %}
+          {% if block.limit %}
+            {% assign item_limit = block.limit %}
+          {% else %}
+            {% assign item_limit = 6 %}
+          {% endif %}
+          <ul class="content-modal-list">
+            {% for item in items limit: item_limit %}
+              <li>
+                <a href="{{ item.url | relative_url }}">
+                  <span class="content-modal-item-title">{{ item.title }}</span>
+                  <span class="content-modal-item-date">{{ item.date | date: '%b %Y' }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+
+        {% elsif block.collection == 'projects' %}
+          {% assign items = site.projects | where_exp: "p", "p.category != 'unpublished'" | sort: "importance" | reverse %}
+          {% if block.limit %}
+            {% assign item_limit = block.limit %}
+          {% else %}
+            {% assign item_limit = 8 %}
+          {% endif %}
+          <div class="content-modal-cards">
+            {% for item in items limit: item_limit %}
+              <a href="{{ item.url | relative_url }}" class="content-modal-card">
+                {% if item.img %}
+                  <div class="content-modal-card-img">
+                    {% if item.img contains '://' %}
+                      <img src="{{ item.img }}" alt="{{ item.title }}" loading="lazy" />
+                    {% else %}
+                      <img src="{{ item.img | relative_url }}" alt="{{ item.title }}" loading="lazy" />
+                    {% endif %}
+                  </div>
+                {% endif %}
+                <span class="content-modal-card-title">{{ item.title }}</span>
+              </a>
+            {% endfor %}
+          </div>
+
+        {% elsif block.collection == 'books' %}
+          {% assign items = site.books %}
+          <ul class="content-modal-list">
+            {% for item in items %}
+              <li>
+                <a href="{{ item.url | relative_url }}">
+                  <span class="content-modal-item-title">{{ item.title }}</span>
+                  <span class="content-modal-item-meta">by {{ item.author }}{% if item.stars %} · {{ item.stars }}★{% endif %}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+
+        {% elsif block.page %}
+          <p class="content-modal-desc">{{ block.description }}</p>
+        {% endif %}
+      </div>
+      <div class="content-modal-footer">
+        {% if block.link %}
+          <a href="{{ block.link | relative_url }}" class="content-modal-link">
+            View all {{ block.title | downcase }} →
+          </a>
+        {% elsif block.page %}
+          <a href="{{ block.page | relative_url }}" class="content-modal-link">
+            Go to {{ block.title | downcase }} →
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endfor %}

@@ -14,15 +14,37 @@ profile:
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 
+content_blocks:
+  - title: Writing
+    subtitle: Personal essays & reflections
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1766712820/manitonga_ukgdy8.png
+    collection: posts
+    link: /blog/
+  - title: Projects
+    subtitle: Life stories & adventures
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
+    collection: projects
+    link: /projects/
+  - title: AI
+    subtitle: Agentic AI writings & threads
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
+    page: /projects/AgenticAi/
+    description: Writings about building agentic AI — traps, search strategies, reverse-engineering tools, and more.
+  - title: Reading
+    subtitle: Books & reviews
+    image: assets/img/book_covers/the_godfather.jpg
+    collection: books
+    link: /books/
+
 announcements:
-  enabled: true # includes a list of news items
-  scrollable: true # adds a vertical scroll bar if there are more than 3 news items
-  limit: 5 # leave blank to include all the news in the `_news` folder
+  enabled: false
+  scrollable: true
+  limit: 5
 
 latest_posts:
-  enabled: true
-  scrollable: true # adds a vertical scroll bar if there are more than 3 new posts items
-  limit: 5 # leave blank to include all the blog posts
+  enabled: false
+  scrollable: true
+  limit: 5
 ---
 
 This is Ara (pronounced era like the beginning of an era). I live at the intersection of art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days [playing with AI](/projects/AgenticAi) to build experiences that delight people.
