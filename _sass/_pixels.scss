@@ -47,7 +47,9 @@
   border-radius: 50%;
   border: 2px solid transparent;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
   outline: none;
   padding: 0;
   position: relative;
@@ -57,7 +59,9 @@
   }
 
   &.selected {
-    box-shadow: 0 0 0 2.5px var(--global-bg-color), 0 0 0 4.5px var(--global-text-color);
+    box-shadow:
+      0 0 0 2.5px var(--global-bg-color),
+      0 0 0 4.5px var(--global-text-color);
     transform: scale(1.1);
   }
 }
@@ -113,7 +117,9 @@
   color: var(--global-text-color);
   cursor: pointer;
   opacity: 0.6;
-  transition: opacity 0.2s ease, background 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    background 0.2s ease;
 
   &:hover {
     opacity: 1;
