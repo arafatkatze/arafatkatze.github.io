@@ -1299,6 +1299,36 @@ html[data-theme="dark"] {
   }
 }
 
+// Blog hero header
+.blog-hero {
+  padding: 2.5rem 0 1.5rem 0;
+
+  h1 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 4.5rem;
+    font-weight: 400;
+    color: var(--global-text-color);
+    margin: 0 0 0.75rem 0;
+    line-height: 1.1;
+  }
+
+  p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--global-text-color-light);
+    margin: 0;
+    max-width: 600px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem 0 1rem 0;
+
+    h1 {
+      font-size: 3rem;
+    }
+  }
+}
+
 // Blog card grid
 .blog-card-grid {
   display: grid;
