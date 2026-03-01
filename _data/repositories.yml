@@ -3,7 +3,7 @@ github_users:
 
 github_repos:
   - repo: cline/cline
-    role: Contributor
+    role: Founding Engineer
     highlight: Contributing to one of the most-loved AI coding agents in the open source community
   - repo: sourcegraph/cody-public-snapshot
     role: Core Engineer
