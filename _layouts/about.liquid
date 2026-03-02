@@ -1,76 +1,148 @@
 ---
 layout: default
 ---
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-      <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }} (a.k.a Ara)
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
-  </header>
+{% assign latest_post = site.posts | first %}
 
-  <article>
-    {% if page.profile %}
-      <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
-        {% if page.profile.image %}
-          {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-          {% else %}
-            {% assign profile_image_class = 'img-fluid z-depth-1
-      rounded' %}
+<div class="homepage">
+  <!-- Hero Section -->
+  <section class="hp-hero">
+    <div class="hp-hero__content">
+      <div class="hp-hero__text">
+        <h1 class="hp-hero__name">Arafat Khan</h1>
+        <p class="hp-hero__aka">a.k.a. Ara</p>
+        <p class="hp-hero__intro">
+          AI engineer at <a href="https://cline.bot" target="_blank" rel="noopener">Cline</a>.
+          30+ countries from an 18kg suitcase. Skier.
+          Maker of <a href="{{ '/projects/communalArt/' | relative_url }}">communal art</a>.
+          Writer of love letters, philosophy essays, and travel stories.
+        </p>
+        <blockquote class="hp-hero__quote">
+          <p>Two types of friends — one makes $300k and the other sleeps in hostels with bed bugs — somehow I'm both and neither.</p>
+        </blockquote>
+        <p class="hp-hero__tagline">From philosophy essays to travel stories to love letters, it really is the wild west.</p>
+        {% if page.social %}
+          <div class="hp-social">
+            <div class="contact-icons">{% include social.liquid %}</div>
+          </div>
+        {% endif %}
+      </div>
+      <div class="hp-hero__photo">
+        {% if page.profile and page.profile.image %}
+          <img
+            src="{{ page.profile.image | prepend: 'assets/img/' | relative_url }}"
+            alt="Arafat Khan"
+            class="hp-hero__img"
+            loading="eager"
+            width="280"
+            height="auto"
+          />
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento Grid -->
+  <section class="hp-bento">
+    <div class="bento-grid">
+      <!-- Writing -->
+      <a href="{{ '/blog/' | relative_url }}" class="bento-card bento-card--writing">
+        <div class="bento-card__accent"></div>
+        <div class="bento-card__inner">
+          <span class="bento-card__label">Writing</span>
+          <span class="bento-card__arrow">↗</span>
+          {% if latest_post %}
+            <h3 class="bento-card__title">{{ latest_post.title }}</h3>
+            <p class="bento-card__excerpt">{{ latest_post.content | strip_html | truncatewords: 30 }}</p>
           {% endif %}
-          {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
-      30vw, 95vw"{% endcapture %}
-          {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-            cache_bust=true
-          %}
-        {% endif %}
-        {% if page.profile.more_info %}
-          <div class="more-info">{{ page.profile.more_info }}</div>
-        {% endif %}
-      </div>
-    {% endif %}
+          <span class="bento-card__cta">Read all essays →</span>
+        </div>
+      </a>
 
-    <div class="clearfix">{{ content }}</div>
+      <!-- AI / Cline -->
+      <a href="{{ '/projects/AgenticAi/' | relative_url }}" class="bento-card bento-card--ai">
+        <div class="bento-card__inner">
+          <span class="bento-card__label">AI · Cline</span>
+          <span class="bento-card__arrow bento-card__arrow--light">↗</span>
+          <div class="bento-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="44" height="44">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+              <path d="M2 17l10 5 10-5"/>
+              <path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3 class="bento-card__title">Building Agentic AI</h3>
+          <p class="bento-card__subtitle">Engineering delightful experiences</p>
+        </div>
+      </a>
 
-    <!-- News -->
-    {% if page.announcements and page.announcements.enabled %}
-      <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
-      </h2>
-      {% include news.liquid limit=true %}
-    {% endif %}
+      <!-- Travel -->
+      <a href="{{ '/travel/' | relative_url }}" class="bento-card bento-card--travel">
+        <div class="bento-card__inner">
+          <span class="bento-card__label">Travel</span>
+          <span class="bento-card__arrow">↗</span>
+          <div class="bento-card__big-text">30+</div>
+          <p class="bento-card__subtitle">countries &amp; counting</p>
+        </div>
+      </a>
 
-    <!-- Latest posts -->
-    {% if page.latest_posts and page.latest_posts.enabled %}
-      <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
-      </h2>
-      {% include latest_posts.liquid %}
-    {% endif %}
+      <!-- Skiing (photo card, wide) -->
+      <a href="{{ '/projects/Skiing/' | relative_url }}" class="bento-card bento-card--skiing">
+        <img src="{{ 'assets/img/skiing/11.jpeg' | relative_url }}" alt="Skiing" class="bento-card__bg-img" loading="lazy" />
+        <div class="bento-card__overlay">
+          <span class="bento-card__label bento-card__label--light">Adventure · Skiing</span>
+          <span class="bento-card__arrow bento-card__arrow--light">↗</span>
+        </div>
+      </a>
 
-    <!-- Selected papers -->
-    {% if page.selected_papers %}
-      <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
-      </h2>
-      {% include selected_papers.liquid %}
-    {% endif %}
+      <!-- Communal Art / White Shirt (photo card) -->
+      <a href="{{ '/projects/communalArt/' | relative_url }}" class="bento-card bento-card--art">
+        <img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_600/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg" alt="White Shirt Project" class="bento-card__bg-img" loading="lazy" />
+        <div class="bento-card__overlay">
+          <span class="bento-card__label bento-card__label--light">Art · White Shirt Project</span>
+          <span class="bento-card__arrow bento-card__arrow--light">↗</span>
+        </div>
+      </a>
 
-    <!-- Social -->
-    {% if page.social %}
-      <div class="social">
-        <div class="contact-icons">{% include social.liquid %}</div>
+      <!-- Pixel Board -->
+      <a href="{{ '/pixels/' | relative_url }}" class="bento-card bento-card--pixels">
+        <div class="bento-card__inner">
+          <span class="bento-card__label">Creative</span>
+          <span class="bento-card__arrow">↗</span>
+          <h3 class="bento-card__title">Pixel Board</h3>
+          <p class="bento-card__subtitle">Collaborative pixel art</p>
+        </div>
+      </a>
 
-        <div class="contact-note">{{ site.contact_note }}</div>
-      </div>
-    {% endif %}
+      <!-- Reading -->
+      <a href="{{ '/reading/' | relative_url }}" class="bento-card bento-card--reading">
+        <div class="bento-card__inner">
+          <span class="bento-card__label">Books</span>
+          <span class="bento-card__arrow">↗</span>
+          <div class="bento-card__icon-emoji">📚</div>
+          <h3 class="bento-card__title">Reading List</h3>
+        </div>
+      </a>
 
-    {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
-      {% include newsletter.liquid center=true %}
-    {% endif %}
-  </article>
+      <!-- Open Source (wide) -->
+      <a href="{{ '/repositories/' | relative_url }}" class="bento-card bento-card--opensource">
+        <div class="bento-card__inner">
+          <span class="bento-card__label">Code</span>
+          <span class="bento-card__arrow">↗</span>
+          <div class="bento-card__icon"><i class="fa-brands fa-github"></i></div>
+          <h3 class="bento-card__title">Open Source</h3>
+          <p class="bento-card__subtitle">Contributions &amp; personal projects</p>
+        </div>
+      </a>
+
+      <!-- Resume -->
+      <a href="{{ '/cv/' | relative_url }}" class="bento-card bento-card--resume">
+        <div class="bento-card__inner">
+          <span class="bento-card__label">Career</span>
+          <span class="bento-card__arrow">↗</span>
+          <h3 class="bento-card__title">Resume</h3>
+          <p class="bento-card__subtitle">Experience &amp; skills</p>
+        </div>
+      </a>
+    </div>
+  </section>
 </div>
