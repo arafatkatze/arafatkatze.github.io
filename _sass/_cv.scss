@@ -1,95 +1,453 @@
 /*****************************
- * CV shared styles
+ * CV Bento Grid styles
  *****************************/
 
 $cv-serif-font: Georgia, "Times New Roman", Times, serif;
 
-.cv {
-  .post-title {
+.cv-bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bento-card {
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  .bento-card-title {
     font-family: $cv-serif-font;
+    font-size: 1.15rem;
     font-weight: 400;
-    font-size: 2.5rem;
+    letter-spacing: -0.01em;
+    color: var(--global-text-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      color: var(--global-theme-color);
+      font-size: 0.95rem;
+    }
+  }
+}
+
+.bento-basics {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+  }
+
+  .basics-info {
+    flex: 1;
+  }
+
+  .basics-name {
+    font-family: $cv-serif-font;
+    font-size: 2.2rem;
+    font-weight: 400;
     letter-spacing: -0.02em;
-    margin-bottom: 0.25rem;
+    color: var(--global-text-color);
+    margin-bottom: 0.3rem;
   }
 
-  .card {
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    background: transparent;
-    padding: 0 !important;
-    margin-top: 1.5rem !important;
-    margin-bottom: 0.5rem;
-
-    .card-title {
-      font-family: $cv-serif-font;
-      font-size: 1.6rem;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      padding-bottom: 0.5rem;
-      border-bottom: 1.5px solid var(--global-divider-color);
-      margin-bottom: 1rem;
-    }
-
+  .basics-summary {
+    font-size: 0.95rem;
+    color: var(--global-text-color-light);
+    font-style: italic;
+    margin-bottom: 0.6rem;
   }
 
-  .list-group-item {
-    background: transparent;
-    border: none;
-    padding: 0.6rem 0;
-
-    &:not(:last-child) {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-  }
-
-  span.badge,
-  .badge {
-    font-family: $cv-serif-font;
-    font-weight: 500;
-    font-size: 0.75rem;
-    letter-spacing: 0.01em;
-    white-space: nowrap;
-  }
-
-  h6.title {
-    font-family: $cv-serif-font;
-    font-size: 1.05rem;
-    font-weight: 600;
-    margin-bottom: 0.15rem;
+  .basics-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--global-text-color-light);
 
     a {
-      color: var(--global-text-color);
+      color: var(--global-text-color-light);
       text-decoration: none;
 
       &:hover {
         color: var(--global-theme-color);
+      }
+    }
+
+    i {
+      color: var(--global-theme-color);
+      margin-right: 0.3rem;
+    }
+  }
+
+  .basics-pdf {
+    flex-shrink: 0;
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--global-divider-color);
+      border-radius: 8px;
+      color: var(--global-text-color);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: border-color 0.2s ease, color 0.2s ease;
+
+      &:hover {
+        border-color: var(--global-theme-color);
+        color: var(--global-theme-color);
         text-decoration: none;
+      }
+
+      i {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+.bento-work {
+  grid-column: 1 / 3;
+
+  @media (max-width: 768px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.bento-education {
+  grid-column: 3 / 4;
+
+  @media (max-width: 768px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.bento-awards {
+  grid-column: 1 / 2;
+
+  @media (max-width: 768px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.bento-skills {
+  grid-column: 2 / 3;
+
+  @media (max-width: 768px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.bento-languages {
+  grid-column: 3 / 4;
+
+  @media (max-width: 768px) {
+    grid-column: 1 / -1;
+  }
+}
+
+.bento-projects {
+  grid-column: 1 / -1;
+}
+
+/* Work items inside bento cards */
+.bento-card {
+  .work-item {
+    padding: 0.6rem 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--global-divider-color);
+    }
+
+    .work-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .badge {
+      font-family: $cv-serif-font;
+      font-weight: 500;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .work-details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    h6.work-title {
+      font-family: $cv-serif-font;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.1rem;
+      color: var(--global-text-color);
+
+      a {
+        color: var(--global-text-color);
+        text-decoration: none;
+
+        &:hover {
+          color: var(--global-theme-color);
+        }
+      }
+    }
+
+    .work-company {
+      font-size: 0.82rem;
+      color: var(--global-text-color-light);
+      margin-bottom: 0.2rem;
+    }
+
+    ul.work-highlights {
+      margin: 0.25rem 0 0;
+      padding-left: 1.1rem;
+
+      li {
+        font-size: 0.82rem;
+        line-height: 1.5;
+        margin-bottom: 0.1rem;
+        color: var(--global-text-color);
       }
     }
   }
 
-  h6:not(.title) {
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: var(--global-text-color-light);
-    margin-bottom: 0.1rem;
+  .edu-item {
+    padding: 0.5rem 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--global-divider-color);
+    }
+
+    .badge {
+      font-family: $cv-serif-font;
+      font-weight: 500;
+      font-size: 0.7rem;
+      display: inline-block;
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-degree {
+      font-family: $cv-serif-font;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--global-text-color);
+      margin-bottom: 0.1rem;
+
+      a {
+        color: var(--global-text-color);
+        text-decoration: none;
+        &:hover { color: var(--global-theme-color); }
+      }
+    }
+
+    .edu-school {
+      font-size: 0.82rem;
+      color: var(--global-text-color-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .edu-courses {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+
+      .edu-course-tag {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 99px;
+        background: rgba(0, 0, 0, 0.04);
+        color: var(--global-text-color-light);
+      }
+    }
   }
 
-  ul.items {
-    margin-top: 0.4rem;
-    margin-bottom: 0.25rem;
-    padding-left: 1.2rem;
+  .award-item {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
 
-    li {
-      font-size: 0.88rem;
-      line-height: 1.55;
-      margin-bottom: 0.15rem;
-      color: var(--global-text-color);
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--global-divider-color);
+    }
+
+    .badge {
+      font-family: $cv-serif-font;
+      font-weight: 500;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .award-details {
+      flex: 1;
+
+      .award-title {
+        font-family: $cv-serif-font;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--global-text-color);
+      }
+
+      .award-awarder {
+        font-size: 0.8rem;
+        color: var(--global-text-color-light);
+      }
+
+      .award-summary {
+        font-size: 0.78rem;
+        color: var(--global-text-color);
+        margin-top: 0.2rem;
+        line-height: 1.45;
+      }
+    }
+  }
+
+  .skill-category {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-name {
+      font-family: $cv-serif-font;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--global-theme-color);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      i {
+        font-size: 0.85rem;
+      }
+    }
+
+    .skill-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        font-size: 0.82rem;
+        line-height: 1.6;
+        color: var(--global-text-color);
+        padding-left: 0;
+      }
+    }
+  }
+
+  .language-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .language-item {
+    .language-name {
+      font-family: $cv-serif-font;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--global-theme-color);
+    }
+
+    .language-fluency {
+      font-size: 0.78rem;
+      color: var(--global-text-color-light);
+    }
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .project-item {
+    padding: 1rem;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    transition: border-color 0.2s ease;
+
+    &:hover {
+      border-color: var(--global-theme-color);
+    }
+
+    .project-name {
+      font-family: $cv-serif-font;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+
+      a {
+        color: var(--global-text-color);
+        text-decoration: none;
+        &:hover { color: var(--global-theme-color); }
+      }
+    }
+
+    .project-summary {
+      font-size: 0.8rem;
+      color: var(--global-text-color-light);
+      font-style: italic;
+      margin-bottom: 0.3rem;
+    }
+
+    ul.project-highlights {
+      margin: 0;
+      padding-left: 1rem;
+
+      li {
+        font-size: 0.78rem;
+        line-height: 1.5;
+        color: var(--global-text-color);
+      }
     }
   }
 }
+
+/* Dark mode course tags */
+html[data-theme="dark"] .edu-course-tag {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/*****************************
+ * CV shared styles (legacy compat)
+ *****************************/
 
 div.container-link-button {
   margin-right: 0.5rem;
@@ -101,28 +459,6 @@ table.table-cv {
   td,
   th {
     padding: 1px;
-  }
-}
-
-.cv table.table-cv-map {
-  td {
-    font-size: 0.92rem;
-    padding: 0.2rem 0.5rem 0.2rem 0;
-  }
-
-  .font-weight-bold {
-    font-family: $cv-serif-font;
-    font-weight: 600;
-    color: var(--global-text-color);
-  }
-
-  a {
-    color: var(--global-theme-color);
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }
 
@@ -148,10 +484,6 @@ a.btncv:hover {
   border-color: var(--global-theme-color) !important;
   text-decoration: none !important;
 }
-
-/*****************************
- * CV TIME_TABLE styles
- *****************************/
 
 p.location {
   font-size: 0.7rem;
@@ -193,10 +525,6 @@ div.container-links {
   margin-bottom: 0.5rem;
 }
 
-/*****************************
- * CV MAP styles
- *****************************/
-
 div.container-pdf {
   display: flex;
   flex-direction: row;
@@ -204,10 +532,6 @@ div.container-pdf {
   align-items: center;
   justify-content: flex-start;
 }
-
-/*****************************
- * CV LIST_GROUPS styles
- *****************************/
 
 div.list-groups {
   display: flex;
@@ -268,10 +592,6 @@ p.list-group-time {
 td.list-group-link {
   padding-left: 0.5rem;
 }
-
-/*****************************
- * CV TOC styles
- *****************************/
 
 a.anchor {
   display: block;

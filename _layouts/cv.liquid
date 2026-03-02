@@ -54,75 +54,187 @@ layout: default
   </div>
 {% else %}
   <div class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        {% if page.cv_pdf %}
-          <a
-            {% if page.cv_pdf contains '://' %}
-              href="{{ page.cv_pdf }}"
-            {% else %}
-              href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}"
-            {% endif %}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="float-right"
-          >
-            <i class="fa-solid fa-file-pdf"></i>
-          </a>
-        {% endif %}
-      </h1>
-    </header>
-
     <article>
-      <div class="cv">
-        {% for data in site.data.resume %}
-          {% if site.jsonresume and site.jsonresume.size > 0 %}
-            {% unless site.jsonresume contains data[0] %}
-              {% continue %}
-            {% endunless %}
-          {% endif %}
-          {% if data[0] == 'meta' or data[1].size == 0 %} {% continue %} {% endif %}
-          <a class="anchor" id="{{ data[0] }}"></a>
-          {% if data[0] == 'basics' %}
-          <div class="card mt-3 p-3">
-            <div>
-              {% include resume/basics.liquid %}
-            </div>
-          </div>
-          {% else %}
-          <div class="card mt-3 p-3">
-            <h3 class="card-title font-weight-medium">{{ data[0] | capitalize }}</h3>
-            <div>
-              {% case data[0] %}
-                {% when 'education' %}
-                  {% include resume/education.liquid %}
-                {% when 'work' %}
-                  {% include resume/work.liquid %}
-                {% when 'volunteer' %}
-                  {% include resume/volunteer.liquid %}
-                {% when 'projects' %}
-                  {% include resume/projects.liquid %}
-                {% when 'awards' %}
-                  {% include resume/awards.liquid %}
-                {% when 'skills' %}
-                  {% include resume/skills.liquid %}
-                {% when 'publications' %}
-                  {% include resume/publications.liquid %}
-                {% when 'languages' %}
-                  {% include resume/languages.liquid %}
-                {% when 'interests' %}
-                  {% include resume/interests.liquid %}
-                {% when 'certificates' %}
-                  {% include resume/certificates.liquid %}
-                {% when 'references' %}
-                  {% include resume/references.liquid %}
-                {% else %}
+      <div class="cv-bento">
+        {% assign resume = site.data.resume %}
 
-              {% endcase %}
+        {% comment %} Basics card - full width hero {% endcomment %}
+        {% if resume.basics and resume.basics.size > 0 %}
+        <a class="anchor" id="basics"></a>
+        <div class="bento-card bento-basics">
+          <div class="basics-info">
+            <h1 class="basics-name">{{ resume.basics.name }}</h1>
+            {% if resume.basics.summary and resume.basics.summary != "" %}
+            <p class="basics-summary">{{ resume.basics.summary }}</p>
+            {% endif %}
+            <div class="basics-contact">
+              {% if resume.basics.email and resume.basics.email != "" %}
+              <span><i class="fas fa-envelope"></i><a href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }}</a></span>
+              {% endif %}
+              {% if resume.basics.url and resume.basics.url != "" %}
+              <span><i class="fas fa-globe"></i><a href="{{ resume.basics.url }}" target="_blank" rel="noopener noreferrer">{{ resume.basics.url }}</a></span>
+              {% endif %}
+              {% if resume.basics.location.region and resume.basics.location.region != "" %}
+              <span><i class="fas fa-map-marker-alt"></i>{{ resume.basics.location.region }}</span>
+              {% endif %}
             </div>
           </div>
+          {% if page.cv_pdf %}
+          <div class="basics-pdf">
+            <a {% if page.cv_pdf contains '://' %}href="{{ page.cv_pdf }}"{% else %}href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}"{% endif %} target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-file-pdf"></i> Download PDF
+            </a>
+          </div>
           {% endif %}
-        {% endfor %}
+        </div>
+        {% endif %}
+
+        {% comment %} Work card - spans 2 columns {% endcomment %}
+        {% if resume.work and resume.work.size > 0 %}
+        <a class="anchor" id="work"></a>
+        <div class="bento-card bento-work">
+          <div class="bento-card-title"><i class="fas fa-briefcase"></i> Work</div>
+          {% assign work = resume.work | sort: 'startDate' | reverse %}
+          {% for content in work %}
+          <div class="work-item">
+            <div class="work-header">
+              {% if content.startDate %}
+                {% assign startDate = content.startDate | split: '-' | slice: 0, 2 | join: '.' %}
+                {% assign endDate = content.endDate | split: '-' | slice: 0, 2 | join: '.' | default: 'Present' %}
+                {% assign date = startDate | append: ' – ' | append: endDate %}
+              {% else %}
+                {% assign date = '' %}
+              {% endif %}
+              <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px">{{ date }}</span>
+              <div class="work-details">
+                <h6 class="work-title">{% if content.url and content.url != "" %}<a href="{{ content.url }}">{{ content.position }}</a>{% else %}{{ content.position }}{% endif %}</h6>
+                <div class="work-company">{{ content.name }}{% if content.summary and content.summary != "" %} · <em>{{ content.summary }}</em>{% endif %}</div>
+              </div>
+            </div>
+            {% if content.highlights.size > 0 %}
+            <ul class="work-highlights">
+              {% for item in content.highlights %}
+              <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% comment %} Education card {% endcomment %}
+        {% if resume.education and resume.education.size > 0 %}
+        <a class="anchor" id="education"></a>
+        <div class="bento-card bento-education">
+          <div class="bento-card-title"><i class="fas fa-graduation-cap"></i> Education</div>
+          {% assign education = resume.education | sort: 'startDate' | reverse %}
+          {% for content in education %}
+          <div class="edu-item">
+            {% if content.startDate and content.startDate != '' %}
+              {% assign startDate = content.startDate | split: '-' | slice: 0, 2 | join: '.' %}
+              {% assign endDate = content.endDate | split: '-' | slice: 0, 2 | join: '.' | default: 'Present' %}
+              {% assign date = startDate | append: ' – ' | append: endDate %}
+              <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle">{{ date }}</span>
+            {% endif %}
+            <div class="edu-degree">{% if content.url and content.url != "" %}<a href="{{ content.url }}">{{ content.studyType }}</a>{% else %}{{ content.studyType }}{% endif %}</div>
+            <div class="edu-school">{{ content.institution }}</div>
+            {% if content.courses.size > 0 %}
+            <div class="edu-courses">
+              {% for item in content.courses %}
+              <span class="edu-course-tag">{{ item }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% comment %} Awards card {% endcomment %}
+        {% if resume.awards and resume.awards.size > 0 %}
+        <a class="anchor" id="awards"></a>
+        <div class="bento-card bento-awards">
+          <div class="bento-card-title"><i class="fas fa-trophy"></i> Awards</div>
+          {% for content in resume.awards %}
+          <div class="award-item">
+            {% if content.date %}
+              {% assign date = content.date | split: '-' | join: '.' %}
+            {% else %}
+              {% assign date = '' %}
+            {% endif %}
+            <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle">{{ date }}</span>
+            <div class="award-details">
+              <div class="award-title">{{ content.title }}</div>
+              <div class="award-awarder">{{ content.awarder }}</div>
+              {% if content.summary and content.summary != "" %}
+              <div class="award-summary">{{ content.summary }}</div>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% comment %} Skills card {% endcomment %}
+        {% if resume.skills and resume.skills.size > 0 %}
+        <a class="anchor" id="skills"></a>
+        <div class="bento-card bento-skills">
+          <div class="bento-card-title"><i class="fas fa-microphone"></i> Skills</div>
+          {% for content in resume.skills %}
+          <div class="skill-category">
+            <div class="skill-name">{% if content.icon %}<i class="{{ content.icon }}"></i>{% endif %} {{ content.name }}</div>
+            <ul class="skill-items">
+              {% for item in content.keywords %}
+              <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% comment %} Languages card {% endcomment %}
+        {% if resume.languages and resume.languages.size > 0 %}
+        <a class="anchor" id="languages"></a>
+        <div class="bento-card bento-languages">
+          <div class="bento-card-title"><i class="fas fa-language"></i> Languages</div>
+          <div class="language-grid">
+            {% for content in resume.languages %}
+            <div class="language-item">
+              <div class="language-name">{{ content.language }}</div>
+              <div class="language-fluency">{{ content.fluency }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        {% comment %} Projects card - full width {% endcomment %}
+        {% if resume.projects and resume.projects.size > 0 %}
+        <a class="anchor" id="projects"></a>
+        <div class="bento-card bento-projects">
+          <div class="bento-card-title"><i class="fas fa-code"></i> Projects</div>
+          <div class="projects-grid">
+            {% for content in resume.projects %}
+            <div class="project-item">
+              <div class="project-name">{% if content.url and content.url != "" %}<a href="{{ content.url }}">{{ content.name }}</a>{% else %}{{ content.name }}{% endif %}</div>
+              {% if content.summary and content.summary != "" %}
+              <div class="project-summary">{{ content.summary }}</div>
+              {% endif %}
+              {% if content.highlights.size > 0 %}
+              <ul class="project-highlights">
+                {% for item in content.highlights %}
+                <li>{{ item }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
       </div>
     </article>
   </div>

@@ -632,6 +632,13 @@ footer.sticky-bottom {
   }
 }
 
+.cv-bento {
+  .badge {
+    color: var(--global-card-bg-color) !important;
+    background-color: var(--global-theme-color) !important;
+  }
+}
+
 .table-cv-map {
   background-color: transparent;
   border: none;
