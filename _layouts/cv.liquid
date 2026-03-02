@@ -56,7 +56,6 @@ layout: default
   <div class="post">
     <header class="post-header">
       <h1 class="post-title">
-        {{ page.title }}
         {% if page.cv_pdf %}
           <a
             {% if page.cv_pdf contains '://' %}
@@ -72,9 +71,6 @@ layout: default
           </a>
         {% endif %}
       </h1>
-      {% if page.description %}
-        <p class="post-description">{{ page.description }}</p>
-      {% endif %}
     </header>
 
     <article>
@@ -87,12 +83,17 @@ layout: default
           {% endif %}
           {% if data[0] == 'meta' or data[1].size == 0 %} {% continue %} {% endif %}
           <a class="anchor" id="{{ data[0] }}"></a>
+          {% if data[0] == 'basics' %}
+          <div class="card mt-3 p-3">
+            <div>
+              {% include resume/basics.liquid %}
+            </div>
+          </div>
+          {% else %}
           <div class="card mt-3 p-3">
             <h3 class="card-title font-weight-medium">{{ data[0] | capitalize }}</h3>
             <div>
               {% case data[0] %}
-                {% when 'basics' %}
-                  {% include resume/basics.liquid %}
                 {% when 'education' %}
                   {% include resume/education.liquid %}
                 {% when 'work' %}
@@ -120,6 +121,7 @@ layout: default
               {% endcase %}
             </div>
           </div>
+          {% endif %}
         {% endfor %}
       </div>
     </article>

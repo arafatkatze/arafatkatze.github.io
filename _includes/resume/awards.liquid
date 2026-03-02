@@ -2,16 +2,22 @@
   {% for content in data[1] %}
     <li class="list-group-item">
       <div class="row">
-        <div class="col-xs-2 cl-sm-2 col-md-2 text-center date-column">
-          {% if content.date %} {% assign date = content.date | split: '-' | join: '.' %} {% else %} {% assign date = '' %} {% endif %}
-          <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> {{ date }} </span>
+        <div class="col-xs-2 cl-sm-2 col-md-auto text-left" style="min-width: 100px;">
+          {% if content.date %}
+            {% assign date = content.date | split: '-' | join: '.' %}
+          {% else %}
+            {% assign date = '' %}
+          {% endif %}
+          <span class="badge align-middle"> {{ date }} </span>
         </div>
-        <div class="col-xs-10 cl-sm-10 col-md-10 mt-2 mt-md-0">
-          <h6 class="title font-weight-bold ml-1 ml-md-4">
-            <a href="{{ content.url }}">{{ content.title }}</a>
+        <div class="col mt-2 mt-md-0">
+          <h6 class="title font-weight-bold">
+            {% if content.url and content.url != "" %}<a href="{{ content.url }}">{{ content.title }}</a>{% else %}{{ content.title }}{% endif %}
           </h6>
-          <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem">{{ content.awarder }}</h6>
-          <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem; font-style: italic">{{ content.summary }}</h6>
+          <h6>{{ content.awarder }}</h6>
+          {% if content.summary and content.summary != "" %}
+          <p style="font-size: 0.88rem; color: var(--global-text-color); margin-top: 0.25rem; margin-bottom: 0;">{{ content.summary }}</p>
+          {% endif %}
         </div>
       </div>
     </li>

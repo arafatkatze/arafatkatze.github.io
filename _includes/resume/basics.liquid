@@ -1,17 +1,31 @@
+{% assign basics = data[1] %}
+{% if basics.name and basics.name != "" %}
+<div class="cv-basics-header" style="margin-bottom: 0.75rem;">
+  <h2 style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: 2rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.25rem; color: var(--global-text-color);">{{ basics.name }}</h2>
+  {% if basics.summary and basics.summary != "" %}
+  <p style="font-size: 0.95rem; color: var(--global-text-color-light); margin-bottom: 0.5rem; font-style: italic;">{{ basics.summary }}</p>
+  {% endif %}
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.88rem; color: var(--global-text-color-light);">
+    {% if basics.email and basics.email != "" %}
+    <span><i class="fas fa-envelope" style="color: var(--global-theme-color); margin-right: 0.3rem;"></i><a href="mailto:{{ basics.email }}" style="color: var(--global-text-color-light); text-decoration: none;">{{ basics.email }}</a></span>
+    {% endif %}
+    {% if basics.url and basics.url != "" %}
+    <span><i class="fas fa-globe" style="color: var(--global-theme-color); margin-right: 0.3rem;"></i><a href="{{ basics.url }}" target="_blank" rel="noopener noreferrer" style="color: var(--global-text-color-light); text-decoration: none;">{{ basics.url }}</a></span>
+    {% endif %}
+    {% if basics.location.region and basics.location.region != "" %}
+    <span><i class="fas fa-map-marker-alt" style="color: var(--global-theme-color); margin-right: 0.3rem;"></i>{{ basics.location.region }}</span>
+    {% endif %}
+  </div>
+</div>
+{% else %}
 <table class="table table-cv table-sm table-borderless table-responsive table-cv-map">
   {% assign skip_basics = 'image,profiles,location' | split: ',' %}
   {% for content in data[1] %}
-    {%
-      if (content[1] == "") or (skip_basics contains
-      content[0])
-    %}
+    {% if (content[1] == "") or (skip_basics contains content[0]) %}
       {% continue %}
     {% endif %}
-
     <tr>
-      <td class="p-1 pr-2 font-weight-bold">
-        <b>{{ content[0] | capitalize }}</b>
-      </td>
+      <td class="p-1 pr-2 font-weight-bold"><b>{{ content[0] | capitalize }}</b></td>
       <td class="p-1 pl-2 font-weight-light text">
         {% if content[0] == 'url' %}
           <a href="{{ content[1] }}" target="_blank" rel="noopener noreferrer">{{ content[1] }}</a>
@@ -26,3 +40,4 @@
     </tr>
   {% endfor %}
 </table>
+{% endif %}

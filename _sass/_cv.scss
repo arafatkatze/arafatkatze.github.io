@@ -2,6 +2,104 @@
  * CV shared styles
  *****************************/
 
+$cv-serif-font: Georgia, "Times New Roman", Times, serif;
+
+.cv {
+  .post-title {
+    font-family: $cv-serif-font;
+    font-weight: 400;
+    font-size: 2.5rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+
+  .card {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    padding: 0 !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.5rem;
+
+    .card-title {
+      font-family: $cv-serif-font;
+      font-size: 1.6rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      padding-bottom: 0.5rem;
+      border-bottom: 1.5px solid var(--global-divider-color);
+      margin-bottom: 1rem;
+    }
+
+  }
+
+  .list-group-item {
+    background: transparent;
+    border: none;
+    padding: 0.6rem 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  span.badge,
+  .badge {
+    font-family: $cv-serif-font;
+    font-weight: 400;
+    font-size: 0.82rem;
+    letter-spacing: 0.01em;
+    color: var(--global-text-color-light) !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0;
+    text-align: left;
+    white-space: nowrap;
+    display: block;
+    line-height: 1.4;
+  }
+
+  h6.title {
+    font-family: $cv-serif-font;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+
+    a {
+      color: var(--global-text-color);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--global-theme-color);
+        text-decoration: none;
+      }
+    }
+  }
+
+  h6:not(.title) {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--global-text-color-light);
+    margin-bottom: 0.1rem;
+  }
+
+  ul.items {
+    margin-top: 0.4rem;
+    margin-bottom: 0.25rem;
+    padding-left: 1.2rem;
+
+    li {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      margin-bottom: 0.15rem;
+      color: var(--global-text-color);
+    }
+  }
+}
+
 div.container-link-button {
   margin-right: 0.5rem;
 }
@@ -12,6 +110,28 @@ table.table-cv {
   td,
   th {
     padding: 1px;
+  }
+}
+
+.cv table.table-cv-map {
+  td {
+    font-size: 0.92rem;
+    padding: 0.2rem 0.5rem 0.2rem 0;
+  }
+
+  .font-weight-bold {
+    font-family: $cv-serif-font;
+    font-weight: 600;
+    color: var(--global-text-color);
+  }
+
+  a {
+    color: var(--global-theme-color);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -112,22 +232,30 @@ div.list-group {
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 2rem;
+  border: none;
 }
 
 td.list-group-category {
+  font-family: $cv-serif-font;
   color: var(--global-theme-color);
+  font-size: 1rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 td.list-group-category-icon {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--global-theme-color);
   width: 1.4rem;
   padding-right: 0.4rem;
 }
 
 td.list-group-name {
-  font-size: 0.8rem;
+  font-size: 0.88rem;
+
+  b {
+    font-weight: 400;
+  }
 }
 
 td.list-group-level {
@@ -174,6 +302,7 @@ ul.timeline li {
 }
 
 span.badge-toc {
+  font-family: $cv-serif-font;
   color: var(--global-bg-color);
   background-color: var(--global-theme-color);
   border-radius: 0.125rem;
@@ -194,27 +323,3 @@ ul.timeline li::before {
   left: 2px;
   top: -0.5rem;
 }
-
-/*ul.timeline::before {
-     content: "●";
-     font-size: 1em;
-     display: inline-block;
-     margin: 0;
-     padding: 0;
-     position: relative;
-     left: -2px;
-     top: 0.4rem;
-     color: var(--global-text-color);
-}
- ul.timeline::after {
-     content: "●";
-     font-size: 1em;
-     display: inline-block;
-     margin: 0;
-     padding: 0;
-     position: relative;
-     left: -2px;
-     top: -1rem;
-     color: var(--global-text-color);
-}
-*/
