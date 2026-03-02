@@ -106,17 +106,29 @@ document.addEventListener('keydown', function(e) {
           </div>
 
         {% elsif block.collection == 'books' %}
-          {% assign items = site.books %}
-          <ul class="content-modal-list">
-            {% for item in items %}
-              <li>
-                <a href="{{ item.url | relative_url }}">
-                  <span class="content-modal-item-title">{{ item.title }}</span>
-                  <span class="content-modal-item-meta">by {{ item.author }}{% if item.stars %} · {{ item.stars }}★{% endif %}</span>
-                </a>
-              </li>
+          {% assign items = site.books | sort: "date" | reverse %}
+          {% if block.limit %}
+            {% assign item_limit = block.limit %}
+          {% else %}
+            {% assign item_limit = 8 %}
+          {% endif %}
+          <div class="content-modal-books">
+            {% for item in items limit: item_limit %}
+              <a href="{{ item.buy_link | default: item.url | relative_url }}" class="content-modal-book">
+                <div class="content-modal-book-cover">
+                  {% if item.cover %}
+                    <img src="{{ item.cover | relative_url }}" alt="{{ item.title }}" loading="lazy" />
+                  {% elsif item.olid %}
+                    <img src="https://covers.openlibrary.org/b/olid/{{ item.olid }}-L.jpg" alt="{{ item.title }}" loading="lazy" />
+                  {% elsif item.isbn %}
+                    <img src="https://covers.openlibrary.org/b/isbn/{{ item.isbn }}-L.jpg" alt="{{ item.title }}" loading="lazy" />
+                  {% endif %}
+                </div>
+                <span class="content-modal-book-title">{{ item.title }}</span>
+                <span class="content-modal-book-author">{{ item.author }}</span>
+              </a>
             {% endfor %}
-          </ul>
+          </div>
 
         {% elsif block.page %}
           <p class="content-modal-desc">{{ block.description }}</p>

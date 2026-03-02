@@ -2857,6 +2857,61 @@ mjx-container[jax="CHTML"][display="true"] {
   color: var(--global-text-color);
 }
 
+.content-modal-books {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+
+  @media (max-width: 500px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+}
+
+.content-modal-book {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    text-decoration: none;
+  }
+}
+
+.content-modal-book-cover {
+  aspect-ratio: 2/3;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--global-divider-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.content-modal-book-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--global-text-color);
+  margin-top: 6px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.content-modal-book-author {
+  font-size: 0.65rem;
+  color: var(--global-text-color-light);
+  margin-top: 2px;
+}
+
 .content-modal-desc {
   color: var(--global-text-color);
   font-size: 0.95rem;
