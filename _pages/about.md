@@ -6,7 +6,7 @@ subtitle:
 
 profile:
   align: right
-  image: basepic.jpeg
+  image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417821/site/basepic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>  </p>
