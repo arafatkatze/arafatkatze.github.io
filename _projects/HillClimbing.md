@@ -7,6 +7,13 @@ importance: 2
 category: work
 ---
 
+<div class="col-sm mt-3 mt-md-0 mx-auto">
+    {% include figure.liquid
+    path="https://cline.ghost.io/content/images/2026/02/Juan_P_Flores_mountains_and_river_with__hundreds_of_four-poin_c036eec3-370e-4542-996a-80eb18f5fd8a_0.png"
+    alt="A practical guide to hill climbing"
+    class="img-fluid rounded z-depth-1" %}
+</div>
+
 A potential partner asked for Cline's benchmark numbers. At the time, third-party benchmarking had us behind Cursor, Claude Code, and other agents. We didn't have a systematic way to measure or improve our performance. Over a weekend, three of us ran Cline against Terminal Bench's 89 real-world coding tasks, diagnosed every failure, and shipped targeted fixes. We improved our score from **47% to 57%**, putting us ahead of Claude Code, OpenHands, and OpenCode.
 
 This guide outlines the process of hill climbing that we used to benchmark model/agent combo and improve its score. While this was built for Cline, the process works with Claude Code, Codex, OpenHands, Cursor, Gemini CLI, or any other model/agent combo you like.
