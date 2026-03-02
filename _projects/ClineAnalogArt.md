@@ -1,10 +1,10 @@
 ---
-layout: post
-title: I Won't Quit AI to Write Poetry, but I Get Why He Did
-date: 2026-03-01 14:00:00
+layout: page
+title: Cline's Analog Art
 description: On loneliness, soulfulness, and making beautiful things with your hands while building the future
-category: philosophy
-tags: philosophy ai art cline
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412625/blog_poetry_ai/3d_print_cline_b.jpg
+importance: 1
+category: art
 ---
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 600px;">
