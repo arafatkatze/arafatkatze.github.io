@@ -14,6 +14,8 @@ nav_order: 8
       <div class="pack-bar-text" id="pack-bar-text">0 / 18.0 kg</div>
       <div class="pack-bar-track">
         <div class="pack-bar-fill" id="pack-bar-fill"></div>
+        <div class="pack-bar-over" id="pack-bar-over"></div>
+        <div class="pack-bar-marker" id="pack-bar-marker"><span>18kg</span></div>
       </div>
     </div>
     <div class="pack-status" id="pack-status"></div>

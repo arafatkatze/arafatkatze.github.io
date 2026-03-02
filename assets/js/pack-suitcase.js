@@ -7,16 +7,15 @@
   // Starts OVERLOADED at ~21kg. The game is: cut it down to 18.
 
   var insideItems = [
-    { id:'suitcase', emoji:'🧳', name:'Carry-on Suitcase', w:3500, qty:1, max:1, cat:'bag', quip:'Osprey 46L. This is literally my home.' },
     { id:'black-tee', emoji:'👕', name:'Black T-shirt', w:180, qty:3, max:5, cat:'clothing', quip:"Does 3 jobs: casual, smart-casual, and 'I'm at a conference.'" },
     { id:'grey-tee', emoji:'👕', name:'Grey T-shirt', w:180, qty:2, max:5, cat:'clothing', quip:'Grey goes with everything. That\'s the whole strategy.' },
     { id:'button-up', emoji:'👔', name:'Button-up Shirt', w:250, qty:1, max:2, cat:'clothing', quip:'The one nice thing I own. Weddings, dinners, border crossings.' },
-    { id:'jeans', emoji:'👖', name:'Jeans', w:1000, qty:1, max:2, cat:'clothing', quip:'One pair. Wash on Sundays. They develop character.' },
-    { id:'extra-jeans', emoji:'👖', name:'Extra Jeans', w:1000, qty:1, max:1, cat:'clothing', quip:'The luxury most people can\'t imagine giving up.' },
+    { id:'jeans', emoji:'👖', name:'Jeans', w:1200, qty:1, max:2, cat:'clothing', quip:'One pair. Wash on Sundays. They develop character.' },
+    { id:'extra-jeans', emoji:'👖', name:'Extra Jeans', w:1200, qty:1, max:1, cat:'clothing', quip:'The luxury most people can\'t imagine giving up.' },
     { id:'chinos', emoji:'👖', name:'Chinos', w:500, qty:1, max:2, cat:'clothing', quip:"Lighter than jeans. Passes as 'dressed up' in most countries." },
     { id:'shorts', emoji:'🩳', name:'Shorts', w:250, qty:2, max:3, cat:'clothing', quip:'For anything above 25°C and all hostel common rooms.' },
-    { id:'hoodie', emoji:'🧥', name:'Hoodie', w:700, qty:1, max:1, cat:'clothing', quip:'Airport pillow. Blanket. Jacket. Emotional support garment.' },
-    { id:'winter-coat', emoji:'🧥', name:'Winter Coat', w:1500, qty:1, max:1, cat:'clothing', quip:'Warm? Yes. Worth 8% of your total capacity? Debatable.' },
+    { id:'hoodie', emoji:'🧥', name:'Hoodie', w:850, qty:1, max:1, cat:'clothing', quip:'Airport pillow. Blanket. Jacket. Emotional support garment.' },
+    { id:'winter-coat', emoji:'🧥', name:'Winter Coat', w:1800, qty:1, max:1, cat:'clothing', quip:'Warm? Yes. Worth 10% of your total capacity? Debatable.' },
     { id:'light-jacket', emoji:'🧥', name:'Lightweight Jacket', w:450, qty:1, max:1, cat:'clothing', quip:'Layers > bulk. Handles 5°C to 20°C.' },
     { id:'rain-jacket', emoji:'🌧️', name:'Rain Jacket', w:350, qty:1, max:1, cat:'clothing', quip:'Gore-Tex. The thing between me and looking like a drowned rat.' },
     { id:'fleece', emoji:'🧶', name:'Fleece Pullover', w:400, qty:1, max:1, cat:'clothing', quip:'The layering system MVP. Under the jacket, over the tee.' },
@@ -26,18 +25,18 @@
     { id:'swim-trunks', emoji:'🩱', name:'Swim Trunks', w:150, qty:1, max:1, cat:'clothing', quip:'Double as shorts in a pinch.' },
     { id:'beanie', emoji:'🧶', name:'Beanie', w:80, qty:1, max:1, cat:'clothing', quip:'Takes zero space. Saves your life in cold airports.' },
     { id:'belt', emoji:'〰️', name:'Belt', w:150, qty:1, max:1, cat:'clothing', quip:'Holding everything together. Literally.' },
-    { id:'runners', emoji:'👟', name:'Running Shoes', w:950, qty:1, max:2, cat:'shoes', quip:'Daily shoes. Hiking shoes if I\'m brave. Running shoes rarely.' },
-    { id:'dress-shoes', emoji:'👞', name:'Dress Shoes', w:600, qty:1, max:1, cat:'shoes', quip:'Look good, feel bad, weigh a ton.' },
+    { id:'runners', emoji:'👟', name:'Running Shoes', w:1200, qty:1, max:2, cat:'shoes', quip:'Daily shoes. Hiking shoes if I\'m brave. Running shoes rarely.' },
+    { id:'dress-shoes', emoji:'👞', name:'Dress Shoes', w:800, qty:1, max:1, cat:'shoes', quip:'Look good, feel bad, weigh a ton.' },
     { id:'flip-flops', emoji:'🩴', name:'Flip Flops', w:220, qty:1, max:1, cat:'shoes', quip:'Hostels. Showers. Beaches. Non-negotiable.' },
-    { id:'laptop', emoji:'💻', name:'Laptop', w:2200, qty:1, max:1, cat:'tech', quip:'14" MacBook Pro. My office, cinema, and library.' },
+    { id:'laptop', emoji:'💻', name:'Laptop + Sleeve', w:2800, qty:1, max:1, cat:'tech', quip:'16" MacBook Pro in a padded sleeve. My entire livelihood.' },
     { id:'laptop-charger', emoji:'🔌', name:'Laptop Charger', w:350, qty:1, max:1, cat:'tech', quip:'The one thing I\'d definitely notice forgetting.' },
     { id:'phone', emoji:'📱', name:'Phone + Charger', w:280, qty:1, max:1, cat:'tech', quip:'USB-C changed everything. One cable to rule them all.' },
     { id:'earbuds', emoji:'🎧', name:'Earbuds', w:55, qty:1, max:1, cat:'tech', quip:'Noise-cancelling. The real ticket to sleeping on planes.' },
     { id:'adapter', emoji:'🔌', name:'Universal Adapter', w:180, qty:1, max:1, cat:'tech', quip:'30 countries. This has seen every outlet shape.' },
     { id:'battery', emoji:'🔋', name:'Portable Battery', w:250, qty:1, max:1, cat:'tech', quip:'10,000mAh. For when outlets are mythical.' },
     { id:'kindle', emoji:'📖', name:'Kindle', w:180, qty:1, max:1, cat:'tech', quip:'300 books, 180 grams. Best trade deal in history.' },
-    { id:'camera', emoji:'📸', name:'Camera', w:450, qty:1, max:1, cat:'tech', quip:'Sony ZV-E10. For when phone photos don\'t cut it.' },
-    { id:'toiletry-bag', emoji:'🧴', name:'Toiletry Bag', w:850, qty:1, max:1, cat:'toiletries', quip:'Deodorant, toothbrush, razor, sunscreen. All ≤100ml.' },
+    { id:'camera', emoji:'📸', name:'Camera + Charger', w:700, qty:1, max:1, cat:'tech', quip:'Sony ZV-E10 with charger. For when phone photos don\'t cut it.' },
+    { id:'toiletry-bag', emoji:'🧴', name:'Toiletry Bag', w:1200, qty:1, max:1, cat:'toiletries', quip:'Deodorant, toothbrush, razor, sunscreen, moisturizer, contacts. All ≤100ml.' },
     { id:'passport', emoji:'📔', name:'Passport + Docs', w:120, qty:1, max:1, cat:'essentials', quip:'The only truly irreplaceable thing in here.' },
     { id:'day-bag', emoji:'🎒', name:'Packable Day Bag', w:180, qty:1, max:1, cat:'essentials', quip:'Folds into itself. Use it daily, pack it nightly.' },
     { id:'towel', emoji:'🏖️', name:'Travel Towel', w:300, qty:1, max:1, cat:'essentials', quip:'Microfiber. Dries in an hour. Smells fine-ish.' },
@@ -83,7 +82,7 @@
   ];
 
   var addReacts = {
-    'winter-coat': "1.5kg — that's 8% of the entire suitcase for one item.",
+    'winter-coat': "1.8kg — that's 10% of the entire suitcase for one item.",
     'guitar': "2kg of music. Say goodbye to a lot of clothes.",
     'yoga-mat': "1.5kg of inner peace. Outer chaos.",
     'hair-dryer': "Air. Is. Free.",
@@ -114,7 +113,6 @@
     'passport': "Interesting strategy. Permanent vacation wherever you are.",
     'hoodie': "Goodbye, emotional support garment.",
     'kindle': "300 books, gone in one click.",
-    'suitcase': "You removed the suitcase? Carrying everything in your arms?",
     'toiletry-bag': "Deodorant is a courtesy to others. Just saying.",
     'phone': "No phone? Are you a time traveler from 1995?",
     'earbuds': "Enjoy the crying babies on your next flight.",
@@ -160,25 +158,40 @@
     return g >= 1000 ? (g / 1000).toFixed(1) + 'kg' : g + 'g';
   }
 
+  var BAR_VISUAL_MAX = 25000;
+
   function renderBar() {
     var tw = totalWeight();
-    var pct = Math.min((tw / MAX) * 100, 100);
     var fill = document.getElementById('pack-bar-fill');
+    var over = document.getElementById('pack-bar-over');
     var text = document.getElementById('pack-bar-text');
     var wrap = document.getElementById('pack-bar-wrap');
+    var marker = document.getElementById('pack-bar-marker');
     if (!fill || !text || !wrap) return;
 
-    fill.style.width = pct + '%';
+    var limitPct = (MAX / BAR_VISUAL_MAX) * 100;
+    if (marker) marker.style.left = limitPct + '%';
+
     text.textContent = (tw / 1000).toFixed(1) + ' / ' + (MAX / 1000).toFixed(1) + ' kg';
 
-    var color;
-    if (tw > MAX) { color = '#ef4444'; }
-    else if (tw > MAX * 0.97) { color = '#ef4444'; }
-    else if (tw > MAX * 0.89) { color = '#f59e0b'; }
-    else { color = '#22c55e'; }
+    if (tw <= MAX) {
+      var pct = (tw / BAR_VISUAL_MAX) * 100;
+      fill.style.width = pct + '%';
+      if (over) over.style.width = '0%';
 
-    text.style.color = color;
-    fill.style.background = color;
+      var color = tw > MAX * 0.89 ? '#f59e0b' : '#22c55e';
+      fill.style.background = color;
+      text.style.color = color;
+    } else {
+      fill.style.width = limitPct + '%';
+      fill.style.background = '#22c55e';
+      var overPct = Math.min(((tw - MAX) / BAR_VISUAL_MAX) * 100, 100 - limitPct);
+      if (over) {
+        over.style.width = overPct + '%';
+        over.style.left = limitPct + '%';
+      }
+      text.style.color = '#ef4444';
+    }
 
     wrap.classList.remove('pack-over');
     if (tw > MAX) wrap.classList.add('pack-over');
