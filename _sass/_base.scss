@@ -625,8 +625,8 @@ footer.sticky-bottom {
   .card {
     .list-group-item {
       .badge {
-        color: var(--global-text-color-light) !important;
-        background-color: transparent !important;
+        color: var(--global-card-bg-color) !important;
+        background-color: var(--global-theme-color) !important;
       }
     }
   }

@@ -47,19 +47,10 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
   span.badge,
   .badge {
     font-family: $cv-serif-font;
-    font-weight: 400;
-    font-size: 0.82rem;
+    font-weight: 500;
+    font-size: 0.75rem;
     letter-spacing: 0.01em;
-    color: var(--global-text-color-light) !important;
-    background: transparent !important;
-    background-color: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0;
-    text-align: left;
     white-space: nowrap;
-    display: block;
-    line-height: 1.4;
   }
 
   h6.title {
