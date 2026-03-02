@@ -58,7 +58,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/pixels/";
           },
-        },{id: "post-to-my-future-son",
+        },{id: "post-i-won-39-t-quit-ai-to-write-poetry-but-i-get-why-he-did",
+        
+          title: "I Won&#39;t Quit AI to Write Poetry, but I Get Why He Did...",
+        
+        description: "On loneliness, soulfulness, and making beautiful things with your hands while building the future",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/philosophy/2026/03/01/poetry-and-ai.html";
+          
+        },
+      },{id: "post-to-my-future-son",
         
           title: "To My Future Son",
         
