@@ -79,15 +79,14 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
     type: image
 
-  - title: Into the Wild
-    label: Reading · Books
-    link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0385486804-L.jpg
-    type: book
-    author: Jon Krakauer
-    badge: Read
+  - title: writing.
+    label: Blog · Essays
+    link: /blog/
+    type: text
+    excerpt: "Philosophy, love letters, travel stories — the wild west of my thoughts."
+    bg: warm
 
-  # Row 4: brazil tall + pixel board + mountain of spirits + writing
+  # Row 4: brazil tall + pixel board + on looking inwards + into the wild
   - title: Brazil
     label: Projects · Fun
     link: /projects/Brazil/
@@ -109,13 +108,14 @@ bento_tiles:
     excerpt: "I have been looking outwards for too long. It's time to look inwards."
     bg: warm
 
-  # Row 5: writing section + matchmaking + sapiens
-  - title: writing.
-    label: Blog · Essays
-    link: /blog/
-    type: text
-    excerpt: "Philosophy, love letters, travel stories — the wild west of my thoughts."
-    bg: warm
+  # Row 5: into the wild + matchmaking + sapiens
+  - title: Into the Wild
+    label: Reading · Books
+    link: /reading/
+    image: https://covers.openlibrary.org/b/isbn/0385486804-L.jpg
+    type: book
+    author: Jon Krakauer
+    badge: Read
 
   - title: Messages to 24 People I Know
     label: Writing · Letters
