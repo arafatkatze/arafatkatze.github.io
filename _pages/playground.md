@@ -37,50 +37,10 @@ nav_order: 7
     </div>
   </div>
 
-  <!-- ── 02 · Life in Numbers ─────────────────── -->
-  <div class="pg-experiment" id="pg-exp-stats">
-    <div class="pg-exp-header">
-      <span class="pg-exp-num">02</span>
-      <div>
-        <h3 class="pg-exp-title">Life in Numbers</h3>
-        <p class="pg-exp-desc">data art from a life in motion</p>
-      </div>
-    </div>
-    <div class="pg-exp-body">
-      <div class="pg-stats-grid" id="pg-stats">
-        <div class="pg-stat-card">
-          <canvas class="pg-stat-ring" width="52" height="52"></canvas>
-          <span class="pg-stat-value">0</span>
-          <span class="pg-stat-label">Countries</span>
-        </div>
-        <div class="pg-stat-card">
-          <canvas class="pg-stat-ring" width="52" height="52"></canvas>
-          <span class="pg-stat-value">0</span>
-          <span class="pg-stat-label">Destinations</span>
-        </div>
-        <div class="pg-stat-card">
-          <canvas class="pg-stat-ring" width="52" height="52"></canvas>
-          <span class="pg-stat-value">0</span>
-          <span class="pg-stat-label">Continents</span>
-        </div>
-        <div class="pg-stat-card">
-          <canvas class="pg-stat-ring" width="52" height="52"></canvas>
-          <span class="pg-stat-value">0</span>
-          <span class="pg-stat-label">One Suitcase</span>
-        </div>
-        <div class="pg-stat-card">
-          <canvas class="pg-stat-ring" width="52" height="52"></canvas>
-          <span class="pg-stat-value">0</span>
-          <span class="pg-stat-label">Creative Pages</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── 03 · Particle Garden ─────────────────── -->
+  <!-- ── 02 · Particle Garden ─────────────────── -->
   <div class="pg-experiment" id="pg-exp-particles">
     <div class="pg-exp-header">
-      <span class="pg-exp-num">03</span>
+      <span class="pg-exp-num">02</span>
       <div>
         <h3 class="pg-exp-title">Particle Garden</h3>
         <p class="pg-exp-desc">click anywhere to plant particles — they bloom, drift, and fade</p>

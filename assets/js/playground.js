@@ -38,6 +38,36 @@
   };
 
   // ──────────────────────────────────────────
+  // Theme helpers
+  // ──────────────────────────────────────────
+
+  function isDark() {
+    return document.documentElement.getAttribute('data-theme') === 'dark';
+  }
+
+  function canvasBg() {
+    return isDark() ? '#0b0e17' : '#eaeaf1';
+  }
+
+  function canvasBgRgba(alpha) {
+    return isDark()
+      ? 'rgba(11,14,23,' + alpha + ')'
+      : 'rgba(234,234,241,' + alpha + ')';
+  }
+
+  function gridColor() {
+    return isDark()
+      ? 'rgba(255,255,255,0.018)'
+      : 'rgba(0,0,0,0.03)';
+  }
+
+  function hintColor() {
+    return isDark()
+      ? 'rgba(148,163,184,0.25)'
+      : 'rgba(0,0,0,0.22)';
+  }
+
+  // ──────────────────────────────────────────
   // Shared helpers
   // ──────────────────────────────────────────
 
@@ -80,6 +110,8 @@
       resize();
 
       var w = canvas.width, h = canvas.height;
+      var bg = canvasBg();
+      var trailAlpha = isDark() ? 0.012 : 0.018;
       var noise = new Noise(Date.now());
       var palette = palettes[paletteIdx];
       paletteIdx = (paletteIdx + 1) % palettes.length;
@@ -107,7 +139,7 @@
         pR[i] = c.r; pG[i] = c.g; pB[i] = c.b;
       }
 
-      ctx.fillStyle = '#0b0e17';
+      ctx.fillStyle = bg;
       ctx.fillRect(0, 0, w, h);
 
       var frame = 0, maxFrames = 380;
@@ -115,7 +147,7 @@
       function step() {
         if (frame >= maxFrames) { flowAnim = null; return; }
 
-        ctx.fillStyle = 'rgba(11, 14, 23, 0.012)';
+        ctx.fillStyle = canvasBgRgba(trailAlpha);
         ctx.fillRect(0, 0, w, h);
 
         for (var i = 0; i < count; i++) {
@@ -165,93 +197,12 @@
       clearTimeout(rt);
       rt = setTimeout(generate, 400);
     });
+
+    return { regenerate: generate };
   }
 
   // ──────────────────────────────────────────
-  // 02 — Life in Numbers
-  // ──────────────────────────────────────────
-
-  function initLifeInNumbers() {
-    var container = document.getElementById('pg-stats');
-    if (!container) return;
-
-    var stats = [
-      { value: 30, suffix: '+', label: 'Countries', color: '#06b6d4' },
-      { value: 47, suffix: '',  label: 'Destinations', color: '#a78bfa' },
-      { value: 4,  suffix: '',  label: 'Continents', color: '#34d399' },
-      { value: 18, suffix: 'kg', label: 'One Suitcase', color: '#f59e0b' },
-      { value: 3,  suffix: '',  label: 'Creative Pages', color: '#ec4899' }
-    ];
-
-    var cards = container.querySelectorAll('.pg-stat-card');
-    if (!cards.length) return;
-
-    var done = false;
-
-    function animateAll() {
-      if (done) return;
-      done = true;
-
-      for (var idx = 0; idx < cards.length; idx++) {
-        (function (i) {
-          var card = cards[i];
-          var numEl = card.querySelector('.pg-stat-value');
-          var ringEl = card.querySelector('.pg-stat-ring');
-          var stat = stats[i];
-          if (!numEl || !stat) return;
-
-          var duration = 1600;
-
-          setTimeout(function () {
-            var start = performance.now();
-            function tick(now) {
-              var t = Math.min((now - start) / duration, 1);
-              var e = 1 - Math.pow(1 - t, 4);
-              numEl.textContent = Math.floor(e * stat.value) + stat.suffix;
-              if (ringEl) drawRing(ringEl, e, stat.color);
-              if (t < 1) requestAnimationFrame(tick);
-              else numEl.textContent = stat.value + stat.suffix;
-            }
-            requestAnimationFrame(tick);
-          }, i * 140);
-        })(idx);
-      }
-    }
-
-    function drawRing(c, progress, color) {
-      var s = c.width;
-      var ctx = c.getContext('2d');
-      ctx.clearRect(0, 0, s, s);
-      var cx = s / 2, cy = s / 2, r = (s - 10) / 2;
-
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(255,255,255,0.05)';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-
-      if (progress > 0) {
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * progress);
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 3;
-        ctx.lineCap = 'round';
-        ctx.stroke();
-      }
-    }
-
-    var obs = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) {
-        animateAll();
-        obs.disconnect();
-      }
-    }, { threshold: 0.25 });
-
-    obs.observe(container);
-  }
-
-  // ──────────────────────────────────────────
-  // 03 — Particle Garden
+  // 02 — Particle Garden
   // ──────────────────────────────────────────
 
   function initParticleGarden() {
@@ -356,7 +307,7 @@
     canvas.addEventListener('touchend', function () { isDown = false; });
 
     function drawGrid() {
-      ctx.strokeStyle = 'rgba(255,255,255,0.018)';
+      ctx.strokeStyle = gridColor();
       ctx.lineWidth = 1;
       for (var x = 0; x < w; x += 40) {
         ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
@@ -368,20 +319,24 @@
 
     function drawHint() {
       if (particles.length > 0) return;
-      ctx.fillStyle = 'rgba(148,163,184,0.25)';
+      ctx.fillStyle = hintColor();
       ctx.font = '13px "Courier New", monospace';
       ctx.textAlign = 'center';
       ctx.fillText('click or drag to plant particles', w / 2, h / 2);
       ctx.textAlign = 'start';
     }
 
-    ctx.fillStyle = '#0b0e17';
-    ctx.fillRect(0, 0, w, h);
-    drawGrid();
+    function clearCanvas() {
+      ctx.fillStyle = canvasBg();
+      ctx.fillRect(0, 0, w, h);
+      drawGrid();
+    }
+
+    clearCanvas();
     drawHint();
 
     function animate() {
-      ctx.fillStyle = 'rgba(11,14,23,0.14)';
+      ctx.fillStyle = canvasBgRgba(0.14);
       ctx.fillRect(0, 0, w, h);
       drawGrid();
 
@@ -428,15 +383,36 @@
         particles.length = 0;
       }, 400);
     });
+
+    return {
+      reset: function () {
+        particles.length = 0;
+        csIdx = 0;
+        fitCanvas();
+        w = canvas.width; h = canvas.height;
+        clearCanvas();
+      }
+    };
   }
 
   // ──────────────────────────────────────────
-  // Boot
+  // Boot + theme change listener
   // ──────────────────────────────────────────
 
   document.addEventListener('DOMContentLoaded', function () {
-    initFlowField();
-    initLifeInNumbers();
-    initParticleGarden();
+    var flow = initFlowField();
+    var garden = initParticleGarden();
+
+    var observer = new MutationObserver(function (mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        if (mutations[i].attributeName === 'data-theme') {
+          if (flow) flow.regenerate();
+          if (garden) garden.reset();
+          break;
+        }
+      }
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
   });
 })();
