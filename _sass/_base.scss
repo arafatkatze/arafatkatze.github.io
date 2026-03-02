@@ -1816,29 +1816,28 @@ html[data-theme="dark"] {
 figure.highlight {
   margin: 0 0 1rem;
 
-  // Responsive code block container
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 
   pre {
-    // Ensure code blocks can scroll horizontally
-    white-space: pre;
+    white-space: pre !important;
     word-wrap: normal;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 }
 
+// Bootstrap sets `pre { white-space: pre-wrap !important; }` which collapses
+// newlines in syntax-highlighted code blocks. Override it here so fenced code
+// blocks always preserve their formatting.
 pre {
   color: var(--global-theme-color);
   background-color: var(--global-code-bg-color);
   border-radius: 6px;
   padding: 6px 12px;
-
-  // Responsive behavior for code blocks
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  white-space: pre;
+  white-space: pre !important;
   word-wrap: normal;
 
   pre,
@@ -1847,8 +1846,8 @@ pre {
     border-radius: 0;
     margin-bottom: 0;
     padding: 0;
-    white-space: pre !important;
-    word-wrap: normal !important;
+    white-space: inherit;
+    word-wrap: inherit;
   }
 }
 
@@ -1858,7 +1857,7 @@ code {
   border-radius: 3px;
   padding: 3px 3px;
 
-  // Inline code should wrap
+  // Inline code should wrap normally
   white-space: normal;
   word-wrap: break-word;
 }
