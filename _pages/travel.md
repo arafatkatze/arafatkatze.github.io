@@ -8,13 +8,56 @@ nav_order: 5
 ---
 
 <style>
+  .travel-page {
+    --tw-bg: #0a0a0f;
+    --tw-border: rgba(232, 166, 166, 0.15);
+    --tw-accent: #e8a6a6;
+    --tw-accent-dim: rgba(232, 166, 166, 0.5);
+    --tw-accent-border: rgba(232, 166, 166, 0.2);
+    --tw-accent-glow: rgba(232, 166, 166, 0.4);
+    --tw-accent-faint: rgba(232, 166, 166, 0.06);
+    --tw-accent-hover: rgba(232, 166, 166, 0.05);
+    --tw-accent-label: rgba(232, 166, 166, 0.75);
+    --tw-accent-arc: rgba(232, 166, 166, 0.3);
+    --tw-text: #d4d4d4;
+    --tw-text-dim: #999;
+    --tw-hud-bg: rgba(10, 10, 15, 0.7);
+    --tw-status: #4ade80;
+    --tw-scanline: rgba(0, 0, 0, 0.03);
+    --tw-tooltip-bg: rgba(10, 10, 15, 0.92);
+    --tw-tooltip-shadow: rgba(0, 0, 0, 0.6);
+    --tw-corner: rgba(232, 166, 166, 0.25);
+  }
+
+  html[data-theme="light"] .travel-page {
+    --tw-bg: #f5efe9;
+    --tw-border: rgba(160, 120, 80, 0.18);
+    --tw-accent: #b87333;
+    --tw-accent-dim: rgba(184, 115, 51, 0.45);
+    --tw-accent-border: rgba(184, 115, 51, 0.22);
+    --tw-accent-glow: rgba(184, 115, 51, 0.3);
+    --tw-accent-faint: rgba(184, 115, 51, 0.08);
+    --tw-accent-hover: rgba(184, 115, 51, 0.06);
+    --tw-accent-label: rgba(140, 90, 40, 0.85);
+    --tw-accent-arc: rgba(184, 115, 51, 0.35);
+    --tw-text: #4a3f36;
+    --tw-text-dim: #8a7b6f;
+    --tw-hud-bg: rgba(245, 239, 233, 0.85);
+    --tw-status: #389e0d;
+    --tw-scanline: rgba(180, 150, 120, 0.03);
+    --tw-tooltip-bg: rgba(245, 239, 233, 0.95);
+    --tw-tooltip-shadow: rgba(100, 80, 60, 0.2);
+    --tw-corner: rgba(184, 115, 51, 0.2);
+  }
+
   .travel-wrapper {
     position: relative;
-    background: #0a0a0f;
+    background: var(--tw-bg);
     border-radius: 8px;
     overflow: hidden;
     margin: -1rem 0 2rem;
-    border: 1px solid rgba(232, 166, 166, 0.15);
+    border: 1px solid var(--tw-border);
+    transition: background 0.5s ease, border-color 0.5s ease;
   }
 
   .travel-hud {
@@ -33,44 +76,49 @@ nav_order: 5
 
   .travel-hud-left,
   .travel-hud-right {
-    background: rgba(10, 10, 15, 0.7);
+    background: var(--tw-hud-bg);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 8px 14px;
     border-radius: 4px;
-    border: 1px solid rgba(232, 166, 166, 0.2);
+    border: 1px solid var(--tw-accent-border);
+    transition: background 0.5s ease, border-color 0.5s ease;
   }
 
   .travel-hud-title {
     font-size: 0.7rem;
     letter-spacing: 3px;
-    color: #e8a6a6;
+    color: var(--tw-accent);
     text-transform: uppercase;
     margin: 0;
     font-weight: 600;
+    transition: color 0.5s ease;
   }
 
   .travel-hud-sub {
     font-size: 0.6rem;
-    color: rgba(232, 166, 166, 0.5);
+    color: var(--tw-accent-dim);
     letter-spacing: 1px;
     margin: 2px 0 0;
+    transition: color 0.5s ease;
   }
 
   .travel-hud-status {
     font-size: 0.6rem;
-    color: #4ade80;
+    color: var(--tw-status);
     letter-spacing: 2px;
     text-transform: uppercase;
     text-align: right;
     margin: 0;
+    transition: color 0.5s ease;
   }
 
   .travel-hud-date {
     font-size: 0.6rem;
-    color: rgba(232, 166, 166, 0.4);
+    color: var(--tw-accent-dim);
     text-align: right;
     margin: 2px 0 0;
+    transition: color 0.5s ease;
   }
 
   #globe-container {
@@ -89,6 +137,8 @@ nav_order: 5
     #globe-container {
       height: 400px;
     }
+    .travel-celestial-sun { width: 40px !important; height: 40px !important; }
+    .travel-celestial-moon { width: 30px !important; height: 30px !important; }
   }
 
   .travel-scanline {
@@ -103,8 +153,8 @@ nav_order: 5
       0deg,
       transparent,
       transparent 3px,
-      rgba(0, 0, 0, 0.03) 3px,
-      rgba(0, 0, 0, 0.03) 6px
+      var(--tw-scanline) 3px,
+      var(--tw-scanline) 6px
     );
     opacity: 0.4;
   }
@@ -121,8 +171,9 @@ nav_order: 5
     position: absolute;
     width: 30px;
     height: 30px;
-    border-color: rgba(232, 166, 166, 0.25);
+    border-color: var(--tw-corner);
     border-style: solid;
+    transition: border-color 0.5s ease;
   }
   .travel-corners::before {
     top: 8px; left: 8px;
@@ -145,8 +196,9 @@ nav_order: 5
     position: absolute;
     width: 30px;
     height: 30px;
-    border-color: rgba(232, 166, 166, 0.25);
+    border-color: var(--tw-corner);
     border-style: solid;
+    transition: border-color 0.5s ease;
   }
   .travel-corners-bottom::before {
     bottom: 8px; left: 8px;
@@ -157,24 +209,128 @@ nav_order: 5
     border-width: 0 2px 2px 0;
   }
 
+  /* --- Celestial bodies --- */
+
+  .travel-celestial-sun {
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    margin-left: 80px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fffbe8 0%, #ffd866 30%, #faad14 65%, transparent 100%);
+    box-shadow:
+      0 0 25px 10px rgba(255, 216, 102, 0.55),
+      0 0 55px 22px rgba(250, 173, 20, 0.28),
+      0 0 100px 40px rgba(250, 173, 20, 0.12);
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.5) translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    animation: sunPulse 5s ease-in-out infinite alternate;
+  }
+
+  html[data-theme="light"] .travel-celestial-sun {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  @keyframes sunPulse {
+    0% { box-shadow: 0 0 25px 10px rgba(255,216,102,0.55), 0 0 55px 22px rgba(250,173,20,0.28), 0 0 100px 40px rgba(250,173,20,0.12); }
+    100% { box-shadow: 0 0 30px 14px rgba(255,216,102,0.65), 0 0 65px 28px rgba(250,173,20,0.35), 0 0 110px 48px rgba(250,173,20,0.18); }
+  }
+
+  .travel-celestial-sun::before {
+    content: '';
+    position: absolute;
+    top: -15px; left: -15px;
+    right: -15px; bottom: -15px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,220,120,0.15) 0%, transparent 70%);
+    animation: sunRays 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes sunRays {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.3); opacity: 1; }
+  }
+
+  .travel-celestial-moon {
+    position: absolute;
+    top: 55px;
+    left: 50%;
+    margin-left: 80px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 60% 38%, #f0f0ec 0%, #d4d4d0 45%, #a8a8a4 90%);
+    box-shadow:
+      0 0 15px 5px rgba(200, 200, 220, 0.35),
+      0 0 40px 15px rgba(180, 180, 210, 0.18),
+      0 0 70px 28px rgba(180, 180, 210, 0.07);
+    z-index: 4;
+    pointer-events: none;
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    animation: moonGlow 6s ease-in-out infinite alternate;
+  }
+
+  html[data-theme="light"] .travel-celestial-moon {
+    opacity: 0;
+    transform: scale(0.5) translateY(10px);
+  }
+
+  @keyframes moonGlow {
+    0% { box-shadow: 0 0 15px 5px rgba(200,200,220,0.35), 0 0 40px 15px rgba(180,180,210,0.18), 0 0 70px 28px rgba(180,180,210,0.07); }
+    100% { box-shadow: 0 0 18px 7px rgba(200,200,220,0.45), 0 0 45px 18px rgba(180,180,210,0.25), 0 0 80px 32px rgba(180,180,210,0.1); }
+  }
+
+  .travel-celestial-moon::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(160, 160, 155, 0.4);
+    top: 30%;
+    left: 25%;
+  }
+  .travel-celestial-moon::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(160, 160, 155, 0.3);
+    top: 55%;
+    left: 55%;
+  }
+
+  /* --- Stats & destinations --- */
+
   .travel-dest-panel {
-    background: #0a0a0f;
-    border: 1px solid rgba(232, 166, 166, 0.15);
+    background: var(--tw-bg);
+    border: 1px solid var(--tw-border);
     border-radius: 8px;
     margin-top: 1.5rem;
     overflow: hidden;
+    transition: background 0.5s ease, border-color 0.5s ease;
   }
 
   .travel-dest-header {
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.65rem;
     letter-spacing: 3px;
-    color: #e8a6a6;
+    color: var(--tw-accent);
     text-transform: uppercase;
     padding: 14px 20px 10px;
-    border-bottom: 1px solid rgba(232, 166, 166, 0.1);
+    border-bottom: 1px solid var(--tw-accent-faint);
     margin: 0;
     font-weight: 600;
+    transition: color 0.5s ease, border-color 0.5s ease;
   }
 
   .travel-dest-list {
@@ -187,37 +343,40 @@ nav_order: 5
     display: flex;
     align-items: center;
     padding: 12px 20px;
-    border-bottom: 1px solid rgba(232, 166, 166, 0.06);
-    transition: background 0.2s;
+    border-bottom: 1px solid var(--tw-accent-faint);
+    transition: background 0.2s, border-color 0.5s ease;
     cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
   }
 
   .travel-dest-item:hover {
-    background: rgba(232, 166, 166, 0.05);
+    background: var(--tw-accent-hover);
   }
 
   .travel-dest-marker {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #e8a6a6;
+    background: var(--tw-accent);
     margin-right: 14px;
     flex-shrink: 0;
-    box-shadow: 0 0 6px rgba(232, 166, 166, 0.4);
+    box-shadow: 0 0 6px var(--tw-accent-glow);
+    transition: background 0.5s ease, box-shadow 0.5s ease;
   }
 
   .travel-dest-name {
     font-size: 0.85rem;
-    color: #d4d4d4;
+    color: var(--tw-text);
     flex: 1;
+    transition: color 0.5s ease;
   }
 
   .travel-dest-country {
     font-size: 0.7rem;
-    color: rgba(232, 166, 166, 0.5);
+    color: var(--tw-accent-dim);
     letter-spacing: 1px;
     text-transform: uppercase;
+    transition: color 0.5s ease;
   }
 
   .travel-stats {
@@ -228,60 +387,65 @@ nav_order: 5
   }
 
   .travel-stat-card {
-    background: #0a0a0f;
-    border: 1px solid rgba(232, 166, 166, 0.15);
+    background: var(--tw-bg);
+    border: 1px solid var(--tw-border);
     border-radius: 8px;
     padding: 16px 20px;
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
+    transition: background 0.5s ease, border-color 0.5s ease;
   }
 
   .travel-stat-num {
     font-size: 1.6rem;
-    color: #e8a6a6;
+    color: var(--tw-accent);
     font-weight: 700;
     line-height: 1;
     margin-bottom: 4px;
+    transition: color 0.5s ease;
   }
 
   .travel-stat-label {
     font-size: 0.6rem;
-    color: rgba(232, 166, 166, 0.45);
+    color: var(--tw-accent-dim);
     letter-spacing: 2px;
     text-transform: uppercase;
+    transition: color 0.5s ease;
   }
 
   .globe-tooltip {
-    background: rgba(10, 10, 15, 0.92) !important;
+    background: var(--tw-tooltip-bg) !important;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(232, 166, 166, 0.3) !important;
+    border: 1px solid var(--tw-accent-border) !important;
     border-radius: 6px !important;
     padding: 10px 14px !important;
     font-family: 'Courier New', Courier, monospace !important;
-    color: #d4d4d4 !important;
+    color: var(--tw-text) !important;
     font-size: 0.8rem !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
+    box-shadow: 0 4px 20px var(--tw-tooltip-shadow) !important;
     pointer-events: none;
     max-width: 220px;
     line-height: 1.4;
   }
   .globe-tooltip strong {
-    color: #e8a6a6;
+    color: var(--tw-accent);
     font-weight: 600;
   }
   .globe-tooltip .tt-country {
-    color: rgba(232, 166, 166, 0.5);
+    color: var(--tw-accent-dim);
     font-size: 0.65rem;
     letter-spacing: 1px;
     text-transform: uppercase;
   }
   .globe-tooltip .tt-note {
-    color: #999;
+    color: var(--tw-text-dim);
     font-size: 0.72rem;
     margin-top: 3px;
   }
 </style>
+
+<div class="travel-page">
 
 <div class="travel-wrapper">
   <div class="travel-hud">
@@ -294,6 +458,8 @@ nav_order: 5
       <p class="travel-hud-date" id="travel-date"></p>
     </div>
   </div>
+  <div class="travel-celestial-sun"></div>
+  <div class="travel-celestial-moon"></div>
   <div class="travel-scanline"></div>
   <div class="travel-corners"></div>
   <div class="travel-corners-bottom"></div>
@@ -305,6 +471,8 @@ nav_order: 5
 <div class="travel-dest-panel">
   <p class="travel-dest-header">Destinations</p>
   <ul class="travel-dest-list" id="travel-dest-list"></ul>
+</div>
+
 </div>
 
 <script src="//unpkg.com/globe.gl@2.41.4/dist/globe.gl.min.js"></script>
@@ -413,15 +581,63 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  var preloadDay = new Image();
+  preloadDay.src = '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg';
+  var preloadNight = new Image();
+  preloadNight.src = '//unpkg.com/three-globe/example/img/earth-night.jpg';
+
+  function makeLightBg() {
+    var c = document.createElement('canvas');
+    c.width = 512; c.height = 512;
+    var ctx = c.getContext('2d');
+    var g = ctx.createRadialGradient(256, 256, 0, 256, 256, 362);
+    g.addColorStop(0, '#ede4da');
+    g.addColorStop(0.6, '#f0e8e0');
+    g.addColorStop(1, '#f5efe9');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 512, 512);
+    return c.toDataURL();
+  }
+
+  var lightBgUrl = makeLightBg();
+
+  var themes = {
+    dark: {
+      globeImage: '//unpkg.com/three-globe/example/img/earth-night.jpg',
+      bgImage: '//unpkg.com/three-globe/example/img/night-sky.png',
+      pointColor: '#e8a6a6',
+      labelColor: 'rgba(232, 166, 166, 0.75)',
+      arcColor: 'rgba(232, 166, 166, 0.3)',
+      atmosphereColor: '#e8a6a6',
+      atmosphereAltitude: 0.2
+    },
+    light: {
+      globeImage: '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
+      bgImage: lightBgUrl,
+      pointColor: '#b87333',
+      labelColor: 'rgba(140, 90, 40, 0.85)',
+      arcColor: 'rgba(184, 115, 51, 0.35)',
+      atmosphereColor: '#6bb3d9',
+      atmosphereAltitude: 0.18
+    }
+  };
+
+  function getTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'dark';
+  }
+
+  var currentTheme = getTheme();
+  var t = themes[currentTheme] || themes.dark;
+
   var globe = Globe()
-    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
-    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+    .globeImageUrl(t.globeImage)
+    .backgroundImageUrl(t.bgImage)
     .pointsData(destinations)
     .pointLat('lat')
     .pointLng('lng')
     .pointAltitude(0.06)
     .pointRadius(0.35)
-    .pointColor(function() { return '#e8a6a6'; })
+    .pointColor(function() { return t.pointColor; })
     .pointLabel(function(d) {
       return '<div class="globe-tooltip">' +
         '<strong>' + d.name + '</strong><br>' +
@@ -436,18 +652,18 @@ document.addEventListener("DOMContentLoaded", function () {
     .labelSize(1.2)
     .labelDotRadius(0.4)
     .labelDotOrientation(function() { return 'right'; })
-    .labelColor(function() { return 'rgba(232, 166, 166, 0.75)'; })
+    .labelColor(function() { return t.labelColor; })
     .labelResolution(2)
     .labelAltitude(0.01)
     .arcsData(arcsData)
-    .arcColor(function() { return ['rgba(232, 166, 166, 0.3)', 'rgba(232, 166, 166, 0.3)']; })
+    .arcColor(function() { return [t.arcColor, t.arcColor]; })
     .arcAltitudeAutoScale(0.3)
     .arcStroke(0.4)
     .arcDashLength(0.4)
     .arcDashGap(0.2)
     .arcDashAnimateTime(2000)
-    .atmosphereColor('#e8a6a6')
-    .atmosphereAltitude(0.2)
+    .atmosphereColor(t.atmosphereColor)
+    .atmosphereAltitude(t.atmosphereAltitude)
     .width(containerEl.offsetWidth)
     .height(containerEl.offsetHeight)
     (containerEl);
@@ -458,6 +674,31 @@ document.addEventListener("DOMContentLoaded", function () {
   globe.controls().dampingFactor = 0.1;
 
   globe.pointOfView({ lat: 30, lng: -40, altitude: 2.2 });
+
+  function applyGlobeTheme(theme) {
+    var t = themes[theme] || themes.dark;
+    globe
+      .globeImageUrl(t.globeImage)
+      .backgroundImageUrl(t.bgImage)
+      .pointColor(function() { return t.pointColor; })
+      .labelColor(function() { return t.labelColor; })
+      .arcColor(function() { return [t.arcColor, t.arcColor]; })
+      .atmosphereColor(t.atmosphereColor)
+      .atmosphereAltitude(t.atmosphereAltitude);
+  }
+
+  var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(m) {
+      if (m.attributeName === 'data-theme') {
+        var newTheme = getTheme();
+        if (newTheme !== currentTheme) {
+          currentTheme = newTheme;
+          applyGlobeTheme(newTheme);
+        }
+      }
+    });
+  });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   window.addEventListener('resize', function() {
     globe.width(containerEl.offsetWidth);
