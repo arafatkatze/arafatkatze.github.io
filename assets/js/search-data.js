@@ -157,86 +157,71 @@ ninja.data = [{
             window.location.href = "/philosophy/2024/05/06/inwards.html";
           
         },
-      },{id: "books-an-elegant-puzzle",
-          title: 'An Elegant Puzzle',
+      },{id: "books-1984",
+          title: '1984',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/an_elegant_puzzle.html";
-            },},{id: "books-atomic-habits",
-          title: 'Atomic Habits',
+              window.location.href = "/books/1984.html";
+            },},{id: "books-and-the-mountains-echoed",
+          title: 'And the Mountains Echoed',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/atomic_habits.html";
-            },},{id: "books-deep-work",
-          title: 'Deep Work',
+              window.location.href = "/books/and_the_mountains_echoed.html";
+            },},{id: "books-born-to-run-a-hidden-tribe-superathletes-and-the-greatest-race-the-world-has-never-seen",
+          title: 'Born to Run: A Hidden Tribe, Superathletes, and the Greatest Race the World...',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/deep_work.html";
-            },},{id: "books-dune",
-          title: 'Dune',
+              window.location.href = "/books/born_to_run.html";
+            },},{id: "books-cross-country-a-3-700-mile-run-to-explore-unseen-america",
+          title: 'Cross Country: A 3,700-Mile Run to Explore Unseen America',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/dune.html";
-            },},{id: "books-never-split-the-difference",
-          title: 'Never Split the Difference',
+              window.location.href = "/books/cross_country.html";
+            },},{id: "books-dignity-seeking-respect-in-back-row-america",
+          title: 'Dignity: Seeking Respect in Back Row America',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/never_split_the_difference.html";
-            },},{id: "books-project-hail-mary",
-          title: 'Project Hail Mary',
+              window.location.href = "/books/dignity.html";
+            },},{id: "books-into-the-wild",
+          title: 'Into the Wild',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/project_hail_mary.html";
-            },},{id: "books-sapiens",
-          title: 'Sapiens',
+              window.location.href = "/books/into_the_wild.html";
+            },},{id: "books-letters-to-a-young-poet",
+          title: 'Letters to a Young Poet',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/sapiens.html";
-            },},{id: "books-the-alchemist",
-          title: 'The Alchemist',
+              window.location.href = "/books/letters_to_a_young_poet.html";
+            },},{id: "books-sovietistan-travels-in-turkmenistan-kazakhstan-tajikistan-kyrgyzstan-and-uzbekistan",
+          title: 'Sovietistan: Travels in Turkmenistan, Kazakhstan, Tajikistan, Kyrgyzstan, and Uzbekistan',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/the_alchemist.html";
-            },},{id: "books-the-design-of-everyday-things",
-          title: 'The Design of Everyday Things',
+              window.location.href = "/books/sovietistan.html";
+            },},{id: "books-the-almanack-of-naval-ravikant-a-guide-to-wealth-and-happiness",
+          title: 'The Almanack of Naval Ravikant: A Guide to Wealth and Happiness',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/the_design_of_everyday_things.html";
-            },},{id: "books-the-godfather",
-          title: 'The Godfather',
+              window.location.href = "/books/the_almanack_of_naval_ravikant.html";
+            },},{id: "books-the-bed-of-procrustes-philosophical-and-practical-aphorisms",
+          title: 'The Bed of Procrustes: Philosophical and Practical Aphorisms',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/the_godfather.html";
-            },},{id: "books-the-innovator-39-s-dilemma",
-          title: 'The Innovator&amp;#39;s Dilemma',
+              window.location.href = "/books/the_bed_of_procrustes.html";
+            },},{id: "books-the-kite-runner",
+          title: 'The Kite Runner',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/the_innovators_dilemma.html";
-            },},{id: "books-the-lean-startup",
-          title: 'The Lean Startup',
+              window.location.href = "/books/the_kite_runner.html";
+            },},{id: "books-the-metamorphosis",
+          title: 'The Metamorphosis',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/the_lean_startup.html";
-            },},{id: "books-the-midnight-library",
-          title: 'The Midnight Library',
+              window.location.href = "/books/the_metamorphosis.html";
+            },},{id: "books-the-stranger",
+          title: 'The Stranger',
           description: "",
           section: "Books",handler: () => {
-              window.location.href = "/books/the_midnight_library.html";
-            },},{id: "books-the-pragmatic-programmer",
-          title: 'The Pragmatic Programmer',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/the_pragmatic_programmer.html";
-            },},{id: "books-the-psychology-of-money",
-          title: 'The Psychology of Money',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/the_psychology_of_money.html";
-            },},{id: "books-thinking-fast-and-slow",
-          title: 'Thinking, Fast and Slow',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/thinking_fast_and_slow.html";
+              window.location.href = "/books/the_stranger.html";
             },},{id: "news-i-have-joined-cline",
           title: 'I have joined Cline',
           description: "",
