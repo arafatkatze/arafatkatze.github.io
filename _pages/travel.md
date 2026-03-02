@@ -281,6 +281,16 @@ nav_order: 5
     font-size: 0.72rem;
     margin-top: 3px;
   }
+
+  .travel-stat-link {
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .travel-stat-link:hover {
+    border-color: rgba(232, 166, 166, 0.4);
+    transform: translateY(-2px);
+  }
 </style>
 
 <div class="travel-wrapper">
@@ -399,7 +409,10 @@ document.addEventListener("DOMContentLoaded", function () {
     '<div class="travel-stat-card"><div class="travel-stat-num">' + countries.length +
     '</div><div class="travel-stat-label">Countries</div></div>' +
     '<div class="travel-stat-card"><div class="travel-stat-num">' + Object.keys(continents).length +
-    '</div><div class="travel-stat-label">Continents</div></div>';
+    '</div><div class="travel-stat-label">Continents</div></div>' +
+    '<a href="/pack/" class="travel-stat-card travel-stat-link" title="Think you can pack lighter?">' +
+    '<div class="travel-stat-num">18kg</div>' +
+    '<div class="travel-stat-label">One Suitcase</div></a>';
 
   var containerEl = document.getElementById('globe-container');
 

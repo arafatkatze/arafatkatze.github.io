@@ -3,8 +3,7 @@ layout: page
 title: Pack My Suitcase
 permalink: /pack/
 description: this suitcase won't close. can you get it to 18kg?
-nav: true
-nav_order: 8
+nav: false
 ---
 
 <div class="pack-page" id="pack-page">
