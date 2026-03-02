@@ -22,7 +22,7 @@ content_blocks:
     link: /blog/
   - title: Projects
     subtitle: Life stories & adventures
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/v1766803299/59a8cbc7-95fc-5b34-8d83-53f7729a6786_vvlnqo.jpg
     collection: projects
     link: /projects/
   - title: AI
@@ -32,9 +32,10 @@ content_blocks:
     description: Writings about building agentic AI — traps, search strategies, reverse-engineering tools, and more.
   - title: Reading
     subtitle: Books & reviews
-    image: assets/img/book_covers/the_godfather.jpg
+    image: https://covers.openlibrary.org/b/isbn/0441172717-L.jpg
     collection: books
-    link: /books/
+    link: /reading/
+    limit: 8
 
 announcements:
   enabled: false
