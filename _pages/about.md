@@ -43,13 +43,13 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417818/site/art/7.jpg
     type: image
 
-  - title: Dune
+  - title: "1984"
     label: Reading · Books
     link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0441172717-L.jpg
+    image: https://covers.openlibrary.org/b/isbn/0451524934-L.jpg
     type: book
-    author: Frank Herbert
-    badge: Favorite
+    author: George Orwell
+    badge: Read
 
   - title: Mathematics of Love
     label: Projects · Art
@@ -65,13 +65,13 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
     type: image
 
-  - title: Atomic Habits
+  - title: The Kite Runner
     label: Reading · Books
     link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0735211299-L.jpg
+    image: https://covers.openlibrary.org/b/isbn/159463193X-L.jpg
     type: book
-    author: James Clear
-    badge: Favorite
+    author: Khaled Hosseini
+    badge: Read
 
   - title: Agentic AI
     label: Projects · Work
@@ -79,12 +79,12 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
     type: image
 
-  - title: The Alchemist
+  - title: Into the Wild
     label: Reading · Books
     link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0062315005-L.jpg
+    image: https://covers.openlibrary.org/b/isbn/0385486804-L.jpg
     type: book
-    author: Paulo Coelho
+    author: Jon Krakauer
     badge: Read
 
   # Row 4: brazil tall + pixel board + mountain of spirits + writing
@@ -102,11 +102,12 @@ bento_tiles:
     excerpt: "Collaborative pixel art — leave your mark on the board."
     bg: pixel
 
-  - title: Mountain of Spirits
-    label: Writing · Travel
-    link: /philosophy/2025/12/15/mountain-of-spirits
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1766712820/manitonga_ukgdy8.png
-    type: image
+  - title: On Looking Inwards
+    label: Writing · Philosophy
+    link: /philosophy/2024/05/06/inwards
+    type: text
+    excerpt: "I have been looking outwards for too long. It's time to look inwards."
+    bg: warm
 
   # Row 5: writing section + matchmaking + sapiens
   - title: writing.
@@ -116,20 +117,20 @@ bento_tiles:
     excerpt: "Philosophy, love letters, travel stories — the wild west of my thoughts."
     bg: warm
 
-  - title: I Hope It Happens For You
-    label: Writing · Love
-    link: /philosophy/2025/08/10/i-hope-it-happens-for-you
+  - title: Messages to 24 People I Know
+    label: Writing · Letters
+    link: /philosophy/2025/03/05/messages-to-24-people
     type: text
-    excerpt: "I want to fall in love again, but this time I want to do it once for the rest of my life..."
+    excerpt: "24 honest, unfiltered messages to people who shaped my life — some will never read theirs."
     span: wide
 
-  - title: Sapiens
+  - title: The Stranger
     label: Reading · Books
     link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0062316095-L.jpg
+    image: https://covers.openlibrary.org/b/isbn/0679720200-L.jpg
     type: book
-    author: Yuval Noah Harari
-    badge: Favorite
+    author: Albert Camus
+    badge: Read
 
 announcements:
   enabled: false
