@@ -41,6 +41,11 @@ layout: default
 
     <div class="clearfix">{{ content }}</div>
 
+    <!-- Bento Grid -->
+    {% if page.bento_tiles %}
+      {% include content_blocks.liquid %}
+    {% endif %}
+
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
       <h2>
