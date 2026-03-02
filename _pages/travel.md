@@ -8,6 +8,28 @@ nav_order: 5
 ---
 
 <style>
+  .travel-page {
+    --tw-card-bg: #0a0a0f;
+    --tw-card-border: rgba(232, 166, 166, 0.15);
+    --tw-card-accent: #e8a6a6;
+    --tw-card-accent-dim: rgba(232, 166, 166, 0.5);
+    --tw-card-accent-faint: rgba(232, 166, 166, 0.06);
+    --tw-card-accent-hover: rgba(232, 166, 166, 0.05);
+    --tw-card-accent-glow: rgba(232, 166, 166, 0.4);
+    --tw-card-text: #d4d4d4;
+  }
+
+  html[data-theme="light"] .travel-page {
+    --tw-card-bg: #ffffff;
+    --tw-card-border: rgba(0, 0, 0, 0.1);
+    --tw-card-accent: #b87333;
+    --tw-card-accent-dim: rgba(184, 115, 51, 0.45);
+    --tw-card-accent-faint: rgba(184, 115, 51, 0.08);
+    --tw-card-accent-hover: rgba(184, 115, 51, 0.06);
+    --tw-card-accent-glow: rgba(184, 115, 51, 0.3);
+    --tw-card-text: #3a3a3a;
+  }
+
   .travel-wrapper {
     position: relative;
     background: #0a0a0f;
@@ -157,24 +179,28 @@ nav_order: 5
     border-width: 0 2px 2px 0;
   }
 
+  /* --- Stats & destinations (theme-responsive) --- */
+
   .travel-dest-panel {
-    background: #0a0a0f;
-    border: 1px solid rgba(232, 166, 166, 0.15);
+    background: var(--tw-card-bg);
+    border: 1px solid var(--tw-card-border);
     border-radius: 8px;
     margin-top: 1.5rem;
     overflow: hidden;
+    transition: background 0.5s ease, border-color 0.5s ease;
   }
 
   .travel-dest-header {
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.65rem;
     letter-spacing: 3px;
-    color: #e8a6a6;
+    color: var(--tw-card-accent);
     text-transform: uppercase;
     padding: 14px 20px 10px;
-    border-bottom: 1px solid rgba(232, 166, 166, 0.1);
+    border-bottom: 1px solid var(--tw-card-accent-faint);
     margin: 0;
     font-weight: 600;
+    transition: color 0.5s ease, border-color 0.5s ease;
   }
 
   .travel-dest-list {
@@ -187,37 +213,40 @@ nav_order: 5
     display: flex;
     align-items: center;
     padding: 12px 20px;
-    border-bottom: 1px solid rgba(232, 166, 166, 0.06);
+    border-bottom: 1px solid var(--tw-card-accent-faint);
     transition: background 0.2s;
     cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
   }
 
   .travel-dest-item:hover {
-    background: rgba(232, 166, 166, 0.05);
+    background: var(--tw-card-accent-hover);
   }
 
   .travel-dest-marker {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #e8a6a6;
+    background: var(--tw-card-accent);
     margin-right: 14px;
     flex-shrink: 0;
-    box-shadow: 0 0 6px rgba(232, 166, 166, 0.4);
+    box-shadow: 0 0 6px var(--tw-card-accent-glow);
+    transition: background 0.5s ease, box-shadow 0.5s ease;
   }
 
   .travel-dest-name {
     font-size: 0.85rem;
-    color: #d4d4d4;
+    color: var(--tw-card-text);
     flex: 1;
+    transition: color 0.5s ease;
   }
 
   .travel-dest-country {
     font-size: 0.7rem;
-    color: rgba(232, 166, 166, 0.5);
+    color: var(--tw-card-accent-dim);
     letter-spacing: 1px;
     text-transform: uppercase;
+    transition: color 0.5s ease;
   }
 
   .travel-stats {
@@ -228,27 +257,30 @@ nav_order: 5
   }
 
   .travel-stat-card {
-    background: #0a0a0f;
-    border: 1px solid rgba(232, 166, 166, 0.15);
+    background: var(--tw-card-bg);
+    border: 1px solid var(--tw-card-border);
     border-radius: 8px;
     padding: 16px 20px;
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
+    transition: background 0.5s ease, border-color 0.5s ease;
   }
 
   .travel-stat-num {
     font-size: 1.6rem;
-    color: #e8a6a6;
+    color: var(--tw-card-accent);
     font-weight: 700;
     line-height: 1;
     margin-bottom: 4px;
+    transition: color 0.5s ease;
   }
 
   .travel-stat-label {
     font-size: 0.6rem;
-    color: rgba(232, 166, 166, 0.45);
+    color: var(--tw-card-accent-dim);
     letter-spacing: 2px;
     text-transform: uppercase;
+    transition: color 0.5s ease;
   }
 
   .globe-tooltip {
@@ -283,6 +315,8 @@ nav_order: 5
   }
 </style>
 
+<div class="travel-page">
+
 <div class="travel-wrapper">
   <div class="travel-hud">
     <div class="travel-hud-left">
@@ -305,6 +339,8 @@ nav_order: 5
 <div class="travel-dest-panel">
   <p class="travel-dest-header">Destinations</p>
   <ul class="travel-dest-list" id="travel-dest-list"></ul>
+</div>
+
 </div>
 
 <script src="//unpkg.com/globe.gl@2.41.4/dist/globe.gl.min.js"></script>
@@ -413,15 +449,48 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  var preloadDay = new Image();
+  preloadDay.src = '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg';
+  var preloadNight = new Image();
+  preloadNight.src = '//unpkg.com/three-globe/example/img/earth-night.jpg';
+
+  var nightSkyUrl = '//unpkg.com/three-globe/example/img/night-sky.png';
+
+  var themes = {
+    dark: {
+      globeImage: '//unpkg.com/three-globe/example/img/earth-night.jpg',
+      pointColor: '#e8a6a6',
+      labelColor: 'rgba(232, 166, 166, 0.75)',
+      arcColor: 'rgba(232, 166, 166, 0.3)',
+      atmosphereColor: '#e8a6a6',
+      atmosphereAltitude: 0.2
+    },
+    light: {
+      globeImage: '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
+      pointColor: '#e8a6a6',
+      labelColor: 'rgba(232, 166, 166, 0.75)',
+      arcColor: 'rgba(232, 166, 166, 0.3)',
+      atmosphereColor: '#6bb3d9',
+      atmosphereAltitude: 0.18
+    }
+  };
+
+  function getTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'dark';
+  }
+
+  var currentTheme = getTheme();
+  var t = themes[currentTheme] || themes.dark;
+
   var globe = Globe()
-    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
-    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+    .globeImageUrl(t.globeImage)
+    .backgroundImageUrl(nightSkyUrl)
     .pointsData(destinations)
     .pointLat('lat')
     .pointLng('lng')
     .pointAltitude(0.06)
     .pointRadius(0.35)
-    .pointColor(function() { return '#e8a6a6'; })
+    .pointColor(function() { return t.pointColor; })
     .pointLabel(function(d) {
       return '<div class="globe-tooltip">' +
         '<strong>' + d.name + '</strong><br>' +
@@ -436,18 +505,18 @@ document.addEventListener("DOMContentLoaded", function () {
     .labelSize(1.2)
     .labelDotRadius(0.4)
     .labelDotOrientation(function() { return 'right'; })
-    .labelColor(function() { return 'rgba(232, 166, 166, 0.75)'; })
+    .labelColor(function() { return t.labelColor; })
     .labelResolution(2)
     .labelAltitude(0.01)
     .arcsData(arcsData)
-    .arcColor(function() { return ['rgba(232, 166, 166, 0.3)', 'rgba(232, 166, 166, 0.3)']; })
+    .arcColor(function() { return [t.arcColor, t.arcColor]; })
     .arcAltitudeAutoScale(0.3)
     .arcStroke(0.4)
     .arcDashLength(0.4)
     .arcDashGap(0.2)
     .arcDashAnimateTime(2000)
-    .atmosphereColor('#e8a6a6')
-    .atmosphereAltitude(0.2)
+    .atmosphereColor(t.atmosphereColor)
+    .atmosphereAltitude(t.atmosphereAltitude)
     .width(containerEl.offsetWidth)
     .height(containerEl.offsetHeight)
     (containerEl);
@@ -458,6 +527,30 @@ document.addEventListener("DOMContentLoaded", function () {
   globe.controls().dampingFactor = 0.1;
 
   globe.pointOfView({ lat: 30, lng: -40, altitude: 2.2 });
+
+  function applyGlobeTheme(theme) {
+    var t = themes[theme] || themes.dark;
+    globe
+      .globeImageUrl(t.globeImage)
+      .pointColor(function() { return t.pointColor; })
+      .labelColor(function() { return t.labelColor; })
+      .arcColor(function() { return [t.arcColor, t.arcColor]; })
+      .atmosphereColor(t.atmosphereColor)
+      .atmosphereAltitude(t.atmosphereAltitude);
+  }
+
+  var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(m) {
+      if (m.attributeName === 'data-theme') {
+        var newTheme = getTheme();
+        if (newTheme !== currentTheme) {
+          currentTheme = newTheme;
+          applyGlobeTheme(newTheme);
+        }
+      }
+    });
+  });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   window.addEventListener('resize', function() {
     globe.width(containerEl.offsetWidth);
