@@ -105,7 +105,11 @@ layout: default
     {% if content == '' %}
       <figure class="empty-review">
         {% if page.cover %}
+          {% if page.cover contains '://' %}
+          <img class="empty-review-cover" alt="{{ page.title }} cover" src="{{ page.cover }}">
+          {% else %}
           <img class="empty-review-cover" alt="{{ page.title }} cover" src="{{ site.baseurl }}/{{ page.cover }}">
+          {% endif %}
           <figcaption class="empty-review-caption">
             Cover of <em>{{ page.title }}</em>
           </figcaption>
@@ -128,7 +132,11 @@ layout: default
     {% else %}
       <figure>
         {% if page.cover %}
+          {% if page.cover contains '://' %}
+          <img alt="{{ page.title }} cover" src="{{ page.cover }}">
+          {% else %}
           <img alt="{{ page.title }} cover" src="{{ site.baseurl }}/{{ page.cover }}">
+          {% endif %}
           <figcaption>
             Cover of <em>{{ page.title }}</em>
           </figcaption>

@@ -1,0 +1,65 @@
+{% comment %}
+  Bento grid — chester.how-style tile mosaic for the front page.
+  Tiles are defined in page.bento_tiles front matter.
+{% endcomment %}
+
+<div class="bento-grid">
+  {% for tile in page.bento_tiles %}
+    <a
+      class="bento-tile {{ tile.type | default: 'image' }} {% if tile.span %}span-{{ tile.span }}{% endif %} {% if tile.bg %}bg-{{ tile.bg }}{% endif %}"
+      href="{{ tile.link | relative_url }}"
+      {% if tile.style %}style="{{ tile.style }}"{% endif %}
+    >
+      {% if tile.image %}
+        <div class="bento-tile-img">
+          {% if tile.image contains '://' %}
+            <img src="{{ tile.image }}" alt="{{ tile.title }}" loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}" />
+          {% else %}
+            <img src="{{ tile.image | relative_url }}" alt="{{ tile.title }}" loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}" />
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if tile.type == 'text' or tile.type == 'card' %}
+        <div class="bento-tile-body">
+          {% if tile.label %}
+            <span class="bento-tile-label">{{ tile.label }}</span>
+          {% endif %}
+          <span class="bento-tile-arrow">&#8599;</span>
+          {% if tile.title %}
+            <h3 class="bento-tile-title">{{ tile.title }}</h3>
+          {% endif %}
+          {% if tile.excerpt %}
+            <p class="bento-tile-excerpt">{{ tile.excerpt }}</p>
+          {% endif %}
+        </div>
+
+      {% elsif tile.type == 'book' %}
+        <div class="bento-tile-book-info">
+          {% if tile.label %}
+            <span class="bento-tile-label">{{ tile.label }}</span>
+          {% endif %}
+          <span class="bento-tile-arrow">&#8599;</span>
+          {% if tile.badge %}
+            <span class="bento-tile-badge {% if tile.badge == 'Favorite' %}badge-fav{% elsif tile.badge == 'Reading' %}badge-reading{% else %}badge-read{% endif %}">{{ tile.badge }}</span>
+          {% endif %}
+          <span class="bento-tile-book-title">{{ tile.title }}</span>
+          {% if tile.author %}
+            <span class="bento-tile-book-author">{{ tile.author }}</span>
+          {% endif %}
+        </div>
+
+      {% else %}
+        <div class="bento-tile-overlay">
+          {% if tile.label %}
+            <span class="bento-tile-label">{{ tile.label }}</span>
+          {% endif %}
+          <span class="bento-tile-arrow">&#8599;</span>
+          {% if tile.title and tile.show_title != false %}
+            <h3 class="bento-tile-title">{{ tile.title }}</h3>
+          {% endif %}
+        </div>
+      {% endif %}
+    </a>
+  {% endfor %}
+</div>

@@ -1816,29 +1816,28 @@ html[data-theme="dark"] {
 figure.highlight {
   margin: 0 0 1rem;
 
-  // Responsive code block container
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 
   pre {
-    // Ensure code blocks can scroll horizontally
-    white-space: pre;
+    white-space: pre !important;
     word-wrap: normal;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 }
 
+// Bootstrap sets `pre { white-space: pre-wrap !important; }` which collapses
+// newlines in syntax-highlighted code blocks. Override it here so fenced code
+// blocks always preserve their formatting.
 pre {
   color: var(--global-theme-color);
   background-color: var(--global-code-bg-color);
   border-radius: 6px;
   padding: 6px 12px;
-
-  // Responsive behavior for code blocks
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  white-space: pre;
+  white-space: pre !important;
   word-wrap: normal;
 
   pre,
@@ -1847,6 +1846,8 @@ pre {
     border-radius: 0;
     margin-bottom: 0;
     padding: 0;
+    white-space: inherit;
+    word-wrap: inherit;
   }
 }
 
@@ -1856,7 +1857,7 @@ code {
   border-radius: 3px;
   padding: 3px 3px;
 
-  // Inline code should wrap
+  // Inline code should wrap normally
   white-space: normal;
   word-wrap: break-word;
 }
@@ -2597,4 +2598,310 @@ mjx-container[jax="CHTML"][display="true"] {
     padding: 25px;
     margin: 16px;
   }
+}
+
+// Bento Grid (chester.how-style front page tiles)
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 210px;
+  gap: 12px;
+  margin: 2rem 0;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 190px;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 170px;
+    gap: 10px;
+  }
+
+  @media (max-width: 400px) {
+    grid-auto-rows: 150px;
+  }
+}
+
+.bento-tile {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    text-decoration: none;
+
+    .bento-tile-img img {
+      transform: scale(1.04);
+    }
+  }
+
+  &.span-wide {
+    grid-column: span 2;
+  }
+
+  &.span-tall {
+    grid-row: span 2;
+  }
+
+  &.span-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  @media (max-width: 400px) {
+    &.span-wide {
+      grid-column: span 2;
+    }
+  }
+}
+
+// Image tile: full-bleed background image
+.bento-tile.image {
+  .bento-tile-img {
+    position: absolute;
+    inset: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+  }
+
+  .bento-tile-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35) 0%,
+      transparent 40%,
+      transparent 60%,
+      rgba(0, 0, 0, 0.45) 100%
+    );
+
+    .bento-tile-label {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .bento-tile-arrow {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .bento-tile-title {
+      margin-top: auto;
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+// Card tile: image on top, text content below
+.bento-tile.card {
+  .bento-tile-img {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.35s ease;
+    }
+  }
+
+  .bento-tile-body {
+    padding: 12px 14px;
+    position: relative;
+  }
+
+  &.span-wide {
+    flex-direction: row;
+
+    .bento-tile-img {
+      flex: 0 0 45%;
+      max-width: 45%;
+    }
+
+    .bento-tile-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
+// Text tile: no image, just text content
+.bento-tile.text {
+  .bento-tile-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+  }
+
+  &.bg-warm {
+    background: linear-gradient(135deg, #fef3e2, #fde8d0);
+    border-color: rgba(200, 160, 100, 0.2);
+  }
+
+  html[data-theme="dark"] &.bg-warm {
+    background: linear-gradient(135deg, #2a2318, #302620);
+    border-color: rgba(200, 160, 100, 0.15);
+  }
+
+  &.bg-pixel {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border-color: rgba(232, 166, 166, 0.15);
+
+    .bento-tile-label,
+    .bento-tile-title,
+    .bento-tile-excerpt,
+    .bento-tile-arrow {
+      color: #fff;
+    }
+  }
+}
+
+// Book tile: cover image with title/author below
+.bento-tile.book {
+  .bento-tile-img {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 14px 0;
+    background: var(--global-card-bg-color);
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: transform 0.35s ease;
+    }
+  }
+
+  .bento-tile-book-info {
+    padding: 8px 14px 12px;
+    position: relative;
+  }
+}
+
+// Shared tile elements
+.bento-tile-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--global-text-color-light);
+  margin-bottom: 4px;
+}
+
+.bento-tile-arrow {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 0.9rem;
+  color: var(--global-text-color-light);
+  opacity: 0;
+  transition: opacity 0.2s;
+
+  .bento-tile:hover & {
+    opacity: 1;
+  }
+}
+
+.bento-tile-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--global-text-color);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.bento-tile-excerpt {
+  font-size: 0.78rem;
+  color: var(--global-text-color-light);
+  margin: 4px 0 0;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bento-tile-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+
+  &.badge-fav {
+    background: #fff3e0;
+    color: #e65100;
+  }
+
+  &.badge-reading {
+    background: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &.badge-read {
+    background: #e3f2fd;
+    color: #1565c0;
+  }
+
+  html[data-theme="dark"] & {
+    &.badge-fav {
+      background: rgba(230, 81, 0, 0.2);
+      color: #ffb74d;
+    }
+
+    &.badge-reading {
+      background: rgba(46, 125, 50, 0.2);
+      color: #81c784;
+    }
+
+    &.badge-read {
+      background: rgba(21, 101, 192, 0.2);
+      color: #64b5f6;
+    }
+  }
+}
+
+.bento-tile-book-title {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--global-text-color);
+  line-height: 1.3;
+}
+
+.bento-tile-book-author {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--global-text-color-light);
+  margin-top: 1px;
 }
