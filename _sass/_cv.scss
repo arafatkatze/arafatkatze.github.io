@@ -7,8 +7,10 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
 .cv-bento {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  grid-auto-rows: min-content;
+  gap: 0.75rem;
   margin-bottom: 2rem;
+  align-items: stretch;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -19,7 +21,7 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
   background: var(--global-card-bg-color);
   border: 1px solid var(--global-divider-color);
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1.25rem;
   overflow: hidden;
   transition: box-shadow 0.2s ease;
 
@@ -29,18 +31,18 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
 
   .bento-card-title {
     font-family: $cv-serif-font;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 400;
     letter-spacing: -0.01em;
     color: var(--global-text-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
 
     i {
       color: var(--global-theme-color);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
   }
 }
@@ -51,12 +53,12 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 2rem 2rem;
+  padding: 1.5rem 1.75rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 
   .basics-info {
@@ -65,25 +67,25 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
 
   .basics-name {
     font-family: $cv-serif-font;
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 400;
     letter-spacing: -0.02em;
     color: var(--global-text-color);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
   }
 
   .basics-summary {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--global-text-color-light);
     font-style: italic;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
   }
 
   .basics-contact {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
-    font-size: 0.85rem;
+    gap: 0.85rem;
+    font-size: 0.82rem;
     color: var(--global-text-color-light);
 
     a {
@@ -97,7 +99,7 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
 
     i {
       color: var(--global-theme-color);
-      margin-right: 0.3rem;
+      margin-right: 0.25rem;
     }
   }
 
@@ -107,13 +109,13 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
     a {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
       border: 1px solid var(--global-divider-color);
       border-radius: 8px;
       color: var(--global-text-color);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       transition: border-color 0.2s ease, color 0.2s ease;
 
       &:hover {
@@ -123,7 +125,7 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
       }
 
       i {
-        font-size: 1.1rem;
+        font-size: 1rem;
       }
     }
   }
@@ -131,46 +133,62 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
 
 .bento-work {
   grid-column: 1 / 3;
+  grid-row: 2 / 4;
 
   @media (max-width: 768px) {
     grid-column: 1 / -1;
+    grid-row: auto;
   }
 }
 
 .bento-education {
   grid-column: 3 / 4;
+  grid-row: 2 / 3;
 
   @media (max-width: 768px) {
     grid-column: 1 / -1;
+    grid-row: auto;
   }
 }
 
 .bento-awards {
-  grid-column: 1 / 2;
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
 
   @media (max-width: 768px) {
     grid-column: 1 / -1;
+    grid-row: auto;
   }
 }
 
 .bento-skills {
-  grid-column: 2 / 3;
+  grid-column: 1 / 2;
+  grid-row: 4 / 5;
 
   @media (max-width: 768px) {
     grid-column: 1 / -1;
+    grid-row: auto;
   }
 }
 
 .bento-languages {
-  grid-column: 3 / 4;
+  grid-column: 2 / 3;
+  grid-row: 4 / 5;
 
   @media (max-width: 768px) {
     grid-column: 1 / -1;
+    grid-row: auto;
   }
 }
 
 .bento-projects {
-  grid-column: 1 / -1;
+  grid-column: 3 / 4;
+  grid-row: 4 / 5;
+
+  @media (max-width: 768px) {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
 }
 
 /* Work items inside bento cards */
@@ -387,31 +405,18 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
     }
   }
 
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr;
-    }
-  }
-
   .project-item {
-    padding: 1rem;
-    border: 1px solid var(--global-divider-color);
-    border-radius: 8px;
-    transition: border-color 0.2s ease;
+    padding: 0.5rem 0;
 
-    &:hover {
-      border-color: var(--global-theme-color);
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--global-divider-color);
     }
 
     .project-name {
       font-family: $cv-serif-font;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 600;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.1rem;
 
       a {
         color: var(--global-text-color);
@@ -421,19 +426,19 @@ $cv-serif-font: Georgia, "Times New Roman", Times, serif;
     }
 
     .project-summary {
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       color: var(--global-text-color-light);
       font-style: italic;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
     }
 
     ul.project-highlights {
-      margin: 0;
+      margin: 0.15rem 0 0;
       padding-left: 1rem;
 
       li {
-        font-size: 0.78rem;
-        line-height: 1.5;
+        font-size: 0.76rem;
+        line-height: 1.45;
         color: var(--global-text-color);
       }
     }

@@ -60,8 +60,7 @@ layout: default
 
         {% comment %} Basics card - full width hero {% endcomment %}
         {% if resume.basics and resume.basics.size > 0 %}
-        <a class="anchor" id="basics"></a>
-        <div class="bento-card bento-basics">
+        <div class="bento-card bento-basics" id="basics">
           <div class="basics-info">
             <h1 class="basics-name">{{ resume.basics.name }}</h1>
             {% if resume.basics.summary and resume.basics.summary != "" %}
@@ -91,8 +90,7 @@ layout: default
 
         {% comment %} Work card - spans 2 columns {% endcomment %}
         {% if resume.work and resume.work.size > 0 %}
-        <a class="anchor" id="work"></a>
-        <div class="bento-card bento-work">
+        <div class="bento-card bento-work" id="work">
           <div class="bento-card-title"><i class="fas fa-briefcase"></i> Work</div>
           {% assign work = resume.work | sort: 'startDate' | reverse %}
           {% for content in work %}
@@ -125,8 +123,7 @@ layout: default
 
         {% comment %} Education card {% endcomment %}
         {% if resume.education and resume.education.size > 0 %}
-        <a class="anchor" id="education"></a>
-        <div class="bento-card bento-education">
+        <div class="bento-card bento-education" id="education">
           <div class="bento-card-title"><i class="fas fa-graduation-cap"></i> Education</div>
           {% assign education = resume.education | sort: 'startDate' | reverse %}
           {% for content in education %}
@@ -153,8 +150,7 @@ layout: default
 
         {% comment %} Awards card {% endcomment %}
         {% if resume.awards and resume.awards.size > 0 %}
-        <a class="anchor" id="awards"></a>
-        <div class="bento-card bento-awards">
+        <div class="bento-card bento-awards" id="awards">
           <div class="bento-card-title"><i class="fas fa-trophy"></i> Awards</div>
           {% for content in resume.awards %}
           <div class="award-item">
@@ -178,8 +174,7 @@ layout: default
 
         {% comment %} Skills card {% endcomment %}
         {% if resume.skills and resume.skills.size > 0 %}
-        <a class="anchor" id="skills"></a>
-        <div class="bento-card bento-skills">
+        <div class="bento-card bento-skills" id="skills">
           <div class="bento-card-title"><i class="fas fa-microphone"></i> Skills</div>
           {% for content in resume.skills %}
           <div class="skill-category">
@@ -196,8 +191,7 @@ layout: default
 
         {% comment %} Languages card {% endcomment %}
         {% if resume.languages and resume.languages.size > 0 %}
-        <a class="anchor" id="languages"></a>
-        <div class="bento-card bento-languages">
+        <div class="bento-card bento-languages" id="languages">
           <div class="bento-card-title"><i class="fas fa-language"></i> Languages</div>
           <div class="language-grid">
             {% for content in resume.languages %}
@@ -210,28 +204,25 @@ layout: default
         </div>
         {% endif %}
 
-        {% comment %} Projects card - full width {% endcomment %}
+        {% comment %} Projects card {% endcomment %}
         {% if resume.projects and resume.projects.size > 0 %}
-        <a class="anchor" id="projects"></a>
-        <div class="bento-card bento-projects">
+        <div class="bento-card bento-projects" id="projects">
           <div class="bento-card-title"><i class="fas fa-code"></i> Projects</div>
-          <div class="projects-grid">
-            {% for content in resume.projects %}
-            <div class="project-item">
-              <div class="project-name">{% if content.url and content.url != "" %}<a href="{{ content.url }}">{{ content.name }}</a>{% else %}{{ content.name }}{% endif %}</div>
-              {% if content.summary and content.summary != "" %}
-              <div class="project-summary">{{ content.summary }}</div>
-              {% endif %}
-              {% if content.highlights.size > 0 %}
-              <ul class="project-highlights">
-                {% for item in content.highlights %}
-                <li>{{ item }}</li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-            </div>
-            {% endfor %}
+          {% for content in resume.projects %}
+          <div class="project-item">
+            <div class="project-name">{% if content.url and content.url != "" %}<a href="{{ content.url }}">{{ content.name }}</a>{% else %}{{ content.name }}{% endif %}</div>
+            {% if content.summary and content.summary != "" %}
+            <div class="project-summary">{{ content.summary }}</div>
+            {% endif %}
+            {% if content.highlights.size > 0 %}
+            <ul class="project-highlights">
+              {% for item in content.highlights %}
+              <li>{{ item }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
           </div>
+          {% endfor %}
         </div>
         {% endif %}
 
