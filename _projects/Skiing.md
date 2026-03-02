@@ -2,7 +2,7 @@
 layout: page
 title: Skiing
 description:
-img: assets/img/skiing/11.jpeg
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
 importance: 2
 category: fun
 ---
@@ -20,7 +20,7 @@ As I learnt the sport the first few days I would fall a zillion times in my atte
 The learning curve/fun of skiing looks a lot like this
 
 <div class="mt-3 mt-md-0">
-    {% include figure.html path="assets/img/skiing/learning.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417811/site/skiing/learning.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
 It's incredibly difficult and challenging at start but as you get the hang of this you will get to a point where the joy of learning overpowers the fear of hurting yourself and the extra mental precaution.
@@ -31,13 +31,13 @@ I have had countless trips, close encounters with death, some life long friends,
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/skiing/14.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417812/site/skiing/14.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/skiing/17.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417812/site/skiing/17.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/skiing/21.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417813/site/skiing/21.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -45,7 +45,7 @@ I have had countless trips, close encounters with death, some life long friends,
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/skiing/2.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417814/site/skiing/2.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -63,13 +63,13 @@ In my journey as a skier and snowboarder, I've discovered a passion for outdoor 
 
 <div class="row justify-content-sm-center">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/skiing/skooter.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417814/site/skiing/skooter.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/skiing/surf.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417815/site/skiing/surf.png" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/skiing/kitesurf.png" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417816/site/skiing/kitesurf.png" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
