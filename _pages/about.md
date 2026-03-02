@@ -43,12 +43,12 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417818/site/art/7.jpg
     type: image
 
-  - title: "1984"
+  - title: Letters to a Young Poet
     label: Reading · Books
     link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0451524934-L.jpg
+    image: https://covers.openlibrary.org/b/isbn/0393310396-L.jpg
     type: book
-    author: George Orwell
+    author: Rainer Maria Rilke
     badge: Read
 
   - title: Mathematics of Love
