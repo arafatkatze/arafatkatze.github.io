@@ -9,55 +9,34 @@ nav_order: 5
 
 <style>
   .travel-page {
-    --tw-bg: #0a0a0f;
-    --tw-border: rgba(232, 166, 166, 0.15);
-    --tw-accent: #e8a6a6;
-    --tw-accent-dim: rgba(232, 166, 166, 0.5);
-    --tw-accent-border: rgba(232, 166, 166, 0.2);
-    --tw-accent-glow: rgba(232, 166, 166, 0.4);
-    --tw-accent-faint: rgba(232, 166, 166, 0.06);
-    --tw-accent-hover: rgba(232, 166, 166, 0.05);
-    --tw-accent-label: rgba(232, 166, 166, 0.75);
-    --tw-accent-arc: rgba(232, 166, 166, 0.3);
-    --tw-text: #d4d4d4;
-    --tw-text-dim: #999;
-    --tw-hud-bg: rgba(10, 10, 15, 0.7);
-    --tw-status: #4ade80;
-    --tw-scanline: rgba(0, 0, 0, 0.03);
-    --tw-tooltip-bg: rgba(10, 10, 15, 0.92);
-    --tw-tooltip-shadow: rgba(0, 0, 0, 0.6);
-    --tw-corner: rgba(232, 166, 166, 0.25);
+    --tw-card-bg: #0a0a0f;
+    --tw-card-border: rgba(232, 166, 166, 0.15);
+    --tw-card-accent: #e8a6a6;
+    --tw-card-accent-dim: rgba(232, 166, 166, 0.5);
+    --tw-card-accent-faint: rgba(232, 166, 166, 0.06);
+    --tw-card-accent-hover: rgba(232, 166, 166, 0.05);
+    --tw-card-accent-glow: rgba(232, 166, 166, 0.4);
+    --tw-card-text: #d4d4d4;
   }
 
   html[data-theme="light"] .travel-page {
-    --tw-bg: #f5efe9;
-    --tw-border: rgba(160, 120, 80, 0.18);
-    --tw-accent: #b87333;
-    --tw-accent-dim: rgba(184, 115, 51, 0.45);
-    --tw-accent-border: rgba(184, 115, 51, 0.22);
-    --tw-accent-glow: rgba(184, 115, 51, 0.3);
-    --tw-accent-faint: rgba(184, 115, 51, 0.08);
-    --tw-accent-hover: rgba(184, 115, 51, 0.06);
-    --tw-accent-label: rgba(140, 90, 40, 0.85);
-    --tw-accent-arc: rgba(184, 115, 51, 0.35);
-    --tw-text: #4a3f36;
-    --tw-text-dim: #8a7b6f;
-    --tw-hud-bg: rgba(245, 239, 233, 0.85);
-    --tw-status: #389e0d;
-    --tw-scanline: rgba(180, 150, 120, 0.03);
-    --tw-tooltip-bg: rgba(245, 239, 233, 0.95);
-    --tw-tooltip-shadow: rgba(100, 80, 60, 0.2);
-    --tw-corner: rgba(184, 115, 51, 0.2);
+    --tw-card-bg: #ffffff;
+    --tw-card-border: rgba(0, 0, 0, 0.1);
+    --tw-card-accent: #b87333;
+    --tw-card-accent-dim: rgba(184, 115, 51, 0.45);
+    --tw-card-accent-faint: rgba(184, 115, 51, 0.08);
+    --tw-card-accent-hover: rgba(184, 115, 51, 0.06);
+    --tw-card-accent-glow: rgba(184, 115, 51, 0.3);
+    --tw-card-text: #3a3a3a;
   }
 
   .travel-wrapper {
     position: relative;
-    background: var(--tw-bg);
+    background: #0a0a0f;
     border-radius: 8px;
     overflow: hidden;
     margin: -1rem 0 2rem;
-    border: 1px solid var(--tw-border);
-    transition: background 0.5s ease, border-color 0.5s ease;
+    border: 1px solid rgba(232, 166, 166, 0.15);
   }
 
   .travel-hud {
@@ -76,49 +55,44 @@ nav_order: 5
 
   .travel-hud-left,
   .travel-hud-right {
-    background: var(--tw-hud-bg);
+    background: rgba(10, 10, 15, 0.7);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     padding: 8px 14px;
     border-radius: 4px;
-    border: 1px solid var(--tw-accent-border);
-    transition: background 0.5s ease, border-color 0.5s ease;
+    border: 1px solid rgba(232, 166, 166, 0.2);
   }
 
   .travel-hud-title {
     font-size: 0.7rem;
     letter-spacing: 3px;
-    color: var(--tw-accent);
+    color: #e8a6a6;
     text-transform: uppercase;
     margin: 0;
     font-weight: 600;
-    transition: color 0.5s ease;
   }
 
   .travel-hud-sub {
     font-size: 0.6rem;
-    color: var(--tw-accent-dim);
+    color: rgba(232, 166, 166, 0.5);
     letter-spacing: 1px;
     margin: 2px 0 0;
-    transition: color 0.5s ease;
   }
 
   .travel-hud-status {
     font-size: 0.6rem;
-    color: var(--tw-status);
+    color: #4ade80;
     letter-spacing: 2px;
     text-transform: uppercase;
     text-align: right;
     margin: 0;
-    transition: color 0.5s ease;
   }
 
   .travel-hud-date {
     font-size: 0.6rem;
-    color: var(--tw-accent-dim);
+    color: rgba(232, 166, 166, 0.4);
     text-align: right;
     margin: 2px 0 0;
-    transition: color 0.5s ease;
   }
 
   #globe-container {
@@ -137,8 +111,6 @@ nav_order: 5
     #globe-container {
       height: 400px;
     }
-    .travel-celestial-sun { width: 40px !important; height: 40px !important; }
-    .travel-celestial-moon { width: 30px !important; height: 30px !important; }
   }
 
   .travel-scanline {
@@ -153,8 +125,8 @@ nav_order: 5
       0deg,
       transparent,
       transparent 3px,
-      var(--tw-scanline) 3px,
-      var(--tw-scanline) 6px
+      rgba(0, 0, 0, 0.03) 3px,
+      rgba(0, 0, 0, 0.03) 6px
     );
     opacity: 0.4;
   }
@@ -171,9 +143,8 @@ nav_order: 5
     position: absolute;
     width: 30px;
     height: 30px;
-    border-color: var(--tw-corner);
+    border-color: rgba(232, 166, 166, 0.25);
     border-style: solid;
-    transition: border-color 0.5s ease;
   }
   .travel-corners::before {
     top: 8px; left: 8px;
@@ -196,9 +167,8 @@ nav_order: 5
     position: absolute;
     width: 30px;
     height: 30px;
-    border-color: var(--tw-corner);
+    border-color: rgba(232, 166, 166, 0.25);
     border-style: solid;
-    transition: border-color 0.5s ease;
   }
   .travel-corners-bottom::before {
     bottom: 8px; left: 8px;
@@ -209,111 +179,11 @@ nav_order: 5
     border-width: 0 2px 2px 0;
   }
 
-  /* --- Celestial bodies --- */
-
-  .travel-celestial-sun {
-    position: absolute;
-    top: 55px;
-    left: 50%;
-    margin-left: 80px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #fffbe8 0%, #ffd866 30%, #faad14 65%, transparent 100%);
-    box-shadow:
-      0 0 25px 10px rgba(255, 216, 102, 0.55),
-      0 0 55px 22px rgba(250, 173, 20, 0.28),
-      0 0 100px 40px rgba(250, 173, 20, 0.12);
-    z-index: 4;
-    pointer-events: none;
-    opacity: 0;
-    transform: scale(0.5) translateY(10px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    animation: sunPulse 5s ease-in-out infinite alternate;
-  }
-
-  html[data-theme="light"] .travel-celestial-sun {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-
-  @keyframes sunPulse {
-    0% { box-shadow: 0 0 25px 10px rgba(255,216,102,0.55), 0 0 55px 22px rgba(250,173,20,0.28), 0 0 100px 40px rgba(250,173,20,0.12); }
-    100% { box-shadow: 0 0 30px 14px rgba(255,216,102,0.65), 0 0 65px 28px rgba(250,173,20,0.35), 0 0 110px 48px rgba(250,173,20,0.18); }
-  }
-
-  .travel-celestial-sun::before {
-    content: '';
-    position: absolute;
-    top: -15px; left: -15px;
-    right: -15px; bottom: -15px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,220,120,0.15) 0%, transparent 70%);
-    animation: sunRays 4s ease-in-out infinite alternate;
-  }
-
-  @keyframes sunRays {
-    0% { transform: scale(1); opacity: 0.6; }
-    100% { transform: scale(1.3); opacity: 1; }
-  }
-
-  .travel-celestial-moon {
-    position: absolute;
-    top: 55px;
-    left: 50%;
-    margin-left: 80px;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 60% 38%, #f0f0ec 0%, #d4d4d0 45%, #a8a8a4 90%);
-    box-shadow:
-      0 0 15px 5px rgba(200, 200, 220, 0.35),
-      0 0 40px 15px rgba(180, 180, 210, 0.18),
-      0 0 70px 28px rgba(180, 180, 210, 0.07);
-    z-index: 4;
-    pointer-events: none;
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-    animation: moonGlow 6s ease-in-out infinite alternate;
-  }
-
-  html[data-theme="light"] .travel-celestial-moon {
-    opacity: 0;
-    transform: scale(0.5) translateY(10px);
-  }
-
-  @keyframes moonGlow {
-    0% { box-shadow: 0 0 15px 5px rgba(200,200,220,0.35), 0 0 40px 15px rgba(180,180,210,0.18), 0 0 70px 28px rgba(180,180,210,0.07); }
-    100% { box-shadow: 0 0 18px 7px rgba(200,200,220,0.45), 0 0 45px 18px rgba(180,180,210,0.25), 0 0 80px 32px rgba(180,180,210,0.1); }
-  }
-
-  .travel-celestial-moon::before {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(160, 160, 155, 0.4);
-    top: 30%;
-    left: 25%;
-  }
-  .travel-celestial-moon::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(160, 160, 155, 0.3);
-    top: 55%;
-    left: 55%;
-  }
-
-  /* --- Stats & destinations --- */
+  /* --- Stats & destinations (theme-responsive) --- */
 
   .travel-dest-panel {
-    background: var(--tw-bg);
-    border: 1px solid var(--tw-border);
+    background: var(--tw-card-bg);
+    border: 1px solid var(--tw-card-border);
     border-radius: 8px;
     margin-top: 1.5rem;
     overflow: hidden;
@@ -324,10 +194,10 @@ nav_order: 5
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.65rem;
     letter-spacing: 3px;
-    color: var(--tw-accent);
+    color: var(--tw-card-accent);
     text-transform: uppercase;
     padding: 14px 20px 10px;
-    border-bottom: 1px solid var(--tw-accent-faint);
+    border-bottom: 1px solid var(--tw-card-accent-faint);
     margin: 0;
     font-weight: 600;
     transition: color 0.5s ease, border-color 0.5s ease;
@@ -343,37 +213,37 @@ nav_order: 5
     display: flex;
     align-items: center;
     padding: 12px 20px;
-    border-bottom: 1px solid var(--tw-accent-faint);
-    transition: background 0.2s, border-color 0.5s ease;
+    border-bottom: 1px solid var(--tw-card-accent-faint);
+    transition: background 0.2s;
     cursor: pointer;
     font-family: 'Courier New', Courier, monospace;
   }
 
   .travel-dest-item:hover {
-    background: var(--tw-accent-hover);
+    background: var(--tw-card-accent-hover);
   }
 
   .travel-dest-marker {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--tw-accent);
+    background: var(--tw-card-accent);
     margin-right: 14px;
     flex-shrink: 0;
-    box-shadow: 0 0 6px var(--tw-accent-glow);
+    box-shadow: 0 0 6px var(--tw-card-accent-glow);
     transition: background 0.5s ease, box-shadow 0.5s ease;
   }
 
   .travel-dest-name {
     font-size: 0.85rem;
-    color: var(--tw-text);
+    color: var(--tw-card-text);
     flex: 1;
     transition: color 0.5s ease;
   }
 
   .travel-dest-country {
     font-size: 0.7rem;
-    color: var(--tw-accent-dim);
+    color: var(--tw-card-accent-dim);
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: color 0.5s ease;
@@ -387,8 +257,8 @@ nav_order: 5
   }
 
   .travel-stat-card {
-    background: var(--tw-bg);
-    border: 1px solid var(--tw-border);
+    background: var(--tw-card-bg);
+    border: 1px solid var(--tw-card-border);
     border-radius: 8px;
     padding: 16px 20px;
     font-family: 'Courier New', Courier, monospace;
@@ -398,7 +268,7 @@ nav_order: 5
 
   .travel-stat-num {
     font-size: 1.6rem;
-    color: var(--tw-accent);
+    color: var(--tw-card-accent);
     font-weight: 700;
     line-height: 1;
     margin-bottom: 4px;
@@ -407,39 +277,39 @@ nav_order: 5
 
   .travel-stat-label {
     font-size: 0.6rem;
-    color: var(--tw-accent-dim);
+    color: var(--tw-card-accent-dim);
     letter-spacing: 2px;
     text-transform: uppercase;
     transition: color 0.5s ease;
   }
 
   .globe-tooltip {
-    background: var(--tw-tooltip-bg) !important;
+    background: rgba(10, 10, 15, 0.92) !important;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid var(--tw-accent-border) !important;
+    border: 1px solid rgba(232, 166, 166, 0.3) !important;
     border-radius: 6px !important;
     padding: 10px 14px !important;
     font-family: 'Courier New', Courier, monospace !important;
-    color: var(--tw-text) !important;
+    color: #d4d4d4 !important;
     font-size: 0.8rem !important;
-    box-shadow: 0 4px 20px var(--tw-tooltip-shadow) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
     pointer-events: none;
     max-width: 220px;
     line-height: 1.4;
   }
   .globe-tooltip strong {
-    color: var(--tw-accent);
+    color: #e8a6a6;
     font-weight: 600;
   }
   .globe-tooltip .tt-country {
-    color: var(--tw-accent-dim);
+    color: rgba(232, 166, 166, 0.5);
     font-size: 0.65rem;
     letter-spacing: 1px;
     text-transform: uppercase;
   }
   .globe-tooltip .tt-note {
-    color: var(--tw-text-dim);
+    color: #999;
     font-size: 0.72rem;
     margin-top: 3px;
   }
@@ -458,8 +328,6 @@ nav_order: 5
       <p class="travel-hud-date" id="travel-date"></p>
     </div>
   </div>
-  <div class="travel-celestial-sun"></div>
-  <div class="travel-celestial-moon"></div>
   <div class="travel-scanline"></div>
   <div class="travel-corners"></div>
   <div class="travel-corners-bottom"></div>
@@ -586,25 +454,11 @@ document.addEventListener("DOMContentLoaded", function () {
   var preloadNight = new Image();
   preloadNight.src = '//unpkg.com/three-globe/example/img/earth-night.jpg';
 
-  function makeLightBg() {
-    var c = document.createElement('canvas');
-    c.width = 512; c.height = 512;
-    var ctx = c.getContext('2d');
-    var g = ctx.createRadialGradient(256, 256, 0, 256, 256, 362);
-    g.addColorStop(0, '#ede4da');
-    g.addColorStop(0.6, '#f0e8e0');
-    g.addColorStop(1, '#f5efe9');
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, 512, 512);
-    return c.toDataURL();
-  }
-
-  var lightBgUrl = makeLightBg();
+  var nightSkyUrl = '//unpkg.com/three-globe/example/img/night-sky.png';
 
   var themes = {
     dark: {
       globeImage: '//unpkg.com/three-globe/example/img/earth-night.jpg',
-      bgImage: '//unpkg.com/three-globe/example/img/night-sky.png',
       pointColor: '#e8a6a6',
       labelColor: 'rgba(232, 166, 166, 0.75)',
       arcColor: 'rgba(232, 166, 166, 0.3)',
@@ -613,10 +467,9 @@ document.addEventListener("DOMContentLoaded", function () {
     },
     light: {
       globeImage: '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
-      bgImage: lightBgUrl,
-      pointColor: '#b87333',
-      labelColor: 'rgba(140, 90, 40, 0.85)',
-      arcColor: 'rgba(184, 115, 51, 0.35)',
+      pointColor: '#e8a6a6',
+      labelColor: 'rgba(232, 166, 166, 0.75)',
+      arcColor: 'rgba(232, 166, 166, 0.3)',
       atmosphereColor: '#6bb3d9',
       atmosphereAltitude: 0.18
     }
@@ -631,7 +484,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var globe = Globe()
     .globeImageUrl(t.globeImage)
-    .backgroundImageUrl(t.bgImage)
+    .backgroundImageUrl(nightSkyUrl)
     .pointsData(destinations)
     .pointLat('lat')
     .pointLng('lng')
@@ -679,7 +532,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var t = themes[theme] || themes.dark;
     globe
       .globeImageUrl(t.globeImage)
-      .backgroundImageUrl(t.bgImage)
       .pointColor(function() { return t.pointColor; })
       .labelColor(function() { return t.labelColor; })
       .arcColor(function() { return [t.arcColor, t.arcColor]; })
