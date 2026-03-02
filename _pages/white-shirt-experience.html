@@ -1,0 +1,481 @@
+---
+layout: white-shirt-experience
+title: The White Shirt Project
+permalink: /white-shirt/
+description: An interactive exploration of communal art, memory, and the people who left their mark.
+nav: false
+---
+
+<!-- ========== HERO ========== -->
+<section class="wsp-hero">
+  <div class="wsp-hero-overline">An Interactive Experience</div>
+  <h1 class="wsp-hero-title">The <em>White Shirt</em> Project</h1>
+  <p class="wsp-hero-subtitle">
+    Six painters. Urdu script and Russian Cyrillic. Coffee stains and layers of paint. 
+    A compendium of memories, some good and some BAAAD.
+  </p>
+  <div class="wsp-scroll-hint">
+    <span>Scroll to explore</span>
+    <div class="wsp-scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ========== CHAPTER 1: THE BEGINNING ========== -->
+<section class="wsp-section wsp-reveal">
+  <span class="wsp-chapter-label">Chapter I</span>
+  <h2 class="wsp-chapter-title">Before the Shirt</h2>
+  <div class="wsp-narrative">
+    <p>
+      I always admired art as a lurker, but the act of creation didn't seem like <span class="wsp-highlight">"my thing"</span>. 
+      I was horrible at painting growing up — it seemed like a chore, a waste of time. I begrudgingly did it a few times but it never appealed to me.
+    </p>
+    <p>
+      Somewhere in my early twenties, a small mix of sophistication, along with just a general sense of taste, got me into art. 
+      The first time I went to Europe, I remember walking for hours listening to music, looking around the city, 
+      and just being happy. Everything felt so much more <span class="wsp-highlight">colorful and precise</span> and just how it should be.
+    </p>
+    <p>
+      For me, the first dimension of art is looking at something that inspires a visceral feeling inside of me. 
+      The second dimension is the story of what made it what it is.
+    </p>
+    <div class="wsp-quote">
+      <p>Think of Van Gogh losing his mind in a mental asylum to make one of the greatest works of art.</p>
+    </div>
+  </div>
+</section>
+
+<div class="wsp-divider wsp-reveal"></div>
+
+<!-- ========== CHAPTER 2: THE SHIRT IS BORN ========== -->
+<section class="wsp-section wsp-reveal">
+  <span class="wsp-chapter-label">Chapter II</span>
+  <h2 class="wsp-chapter-title">A Gift That Became Something Else</h2>
+  <div class="wsp-narrative">
+    <p>
+      I liked consuming but I wanted more. The only way to be a genuine admirer of beauty 
+      is to <span class="wsp-highlight">partake in the act of creation</span>.
+    </p>
+    <p>
+      So I took out this white shirt and planned a special date night with M. I really liked her, 
+      so the long-term goal was to finish the shirt and gift it to her. Sadly that couldn't work out 
+      as we stopped dating eventually — our hearts were elsewhere.
+    </p>
+    <p>
+      So now I have this shirt that's a memory of someone that I really cared about 
+      at one point in time (and still do) and there's not much I can do with it.
+    </p>
+    <div class="wsp-quote">
+      <p>"Hell is the suffering of being unable to love."</p>
+      <cite>— Dostoevsky</cite>
+    </div>
+    <p>
+      It sounds like a twisty philosopher one-liner to make misery sound fancy, to craft a sad boy aesthetic. 
+      But I get it. I do get it. I was mopey but I wouldn't want to be too mopey. 
+      Maybe I could <span class="wsp-highlight">turn this around</span>.
+    </p>
+  </div>
+</section>
+
+<div class="wsp-divider wsp-reveal"></div>
+
+<!-- ========== CHAPTER 3: COMMUNAL ART ========== -->
+<section class="wsp-section wsp-reveal">
+  <span class="wsp-chapter-label">Chapter III</span>
+  <h2 class="wsp-chapter-title">When Life Gives You a Half-Painted Shirt</h2>
+  <div class="wsp-narrative">
+    <p>
+      What do you do? You either work on a relationship eulogy or you find other cool people 
+      and start painting on it with them.
+    </p>
+    <p>
+      So I kept painting this shirt and made it full of many easter eggs and people I know. 
+      I would just hang with people and <span class="wsp-highlight">ask them to paint with me</span>.
+    </p>
+  </div>
+</section>
+
+<!-- ========== THE SHIRT EXPLORER ========== -->
+<section class="wsp-section-full wsp-reveal" id="shirt-explorer">
+  <div class="wsp-explorer">
+    <div class="wsp-explorer-header">
+      <span class="wsp-explorer-label">Explore the Shirt — Click the golden dots to discover stories</span>
+      <div class="wsp-explorer-controls">
+        <button onclick="wspZoomIn()" title="Zoom In">+</button>
+        <span class="wsp-zoom-level" id="wsp-zoom-level">100%</span>
+        <button onclick="wspZoomOut()" title="Zoom Out">−</button>
+        <button onclick="wspResetView()" title="Reset View">⟲</button>
+      </div>
+    </div>
+    <div class="wsp-explorer-viewport" id="wsp-viewport">
+      <div class="wsp-explorer-canvas" id="wsp-canvas">
+        <img 
+          src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg" 
+          alt="The White Shirt - a communal art piece painted by six different people"
+          id="wsp-shirt-img"
+          draggable="false"
+        />
+        <!-- Hotspots positioned over specific painted elements on the shirt -->
+        <div class="wsp-hotspot" style="top:22%;left:42%;" onclick="wspShowStory(0)" title="The Beginning" role="button" tabindex="0" aria-label="Story: The Beginning">
+          <div class="wsp-hotspot-ring"></div>
+          <div class="wsp-hotspot-dot"><span class="wsp-hotspot-number">1</span></div>
+        </div>
+        <div class="wsp-hotspot" style="top:62%;left:67%;" onclick="wspShowStory(1)" title="Words in Urdu" role="button" tabindex="0" aria-label="Story: Urdu Script">
+          <div class="wsp-hotspot-ring"></div>
+          <div class="wsp-hotspot-dot"><span class="wsp-hotspot-number">2</span></div>
+        </div>
+        <div class="wsp-hotspot" style="top:56%;left:42%;" onclick="wspShowStory(2)" title="Russian Cyrillic" role="button" tabindex="0" aria-label="Story: Russian Cyrillic">
+          <div class="wsp-hotspot-ring"></div>
+          <div class="wsp-hotspot-dot"><span class="wsp-hotspot-number">3</span></div>
+        </div>
+        <div class="wsp-hotspot" style="top:70%;left:51%;" onclick="wspShowStory(3)" title="Coffee Stains" role="button" tabindex="0" aria-label="Story: Coffee Stains">
+          <div class="wsp-hotspot-ring"></div>
+          <div class="wsp-hotspot-dot"><span class="wsp-hotspot-number">4</span></div>
+        </div>
+        <div class="wsp-hotspot" style="top:42%;left:30%;" onclick="wspShowStory(4)" title="The Panda" role="button" tabindex="0" aria-label="Story: The Panda">
+          <div class="wsp-hotspot-ring"></div>
+          <div class="wsp-hotspot-dot"><span class="wsp-hotspot-number">5</span></div>
+        </div>
+        <div class="wsp-hotspot" style="top:33%;left:69%;" onclick="wspShowStory(5)" title="Flags of the World" role="button" tabindex="0" aria-label="Story: Flags of the World">
+          <div class="wsp-hotspot-ring"></div>
+          <div class="wsp-hotspot-dot"><span class="wsp-hotspot-number">6</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Story Panel (slides in from right) -->
+<div class="wsp-panel-overlay" id="wsp-overlay" onclick="wspCloseStory()"></div>
+<div class="wsp-story-panel" id="wsp-story-panel">
+  <div class="wsp-story-panel-header">
+    <span class="wsp-explorer-label" id="wsp-panel-label">Story</span>
+    <button class="wsp-story-panel-close" onclick="wspCloseStory()">✕</button>
+  </div>
+  <div class="wsp-story-panel-body" id="wsp-panel-body">
+  </div>
+</div>
+
+<div class="wsp-divider wsp-reveal"></div>
+
+<!-- ========== TIMELINE ========== -->
+<section class="wsp-section-wide wsp-reveal">
+  <span class="wsp-chapter-label">Evolution</span>
+  <h2 class="wsp-chapter-title">How the Shirt Grew</h2>
+  <p class="wsp-narrative" style="margin-bottom: 2rem;">
+    What started as a blank white shirt for one person became a living canvas for many. 
+    Swipe through the stages of its transformation.
+  </p>
+  <div class="wsp-timeline">
+    <div class="wsp-timeline-track">
+      <div class="wsp-timeline-card">
+        <img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768106227/2025-12-30_09-09-11_765_2_vn9drv.png" alt="Early stage of the shirt" loading="lazy" />
+        <div class="wsp-timeline-card-body">
+          <div class="wsp-timeline-date">Late 2025</div>
+          <div class="wsp-timeline-caption">The shirt begins its journey. Early brush strokes, first memories laid down.</div>
+        </div>
+      </div>
+      <div class="wsp-timeline-card">
+        <img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768106230/2026-01-02_09-29-08_347_2_dmmlfc.png" alt="Shirt gaining more paint" loading="lazy" />
+        <div class="wsp-timeline-card-body">
+          <div class="wsp-timeline-date">January 2026</div>
+          <div class="wsp-timeline-caption">New year, new layers. More people pick up the brush. The shirt starts telling stories.</div>
+        </div>
+      </div>
+      <div class="wsp-timeline-card">
+        <img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768106232/2026-01-02_09-30-48_642_2_rrey1r.png" alt="Shirt with more detail" loading="lazy" />
+        <div class="wsp-timeline-card-body">
+          <div class="wsp-timeline-date">January 2026</div>
+          <div class="wsp-timeline-caption">Details multiply. Urdu and Cyrillic find their place alongside flags and figures.</div>
+        </div>
+      </div>
+      <div class="wsp-timeline-card">
+        <img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797412/2026-01-19_19-50-16_763_mgvxvq.png" alt="Shirt growing fuller" loading="lazy" />
+        <div class="wsp-timeline-card-body">
+          <div class="wsp-timeline-date">January 2026</div>
+          <div class="wsp-timeline-caption">The canvas fills up. Every inch now carries a piece of someone's presence.</div>
+        </div>
+      </div>
+      <div class="wsp-timeline-card">
+        <img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg" alt="The shirt today" loading="lazy" />
+        <div class="wsp-timeline-card-body">
+          <div class="wsp-timeline-date">Present</div>
+          <div class="wsp-timeline-caption">The shirt today — a compendium of memories, some good and some BAAAD.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wsp-divider wsp-reveal"></div>
+
+<!-- ========== THE ARTISTS ========== -->
+<section class="wsp-section-wide wsp-reveal">
+  <span class="wsp-chapter-label">The People</span>
+  <h2 class="wsp-chapter-title">Six Painters, One Shirt</h2>
+  <div class="wsp-narrative" style="max-width: 700px; margin-bottom: 1rem;">
+    <p>Each person who picked up a brush left more than paint — they left a moment in time.</p>
+  </div>
+  <div class="wsp-artists-grid">
+    <div class="wsp-artist-card">
+      <div class="wsp-artist-number">01</div>
+      <div class="wsp-artist-name">Me</div>
+      <div class="wsp-artist-desc">The one who started it all. A lurker turned creator, learning that the act of making is the act of living.</div>
+    </div>
+    <div class="wsp-artist-card">
+      <div class="wsp-artist-number">02</div>
+      <div class="wsp-artist-name">Lady M</div>
+      <div class="wsp-artist-desc">The original muse. The shirt was going to be her gift. Life had other plans, but her brushstrokes remain.</div>
+    </div>
+    <div class="wsp-artist-card">
+      <div class="wsp-artist-number">03</div>
+      <div class="wsp-artist-name">The Friend from the Commons</div>
+      <div class="wsp-artist-desc">Super pretty friend who brought her own energy to the canvas. Some of the most delicate work on the shirt.</div>
+    </div>
+    <div class="wsp-artist-card">
+      <div class="wsp-artist-number">04</div>
+      <div class="wsp-artist-name">The Founder</div>
+      <div class="wsp-artist-desc">Wanted to hire me, ended up painting with me instead. Sometimes the best networking happens with a brush in hand.</div>
+    </div>
+    <div class="wsp-artist-card">
+      <div class="wsp-artist-number">05</div>
+      <div class="wsp-artist-name">The Tech Bro</div>
+      <div class="wsp-artist-desc">Just wanted to tech bro on the shirt. Even in art, you can't escape the Silicon Valley energy. And that's okay.</div>
+    </div>
+    <div class="wsp-artist-card">
+      <div class="wsp-artist-number">06</div>
+      <div class="wsp-artist-name">The Friend from Guatemala/SF</div>
+      <div class="wsp-artist-desc">Brought a cross-continental perspective. From Guatemala to San Francisco, leaving traces on fabric and memory.</div>
+    </div>
+  </div>
+</section>
+
+<div class="wsp-divider wsp-reveal"></div>
+
+<!-- ========== EASTER EGGS ========== -->
+<section class="wsp-section-wide wsp-reveal">
+  <span class="wsp-chapter-label">Hidden in Plain Sight</span>
+  <h2 class="wsp-chapter-title">Easter Eggs</h2>
+  <div class="wsp-narrative" style="max-width: 700px;">
+    <p>Look closely and you'll find layers of hidden meaning woven through every brushstroke.</p>
+  </div>
+  <div class="wsp-eggs-grid">
+    <div class="wsp-egg">
+      <div class="wsp-egg-icon">☕</div>
+      <div class="wsp-egg-label">Coffee Addiction</div>
+    </div>
+    <div class="wsp-egg">
+      <div class="wsp-egg-icon">🐼</div>
+      <div class="wsp-egg-label">Friend Painted as a Panda</div>
+    </div>
+    <div class="wsp-egg">
+      <div class="wsp-egg-icon">💻</div>
+      <div class="wsp-egg-label">Work Projects</div>
+    </div>
+    <div class="wsp-egg">
+      <div class="wsp-egg-icon">ду/اردو</div>
+      <div class="wsp-egg-label">Russian Cyrillic + Urdu</div>
+    </div>
+    <div class="wsp-egg">
+      <div class="wsp-egg-icon">🏳️</div>
+      <div class="wsp-egg-label">Flags of Multiple Countries</div>
+    </div>
+    <div class="wsp-egg">
+      <div class="wsp-egg-icon">🎂</div>
+      <div class="wsp-egg-label">Birthday Wishes</div>
+    </div>
+  </div>
+</section>
+
+<div class="wsp-divider wsp-reveal"></div>
+
+<!-- ========== CUTE DRAWINGS ========== -->
+<section class="wsp-section wsp-reveal">
+  <span class="wsp-chapter-label">Bonus</span>
+  <h2 class="wsp-chapter-title">You Can Draw Cute If You Really Try</h2>
+  <div class="wsp-narrative">
+    <p>Along the way, I discovered something: even someone who thought painting was a chore can make something charming.</p>
+  </div>
+  <div class="wsp-gallery-row">
+    <img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797231/2026-02-10_21-37-17_079_jsgss7.png" alt="Cute drawing from the shirt project" loading="lazy" />
+    <img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797226/2026-01-01_18-20-24_194_xtqb79.png" alt="Another cute drawing from the project" loading="lazy" />
+  </div>
+</section>
+
+<div class="wsp-divider wsp-reveal"></div>
+
+<!-- ========== CLOSING ========== -->
+<section class="wsp-cta wsp-reveal">
+  <div class="wsp-chapter-title" style="margin-bottom: 2rem;">The Shirt Is Still Growing</div>
+  <div class="wsp-cta-text">
+    I don't know what's going to come of this shirt in the future. I don't think it's pretty — not even close — but it's still cool. 
+    If you'd like to leave a mark on this work of communal art, just reach out. If we meet, we'll spend some time painting together.
+  </div>
+  <div class="wsp-narrative" style="text-align: center; font-size: 1.5rem; margin-bottom: 3rem;">
+    Beauty is what makes life worth living!
+  </div>
+  <a href="mailto:arafat.da.khan@gmail.com" class="wsp-cta-link">Leave Your Mark →</a>
+  <div style="margin-top: 3rem;">
+    <a href="/projects/communalArt/" class="wsp-back-link">← Back to Project Page</a>
+  </div>
+</section>
+
+<script>
+(function() {
+  // Hotspot story data
+  var stories = [
+    {
+      label: "Hotspot 1 of 6",
+      tags: ["Origin", "Lady M"],
+      title: "The Beginning",
+      text: "<p>This is where it all started — a planned date night, a white shirt, and a dream of creating something beautiful together. The original vision was simple: finish painting the shirt and gift it to M.</p><p>These first strokes carry the most weight. They're the ones laid down with intention and hope, before the shirt became what it is now. Every project has a genesis, and this one began with love.</p>"
+    },
+    {
+      label: "Hotspot 2 of 6",
+      tags: ["Language", "Urdu"],
+      title: "A Piece of Home",
+      text: "<p>Urdu words woven into the fabric — literally. These characters carry the weight of a mother tongue, of late-night conversations in a language that shapes how you think and feel.</p><p>When you paint words from your first language onto a shirt that people from all over the world will touch, you're bridging worlds. The script is beautiful even to those who can't read it.</p>"
+    },
+    {
+      label: "Hotspot 3 of 6",
+      tags: ["Language", "Russian"],
+      title: "Words Across Borders",
+      text: "<p>Russian Cyrillic script found its way onto the shirt — a testament to the international tapestry of people who contributed. Each letter carries the echo of conversations in a different tongue.</p><p>The shirt doesn't care what language you speak. It just absorbs it all, creating a kind of visual Babel that somehow makes perfect sense.</p>"
+    },
+    {
+      label: "Hotspot 4 of 6",
+      tags: ["Everyday", "Ritual"],
+      title: "Coffee Stains & Everyday Rituals",
+      text: "<p>Not all the marks on this shirt were intentional. Coffee stains — evidence of the everyday rituals that happened around the painting sessions. Late nights, early mornings, conversations over cups.</p><p>These accidental marks are some of the most honest ones on the shirt. They weren't composed or planned. They just happened, the way life does.</p>"
+    },
+    {
+      label: "Hotspot 5 of 6",
+      tags: ["Friends", "Portrait"],
+      title: "The Panda Friend",
+      text: "<p>One friend got painted as a panda. There's something beautifully absurd about immortalizing someone as a cartoon animal on a communal art piece. It captures a friendship's inside joke in permanent pigment.</p><p>Art doesn't have to be serious to be meaningful. Sometimes the most lasting memories are the silliest ones.</p>"
+    },
+    {
+      label: "Hotspot 6 of 6",
+      tags: ["Travel", "Identity"],
+      title: "Flags of the World",
+      text: "<p>Flags from multiple countries dot the shirt — each one representing a place, a heritage, a piece of someone's identity. Guatemala, Pakistan, Russia, and more.</p><p>The shirt became a map of sorts. Not geographical, but emotional. Each flag marks not just where someone is from, but who they were when they picked up the brush.</p>"
+    }
+  ];
+
+  // Shirt Explorer: Zoom & Pan
+  var canvas = document.getElementById('wsp-canvas');
+  var viewport = document.getElementById('wsp-viewport');
+  var zoomLevelEl = document.getElementById('wsp-zoom-level');
+  var currentZoom = 1;
+  var panX = 0, panY = 0;
+  var isDragging = false;
+  var dragStartX, dragStartY, startPanX, startPanY;
+
+  function updateTransform() {
+    canvas.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + currentZoom + ')';
+    zoomLevelEl.textContent = Math.round(currentZoom * 100) + '%';
+  }
+
+  window.wspZoomIn = function() {
+    currentZoom = Math.min(currentZoom * 1.3, 5);
+    updateTransform();
+  };
+
+  window.wspZoomOut = function() {
+    currentZoom = Math.max(currentZoom / 1.3, 0.5);
+    if (currentZoom <= 1) { panX = 0; panY = 0; }
+    updateTransform();
+  };
+
+  window.wspResetView = function() {
+    currentZoom = 1; panX = 0; panY = 0;
+    updateTransform();
+  };
+
+  viewport.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    if (e.deltaY < 0) { currentZoom = Math.min(currentZoom * 1.1, 5); }
+    else { currentZoom = Math.max(currentZoom / 1.1, 0.5); }
+    if (currentZoom <= 1) { panX = 0; panY = 0; }
+    updateTransform();
+  }, { passive: false });
+
+  viewport.addEventListener('mousedown', function(e) {
+    if (e.target.closest('.wsp-hotspot')) return;
+    isDragging = true;
+    dragStartX = e.clientX;
+    dragStartY = e.clientY;
+    startPanX = panX;
+    startPanY = panY;
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    panX = startPanX + (e.clientX - dragStartX);
+    panY = startPanY + (e.clientY - dragStartY);
+    updateTransform();
+  });
+
+  document.addEventListener('mouseup', function() { isDragging = false; });
+
+  // Touch support for mobile
+  var touchStartX, touchStartY;
+  viewport.addEventListener('touchstart', function(e) {
+    if (e.target.closest('.wsp-hotspot')) return;
+    if (e.touches.length === 1) {
+      isDragging = true;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      startPanX = panX;
+      startPanY = panY;
+    }
+  }, { passive: true });
+
+  viewport.addEventListener('touchmove', function(e) {
+    if (!isDragging || e.touches.length !== 1) return;
+    panX = startPanX + (e.touches[0].clientX - touchStartX);
+    panY = startPanY + (e.touches[0].clientY - touchStartY);
+    updateTransform();
+  }, { passive: true });
+
+  viewport.addEventListener('touchend', function() { isDragging = false; });
+
+  // Story panel
+  var panel = document.getElementById('wsp-story-panel');
+  var overlay = document.getElementById('wsp-overlay');
+  var panelLabel = document.getElementById('wsp-panel-label');
+  var panelBody = document.getElementById('wsp-panel-body');
+
+  window.wspShowStory = function(idx) {
+    var s = stories[idx];
+    panelLabel.textContent = s.label;
+    var tagsHtml = s.tags.map(function(t) { return '<span class="wsp-story-tag">' + t + '</span>'; }).join('');
+    panelBody.innerHTML = '<div class="wsp-story-meta">' + tagsHtml + '</div>' +
+      '<h3 class="wsp-story-title">' + s.title + '</h3>' +
+      '<div class="wsp-story-text">' + s.text + '</div>';
+    panel.classList.add('wsp-open');
+    overlay.classList.add('wsp-open');
+  };
+
+  window.wspCloseStory = function() {
+    panel.classList.remove('wsp-open');
+    overlay.classList.remove('wsp-open');
+  };
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') window.wspCloseStory();
+  });
+
+  // Scroll reveal
+  var reveals = document.querySelectorAll('.wsp-reveal');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('wsp-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  reveals.forEach(function(el) { observer.observe(el); });
+})();
+</script>
