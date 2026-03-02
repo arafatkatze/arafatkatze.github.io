@@ -282,16 +282,9 @@ nav_order: 5
     margin-top: 3px;
   }
 
-  .travel-stat-link {
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .travel-stat-link:hover {
-    border-color: rgba(232, 166, 166, 0.4);
-    transform: translateY(-2px);
-  }
 </style>
+
+I travel full-time with just a carry-on — 30+ countries, one 18kg suitcase. The interactive globe below takes a moment to load (it's worth the wait). And if you're curious how I fit my entire life into a single bag, [try packing it yourself](/pack/).
 
 <div class="travel-wrapper">
   <div class="travel-hud">
@@ -409,10 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
     '<div class="travel-stat-card"><div class="travel-stat-num">' + countries.length +
     '</div><div class="travel-stat-label">Countries</div></div>' +
     '<div class="travel-stat-card"><div class="travel-stat-num">' + Object.keys(continents).length +
-    '</div><div class="travel-stat-label">Continents</div></div>' +
-    '<a href="/pack/" class="travel-stat-card travel-stat-link" title="Think you can pack lighter?">' +
-    '<div class="travel-stat-num">18kg</div>' +
-    '<div class="travel-stat-label">One Suitcase</div></a>';
+    '</div><div class="travel-stat-label">Continents</div></div>';
 
   var containerEl = document.getElementById('globe-container');
 
