@@ -14,6 +14,12 @@
   {% endif %}
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url | bust_css_cache }}" />
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/jekyll-pygments-themes-github.css' | relative_url | bust_file_cache }}" media="" id="highlight_theme_light" />
+  {% if site.enable_darkmode %}
+  <link defer rel="stylesheet" href="{{ '/assets/css/jekyll-pygments-themes-native.css' | relative_url | bust_file_cache }}" media="none" id="highlight_theme_dark" />
+  <script src="{{ '/assets/js/theme.js' | relative_url | bust_file_cache }}"></script>
+  <script>initTheme();</script>
+  {% endif %}
   <style>
     :root {
       --wsp-bg: #0a0a0c;
@@ -26,6 +32,36 @@
       --wsp-text-bright: #fff;
       --wsp-serif: 'Cormorant Garamond', Georgia, serif;
       --wsp-sans: 'Space Grotesk', 'Roboto', sans-serif;
+      --wsp-hotspot-glow: rgba(201,149,107,0.5);
+      --wsp-hotspot-glow-lg: rgba(201,149,107,0.2);
+      --wsp-hotspot-hover-glow: rgba(201,149,107,0.7);
+      --wsp-hotspot-hover-glow-lg: var(--wsp-border-accent);
+      --wsp-border: var(--wsp-border);
+      --wsp-border-accent: var(--wsp-border-accent);
+      --wsp-nav-bg: rgba(10,10,12,0.92);
+      --wsp-nav-border: rgba(201,149,107,0.12);
+      --wsp-overlay: rgba(0,0,0,0.5);
+      --wsp-img-shadow: rgba(201,149,107,0.08);
+    }
+    html[data-theme="light"] {
+      --wsp-bg: #f8f5f0;
+      --wsp-surface: #efeae3;
+      --wsp-surface-2: #e5dfd7;
+      --wsp-accent: #9a6d3a;
+      --wsp-accent-light: #6b4a20;
+      --wsp-text: #3a342e;
+      --wsp-text-dim: #7a736b;
+      --wsp-text-bright: #1a1510;
+      --wsp-hotspot-glow: rgba(154,109,58,0.4);
+      --wsp-hotspot-glow-lg: rgba(154,109,58,0.15);
+      --wsp-hotspot-hover-glow: rgba(154,109,58,0.6);
+      --wsp-hotspot-hover-glow-lg: rgba(154,109,58,0.25);
+      --wsp-border: rgba(0,0,0,0.08);
+      --wsp-border-accent: rgba(154,109,58,0.35);
+      --wsp-nav-bg: rgba(248,245,240,0.92);
+      --wsp-nav-border: rgba(154,109,58,0.15);
+      --wsp-overlay: rgba(0,0,0,0.3);
+      --wsp-img-shadow: rgba(0,0,0,0.1);
     }
 
     body.wsp-body {
@@ -45,9 +81,9 @@
     }
 
     body.wsp-body #navbar {
-      background: rgba(10,10,12,0.92) !important;
+      background: var(--wsp-nav-bg) !important;
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201,149,107,0.12);
+      border-bottom: 1px solid var(--wsp-nav-border);
     }
     body.wsp-body #navbar .navbar-brand,
     body.wsp-body #navbar .nav-link {
@@ -98,7 +134,7 @@
       width: 600px;
       height: 600px;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(201,149,107,0.06) 0%, transparent 70%);
+      background: radial-gradient(circle, var(--wsp-hotspot-glow-lg) 0%, transparent 70%);
       pointer-events: none;
     }
     .wsp-hero-overline {
@@ -231,8 +267,8 @@
     .wsp-explorer {
       position: relative;
       background: var(--wsp-surface);
-      border-top: 1px solid rgba(201,149,107,0.1);
-      border-bottom: 1px solid rgba(201,149,107,0.1);
+      border-top: 1px solid var(--wsp-nav-border);
+      border-bottom: 1px solid var(--wsp-nav-border);
       min-height: 85vh;
       display: flex;
       flex-direction: column;
@@ -242,7 +278,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid var(--wsp-border);
     }
     .wsp-explorer-label {
       font-family: var(--wsp-sans);
@@ -257,7 +293,7 @@
     }
     .wsp-explorer-controls button {
       background: var(--wsp-surface-2);
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--wsp-border);
       color: var(--wsp-text);
       width: 36px;
       height: 36px;
@@ -295,7 +331,7 @@
       max-height: 72vh;
       width: auto;
       display: block;
-      filter: drop-shadow(0 0 80px rgba(201,149,107,0.08));
+      filter: drop-shadow(0 0 80px var(--wsp-img-shadow));
       pointer-events: none;
     }
 
@@ -322,7 +358,7 @@
       inset: 0;
       background: var(--wsp-accent);
       border-radius: 50%;
-      box-shadow: 0 0 16px 4px rgba(201,149,107,0.5), 0 0 40px 8px rgba(201,149,107,0.2);
+      box-shadow: 0 0 16px 4px var(--wsp-hotspot-glow), 0 0 40px 8px var(--wsp-hotspot-glow-lg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -336,7 +372,7 @@
     }
     .wsp-hotspot:hover .wsp-hotspot-dot {
       background: var(--wsp-accent-light);
-      box-shadow: 0 0 20px 6px rgba(201,149,107,0.7), 0 0 50px 12px rgba(201,149,107,0.3);
+      box-shadow: 0 0 20px 6px var(--wsp-hotspot-hover-glow), 0 0 50px 12px var(--wsp-hotspot-hover-glow-lg);
     }
     @keyframes wspHotspotPulse {
       0%, 100% { transform: scale(1); opacity: 0.8; }
@@ -351,13 +387,13 @@
       width: min(420px, 90vw);
       height: 100vh;
       background: var(--wsp-surface);
-      border-left: 1px solid rgba(201,149,107,0.15);
+      border-left: 1px solid var(--wsp-nav-border);
       z-index: 1050;
       transform: translateX(100%);
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
       flex-direction: column;
-      box-shadow: -20px 0 60px rgba(0,0,0,0.5);
+      box-shadow: -20px 0 60px var(--wsp-overlay);
     }
     .wsp-story-panel.wsp-open {
       transform: translateX(0);
@@ -367,7 +403,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid var(--wsp-border);
       flex-shrink: 0;
     }
     .wsp-story-panel-close {
@@ -397,7 +433,7 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--wsp-accent);
-      background: rgba(201,149,107,0.1);
+      background: var(--wsp-hotspot-glow-lg);
       padding: 0.3rem 0.8rem;
       border-radius: 20px;
     }
@@ -419,7 +455,7 @@
     .wsp-panel-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: var(--wsp-overlay);
       z-index: 1049;
       opacity: 0;
       pointer-events: none;
@@ -458,13 +494,13 @@
       flex: 0 0 300px;
       scroll-snap-align: center;
       background: var(--wsp-surface);
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid var(--wsp-border);
       border-radius: 12px;
       overflow: hidden;
       transition: border-color 0.3s, transform 0.3s;
     }
     .wsp-timeline-card:hover {
-      border-color: rgba(201,149,107,0.3);
+      border-color: var(--wsp-border-accent);
       transform: translateY(-4px);
     }
     .wsp-timeline-card img {
@@ -500,13 +536,13 @@
     }
     .wsp-artist-card {
       background: var(--wsp-surface);
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid var(--wsp-border);
       border-radius: 12px;
       padding: 2rem;
       transition: border-color 0.3s, transform 0.3s;
     }
     .wsp-artist-card:hover {
-      border-color: rgba(201,149,107,0.3);
+      border-color: var(--wsp-border-accent);
       transform: translateY(-2px);
     }
     .wsp-artist-number {
@@ -540,13 +576,13 @@
     }
     .wsp-egg {
       background: var(--wsp-surface);
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid var(--wsp-border);
       border-radius: 10px;
       padding: 1.5rem;
       text-align: center;
       transition: border-color 0.3s;
     }
-    .wsp-egg:hover { border-color: rgba(201,149,107,0.3); }
+    .wsp-egg:hover { border-color: var(--wsp-border-accent); }
     .wsp-egg-icon {
       font-size: 1.8rem;
       margin-bottom: 0.75rem;
@@ -580,7 +616,7 @@
       text-transform: uppercase;
       color: var(--wsp-accent);
       text-decoration: none;
-      border-bottom: 1px solid rgba(201,149,107,0.3);
+      border-bottom: 1px solid var(--wsp-border-accent);
       padding-bottom: 0.25rem;
       transition: border-color 0.3s;
     }
@@ -624,7 +660,7 @@
     .wsp-gallery-row img {
       width: 100%;
       border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.06);
+      border: 1px solid var(--wsp-border);
     }
 
     /* Zoom level indicator */
