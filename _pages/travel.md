@@ -284,7 +284,9 @@ nav_order: 5
 
 </style>
 
-I travel full-time with just a carry-on — 30+ countries, one 18kg suitcase. The interactive globe below takes a moment to load (it's worth the wait). And if you're curious how I fit my entire life into a single bag, [try packing it yourself](/pack/).
+*The globe takes a few seconds to load.*
+
+I travel full-time with just a carry-on. 30+ countries, one 18kg suitcase. If you're curious how I fit my entire life into a single bag, [try packing it yourself](/pack/).
 
 <div class="travel-wrapper">
   <div class="travel-hud">
