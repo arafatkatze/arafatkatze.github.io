@@ -75,32 +75,65 @@
 .pack-bar-over .pack-bar-text { color: var(--pk-bar-danger); }
 
 .pack-bar-track {
-  height: 10px;
+  height: 12px;
   background: var(--pk-bar-bg);
-  border-radius: 5px;
-  overflow: hidden;
+  border-radius: 6px;
+  position: relative;
+  overflow: visible;
 }
 
 .pack-bar-fill {
   height: 100%;
   background: var(--pk-bar-fill);
-  border-radius: 5px;
+  border-radius: 6px 0 0 6px;
   transition: width 0.4s ease, background 0.3s;
   width: 0%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-.pack-bar-warn .pack-bar-fill { background: var(--pk-bar-warn); }
-.pack-bar-danger .pack-bar-fill { background: var(--pk-bar-danger); }
-.pack-bar-over .pack-bar-fill { background: var(--pk-bar-danger); }
+.pack-bar-over {
+  height: 100%;
+  background: #ef4444;
+  border-radius: 0 6px 6px 0;
+  transition: width 0.4s ease;
+  width: 0%;
+  position: absolute;
+  top: 0;
+  opacity: 0.85;
 
-.pack-bar-over .pack-bar-track {
-  animation: pk-shake 0.4s ease;
+  .pack-page & {
+    animation: pk-pulse 1.5s ease-in-out infinite;
+  }
 }
 
-@keyframes pk-shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
+@keyframes pk-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.pack-bar-marker {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  background: var(--pk-text);
+  opacity: 0.5;
+  z-index: 2;
+  transition: left 0.3s;
+
+  span {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--pk-text-muted);
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+  }
 }
 
 // ── Status banner ────────────────────────────
