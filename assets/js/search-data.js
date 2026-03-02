@@ -58,18 +58,7 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/pixels/";
           },
-        },{id: "post-i-won-39-t-quit-ai-to-write-poetry-but-i-get-why-he-did",
-        
-          title: "I Won&#39;t Quit AI to Write Poetry, but I Get Why He Did...",
-        
-        description: "On loneliness, soulfulness, and making beautiful things with your hands while building the future",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/philosophy/2026/03/01/poetry-and-ai.html";
-          
-        },
-      },{id: "post-to-my-future-son",
+        },{id: "post-to-my-future-son",
         
           title: "To My Future Son",
         
@@ -268,6 +257,11 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Brazil/";
+            },},{id: "projects-cline-39-s-analog-art",
+          title: 'Cline&amp;#39;s Analog Art',
+          description: "On loneliness, soulfulness, and making beautiful things with your hands while building the future",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ClineAnalogArt/";
             },},{id: "projects-skiing",
           title: 'Skiing',
           description: "",
