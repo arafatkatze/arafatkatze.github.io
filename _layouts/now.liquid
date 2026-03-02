@@ -1,0 +1,82 @@
+---
+layout: default
+---
+
+<div class="now-page">
+  <!-- Section 1: Now -->
+  <section class="now-section">
+    <div class="now-header">
+      <h1>now.</h1>
+      <p class="now-updated">Last updated {{ site.data.now.last_updated }}</p>
+    </div>
+
+    <div class="now-dashboard">
+      <div class="now-card now-card-working">
+        <div class="now-card-label">Working on</div>
+        <div class="now-card-value">
+          <a href="{{ site.data.now.working_on.link }}" target="_blank" rel="noopener">{{ site.data.now.working_on.title }}</a>
+        </div>
+        <div class="now-card-detail">{{ site.data.now.working_on.description }}</div>
+      </div>
+
+      <div class="now-card now-card-location">
+        <div class="now-card-label">Currently in</div>
+        <div class="now-card-value">{{ site.data.now.location.city }}</div>
+        <div class="now-card-detail">{{ site.data.now.location.detail }}</div>
+      </div>
+
+      <div class="now-card now-card-reading">
+        <div class="now-card-label">Reading</div>
+        {% for book in site.data.now.currently_reading %}
+          <div class="now-reading-item">
+            <span class="now-book-title">{{ book.title }}</span>
+            <span class="now-book-author">{{ book.author }}</span>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="now-card now-card-thinking">
+        <div class="now-card-label">Thinking about</div>
+        <blockquote class="now-thought">{{ site.data.now.thinking }}</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Soundtrack -->
+  <section class="soundtrack-section">
+    <div class="soundtrack-header">
+      <h2>soundtrack.</h2>
+      <p class="soundtrack-subtitle">Songs mapped to moments. Press play on a memory.</p>
+    </div>
+
+    <div class="soundtrack-timeline">
+      {% for entry in site.data.soundtrack %}
+        <div class="soundtrack-entry">
+          <div class="soundtrack-entry-line"></div>
+          <div class="soundtrack-entry-dot"></div>
+          <div class="soundtrack-card">
+            <div class="soundtrack-meta">
+              <span class="soundtrack-period">{{ entry.period }}</span>
+              <span class="soundtrack-meta-sep">&middot;</span>
+              <span class="soundtrack-place">{{ entry.place }}</span>
+            </div>
+            <div class="soundtrack-song">
+              {% if entry.spotify_url %}
+                <a href="{{ entry.spotify_url }}" target="_blank" rel="noopener" class="soundtrack-song-link">
+                  <span class="soundtrack-play-icon">&#9654;</span>
+                  {{ entry.song }}
+                </a>
+              {% else %}
+                {{ entry.song }}
+              {% endif %}
+            </div>
+            <div class="soundtrack-artist">{{ entry.artist }}</div>
+            <div class="soundtrack-memory">{{ entry.memory }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  {{ content }}
+</div>

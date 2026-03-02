@@ -1,0 +1,338 @@
+.now-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+/* ============================================================
+   Section 1: Now — warm, card-based dashboard
+   ============================================================ */
+
+.now-section {
+  margin-bottom: 4rem;
+}
+
+.now-header {
+  margin-bottom: 2rem;
+
+  h1 {
+    font-family: "Times New Roman", "Georgia", serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.25rem;
+    color: var(--global-text-color);
+  }
+
+  .now-updated {
+    font-size: 0.85rem;
+    color: var(--global-text-color-light);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+}
+
+.now-dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.now-card {
+  border: 1px solid var(--global-divider-color);
+  border-radius: 14px;
+  padding: 1.5rem;
+  background: var(--global-card-bg-color);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
+}
+
+html[data-theme="dark"] .now-card:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.now-card-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--global-text-color-light);
+  margin-bottom: 0.65rem;
+  font-weight: 600;
+}
+
+.now-card-value {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--global-text-color);
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+
+  a {
+    color: var(--global-theme-color);
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+
+    &:hover {
+      opacity: 0.8;
+      text-decoration: none;
+    }
+  }
+}
+
+.now-card-detail {
+  font-size: 0.88rem;
+  color: var(--global-text-color-light);
+  line-height: 1.55;
+}
+
+.now-card-working {
+  grid-column: 1 / -1;
+  border-left: 3px solid var(--global-theme-color);
+}
+
+.now-card-reading {
+  .now-reading-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.6rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .now-book-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--global-text-color);
+    line-height: 1.35;
+  }
+
+  .now-book-author {
+    font-size: 0.82rem;
+    color: var(--global-text-color-light);
+  }
+}
+
+.now-card-thinking {
+  grid-column: 1 / -1;
+  background: var(--now-thinking-bg, rgba(181, 9, 172, 0.04));
+
+  .now-thought {
+    font-family: "Times New Roman", "Georgia", serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--global-text-color);
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+}
+
+html[data-theme="dark"] .now-card-thinking {
+  --now-thinking-bg: rgba(181, 9, 172, 0.08);
+}
+
+/* ============================================================
+   Section 2: Soundtrack — atmospheric, dark-leaning timeline
+   ============================================================ */
+
+.soundtrack-section {
+  position: relative;
+  padding: 3rem 0 2rem;
+  border-radius: 20px;
+  background: var(--soundtrack-bg, #0d0d12);
+  margin: 0 -1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(181, 9, 172, 0.3),
+      transparent
+    );
+  }
+}
+
+:root {
+  --soundtrack-bg: #0d0d12;
+  --soundtrack-text: #e8e4e0;
+  --soundtrack-text-muted: #8a8490;
+  --soundtrack-card-bg: rgba(255, 255, 255, 0.04);
+  --soundtrack-card-border: rgba(255, 255, 255, 0.06);
+  --soundtrack-accent: #b509ac;
+  --soundtrack-line: rgba(181, 9, 172, 0.2);
+  --soundtrack-dot: #b509ac;
+}
+
+html[data-theme="dark"] {
+  --soundtrack-bg: #0a0a0f;
+  --soundtrack-card-bg: rgba(255, 255, 255, 0.03);
+  --soundtrack-card-border: rgba(255, 255, 255, 0.05);
+}
+
+.soundtrack-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+
+  h2 {
+    font-family: "Times New Roman", "Georgia", serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    color: var(--soundtrack-text);
+    margin-bottom: 0.35rem;
+  }
+
+  .soundtrack-subtitle {
+    font-size: 0.9rem;
+    color: var(--soundtrack-text-muted);
+    letter-spacing: 0.01em;
+  }
+}
+
+.soundtrack-timeline {
+  position: relative;
+  padding-left: 2.5rem;
+
+  @media (max-width: 640px) {
+    padding-left: 1.8rem;
+  }
+}
+
+.soundtrack-entry {
+  position: relative;
+  padding-bottom: 1.5rem;
+
+  &:last-child {
+    padding-bottom: 0;
+
+    .soundtrack-entry-line {
+      display: none;
+    }
+  }
+}
+
+.soundtrack-entry-line {
+  position: absolute;
+  left: -2.5rem;
+  top: 0.6rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--soundtrack-line);
+
+  @media (max-width: 640px) {
+    left: -1.8rem;
+  }
+}
+
+.soundtrack-entry-dot {
+  position: absolute;
+  left: calc(-2.5rem - 4px);
+  top: 0.55rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--soundtrack-dot);
+  box-shadow: 0 0 8px rgba(181, 9, 172, 0.4);
+
+  @media (max-width: 640px) {
+    left: calc(-1.8rem - 4px);
+  }
+}
+
+.soundtrack-card {
+  background: var(--soundtrack-card-bg);
+  border: 1px solid var(--soundtrack-card-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.4rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(181, 9, 172, 0.15);
+  }
+}
+
+.soundtrack-meta {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.soundtrack-period {
+  color: var(--soundtrack-accent);
+  font-weight: 600;
+}
+
+.soundtrack-meta-sep {
+  color: var(--soundtrack-text-muted);
+}
+
+.soundtrack-place {
+  color: var(--soundtrack-text-muted);
+}
+
+.soundtrack-song {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--soundtrack-text);
+  margin-bottom: 0.15rem;
+  line-height: 1.3;
+}
+
+.soundtrack-song-link {
+  color: var(--soundtrack-text) !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: var(--soundtrack-accent) !important;
+    text-decoration: none !important;
+  }
+
+  .soundtrack-play-icon {
+    font-size: 0.7em;
+    margin-right: 0.35rem;
+    color: var(--soundtrack-accent);
+    vertical-align: 1px;
+  }
+}
+
+.soundtrack-artist {
+  font-size: 0.88rem;
+  color: var(--soundtrack-text-muted);
+  margin-bottom: 0.7rem;
+}
+
+.soundtrack-memory {
+  font-family: "Times New Roman", "Georgia", serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(232, 228, 224, 0.75);
+}
