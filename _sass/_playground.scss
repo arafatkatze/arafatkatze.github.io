@@ -1,0 +1,300 @@
+// ─────────────────────────────────────────────
+// Playground page styles
+// ─────────────────────────────────────────────
+
+.pg-wrapper {
+  position: relative;
+  background: #0b0e17;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: -0.5rem 0 2rem;
+  border: 1px solid rgba(6, 182, 212, 0.12);
+  padding: 2rem 1.75rem 2.5rem;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+// Subtle dot-grid background
+.pg-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(6, 182, 212, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pg-wrapper > * {
+  position: relative;
+  z-index: 1;
+}
+
+// ── Intro ────────────────────────────────────
+
+.pg-intro {
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.08);
+}
+
+.pg-intro-line {
+  display: block;
+  color: #94a3b8;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+
+  &::before {
+    content: '>';
+    color: #06b6d4;
+    margin-right: 0.6em;
+    opacity: 0.6;
+  }
+}
+
+.pg-intro-line--blank {
+  height: 0.5em;
+
+  &::before {
+    content: '';
+    margin: 0;
+  }
+}
+
+.pg-intro-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: #06b6d4;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: pg-blink 1s steps(2) infinite;
+}
+
+@keyframes pg-blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+// ── Experiment card ──────────────────────────
+
+.pg-experiment {
+  background: rgba(15, 22, 41, 0.7);
+  border: 1px solid rgba(6, 182, 212, 0.1);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  transition: border-color 0.3s;
+
+  &:hover {
+    border-color: rgba(6, 182, 212, 0.22);
+  }
+}
+
+.pg-exp-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem 1rem;
+  border-bottom: 1px solid rgba(6, 182, 212, 0.06);
+}
+
+.pg-exp-num {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.7rem;
+  color: #06b6d4;
+  letter-spacing: 2px;
+  background: rgba(6, 182, 212, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pg-exp-title {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.05rem;
+  color: #e2e8f0;
+  margin: 0 0 2px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.pg-exp-desc {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  color: #64748b;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+.pg-exp-body {
+  padding: 0;
+}
+
+.pg-exp-controls {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.75rem 1.5rem 1rem;
+  border-top: 1px solid rgba(6, 182, 212, 0.06);
+}
+
+// ── Buttons ──────────────────────────────────
+
+.pg-btn {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  text-transform: lowercase;
+  color: #94a3b8;
+  background: rgba(6, 182, 212, 0.06);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  border-radius: 4px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    color: #06b6d4;
+    background: rgba(6, 182, 212, 0.12);
+    border-color: rgba(6, 182, 212, 0.3);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+// ── Canvas containers ────────────────────────
+
+.pg-canvas-wrap {
+  width: 100%;
+  position: relative;
+  background: #0b0e17;
+
+  canvas {
+    display: block;
+    width: 100%;
+    cursor: crosshair;
+  }
+}
+
+// ── Stats grid (Life in Numbers) ─────────────
+
+.pg-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.pg-stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.2rem 0.75rem;
+  background: rgba(11, 14, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  transition: border-color 0.3s, transform 0.3s;
+
+  &:hover {
+    border-color: rgba(6, 182, 212, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.pg-stat-ring {
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.pg-stat-value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+
+.pg-stat-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.6rem;
+  color: #64748b;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+// ── More coming section ──────────────────────
+
+.pg-more {
+  text-align: center;
+  padding: 2rem 0 0.5rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.pg-more-text {
+  font-size: 0.75rem;
+  color: #475569;
+  letter-spacing: 1px;
+}
+
+.pg-more-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  background: #06b6d4;
+  border-radius: 50%;
+  margin: 0 3px;
+  opacity: 0.4;
+  animation: pg-pulse 2s ease-in-out infinite;
+
+  &:nth-child(2) { animation-delay: 0.3s; }
+  &:nth-child(3) { animation-delay: 0.6s; }
+}
+
+@keyframes pg-pulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.4); }
+}
+
+// ── Responsive ───────────────────────────────
+
+@media (max-width: 600px) {
+  .pg-wrapper {
+    padding: 1.25rem 1rem 1.75rem;
+    margin: -0.25rem 0 1.5rem;
+  }
+
+  .pg-exp-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 1rem 0.75rem;
+  }
+
+  .pg-exp-controls {
+    padding: 0.6rem 1rem 0.75rem;
+  }
+
+  .pg-stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    padding: 1rem;
+    gap: 0.5rem;
+  }
+
+  .pg-stat-value {
+    font-size: 1.4rem;
+  }
+
+  .pg-intro-line {
+    font-size: 0.75rem;
+  }
+}
