@@ -7,35 +7,129 @@ subtitle:
 profile:
   align: right
   image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417821/site/basepic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: false
   more_info: >
     <p>  </p>
 
-selected_papers: false # includes a list of papers marked as "selected={true}"
-social: true # includes social icons at the bottom of the page
+selected_papers: false
+social: true
 
-content_blocks:
-  - title: Writing
-    subtitle: Personal essays & reflections
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1766712820/manitonga_ukgdy8.png
-    collection: posts
-    link: /blog/
-  - title: Projects
-    subtitle: Life stories & adventures
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/v1766803299/59a8cbc7-95fc-5b34-8d83-53f7729a6786_vvlnqo.jpg
-    collection: projects
-    link: /projects/
-  - title: AI
-    subtitle: Agentic AI writings & threads
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
-    page: /projects/AgenticAi/
-    description: Writings about building agentic AI — traps, search strategies, reverse-engineering tools, and more.
-  - title: Reading
-    subtitle: Books & reviews
-    image: https://covers.openlibrary.org/b/isbn/0441172717-L.jpg
-    collection: books
+bento_tiles:
+  # Row 1: wide text + travel + skiing
+  - title: To My Future Son
+    label: Writing · Philosophy
+    link: /philosophy/2026/01/21/son
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1769234582/IMG_3229_1_k3ykmq.png
+    excerpt: "I imagine myself sitting on a chair, working. You come running towards me, curve your tiny hand around my right hand..."
+    type: card
+    span: wide
+
+  - title: Travel
+    label: Explore · Globe
+    link: /travel/
+    image: https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/1200px-The_Earth_seen_from_Apollo_17.jpg
+    type: image
+
+  - title: Skiing
+    label: Projects · Fun
+    link: /projects/Skiing/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
+    type: image
+
+  # Row 2: art + book + math of love (wide)
+  - title: Art
+    label: Projects · Art
+    link: /projects/Art/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417818/site/art/7.jpg
+    type: image
+
+  - title: Dune
+    label: Reading · Books
     link: /reading/
-    limit: 8
+    image: https://covers.openlibrary.org/b/isbn/0441172717-L.jpg
+    type: book
+    author: Frank Herbert
+    badge: Favorite
+
+  - title: Mathematics of Love
+    label: Projects · Art
+    link: /projects/mathmaking/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/v1766803299/59a8cbc7-95fc-5b34-8d83-53f7729a6786_vvlnqo.jpg
+    type: image
+    span: wide
+
+  # Row 3: shirt + atomic habits + AI + alchemist
+  - title: White Shirt Project
+    label: Projects · Art
+    link: /projects/communalArt/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
+    type: image
+
+  - title: Atomic Habits
+    label: Reading · Books
+    link: /reading/
+    image: https://covers.openlibrary.org/b/isbn/0735211299-L.jpg
+    type: book
+    author: James Clear
+    badge: Favorite
+
+  - title: Agentic AI
+    label: Projects · Work
+    link: /projects/AgenticAi/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
+    type: image
+
+  - title: The Alchemist
+    label: Reading · Books
+    link: /reading/
+    image: https://covers.openlibrary.org/b/isbn/0062315005-L.jpg
+    type: book
+    author: Paulo Coelho
+    badge: Read
+
+  # Row 4: brazil tall + pixel board + mountain of spirits + writing
+  - title: Brazil
+    label: Projects · Fun
+    link: /projects/Brazil/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
+    type: image
+    span: tall
+
+  - title: Pixel Board
+    label: Pixels · Art
+    link: /pixels/
+    type: text
+    excerpt: "Collaborative pixel art — leave your mark on the board."
+    bg: pixel
+
+  - title: Mountain of Spirits
+    label: Writing · Travel
+    link: /philosophy/2025/12/15/mountain-of-spirits
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1766712820/manitonga_ukgdy8.png
+    type: image
+
+  # Row 5: writing section + matchmaking + sapiens
+  - title: writing.
+    label: Blog · Essays
+    link: /blog/
+    type: text
+    excerpt: "Philosophy, love letters, travel stories — the wild west of my thoughts."
+    bg: warm
+
+  - title: I Hope It Happens For You
+    label: Writing · Love
+    link: /philosophy/2025/08/10/i-hope-it-happens-for-you
+    type: text
+    excerpt: "I want to fall in love again, but this time I want to do it once for the rest of my life..."
+    span: wide
+
+  - title: Sapiens
+    label: Reading · Books
+    link: /reading/
+    image: https://covers.openlibrary.org/b/isbn/0062316095-L.jpg
+    type: book
+    author: Yuval Noah Harari
+    badge: Favorite
 
 announcements:
   enabled: false
