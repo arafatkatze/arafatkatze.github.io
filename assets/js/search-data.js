@@ -247,6 +247,11 @@ ninja.data = [{
           description: "On loneliness, soulfulness, and making beautiful things with your hands while building the future",
           section: "Projects",handler: () => {
               window.location.href = "/projects/ClineAnalogArt/";
+            },},{id: "projects-a-practical-guide-to-hill-climbing",
+          title: 'A Practical Guide to Hill Climbing',
+          description: "Iterative improvement for AI coding agents",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/HillClimbing/";
             },},{id: "projects-skiing",
           title: 'Skiing',
           description: "",
