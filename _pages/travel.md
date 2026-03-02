@@ -313,7 +313,12 @@ nav_order: 5
     font-size: 0.72rem;
     margin-top: 3px;
   }
+
 </style>
+
+*The globe takes a few seconds to load.*
+
+I travel full-time with just a carry-on. 30+ countries, one 18kg suitcase. If you're curious how I fit my entire life into a single bag, [try packing it yourself](/pack/).
 
 <div class="travel-page">
 
