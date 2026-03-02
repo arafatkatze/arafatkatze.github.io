@@ -2,7 +2,7 @@
 layout: page
 title: Art
 description:
-img: assets/img/art/7.jpeg
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417818/site/art/7.jpg
 importance: 3
 category: art
 ---
@@ -13,10 +13,10 @@ I have always been a huge fan of art in all its forms, whether contemporary/anci
 
 <div class="col">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/art/3.jpeg" title="Brazil" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417817/site/art/3.jpg" title="Brazil" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/art/4.jpeg" title="Gatineau, Canada" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417817/site/art/4.jpg" title="Gatineau, Canada" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -27,7 +27,7 @@ When graffitis are good then they add so much to the vibe of a city, its almost 
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="assets/img/art/7.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417818/site/art/7.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -48,10 +48,10 @@ I also really love paintings I have 100s of them on my phone but let's just shar
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/art/19.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417819/site/art/19.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.html path="assets/img/art/21.jpeg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417820/site/art/21.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
