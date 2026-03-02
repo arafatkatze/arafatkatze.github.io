@@ -4,6 +4,7 @@
   var MAX = 18000;
 
   // ── Item data ──────────────────────────────
+  // Starts OVERLOADED at ~21kg. The game is: cut it down to 18.
 
   var insideItems = [
     { id:'suitcase', emoji:'🧳', name:'Carry-on Suitcase', w:3500, qty:1, max:1, cat:'bag', quip:'Osprey 46L. This is literally my home.' },
@@ -11,18 +12,22 @@
     { id:'grey-tee', emoji:'👕', name:'Grey T-shirt', w:180, qty:2, max:5, cat:'clothing', quip:'Grey goes with everything. That\'s the whole strategy.' },
     { id:'button-up', emoji:'👔', name:'Button-up Shirt', w:250, qty:1, max:2, cat:'clothing', quip:'The one nice thing I own. Weddings, dinners, border crossings.' },
     { id:'jeans', emoji:'👖', name:'Jeans', w:1000, qty:1, max:2, cat:'clothing', quip:'One pair. Wash on Sundays. They develop character.' },
+    { id:'extra-jeans', emoji:'👖', name:'Extra Jeans', w:1000, qty:1, max:1, cat:'clothing', quip:'The luxury most people can\'t imagine giving up.' },
     { id:'chinos', emoji:'👖', name:'Chinos', w:500, qty:1, max:2, cat:'clothing', quip:"Lighter than jeans. Passes as 'dressed up' in most countries." },
     { id:'shorts', emoji:'🩳', name:'Shorts', w:250, qty:2, max:3, cat:'clothing', quip:'For anything above 25°C and all hostel common rooms.' },
     { id:'hoodie', emoji:'🧥', name:'Hoodie', w:700, qty:1, max:1, cat:'clothing', quip:'Airport pillow. Blanket. Jacket. Emotional support garment.' },
+    { id:'winter-coat', emoji:'🧥', name:'Winter Coat', w:1500, qty:1, max:1, cat:'clothing', quip:'Warm? Yes. Worth 8% of your total capacity? Debatable.' },
     { id:'light-jacket', emoji:'🧥', name:'Lightweight Jacket', w:450, qty:1, max:1, cat:'clothing', quip:'Layers > bulk. Handles 5°C to 20°C.' },
     { id:'rain-jacket', emoji:'🌧️', name:'Rain Jacket', w:350, qty:1, max:1, cat:'clothing', quip:'Gore-Tex. The thing between me and looking like a drowned rat.' },
     { id:'fleece', emoji:'🧶', name:'Fleece Pullover', w:400, qty:1, max:1, cat:'clothing', quip:'The layering system MVP. Under the jacket, over the tee.' },
+    { id:'pajamas', emoji:'😴', name:'Pajamas', w:300, qty:1, max:1, cat:'clothing', quip:'Some people sleep in PJs. I sleep in tomorrow\'s outfit.' },
     { id:'underwear', emoji:'🩲', name:'Underwear', w:60, qty:6, max:8, cat:'clothing', quip:'Merino wool. Can go longer than you\'d think.' },
     { id:'socks', emoji:'🧦', name:'Socks (pair)', w:55, qty:5, max:7, cat:'clothing', quip:'Also merino. The one thing I refuse to compromise on.' },
     { id:'swim-trunks', emoji:'🩱', name:'Swim Trunks', w:150, qty:1, max:1, cat:'clothing', quip:'Double as shorts in a pinch.' },
     { id:'beanie', emoji:'🧶', name:'Beanie', w:80, qty:1, max:1, cat:'clothing', quip:'Takes zero space. Saves your life in cold airports.' },
     { id:'belt', emoji:'〰️', name:'Belt', w:150, qty:1, max:1, cat:'clothing', quip:'Holding everything together. Literally.' },
     { id:'runners', emoji:'👟', name:'Running Shoes', w:950, qty:1, max:2, cat:'shoes', quip:'Daily shoes. Hiking shoes if I\'m brave. Running shoes rarely.' },
+    { id:'dress-shoes', emoji:'👞', name:'Dress Shoes', w:600, qty:1, max:1, cat:'shoes', quip:'Look good, feel bad, weigh a ton.' },
     { id:'flip-flops', emoji:'🩴', name:'Flip Flops', w:220, qty:1, max:1, cat:'shoes', quip:'Hostels. Showers. Beaches. Non-negotiable.' },
     { id:'laptop', emoji:'💻', name:'Laptop', w:2200, qty:1, max:1, cat:'tech', quip:'14" MacBook Pro. My office, cinema, and library.' },
     { id:'laptop-charger', emoji:'🔌', name:'Laptop Charger', w:350, qty:1, max:1, cat:'tech', quip:'The one thing I\'d definitely notice forgetting.' },
@@ -41,6 +46,7 @@
     { id:'packing-cubes', emoji:'📦', name:'Packing Cubes', w:150, qty:3, max:4, cat:'essentials', quip:'The difference between a suitcase and organized chaos.' },
     { id:'water-bottle', emoji:'💧', name:'Water Bottle', w:200, qty:1, max:1, cat:'essentials', quip:'Reusable. Saves money, saves the planet.' },
     { id:'notebook', emoji:'📓', name:'Notebook + Pen', w:200, qty:1, max:2, cat:'essentials', quip:'Some thoughts need paper, not pixels.' },
+    { id:'physical-book', emoji:'📚', name:'Physical Book', w:350, qty:1, max:3, cat:'essentials', quip:'Beautiful to hold. The Kindle holds 300 of them at 180g.' },
     { id:'sleep-mask', emoji:'😴', name:'Sleep Mask + Earplugs', w:50, qty:1, max:1, cat:'essentials', quip:'The hostel survival kit.' },
     { id:'laundry-bag', emoji:'👜', name:'Laundry Bag', w:80, qty:1, max:1, cat:'essentials', quip:'Keeps the dirty separate from the clean.' }
   ];
@@ -49,12 +55,8 @@
     { id:'dress-shirt', emoji:'👔', name:'Dress Shirt', w:280, qty:0, max:2, cat:'clothing', quip:'For when the button-up isn\'t fancy enough.' },
     { id:'thermal', emoji:'🧤', name:'Thermal Base Layer', w:200, qty:0, max:2, cat:'clothing', quip:'For when the hoodie+jacket combo isn\'t enough.' },
     { id:'scarf', emoji:'🧣', name:'Scarf', w:150, qty:0, max:1, cat:'clothing', quip:'Fashion or warmth? Both. Neither.' },
-    { id:'pajamas', emoji:'😴', name:'Pajamas', w:300, qty:0, max:1, cat:'clothing', quip:'Some people sleep in PJs. I sleep in tomorrow\'s outfit.' },
-    { id:'second-jeans', emoji:'👖', name:'Extra Jeans', w:1000, qty:0, max:1, cat:'clothing', quip:'The luxury most people can\'t imagine giving up.' },
-    { id:'winter-coat', emoji:'🧥', name:'Winter Coat', w:1500, qty:0, max:1, cat:'clothing', quip:'Warm? Yes. Worth 8% of your total capacity? Debatable.' },
     { id:'suit', emoji:'🤵', name:'Suit', w:1800, qty:0, max:1, cat:'clothing', quip:'2 kg of social obligation.' },
     { id:'gloves', emoji:'🧤', name:'Gloves', w:100, qty:0, max:1, cat:'clothing', quip:'Pockets exist. But sometimes they aren\'t enough.' },
-    { id:'dress-shoes', emoji:'👞', name:'Dress Shoes', w:600, qty:0, max:1, cat:'shoes', quip:'Look good, feel bad, weigh a ton.' },
     { id:'hiking-boots', emoji:'🥾', name:'Hiking Boots', w:1200, qty:0, max:1, cat:'shoes', quip:'Proper ankle support. At the cost of everything else.' },
     { id:'nice-sandals', emoji:'👡', name:'Nice Sandals', w:350, qty:0, max:1, cat:'shoes', quip:'For when flip flops are too honest.' },
     { id:'dslr', emoji:'📷', name:'DSLR Camera', w:800, qty:0, max:1, cat:'tech', quip:'Better photos. Worse back.' },
@@ -67,7 +69,6 @@
     { id:'full-shampoo', emoji:'🧴', name:'Full-size Shampoo', w:400, qty:0, max:1, cat:'toiletries', quip:'Hostels have soap. Hotels have shampoo. Why carry it?' },
     { id:'cologne', emoji:'✨', name:'Cologne', w:200, qty:0, max:1, cat:'toiletries', quip:'Smelling good is 200g I could spend on socks.' },
     { id:'electric-toothbrush', emoji:'🪥', name:'Electric Toothbrush', w:300, qty:0, max:1, cat:'toiletries', quip:'The manual one works fine at 20 grams.' },
-    { id:'physical-book', emoji:'📚', name:'Physical Book', w:350, qty:0, max:3, cat:'extras', quip:'Beautiful to hold. The Kindle holds 300 of them at 180g.' },
     { id:'pillow', emoji:'🛏️', name:'Travel Pillow', w:400, qty:0, max:1, cat:'extras', quip:'The hoodie exists for this exact reason.' },
     { id:'sleeping-liner', emoji:'🛏️', name:'Sleep Liner', w:200, qty:0, max:1, cat:'extras', quip:'For when hostel sheets seem... questionable.' },
     { id:'yoga-mat', emoji:'🧘', name:'Yoga Mat', w:1500, qty:0, max:1, cat:'extras', quip:'Namaste at home. It\'s too heavy.' },
@@ -93,7 +94,7 @@
     'dslr': "The phone camera is right there. But I get it.",
     'drone': "900 grams of YouTube dreams.",
     'physical-book': "Beautiful object. The Kindle holds 300 of them though.",
-    'second-jeans': "The luxury most travelers can't imagine giving up.",
+    'extra-jeans': "The luxury most travelers can't imagine giving up.",
     'hiking-boots': "1.2kg. Your feet say thanks. Your back says no.",
     'espresso': "I've considered this more than I'd like to admit.",
     'pajamas': "I sleep in tomorrow's outfit. But you do you.",
@@ -104,7 +105,8 @@
     'umbrella': "That's what the rain jacket is for.",
     'ski-goggles': "Rent them. Seriously.",
     'cologne': "Smelling good costs 200g. That's almost 4 pairs of socks.",
-    'ipad': "You already have a laptop and a Kindle and a phone..."
+    'ipad': "You already have a laptop and a Kindle and a phone...",
+    'dress-shoes': "Look good, feel bad, weigh a ton."
   };
 
   var removeReacts = {
@@ -120,7 +122,13 @@
     'rain-jacket': "You'll remember this decision in a monsoon.",
     'first-aid': "Living dangerously. I respect it.",
     'water-bottle': "Buying plastic bottles everywhere. The planet weeps.",
-    'sunglasses': "I'd lose them anyway. You're just speeding up the process."
+    'sunglasses': "I'd lose them anyway. You're just speeding up the process.",
+    'winter-coat': "Bold. Layer up or stay warm with vibes.",
+    'extra-jeans': "One pair is all you need. Welcome to minimalism.",
+    'pajamas': "Sleep in tomorrow's outfit. Problem solved.",
+    'dress-shoes': "Flip flops to the wedding it is.",
+    'physical-book': "The Kindle wins again. 300 books at 180g.",
+    'fleece': "Layering system just lost its MVP."
   };
 
   // ── State ──────────────────────────────────
@@ -131,11 +139,11 @@
 
   function initState() {
     insideItems.forEach(function (it) {
-      allItems[it.id] = Object.assign({}, it, { source: 'inside' });
+      allItems[it.id] = { id:it.id, emoji:it.emoji, name:it.name, w:it.w, qty:it.qty, max:it.max, cat:it.cat, quip:it.quip, source:'inside' };
       origQty[it.id] = it.qty;
     });
     shelfItems.forEach(function (it) {
-      allItems[it.id] = Object.assign({}, it, { source: 'shelf' });
+      allItems[it.id] = { id:it.id, emoji:it.emoji, name:it.name, w:it.w, qty:it.qty, max:it.max, cat:it.cat, quip:it.quip, source:'shelf' };
       origQty[it.id] = it.qty;
     });
   }
@@ -173,15 +181,33 @@
     fill.style.background = color;
 
     wrap.classList.remove('pack-over');
-    if (tw > MAX) {
-      wrap.classList.add('pack-over');
+    if (tw > MAX) wrap.classList.add('pack-over');
+
+    renderStatus(tw);
+  }
+
+  function renderStatus(tw) {
+    var el = document.getElementById('pack-status');
+    if (!el) return;
+
+    var over = tw - MAX;
+    if (over > 0) {
+      el.className = 'pack-status pack-status-over';
+      el.innerHTML = '<span class="pack-status-icon">⚠️</span> <span>OVERLOADED — remove <strong>' + fmtWeight(over) + '</strong> to close the suitcase</span>';
+    } else if (over > -300) {
+      el.className = 'pack-status pack-status-tight';
+      el.innerHTML = '<span class="pack-status-icon">🟡</span> <span>Tight fit — only <strong>' + fmtWeight(-over) + '</strong> of room left</span>';
+    } else {
+      el.className = 'pack-status pack-status-ok';
+      el.innerHTML = '<span class="pack-status-icon">✅</span> <span>Suitcase closes. <strong>' + fmtWeight(-over) + '</strong> to spare.</span>';
     }
   }
 
-  function makeCard(item) {
+  function makeCard(itemId) {
+    var item = allItems[itemId];
     var div = document.createElement('div');
     div.className = 'pack-item';
-    div.setAttribute('data-id', item.id);
+    div.setAttribute('data-id', itemId);
     if (item.qty === 0) div.classList.add('pack-item-empty');
 
     div.innerHTML =
@@ -195,8 +221,8 @@
         '<button class="pack-btn pack-btn-add" ' + (item.qty >= item.max ? 'disabled' : '') + '>Pack</button>' +
       '</div>';
 
-    div.querySelector('.pack-btn-add').addEventListener('click', function () { changeQty(item.id, 1); });
-    div.querySelector('.pack-btn-remove').addEventListener('click', function () { changeQty(item.id, -1); });
+    div.querySelector('.pack-btn-add').addEventListener('click', function () { changeQty(itemId, 1); });
+    div.querySelector('.pack-btn-remove').addEventListener('click', function () { changeQty(itemId, -1); });
     return div;
   }
 
@@ -204,7 +230,7 @@
     var el = document.getElementById(containerId);
     if (!el) return;
     el.innerHTML = '';
-    items.forEach(function (it) { el.appendChild(makeCard(it)); });
+    items.forEach(function (it) { el.appendChild(makeCard(it.id)); });
   }
 
   function renderShelf() {
@@ -231,7 +257,7 @@
 
       var grid = document.createElement('div');
       grid.className = 'pack-grid';
-      items.forEach(function (it) { grid.appendChild(makeCard(allItems[it.id])); });
+      items.forEach(function (it) { grid.appendChild(makeCard(it.id)); });
       el.appendChild(grid);
     });
   }
@@ -264,23 +290,25 @@
     wrap.style.display = '';
 
     var html = '<table class="pack-receipt-table">';
-    if (added.length) {
-      html += '<tr class="pack-receipt-header"><td colspan="3">Packed</td></tr>';
-      added.forEach(function (a) {
-        html += '<tr><td>' + a.item.emoji + ' ' + a.item.name + '</td><td>×' + a.diff + '</td><td class="pack-receipt-w pack-receipt-plus">+' + fmtWeight(a.item.w * a.diff) + '</td></tr>';
-      });
-    }
     if (removed.length) {
       html += '<tr class="pack-receipt-header"><td colspan="3">Removed</td></tr>';
       removed.forEach(function (r) {
         html += '<tr><td>' + r.item.emoji + ' ' + r.item.name + '</td><td>×' + r.diff + '</td><td class="pack-receipt-w pack-receipt-minus">−' + fmtWeight(r.item.w * r.diff) + '</td></tr>';
       });
     }
+    if (added.length) {
+      html += '<tr class="pack-receipt-header"><td colspan="3">Packed</td></tr>';
+      added.forEach(function (a) {
+        html += '<tr><td>' + a.item.emoji + ' ' + a.item.name + '</td><td>×' + a.diff + '</td><td class="pack-receipt-w pack-receipt-plus">+' + fmtWeight(a.item.w * a.diff) + '</td></tr>';
+      });
+    }
 
     var origW = 0, nowW = totalWeight();
     for (var k2 in origQty) origW += allItems[k2].w * origQty[k2];
     var delta = nowW - origW;
-    html += '<tr class="pack-receipt-total"><td>Net change</td><td></td><td class="pack-receipt-w ' + (delta > 0 ? 'pack-receipt-plus' : 'pack-receipt-minus') + '">' + (delta > 0 ? '+' : '−') + fmtWeight(Math.abs(delta)) + '</td></tr>';
+    var cls = delta > 0 ? 'pack-receipt-plus' : delta < 0 ? 'pack-receipt-minus' : '';
+    var sign = delta > 0 ? '+' : delta < 0 ? '−' : '';
+    html += '<tr class="pack-receipt-total"><td>Net change</td><td></td><td class="pack-receipt-w ' + cls + '">' + sign + fmtWeight(Math.abs(delta)) + '</td></tr>';
     html += '</table>';
     el.innerHTML = html;
   }
@@ -303,6 +331,7 @@
     if (action === 'remove' && removeReacts[id]) return removeReacts[id];
     var tw = totalWeight();
     if (action === 'add' && tw > MAX) return "🔴 Won't close. Something's gotta go.";
+    if (action === 'remove' && tw <= MAX && (tw + allItems[id].w) > MAX) return "✅ It closes! Nice work.";
     if (action === 'remove' && tw < 8000) return "At this point just go with a passport and vibes.";
     if (action === 'remove' && tw < 12000) return "Impressive minimalism. Sure you'll survive?";
     return null;
