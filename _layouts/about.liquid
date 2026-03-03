@@ -1,8 +1,19 @@
 ---
 layout: default
 ---
+<div class="network-hero" id="network-hero">
+  <canvas id="network-canvas"></canvas>
+  <div class="network-hero-content">
+    <h1 class="post-title">
+      <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
+        {{ site.last_name }} (a.k.a Ara)
+    </h1>
+    <p class="desc">{{ page.subtitle }}</p>
+  </div>
+</div>
+
 <div class="post">
-  <header class="post-header">
+  <header class="post-header" style="display:none;">
     <h1 class="post-title">
       <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
         {{ site.last_name }} (a.k.a Ara)
@@ -84,3 +95,5 @@ layout: default
     {% endif %}
   </article>
 </div>
+
+<script src="{{ '/assets/js/network-animation.js' | relative_url }}"></script>
