@@ -2,11 +2,11 @@
   "use strict";
 
   var canvas, ctx, width, height, particles, mouse, raf;
-  var NUM_PARTICLES = 30;
-  var CONNECTION_DIST = 110;
-  var BASE_SPEED = 0.2;
-  var HOVER_SPEED = 1.8;
-  var HOVER_RADIUS = 140;
+  var NUM_PARTICLES = 48;
+  var CONNECTION_DIST = 120;
+  var BASE_SPEED = 0.15;
+  var HOVER_SPEED = 1.6;
+  var HOVER_RADIUS = 160;
 
   mouse = { x: -9999, y: -9999, over: false };
 
@@ -15,22 +15,33 @@
       document.documentElement.getAttribute("data-theme") === "dark";
     if (dark) {
       return {
-        nodeStroke: "rgba(180,180,200,0.6)",
-        nodeCore: "rgba(210,210,230,0.8)",
-        line: { r: 150, g: 150, b: 170 },
+        ring: "rgba(170,170,190,0.5)",
+        core: "rgba(200,200,220,0.85)",
+        line: { r: 140, g: 140, b: 160 },
       };
     }
     return {
-      nodeStroke: "rgba(80,80,100,0.45)",
-      nodeCore: "rgba(55,55,75,0.7)",
-      line: { r: 90, g: 90, b: 110 },
+      ring: "rgba(60,60,70,0.4)",
+      core: "rgba(40,40,50,0.75)",
+      line: { r: 60, g: 60, b: 70 },
     };
   }
 
   function createParticle() {
     var angle = Math.random() * Math.PI * 2;
-    var speed = BASE_SPEED * (0.5 + Math.random() * 0.5);
-    var radius = 2.5 + Math.random() * 4.5;
+    var speed = BASE_SPEED * (0.4 + Math.random() * 0.6);
+    var rand = Math.random();
+    var radius, rings;
+    if (rand < 0.3) {
+      radius = 1.5 + Math.random() * 2;
+      rings = 0;
+    } else if (rand < 0.7) {
+      radius = 3.5 + Math.random() * 3;
+      rings = 1;
+    } else {
+      radius = 5 + Math.random() * 4;
+      rings = 2;
+    }
     return {
       x: Math.random() * width,
       y: Math.random() * height,
@@ -38,7 +49,7 @@
       vy: Math.sin(angle) * speed,
       baseSpeed: speed,
       radius: radius,
-      rings: Math.floor(1 + Math.random() * 2),
+      rings: rings,
     };
   }
 
@@ -112,14 +123,14 @@
       p.x += Math.cos(angle) * speed;
       p.y += Math.sin(angle) * speed;
 
-      var margin = 30;
+      var margin = 40;
       if (p.x < -margin) p.x = width + margin;
       if (p.x > width + margin) p.x = -margin;
       if (p.y < -margin) p.y = height + margin;
       if (p.y > height + margin) p.y = -margin;
 
-      p.vx += (Math.random() - 0.5) * 0.012;
-      p.vy += (Math.random() - 0.5) * 0.012;
+      p.vx += (Math.random() - 0.5) * 0.01;
+      p.vy += (Math.random() - 0.5) * 0.01;
       var mag = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
       if (mag > 0) {
         p.vx = (p.vx / mag) * p.baseSpeed;
@@ -131,19 +142,27 @@
   function drawNode(p, colors) {
     var r = p.radius;
 
-    for (var ring = p.rings; ring >= 1; ring--) {
-      var rr = r * (0.4 + ring * 0.3);
-      if (rr < 1.2) continue;
+    if (p.rings >= 2) {
       ctx.beginPath();
-      ctx.arc(p.x, p.y, rr, 0, Math.PI * 2);
-      ctx.strokeStyle = colors.nodeStroke;
-      ctx.lineWidth = 0.8;
+      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+      ctx.strokeStyle = colors.ring;
+      ctx.lineWidth = 1.0;
       ctx.stroke();
     }
 
+    if (p.rings >= 1) {
+      var inner = p.rings >= 2 ? r * 0.6 : r * 0.75;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, inner, 0, Math.PI * 2);
+      ctx.strokeStyle = colors.ring;
+      ctx.lineWidth = 1.0;
+      ctx.stroke();
+    }
+
+    var coreR = p.rings === 0 ? r * 0.7 : Math.max(r * 0.22, 1.5);
     ctx.beginPath();
-    ctx.arc(p.x, p.y, Math.max(r * 0.28, 1.4), 0, Math.PI * 2);
-    ctx.fillStyle = colors.nodeCore;
+    ctx.arc(p.x, p.y, coreR, 0, Math.PI * 2);
+    ctx.fillStyle = colors.core;
     ctx.fill();
   }
 
@@ -158,8 +177,8 @@
         var dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < CONNECTION_DIST) {
           var t = 1 - dist / CONNECTION_DIST;
-          var alpha = t * 0.35;
-          var lw = t * 1.0 + 0.15;
+          var alpha = t * 0.45;
+          var lw = t * 1.2 + 0.2;
           ctx.strokeStyle =
             "rgba(" +
             colors.line.r + "," +
