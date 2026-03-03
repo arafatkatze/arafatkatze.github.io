@@ -2931,7 +2931,7 @@ mjx-container[jax="CHTML"][display="true"] {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding-top: 4px; // align top dot with the "Arafat Khan" heading
+  padding-top: 48px; // push dots down to align with body text, not the heading
   flex-shrink: 0;
   position: sticky;
   top: 80px; // stick below the fixed navbar when scrolling
@@ -2960,13 +2960,14 @@ mjx-container[jax="CHTML"][display="true"] {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
-  // Active state: hatched diagonal pattern overlay
+  // Active state: thicker, more intense border
   &.active {
-    transform: scale(1.05);
-    background-image: url("data:image/svg+xml,%3Csvg width='7' height='7' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='7' x2='7' y2='0' stroke='%23000' stroke-width='1.8' stroke-opacity='0.3'/%3E%3C/svg%3E");
-    background-size: 7px 7px;
-    background-repeat: repeat;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    transform: scale(1.08);
+    border-width: 4px;
+    border-color: var(--dot-color);
+    box-shadow:
+      0 0 0 2px var(--dot-color),
+      0 2px 8px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -2978,8 +2979,9 @@ html[data-theme="dark"] .color-dot {
   }
 
   &.active {
-    background-image: url("data:image/svg+xml,%3Csvg width='7' height='7' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='7' x2='7' y2='0' stroke='%23fff' stroke-width='1.8' stroke-opacity='0.35'/%3E%3C/svg%3E");
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    box-shadow:
+      0 0 0 2px var(--dot-color),
+      0 2px 8px rgba(0, 0, 0, 0.4);
   }
 }
 
