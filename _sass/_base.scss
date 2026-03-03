@@ -2600,8 +2600,9 @@ mjx-container[jax="CHTML"][display="true"] {
   }
 }
 
-// About page intro text – Fraunces serif, muted gray
-.about-content {
+// Fraunces serif, muted gray – shared by about page and select pages
+.about-content,
+.fraunces-text {
   p,
   li,
   span,
@@ -2616,12 +2617,30 @@ mjx-container[jax="CHTML"][display="true"] {
   }
 }
 
-html[data-theme="dark"] .about-content {
+html[data-theme="dark"] .about-content,
+html[data-theme="dark"] .fraunces-text {
   p,
   li,
   span,
   em,
   strong {
+    color: #aaa;
+  }
+}
+
+.fraunces-text {
+  .post-title,
+  .post-description {
+    font-family: "Fraunces", Georgia, serif;
+  }
+
+  .post-description {
+    color: #666;
+  }
+}
+
+html[data-theme="dark"] .fraunces-text {
+  .post-description {
     color: #aaa;
   }
 }

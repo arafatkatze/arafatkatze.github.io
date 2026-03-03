@@ -8,7 +8,7 @@ layout: default
   </style>
 {% endif %}
 
-<div class="post">
+<div class="post{% if page.use_fraunces %} fraunces-text{% endif %}">
   <header class="post-header">
     {% if page.project_intro %}
       {% include project_intro.liquid img=page.img title=page.title icons=page.icons description=page.description %}
