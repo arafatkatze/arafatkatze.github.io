@@ -2916,10 +2916,10 @@ mjx-container[jax="CHTML"][display="true"] {
   position: fixed;
   // Vertically: start near the top of content (below fixed navbar)
   top: 90px;
-  // Horizontally: sit in the left gutter.
-  // The content area is max-width 930px centered, so the left edge of
-  // content is at calc(50vw - 465px). We place dots to the left of that.
-  left: calc(50vw - 465px - 70px);
+  // Horizontally: sit in the left gutter beside the content area.
+  // Content is max-width 930px centered. Place dots to its left.
+  // Use max() to ensure it never goes below 12px from the left edge.
+  left: max(12px, calc(50vw - 465px - 68px));
   z-index: 1020;
   display: flex;
   flex-direction: column;
@@ -2979,7 +2979,7 @@ html[data-theme="dark"] .color-dot {
 
 // When viewport is too narrow for the left gutter, switch to horizontal
 // row above the content (tablets / small desktops / mobile)
-@media (max-width: 1200px) {
+@media (max-width: 1079px) {
   .color-scheme-picker {
     position: static;
     flex-direction: row;
