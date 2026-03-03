@@ -84,6 +84,27 @@
   </script>
 {% endif %}
 
+<!-- Color Scheme (prevent FOUC — applied on every page) -->
+<script>
+  (function () {
+    var cs = localStorage.getItem("color-scheme");
+    var valid = [
+      "purple",
+      "rose",
+      "red",
+      "orange",
+      "amber",
+      "green",
+      "teal",
+      "blue",
+      "indigo",
+      "slate",
+    ];
+    if (!cs || valid.indexOf(cs) === -1) cs = "purple";
+    document.documentElement.setAttribute("data-color-scheme", cs);
+  })();
+</script>
+
 {% if page.map %}
   <!-- GeoJSON support via Leaflet -->
   <link
