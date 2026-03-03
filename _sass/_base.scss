@@ -230,6 +230,31 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+.about-content {
+  p {
+    color: var(--global-text-color-light);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  strong {
+    color: var(--global-text-color);
+    font-weight: 600;
+  }
+
+  a {
+    color: var(--global-text-color);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--global-theme-color);
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: var(--global-theme-color);
+    }
+  }
+}
+
 .post-description {
   margin-bottom: 2rem;
   font-size: 0.875rem;
