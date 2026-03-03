@@ -14,55 +14,6 @@ profile:
 selected_papers: false
 social: true
 
-scroll_squares:
-  - title: Travel
-    label: Explore
-    link: /travel/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_600/v1772417805/site/brazil_1.png
-    accent: "rgba(20, 60, 90, 0.45)"
-
-  - title: Writing
-    label: Essays & Letters
-    link: /blog/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_600/v1769234582/IMG_3229_1_k3ykmq.png
-    accent: "rgba(40, 30, 20, 0.5)"
-
-  - title: Art
-    label: Projects
-    link: /projects/Art/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_600/v1772417818/site/art/7.jpg
-    accent: "rgba(50, 20, 60, 0.45)"
-
-  - title: Skiing
-    label: Adventures
-    link: /projects/Skiing/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_600/v1772417810/site/skiing/11.jpg
-    accent: "rgba(30, 50, 70, 0.45)"
-
-  - title: Agentic AI
-    label: Work
-    link: /projects/AgenticAi/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_600/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
-    accent: "rgba(10, 20, 40, 0.5)"
-
-  - title: Pixel Board
-    label: Collaborative Art
-    link: /pixels/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_600/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
-    accent: "rgba(20, 20, 50, 0.45)"
-
-  - title: Mathematics of Love
-    label: Projects
-    link: /projects/mathmaking/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_600/v1766803299/59a8cbc7-95fc-5b34-8d83-53f7729a6786_vvlnqo.jpg
-    accent: "rgba(60, 10, 30, 0.45)"
-
-  - title: Reading
-    label: Books
-    link: /reading/
-    image: https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=80
-    accent: "rgba(30, 20, 10, 0.5)"
-
 bento_tiles:
   # Row 1: wide text + travel + skiing
   - title: To My Future Son
