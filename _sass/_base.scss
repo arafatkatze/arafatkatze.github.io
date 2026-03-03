@@ -2908,72 +2908,68 @@ mjx-container[jax="CHTML"][display="true"] {
 
 // ==========================================================================
 // Color Scheme Picker (front page only)
+// Inspired by farrant.me — large colorful circles with hatched active state
 // ==========================================================================
 
 .color-scheme-picker {
   position: fixed;
-  left: 16px;
+  left: 18px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 1020;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 10px 6px;
-  background: var(--global-bg-color);
-  border: 1px solid var(--global-divider-color);
-  border-radius: 50px;
-  box-shadow:
-    0 1px 4px rgba(0, 0, 0, 0.06),
-    0 4px 16px rgba(0, 0, 0, 0.06);
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-html[data-theme="dark"] .color-scheme-picker {
-  box-shadow:
-    0 1px 4px rgba(0, 0, 0, 0.2),
-    0 4px 16px rgba(0, 0, 0, 0.25);
+  gap: 5px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .color-dot {
-  width: 16px;
-  height: 16px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 2px solid transparent;
-  background-color: var(--dot-color);
+  border: 2.5px solid var(--dot-color);
+  background-color: var(--dot-fill, transparent);
   cursor: pointer;
   padding: 0;
+  position: relative;
   transition:
-    transform 0.2s ease,
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
     border-color 0.2s ease,
     box-shadow 0.2s ease;
   outline: none;
   -webkit-appearance: none;
   appearance: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 
   &:hover {
-    transform: scale(1.25);
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+    transform: scale(1.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
+  // Active state: hatched diagonal pattern overlay
   &.active {
-    border-color: var(--global-text-color);
-    transform: scale(1.2);
-    box-shadow: 0 0 0 2px var(--global-bg-color), 0 0 0 4px var(--global-text-color);
+    transform: scale(1.05);
+    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='6' x2='6' y2='0' stroke='%23000' stroke-width='1.5' stroke-opacity='0.35'/%3E%3C/svg%3E");
+    background-size: 6px 6px;
+    background-repeat: repeat;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
   }
 }
 
 html[data-theme="dark"] .color-dot {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+
   &:hover {
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.12);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
   }
 
   &.active {
-    box-shadow: 0 0 0 2px var(--global-bg-color), 0 0 0 4px var(--global-text-color);
+    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='6' x2='6' y2='0' stroke='%23fff' stroke-width='1.5' stroke-opacity='0.4'/%3E%3C/svg%3E");
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   }
 }
 
@@ -2985,16 +2981,25 @@ html[data-theme="dark"] .color-dot {
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    border-radius: 16px;
-    padding: 8px 12px;
+    padding: 0;
     margin: 0 0 1.5rem 0;
-    gap: 8px;
+    gap: 6px;
+  }
+
+  .color-dot {
+    width: 32px;
+    height: 32px;
   }
 }
 
 // Small desktop: tuck closer to edge
 @media (min-width: 768px) and (max-width: 1100px) {
   .color-scheme-picker {
-    left: 8px;
+    left: 10px;
+  }
+
+  .color-dot {
+    width: 32px;
+    height: 32px;
   }
 }

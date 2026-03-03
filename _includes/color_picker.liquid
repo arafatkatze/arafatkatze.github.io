@@ -1,13 +1,22 @@
 <!-- Color Scheme Picker — only rendered on the front/about page -->
+<!-- Inline SVG for hatched pattern used on the active dot -->
+<svg width="0" height="0" style="position: absolute">
+  <defs>
+    <pattern id="hatch-pattern" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="var(--dot-color)" stroke-width="2.5" stroke-opacity="0.55" />
+    </pattern>
+  </defs>
+</svg>
+
 <div class="color-scheme-picker" id="color-scheme-picker" aria-label="Color scheme picker">
-  <button class="color-dot" data-scheme="purple" style="--dot-color: #b509ac" title="Purple" aria-label="Purple color scheme"></button>
-  <button class="color-dot" data-scheme="rose" style="--dot-color: #e11d48" title="Rose" aria-label="Rose color scheme"></button>
-  <button class="color-dot" data-scheme="red" style="--dot-color: #dc2626" title="Red" aria-label="Red color scheme"></button>
-  <button class="color-dot" data-scheme="orange" style="--dot-color: #ea580c" title="Orange" aria-label="Orange color scheme"></button>
-  <button class="color-dot" data-scheme="amber" style="--dot-color: #d97706" title="Amber" aria-label="Amber color scheme"></button>
-  <button class="color-dot" data-scheme="green" style="--dot-color: #16a34a" title="Green" aria-label="Green color scheme"></button>
-  <button class="color-dot" data-scheme="teal" style="--dot-color: #0d9488" title="Teal" aria-label="Teal color scheme"></button>
-  <button class="color-dot" data-scheme="blue" style="--dot-color: #2563eb" title="Blue" aria-label="Blue color scheme"></button>
-  <button class="color-dot" data-scheme="indigo" style="--dot-color: #4f46e5" title="Indigo" aria-label="Indigo color scheme"></button>
-  <button class="color-dot" data-scheme="slate" style="--dot-color: #475569" title="Slate" aria-label="Slate color scheme"></button>
+  <button class="color-dot" data-scheme="purple" style="--dot-color: #b509ac; --dot-fill: #f3d4f1" title="Purple" aria-label="Purple color scheme"></button>
+  <button class="color-dot" data-scheme="rose" style="--dot-color: #e11d48; --dot-fill: #fddde5" title="Rose" aria-label="Rose color scheme"></button>
+  <button class="color-dot" data-scheme="red" style="--dot-color: #dc2626; --dot-fill: #fdd9d7" title="Red" aria-label="Red color scheme"></button>
+  <button class="color-dot" data-scheme="orange" style="--dot-color: #ea580c; --dot-fill: #fde1cc" title="Orange" aria-label="Orange color scheme"></button>
+  <button class="color-dot" data-scheme="amber" style="--dot-color: #d97706; --dot-fill: #fdeab8" title="Amber" aria-label="Amber color scheme"></button>
+  <button class="color-dot" data-scheme="green" style="--dot-color: #16a34a; --dot-fill: #d1f5dc" title="Green" aria-label="Green color scheme"></button>
+  <button class="color-dot" data-scheme="teal" style="--dot-color: #0d9488; --dot-fill: #ccf3ee" title="Teal" aria-label="Teal color scheme"></button>
+  <button class="color-dot" data-scheme="blue" style="--dot-color: #2563eb; --dot-fill: #d4e4fd" title="Blue" aria-label="Blue color scheme"></button>
+  <button class="color-dot" data-scheme="indigo" style="--dot-color: #4f46e5; --dot-fill: #ddd9fd" title="Indigo" aria-label="Indigo color scheme"></button>
+  <button class="color-dot" data-scheme="slate" style="--dot-color: #475569; --dot-fill: #dfe3e8" title="Slate" aria-label="Slate color scheme"></button>
 </div>
