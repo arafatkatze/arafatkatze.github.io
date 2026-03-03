@@ -2909,17 +2909,23 @@ mjx-container[jax="CHTML"][display="true"] {
 // ==========================================================================
 // Color Scheme Picker (front page only)
 // Inspired by farrant.me — large colorful circles with hatched active state
-// Positioned inline as a horizontal row between nav and content
+// Positioned vertically in the left margin gutter beside the content
 // ==========================================================================
 
 .color-scheme-picker {
+  position: fixed;
+  // Vertically: start near the top of content (below fixed navbar)
+  top: 90px;
+  // Horizontally: sit in the left gutter.
+  // The content area is max-width 930px centered, so the left edge of
+  // content is at calc(50vw - 465px). We place dots to the left of that.
+  left: calc(50vw - 465px - 70px);
+  z-index: 1020;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  gap: 6px;
   padding: 0;
-  margin: 0 0 1.5rem 0;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -2971,11 +2977,22 @@ html[data-theme="dark"] .color-dot {
   }
 }
 
-// Mobile: slightly smaller dots, wrap if needed
+// When viewport is too narrow for the left gutter, switch to horizontal
+// row above the content (tablets / small desktops / mobile)
+@media (max-width: 1200px) {
+  .color-scheme-picker {
+    position: static;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 1.5rem 0;
+  }
+}
+
 @media (max-width: 575px) {
   .color-scheme-picker {
     gap: 6px;
-    flex-wrap: wrap;
     margin: 0 0 1rem 0;
   }
 
@@ -2985,7 +3002,6 @@ html[data-theme="dark"] .color-dot {
   }
 }
 
-// Tablet
 @media (min-width: 576px) and (max-width: 768px) {
   .color-dot {
     width: 40px;
