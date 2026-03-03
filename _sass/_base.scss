@@ -2600,6 +2600,32 @@ mjx-container[jax="CHTML"][display="true"] {
   }
 }
 
+// About page intro text – Fraunces serif, muted gray
+.about-content {
+  p,
+  li,
+  span,
+  em,
+  strong {
+    font-family: "Fraunces", Georgia, serif;
+    color: #666;
+  }
+
+  a {
+    color: var(--global-theme-color);
+  }
+}
+
+html[data-theme="dark"] .about-content {
+  p,
+  li,
+  span,
+  em,
+  strong {
+    color: #aaa;
+  }
+}
+
 // Bento Grid (chester.how-style front page tiles)
 .bento-grid {
   display: grid;
