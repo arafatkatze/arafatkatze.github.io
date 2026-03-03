@@ -5,6 +5,12 @@
 
 <div class="bento-grid">
   {% for tile in page.bento_tiles %}
+    {% if tile.type == 'animation' %}
+    <div class="bento-tile bento-tile-animation" id="network-tile">
+      <canvas id="network-canvas"></canvas>
+    </div>
+    {% continue %}
+    {% endif %}
     <a
       class="bento-tile {{ tile.type | default: 'image' }} {% if tile.span %}span-{{ tile.span }}{% endif %} {% if tile.bg %}bg-{{ tile.bg }}{% endif %}"
       href="{{ tile.link | relative_url }}"

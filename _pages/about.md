@@ -58,35 +58,16 @@ bento_tiles:
     type: image
     span: wide
 
-  # Row 3: shirt + atomic habits + AI + alchemist
+  # Row 3: shirt + animation + brazil tall + pixel board
   - title: White Shirt Project
     label: Projects · Art
     link: /projects/communalArt/
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
     type: image
 
-  - title: The Kite Runner
-    label: Reading · Books
-    link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/159463193X-L.jpg
-    type: book
-    author: Khaled Hosseini
-    badge: Read
+  - title: ""
+    type: animation
 
-  - title: Agentic AI
-    label: Projects · Work
-    link: /projects/AgenticAi/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
-    type: image
-
-  - title: writing.
-    label: Blog · Essays
-    link: /blog/
-    type: text
-    excerpt: "Philosophy, love letters, travel stories — the wild west of my thoughts."
-    bg: warm
-
-  # Row 4: brazil tall + pixel board + on looking inwards + into the wild
   - title: Brazil
     label: Projects · Fun
     link: /projects/Brazil/
@@ -101,21 +82,13 @@ bento_tiles:
     excerpt: "Collaborative pixel art — leave your mark on the board."
     bg: pixel
 
+  # Row 4: on looking inwards + messages + stranger
   - title: On Looking Inwards
     label: Writing · Philosophy
     link: /philosophy/2024/05/06/inwards
     type: text
     excerpt: "I have been looking outwards for too long. It's time to look inwards."
     bg: warm
-
-  # Row 5: into the wild + matchmaking + sapiens
-  - title: Into the Wild
-    label: Reading · Books
-    link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0385486804-L.jpg
-    type: book
-    author: Jon Krakauer
-    badge: Read
 
   - title: Messages to 24 People I Know
     label: Writing · Letters

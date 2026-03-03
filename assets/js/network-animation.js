@@ -2,27 +2,27 @@
   "use strict";
 
   var canvas, ctx, width, height, particles, mouse, raf;
-  var NUM_PARTICLES = 32;
-  var CONNECTION_DIST = 190;
-  var BASE_SPEED = 0.25;
-  var HOVER_SPEED = 2.2;
-  var HOVER_RADIUS = 220;
-  var isDark = false;
+  var NUM_PARTICLES = 22;
+  var CONNECTION_DIST = 70;
+  var BASE_SPEED = 0.18;
+  var HOVER_SPEED = 1.6;
+  var HOVER_RADIUS = 100;
 
   mouse = { x: -9999, y: -9999, over: false };
 
   function getColors() {
-    isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    if (isDark) {
+    var dark =
+      document.documentElement.getAttribute("data-theme") === "dark";
+    if (dark) {
       return {
-        nodeStroke: "rgba(180,180,200,0.7)",
-        nodeCore: "rgba(200,200,220,0.85)",
+        nodeStroke: "rgba(180,180,200,0.6)",
+        nodeCore: "rgba(210,210,230,0.8)",
         line: { r: 150, g: 150, b: 170 },
       };
     }
     return {
-      nodeStroke: "rgba(80,80,100,0.55)",
-      nodeCore: "rgba(50,50,70,0.75)",
+      nodeStroke: "rgba(80,80,100,0.45)",
+      nodeCore: "rgba(55,55,75,0.7)",
       line: { r: 90, g: 90, b: 110 },
     };
   }
@@ -30,7 +30,7 @@
   function createParticle() {
     var angle = Math.random() * Math.PI * 2;
     var speed = BASE_SPEED * (0.5 + Math.random() * 0.5);
-    var radius = 4 + Math.random() * 7;
+    var radius = 2.5 + Math.random() * 4.5;
     return {
       x: Math.random() * width,
       y: Math.random() * height,
@@ -43,7 +43,8 @@
   }
 
   function resize() {
-    var rect = canvas.parentElement.getBoundingClientRect();
+    var tile = canvas.parentElement;
+    var rect = tile.getBoundingClientRect();
     var dpr = window.devicePixelRatio || 1;
     width = rect.width;
     height = rect.height;
@@ -65,15 +66,16 @@
       particles.push(createParticle());
     }
 
-    canvas.parentElement.addEventListener("mouseenter", function () {
+    var tile = canvas.parentElement;
+    tile.addEventListener("mouseenter", function () {
       mouse.over = true;
     });
-    canvas.parentElement.addEventListener("mouseleave", function () {
+    tile.addEventListener("mouseleave", function () {
       mouse.over = false;
       mouse.x = -9999;
       mouse.y = -9999;
     });
-    canvas.parentElement.addEventListener("mousemove", function (e) {
+    tile.addEventListener("mousemove", function (e) {
       var rect = canvas.getBoundingClientRect();
       mouse.x = e.clientX - rect.left;
       mouse.y = e.clientY - rect.top;
@@ -83,13 +85,10 @@
       resize();
     });
 
-    var observer = new MutationObserver(function () {
-      isDark = document.documentElement.getAttribute("data-theme") === "dark";
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
+    new MutationObserver(function () {}).observe(
+      document.documentElement,
+      { attributes: true, attributeFilter: ["data-theme"] }
+    );
 
     loop();
   }
@@ -113,14 +112,14 @@
       p.x += Math.cos(angle) * speed;
       p.y += Math.sin(angle) * speed;
 
-      var margin = 60;
+      var margin = 30;
       if (p.x < -margin) p.x = width + margin;
       if (p.x > width + margin) p.x = -margin;
       if (p.y < -margin) p.y = height + margin;
       if (p.y > height + margin) p.y = -margin;
 
-      p.vx += (Math.random() - 0.5) * 0.015;
-      p.vy += (Math.random() - 0.5) * 0.015;
+      p.vx += (Math.random() - 0.5) * 0.012;
+      p.vy += (Math.random() - 0.5) * 0.012;
       var mag = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
       if (mag > 0) {
         p.vx = (p.vx / mag) * p.baseSpeed;
@@ -134,23 +133,22 @@
 
     for (var ring = p.rings; ring >= 1; ring--) {
       var rr = r * (0.4 + ring * 0.3);
-      if (rr < 1.5) continue;
+      if (rr < 1.2) continue;
       ctx.beginPath();
       ctx.arc(p.x, p.y, rr, 0, Math.PI * 2);
       ctx.strokeStyle = colors.nodeStroke;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 0.8;
       ctx.stroke();
     }
 
     ctx.beginPath();
-    ctx.arc(p.x, p.y, Math.max(r * 0.3, 1.8), 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, Math.max(r * 0.28, 1.4), 0, Math.PI * 2);
     ctx.fillStyle = colors.nodeCore;
     ctx.fill();
   }
 
   function draw() {
     var colors = getColors();
-
     ctx.clearRect(0, 0, width, height);
 
     for (var i = 0; i < particles.length; i++) {
@@ -161,7 +159,7 @@
         if (dist < CONNECTION_DIST) {
           var t = 1 - dist / CONNECTION_DIST;
           var alpha = t * 0.35;
-          var lw = t * 1.2 + 0.2;
+          var lw = t * 1.0 + 0.15;
           ctx.strokeStyle =
             "rgba(" +
             colors.line.r + "," +
