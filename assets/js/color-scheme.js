@@ -48,10 +48,25 @@
     if (scheme !== "default") {
       // Force light mode so colorful backgrounds show through
       document.documentElement.setAttribute("data-theme", "light");
+      // Update highlight stylesheets for light mode
+      if (typeof setHighlight === "function") {
+        setHighlight("light");
+      }
     } else {
       // Restore the user's original theme preference
-      if (typeof applyTheme === "function") {
-        applyTheme();
+      // Re-read the stored theme setting and apply it
+      if (typeof determineComputedTheme === "function") {
+        var theme = determineComputedTheme();
+        document.documentElement.setAttribute("data-theme", theme);
+        if (typeof setHighlight === "function") {
+          setHighlight(theme);
+        }
+        if (typeof setGiscusTheme === "function") {
+          setGiscusTheme(theme);
+        }
+        if (typeof setSearchTheme === "function") {
+          setSearchTheme(theme);
+        }
       }
     }
 
@@ -78,7 +93,8 @@
     // Apply scheme attribute
     document.documentElement.setAttribute("data-color-scheme", currentScheme);
 
-    // If a non-default scheme is active, force light mode
+    // If a non-default scheme is active, force light mode.
+    // If default, let theme.js handle dark/light normally.
     if (currentScheme !== "default") {
       document.documentElement.setAttribute("data-theme", "light");
     }
