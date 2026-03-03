@@ -48,25 +48,14 @@
     if (scheme !== "default") {
       // Force light mode so colorful backgrounds show through
       document.documentElement.setAttribute("data-theme", "light");
-      // Update highlight stylesheets for light mode
       if (typeof setHighlight === "function") {
         setHighlight("light");
       }
     } else {
-      // Restore the user's original theme preference
-      // Re-read the stored theme setting and apply it
-      if (typeof determineComputedTheme === "function") {
-        var theme = determineComputedTheme();
-        document.documentElement.setAttribute("data-theme", theme);
-        if (typeof setHighlight === "function") {
-          setHighlight(theme);
-        }
-        if (typeof setGiscusTheme === "function") {
-          setGiscusTheme(theme);
-        }
-        if (typeof setSearchTheme === "function") {
-          setSearchTheme(theme);
-        }
+      // Restore the user's theme — call theme.js applyTheme which reads
+      // the stored preference (light/dark/system) and applies it fully
+      if (typeof applyTheme === "function") {
+        applyTheme();
       }
     }
 
@@ -109,6 +98,22 @@
         var scheme = this.getAttribute("data-scheme");
         setColorScheme(scheme);
       });
+    }
+
+    // Intercept theme.js applyTheme to enforce light mode when a
+    // color scheme is active. theme.js calls applyTheme() when the
+    // dark mode toggle is clicked — we need to override that.
+    if (typeof applyTheme === "function") {
+      var originalApplyTheme = applyTheme;
+      applyTheme = function () {
+        originalApplyTheme();
+        // After theme.js applies the theme, re-force light mode
+        // if a non-default color scheme is active
+        var cs = localStorage.getItem(STORAGE_KEY);
+        if (cs && cs !== "default" && VALID_SCHEMES.indexOf(cs) !== -1) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      };
     }
   }
 
