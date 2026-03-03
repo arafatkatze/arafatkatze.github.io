@@ -2909,27 +2909,25 @@ mjx-container[jax="CHTML"][display="true"] {
 // ==========================================================================
 // Color Scheme Picker (front page only)
 // Inspired by farrant.me — large colorful circles with hatched active state
+// Positioned inline as a horizontal row between nav and content
 // ==========================================================================
 
 .color-scheme-picker {
-  position: fixed;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1020;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  gap: 8px;
   padding: 0;
+  margin: 0 0 1.5rem 0;
   background: transparent;
   border: none;
   box-shadow: none;
 }
 
 .color-dot {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 2.5px solid var(--dot-color);
   background-color: var(--dot-fill, transparent);
@@ -2953,8 +2951,8 @@ mjx-container[jax="CHTML"][display="true"] {
   // Active state: hatched diagonal pattern overlay
   &.active {
     transform: scale(1.05);
-    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='6' x2='6' y2='0' stroke='%23000' stroke-width='1.5' stroke-opacity='0.35'/%3E%3C/svg%3E");
-    background-size: 6px 6px;
+    background-image: url("data:image/svg+xml,%3Csvg width='7' height='7' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='7' x2='7' y2='0' stroke='%23000' stroke-width='1.8' stroke-opacity='0.3'/%3E%3C/svg%3E");
+    background-size: 7px 7px;
     background-repeat: repeat;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
   }
@@ -2968,38 +2966,29 @@ html[data-theme="dark"] .color-dot {
   }
 
   &.active {
-    background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='6' x2='6' y2='0' stroke='%23fff' stroke-width='1.5' stroke-opacity='0.4'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='7' height='7' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='7' x2='7' y2='0' stroke='%23fff' stroke-width='1.8' stroke-opacity='0.35'/%3E%3C/svg%3E");
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   }
 }
 
-// Mobile: horizontal row above content
-@media (max-width: 767px) {
+// Mobile: slightly smaller dots, wrap if needed
+@media (max-width: 575px) {
   .color-scheme-picker {
-    position: static;
-    transform: none;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 0;
-    margin: 0 0 1.5rem 0;
     gap: 6px;
+    flex-wrap: wrap;
+    margin: 0 0 1rem 0;
   }
 
   .color-dot {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
   }
 }
 
-// Small desktop: tuck closer to edge
-@media (min-width: 768px) and (max-width: 1100px) {
-  .color-scheme-picker {
-    left: 10px;
-  }
-
+// Tablet
+@media (min-width: 576px) and (max-width: 768px) {
   .color-dot {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
   }
 }
