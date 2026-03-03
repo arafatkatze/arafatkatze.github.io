@@ -15,9 +15,7 @@
   var VALID_SCHEMES = [
     "purple",
     "rose",
-    "red",
     "orange",
-    "amber",
     "green",
     "teal",
     "blue",
