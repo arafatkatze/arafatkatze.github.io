@@ -89,7 +89,7 @@
   (function () {
     var cs = localStorage.getItem("color-scheme");
     var valid = [
-      "purple",
+      "default",
       "rose",
       "orange",
       "green",
@@ -98,8 +98,12 @@
       "indigo",
       "slate",
     ];
-    if (!cs || valid.indexOf(cs) === -1) cs = "purple";
+    if (!cs || valid.indexOf(cs) === -1) cs = "default";
     document.documentElement.setAttribute("data-color-scheme", cs);
+    // Non-default schemes force light mode
+    if (cs !== "default") {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
   })();
 </script>
 

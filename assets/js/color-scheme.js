@@ -1,19 +1,17 @@
 // Color Scheme Picker
-// Allows users to switch between 10 color schemes.
-// The chosen scheme is saved to localStorage and applied site-wide via
-// the `data-color-scheme` attribute on <html>.
-// The picker UI only exists on the front/about page, but the scheme
-// persists and is applied on every page via an inline <head> script.
+// Allows users to switch between color schemes.
+// When a color scheme (non-default) is selected, it forces light mode
+// so the colorful backgrounds are visible. Selecting "default" restores
+// the user's dark/light preference.
 
 (function () {
   "use strict";
 
   var STORAGE_KEY = "color-scheme";
-  var DEFAULT_SCHEME = "purple";
+  var DEFAULT_SCHEME = "default";
 
-  // Valid scheme names (must match CSS selectors in _color-schemes.scss)
   var VALID_SCHEMES = [
-    "purple",
+    "default",
     "rose",
     "orange",
     "green",
@@ -23,9 +21,6 @@
     "slate",
   ];
 
-  /**
-   * Read the stored color scheme from localStorage, falling back to default.
-   */
   function getStoredScheme() {
     var stored = localStorage.getItem(STORAGE_KEY);
     if (stored && VALID_SCHEMES.indexOf(stored) !== -1) {
@@ -35,24 +30,34 @@
   }
 
   /**
-   * Apply a color scheme to the page.
+   * Apply a color scheme. Non-default schemes force light mode.
+   * "default" restores the user's theme preference (light/dark/system).
    */
   function setColorScheme(scheme) {
     if (VALID_SCHEMES.indexOf(scheme) === -1) return;
 
-    // Use the existing transition helper from theme.js if available
+    // Smooth transition
     if (typeof transTheme === "function") {
       transTheme();
     }
 
+    // Set the color scheme attribute
     document.documentElement.setAttribute("data-color-scheme", scheme);
     localStorage.setItem(STORAGE_KEY, scheme);
+
+    if (scheme !== "default") {
+      // Force light mode so colorful backgrounds show through
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      // Restore the user's original theme preference
+      if (typeof applyTheme === "function") {
+        applyTheme();
+      }
+    }
+
     updateActiveDot(scheme);
   }
 
-  /**
-   * Update the active indicator on the picker dots.
-   */
   function updateActiveDot(scheme) {
     var dots = document.querySelectorAll(".color-dot");
     if (!dots.length) return;
@@ -67,20 +72,21 @@
     }
   }
 
-  /**
-   * Initialize: set up click handlers and mark the active dot.
-   */
   function init() {
     var currentScheme = getStoredScheme();
 
-    // Ensure the attribute is set (should already be from inline <head> script,
-    // but just in case)
+    // Apply scheme attribute
     document.documentElement.setAttribute("data-color-scheme", currentScheme);
 
-    // Mark the active dot
+    // If a non-default scheme is active, force light mode
+    if (currentScheme !== "default") {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+
+    // Mark active dot
     updateActiveDot(currentScheme);
 
-    // Attach click handlers to dots (only if picker exists on this page)
+    // Click handlers
     var dots = document.querySelectorAll(".color-dot");
     for (var i = 0; i < dots.length; i++) {
       dots[i].addEventListener("click", function () {
@@ -90,7 +96,6 @@
     }
   }
 
-  // Run on DOMContentLoaded
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
   } else {
