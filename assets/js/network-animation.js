@@ -2,11 +2,11 @@
   "use strict";
 
   var canvas, ctx, width, height, particles, mouse, raf;
-  var NUM_PARTICLES = 22;
-  var CONNECTION_DIST = 70;
-  var BASE_SPEED = 0.18;
-  var HOVER_SPEED = 1.6;
-  var HOVER_RADIUS = 100;
+  var NUM_PARTICLES = 30;
+  var CONNECTION_DIST = 110;
+  var BASE_SPEED = 0.2;
+  var HOVER_SPEED = 1.8;
+  var HOVER_RADIUS = 140;
 
   mouse = { x: -9999, y: -9999, over: false };
 

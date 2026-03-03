@@ -58,23 +58,24 @@ bento_tiles:
     type: image
     span: wide
 
-  # Row 3: shirt + animation + brazil tall + pixel board
+  # Row 3: brazil + animation (2x2) + white shirt
+  - title: Brazil
+    label: Projects · Fun
+    link: /projects/Brazil/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
+    type: image
+
+  - title: ""
+    type: animation
+    span: wide-tall
+
   - title: White Shirt Project
     label: Projects · Art
     link: /projects/communalArt/
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
     type: image
 
-  - title: ""
-    type: animation
-
-  - title: Brazil
-    label: Projects · Fun
-    link: /projects/Brazil/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
-    type: image
-    span: tall
-
+  # Row 4: pixel board + (animation cont.) + on looking inwards
   - title: Pixel Board
     label: Pixels · Art
     link: /pixels/
@@ -82,7 +83,6 @@ bento_tiles:
     excerpt: "Collaborative pixel art — leave your mark on the board."
     bg: pixel
 
-  # Row 4: on looking inwards + messages + stranger
   - title: On Looking Inwards
     label: Writing · Philosophy
     link: /philosophy/2024/05/06/inwards
@@ -90,6 +90,7 @@ bento_tiles:
     excerpt: "I have been looking outwards for too long. It's time to look inwards."
     bg: warm
 
+  # Row 5: messages (wide) + stranger + alchemist
   - title: Messages to 24 People I Know
     label: Writing · Letters
     link: /philosophy/2025/03/05/messages-to-24-people
@@ -103,6 +104,14 @@ bento_tiles:
     image: https://covers.openlibrary.org/b/isbn/0679720200-L.jpg
     type: book
     author: Albert Camus
+    badge: Read
+
+  - title: The Alchemist
+    label: Reading · Books
+    link: /reading/
+    image: https://covers.openlibrary.org/b/isbn/0061122416-L.jpg
+    type: book
+    author: Paulo Coelho
     badge: Read
 
 announcements:
