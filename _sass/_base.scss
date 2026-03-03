@@ -2909,26 +2909,32 @@ mjx-container[jax="CHTML"][display="true"] {
 // ==========================================================================
 // Color Scheme Picker (front page only)
 // Inspired by farrant.me — large colorful circles with hatched active state
-// Positioned vertically in the left margin gutter beside the content
+// Vertical column immediately to the left of the content text
 // ==========================================================================
 
+// Flex container: dots on left, content on right
+.about-with-picker {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+
+  // The content column takes all remaining space
+  .about-content {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
 .color-scheme-picker {
-  position: fixed;
-  // Vertically: start near the top of content (below fixed navbar)
-  top: 90px;
-  // Horizontally: sit in the left gutter beside the content area.
-  // Content is max-width 930px centered. Place dots to its left.
-  // Use max() to ensure it never goes below 12px from the left edge.
-  left: max(12px, calc(50vw - 465px - 68px));
-  z-index: 1020;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
+  padding-top: 4px; // align top dot with the "Arafat Khan" heading
+  flex-shrink: 0;
+  position: sticky;
+  top: 80px; // stick below the fixed navbar when scrolling
 }
 
 .color-dot {
@@ -2977,34 +2983,25 @@ html[data-theme="dark"] .color-dot {
   }
 }
 
-// When viewport is too narrow for the left gutter, switch to horizontal
-// row above the content (tablets / small desktops / mobile)
-@media (max-width: 1079px) {
+// Mobile: stack vertically (dots on top as horizontal row, then content below)
+@media (max-width: 767px) {
+  .about-with-picker {
+    flex-direction: column;
+    gap: 0;
+  }
+
   .color-scheme-picker {
-    position: static;
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
-    margin: 0 0 1.5rem 0;
-  }
-}
-
-@media (max-width: 575px) {
-  .color-scheme-picker {
-    gap: 6px;
     margin: 0 0 1rem 0;
+    padding-top: 0;
+    position: static;
   }
 
   .color-dot {
     width: 36px;
     height: 36px;
-  }
-}
-
-@media (min-width: 576px) and (max-width: 768px) {
-  .color-dot {
-    width: 40px;
-    height: 40px;
   }
 }
