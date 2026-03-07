@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let pixelCount = 0;
   let cellSize = 0;
   let isDrawing = false;
+  let drawMode = null; // "draw" or "erase", set on mousedown for consistent drag behavior
 
   function emptyGrid() {
     return Array.from({ length: GRID_SIZE }, function () {
@@ -163,6 +164,16 @@ document.addEventListener("DOMContentLoaded", function () {
     saveGrid();
   }
 
+  function clearPixel(x, y) {
+    if (grid[y][x]) {
+      pixelCount = Math.max(0, pixelCount - 1);
+      grid[y][x] = null;
+      updateCount();
+      drawGrid();
+      saveGrid();
+    }
+  }
+
   function updateCount() {
     countEl.textContent =
       pixelCount + (pixelCount === 1 ? " pixel" : " pixels") + " placed";
@@ -195,14 +206,23 @@ document.addEventListener("DOMContentLoaded", function () {
       positionEl.textContent = "(" + pos.x + ", " + pos.y + ")";
       var cellColor = grid[pos.y][pos.x];
       if (cellColor) {
-        metaEl.textContent = cellColor;
-        metaEl.style.color = cellColor;
+        if (cellColor === selectedColor) {
+          metaEl.textContent = "click to clear";
+          metaEl.style.color = cellColor;
+        } else {
+          metaEl.textContent = cellColor;
+          metaEl.style.color = cellColor;
+        }
       } else {
         metaEl.textContent = "click to place";
         metaEl.style.color = "";
       }
       if (isDrawing) {
-        placePixel(pos.x, pos.y);
+        if (drawMode === "erase") {
+          clearPixel(pos.x, pos.y);
+        } else {
+          placePixel(pos.x, pos.y);
+        }
       }
     }
   }
@@ -212,16 +232,24 @@ document.addEventListener("DOMContentLoaded", function () {
     isDrawing = true;
     var pos = getGridPos(e);
     if (pos) {
-      placePixel(pos.x, pos.y);
+      if (grid[pos.y][pos.x] === selectedColor) {
+        drawMode = "erase";
+        clearPixel(pos.x, pos.y);
+      } else {
+        drawMode = "draw";
+        placePixel(pos.x, pos.y);
+      }
     }
   }
 
   function handleCanvasMouseUp() {
     isDrawing = false;
+    drawMode = null;
   }
 
   function handleCanvasMouseLeave() {
     isDrawing = false;
+    drawMode = null;
     positionEl.textContent = "hover to see position";
     metaEl.textContent = "click to place";
     metaEl.style.color = "";
