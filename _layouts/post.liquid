@@ -87,6 +87,11 @@ layout: default
     {% endif %}
   {% endif %}
 
+  {% if page.comments %}
+    {% include upvote.liquid %}
+    {% include cusdis.liquid %}
+  {% endif %}
+
   {% if site.disqus_shortname and page.disqus_comments %}
     {% include disqus.liquid %}
   {% endif %}

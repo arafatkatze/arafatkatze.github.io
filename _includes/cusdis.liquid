@@ -1,0 +1,19 @@
+{% if site.cusdis and site.cusdis.app_id %}
+  <div
+    id="cusdis_thread"
+    data-host="{{ site.cusdis.host | default: 'https://cusdis.com' }}"
+    data-app-id="{{ site.cusdis.app_id }}"
+    data-page-id="{{ page.url }}"
+    data-page-url="{{ page.url | absolute_url }}"
+    data-page-title="{{ page.title }}"
+    data-theme="auto"
+  ></div>
+  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+{% else %}
+  {% capture cusdis_warning %}
+> ##### Comments not configured yet
+> Sign up at [cusdis.com](https://cusdis.com) and add your `app_id` to `_config.yml`.
+{: .block-danger }
+  {% endcapture %}
+  {{ cusdis_warning | markdownify }}
+{% endif %}
