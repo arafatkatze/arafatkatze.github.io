@@ -45,7 +45,7 @@ Currently this painting has **6 painters**:
 
 1. ME
 2. Lady M (duhh)
-3. Super pretty friend from the commons
+3. A thoughtful friend from the commons
 4. A founder who wanted to hire me lol
 5. Tech bro who just wanted to tech bro on my shirt
 6. A friend from Guatemala/SF
