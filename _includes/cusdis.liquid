@@ -17,23 +17,43 @@
         if (!target) return;
 
         window.addEventListener('message', function(e) {
-          if (e.data && e.data.from === 'cusdis') {
-            var iframe = target.querySelector('iframe');
-            if (iframe && e.data.event === 'resize') {
-              iframe.style.height = e.data.height + 'px';
+          try {
+            var msg = JSON.parse(e.data);
+            if (msg.from === 'cusdis' && msg.event === 'resize') {
+              var iframe = target.querySelector('iframe');
+              if (iframe) {
+                var h = Math.max(parseInt(msg.data, 10), 400);
+                iframe.style.height = h + 'px';
+              }
             }
-          }
+          } catch(err) {}
         });
 
-        var observer = new MutationObserver(function() {
+        // Cusdis has a known bug where the resize event fires before comments
+        // load from the API. Re-trigger resize after comments have had time to load.
+        setTimeout(function() {
           var iframe = target.querySelector('iframe');
-          if (iframe) {
-            iframe.style.minHeight = '400px';
-            iframe.style.border = 'none';
-            observer.disconnect();
+          if (iframe && iframe.contentWindow) {
+            try {
+              iframe.contentWindow.postMessage(JSON.stringify({
+                from: 'cusdis',
+                event: 'resize'
+              }), '*');
+            } catch(err) {}
           }
-        });
-        observer.observe(target, { childList: true, subtree: true });
+        }, 3000);
+
+        setTimeout(function() {
+          var iframe = target.querySelector('iframe');
+          if (iframe && iframe.contentWindow) {
+            try {
+              iframe.contentWindow.postMessage(JSON.stringify({
+                from: 'cusdis',
+                event: 'resize'
+              }), '*');
+            } catch(err) {}
+          }
+        }, 6000);
       })();
     </script>
   </div>
