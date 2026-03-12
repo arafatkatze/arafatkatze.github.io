@@ -98,7 +98,7 @@ bento_tiles:
     label: Pixels · Art
     link: /pixels/
     type: text
-    excerpt: "Collaborative pixel art — leave your mark on the board."
+    excerpt: "Collaborative pixel art, leave your mark on the board."
     bg: pixel
 
   - title: On Looking Inwards
