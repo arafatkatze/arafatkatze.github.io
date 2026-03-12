@@ -137,13 +137,13 @@ giscus:
   repo: arafatkatze/arafatkatze.github.io
   repo_id: R_kgDOKtDwyQ
   category: General
-  category_id: # fill in after enabling Discussions — visit https://giscus.app/ to get this value
-  mapping: title # identify discussions by post title
-  strict: 1 # use strict identification mode
-  reactions_enabled: 1 # enable (1) or disable (0) emoji reactions
-  input_position: bottom # whether to display input form below (bottom) or above (top) the comments
-  dark_theme: dark # name of the dark color scheme (preferred works well with al-folio dark mode)
-  light_theme: light # name of the light color scheme (preferred works well with al-folio light mode)
+  category_id: DIC_kwDOKtDwyc4C4Pll
+  mapping: pathname
+  strict: 0
+  reactions_enabled: 1
+  input_position: bottom
+  dark_theme: preferred_color_scheme
+  light_theme: preferred_color_scheme
   emit_metadata: 0
   lang: en
 
