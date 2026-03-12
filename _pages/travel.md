@@ -318,7 +318,7 @@ nav_order: 5
 
 *The globe takes a few seconds to load.*
 
-I travel full-time with just a carry-on. 30+ countries, one 18kg suitcase. If you're curious how I fit my entire life into a single bag, [try packing it yourself](/pack/).
+I [used to travel](https://arafatkatze.github.io/philosophy/2026/01/05/travelling.html) full-time with just a carry-on. 30+ countries, one 18kg suitcase. If you're curious how I fit my entire life into a single bag, [try packing it yourself](/pack/).
 
 <div class="travel-page">
 
