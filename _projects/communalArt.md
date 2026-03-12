@@ -7,6 +7,10 @@ importance: 3
 category: art
 ---
 
+<div class="alert alert-info" role="alert" style="text-align: center; margin-bottom: 2rem;">
+  🎨 <strong>New!</strong> <a href="/white-shirt/">Explore the interactive White Shirt experience →</a>
+</div>
+
 I always admired art as a lurker, but the act of creation didn't seem like "my thing". I was horrible at painting while growing up and it seemed like a chore and a waste of time. I begrudgingly did it a few times but it never appealed to me. Somewhere in my early twenties, a small mix of sophistication, along with just a general sense of taste, got me into art. The first time I went to Europe, I remember walking for hours listening to music, looking around the city, and just being happy. Everything felt so much more colorful and precise and just how it should be. You felt a genuine delight when you looked at architecture and nature.
 
 I then started to go to museums and I started looking at paintings and I think intentionally or unintentionally, strong feelings of judgment started to come in. Some pieces were really pretty, and then other things were just bland and ugly and repulsive (Cough Modern Cough).
