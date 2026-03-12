@@ -15,10 +15,20 @@
       (function() {
         var target = document.getElementById('cusdis_thread');
         if (!target) return;
+
+        window.addEventListener('message', function(e) {
+          if (e.data && e.data.from === 'cusdis') {
+            var iframe = target.querySelector('iframe');
+            if (iframe && e.data.event === 'resize') {
+              iframe.style.height = e.data.height + 'px';
+            }
+          }
+        });
+
         var observer = new MutationObserver(function() {
           var iframe = target.querySelector('iframe');
           if (iframe) {
-            iframe.setAttribute('scrolling', 'no');
+            iframe.style.minHeight = '400px';
             iframe.style.border = 'none';
             observer.disconnect();
           }
