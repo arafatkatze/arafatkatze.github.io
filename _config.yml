@@ -134,7 +134,7 @@ related_blog_posts:
 # Cusdis comments (anonymous, no auth required for visitors)
 # Sign up at https://cusdis.com, create a site, and paste your app_id below.
 cusdis:
-  app_id: # your Cusdis app ID
+  app_id: 14a7f0bf-1e23-4af6-bb21-b77cd566f3fe
   host: https://cusdis.com
 
 # Giscus comments (disabled — using Cusdis instead)
