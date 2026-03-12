@@ -1,7 +1,11 @@
 ---
 layout: default
 ---
-<div class="post">
+<div class="post about-with-picker">
+  <!-- Color Scheme Picker — vertical column to the left of content -->
+  {% include color_picker.liquid %}
+
+  <div class="about-content">
   <header class="post-header">
     <h1 class="post-title">
       <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
@@ -83,4 +87,5 @@ layout: default
       {% include newsletter.liquid center=true %}
     {% endif %}
   </article>
+  </div><!-- /.about-content -->
 </div>
