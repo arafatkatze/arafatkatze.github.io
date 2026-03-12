@@ -88,8 +88,10 @@ layout: default
   {% endif %}
 
   {% if page.comments %}
-    {% include upvote.liquid %}
-    {% include cusdis.liquid %}
+    <div class="post-engagement">
+      {% include upvote.liquid %}
+      {% include cusdis.liquid %}
+    </div>
   {% endif %}
 
   {% if site.disqus_shortname and page.disqus_comments %}

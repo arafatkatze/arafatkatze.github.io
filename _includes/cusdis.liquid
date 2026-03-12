@@ -1,14 +1,32 @@
 {% if site.cusdis and site.cusdis.app_id %}
-  <div
-    id="cusdis_thread"
-    data-host="{{ site.cusdis.host | default: 'https://cusdis.com' }}"
-    data-app-id="{{ site.cusdis.app_id }}"
-    data-page-id="{{ page.url }}"
-    data-page-url="{{ page.url | absolute_url }}"
-    data-page-title="{{ page.title }}"
-    data-theme="auto"
-  ></div>
-  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+  <div class="post-comments">
+    <h3>Comments</h3>
+    <div
+      id="cusdis_thread"
+      data-host="{{ site.cusdis.host | default: 'https://cusdis.com' }}"
+      data-app-id="{{ site.cusdis.app_id }}"
+      data-page-id="{{ page.url }}"
+      data-page-url="{{ page.url | absolute_url }}"
+      data-page-title="{{ page.title }}"
+      data-theme="auto"
+    ></div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    <script>
+      (function() {
+        var target = document.getElementById('cusdis_thread');
+        if (!target) return;
+        var observer = new MutationObserver(function() {
+          var iframe = target.querySelector('iframe');
+          if (iframe) {
+            iframe.setAttribute('scrolling', 'no');
+            iframe.style.border = 'none';
+            observer.disconnect();
+          }
+        });
+        observer.observe(target, { childList: true, subtree: true });
+      })();
+    </script>
+  </div>
 {% else %}
   {% capture cusdis_warning %}
 > ##### Comments not configured yet
