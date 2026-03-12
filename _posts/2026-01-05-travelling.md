@@ -7,7 +7,7 @@ category: philosophy
 tags: philosophy skiing travel
 ---
 
-I originally wanted to write 30 lessons for 30 countries, but that felt like a stupid flex. Why does it have to be 30? These are just the handful of things I think might actually help people travel better.
+I originally wanted to write [30 lessons for 30 countries](https://arafatkatze.github.io/travel/), but that felt like a stupid flex. Why does it have to be 30? These are just the handful of things I think might actually help people travel better.
 
 ---
 
