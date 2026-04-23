@@ -13,9 +13,18 @@
       {% if tile.image %}
         <div class="bento-tile-img">
           {% if tile.image contains '://' %}
-            <img src="{{ tile.image }}" alt="{{ tile.title }}" loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}" />
+            {% assign tile_img_src = tile.image %}
           {% else %}
-            <img src="{{ tile.image | relative_url }}" alt="{{ tile.title }}" loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}" />
+            {% assign tile_img_src = tile.image | relative_url %}
+          {% endif %}
+          <img src="{{ tile_img_src }}" alt="{{ tile.title }}" loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}"{% if tile.image_dark %} class="tile-img-light"{% endif %} />
+          {% if tile.image_dark %}
+            {% if tile.image_dark contains '://' %}
+              {% assign tile_img_dark_src = tile.image_dark %}
+            {% else %}
+              {% assign tile_img_dark_src = tile.image_dark | relative_url %}
+            {% endif %}
+            <img src="{{ tile_img_dark_src }}" alt="{{ tile.title }}" loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}" class="tile-img-dark" />
           {% endif %}
         </div>
       {% endif %}
