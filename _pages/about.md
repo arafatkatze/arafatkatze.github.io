@@ -27,7 +27,8 @@ bento_tiles:
   - title: Travel
     label: Explore · Globe
     link: /travel/
-    image: assets/img/travel/earth-night-from-iss.jpg
+    image: assets/img/travel/earth-day-from-iss.jpg
+    image_dark: assets/img/travel/earth-night-from-iss.jpg
     type: image
 
   - title: Skiing
