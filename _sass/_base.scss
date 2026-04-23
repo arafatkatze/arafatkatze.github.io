@@ -2705,6 +2705,11 @@ html[data-theme="dark"] .about-content {
     }
   }
 
+  // Theme-responsive image swap: show the light variant in light mode,
+  // the dark variant in dark mode. Default (no data-theme set) acts as light.
+  .tile-img-dark { display: none; }
+  .tile-img-light { display: block; }
+
   .bento-tile-overlay {
     position: absolute;
     inset: 0;
@@ -2733,6 +2738,11 @@ html[data-theme="dark"] .about-content {
       text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
     }
   }
+}
+
+html[data-theme="dark"] .bento-tile.image {
+  .tile-img-dark { display: block; }
+  .tile-img-light { display: none; }
 }
 
 // Card tile: image on top, text content below
