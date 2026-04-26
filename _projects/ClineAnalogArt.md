@@ -7,12 +7,6 @@ importance: 1
 category: art
 ---
 
-<div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 600px;">
-    {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412611/blog_poetry_ai/poem_the_way_it_is.jpg"
-    alt="The Way It Is by William Stafford"
-    class="img-fluid rounded z-depth-1" %}
-</div>
 
 Some days, I lay in bed at night and feel this odd tinge of loneliness and I ask myself why did I do all of this? Why am I doing this and who am I doing this for?
 
@@ -20,22 +14,6 @@ I do love working in AI. It's one of the most joyful endeavors I have ever pursu
 
 But sometimes I deeply relate to this guy, who left his AI safety job at Anthropic to work on poetry and I can see how pursuing poetry can be a deeply soulful decision.
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-6 mt-3 mt-md-0">
-        {% include figure.html
-        path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412612/blog_poetry_ai/resignation_letter_p1.jpg"
-        alt="Resignation letter from Mrinank Sharma, page 1"
-        class="img-fluid rounded z-depth-1"
-        zoomable=true %}
-    </div>
-    <div class="col-sm-6 mt-3 mt-md-0">
-        {% include figure.html
-        path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412613/blog_poetry_ai/resignation_letter_p2.jpg"
-        alt="Resignation letter from Mrinank Sharma, page 2"
-        class="img-fluid rounded z-depth-1"
-        zoomable=true %}
-    </div>
-</div>
 
 For me, I don't want to leave AI just because of a few bad moments, but I do think that the answer to my angst is somewhere else. I like to think that the missing puzzle piece of doing great work in AI is to both be relentless in effort and execution and even more importantly not lose our humanity as everything we know about intelligence and humanity is going to change very fast.
 
@@ -147,3 +125,10 @@ I really enjoyed doing this. I loved gossiping with friends for hours while usin
 Its also just a deep joy to feel so soulfully connected with the physical world. I think soulfulness is deeply lacking in the AI space and we must do what we can to stay in touch with our humanity as we spend more time building in this space. I truly believe the world will be a better place if poets, philosophers and artists get into the AI space and if working at some company doesn't feel right its perfectly okay to leave as well.
 
 I want to stay "locked in". I don't regret all the things that I have given up to pursue the most amazing rush of my life but I want to do it the right soulful way.
+
+<div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 600px;">
+    {% include figure.html
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412611/blog_poetry_ai/poem_the_way_it_is.jpg"
+    alt="The Way It Is by William Stafford"
+    class="img-fluid rounded z-depth-1" %}
+</div>
