@@ -58,7 +58,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/pixels/";
           },
-        },{id: "post-to-my-future-son",
+        },{id: "post-the-gift-of-an-agonizing-limerance",
+        
+          title: "The gift of an agonizing limerance",
+        
+        description: "The gift of an agonizing limerance",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/philosophy/2026/04/26/limerance.html";
+          
+        },
+      },{id: "post-to-my-future-son",
         
           title: "To My Future Son",
         
