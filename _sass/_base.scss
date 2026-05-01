@@ -3756,3 +3756,107 @@ html[data-theme="dark"] .bento-tile.image {
   white-space: nowrap;
   border: 0;
 }
+
+// ---------------------------------------------------------------
+// Audio intro pill — appears under post title when post defines
+// audio_intro: in front-matter. Wave 5.6.
+// ---------------------------------------------------------------
+.audio-intro {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 1.25rem 0 2rem;
+  padding: 0.7rem 0.85rem 0.7rem 0.7rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 999px;
+  background: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.04);
+  max-width: 480px;
+
+  audio { display: none; }
+
+  &__play {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--global-theme-color);
+    color: var(--global-bg-color);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    line-height: 1;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+
+    &:hover  { transform: scale(1.06); }
+    &:active { transform: scale(0.96); }
+    &:focus-visible {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: 3px;
+    }
+  }
+
+  &__icon {
+    pointer-events: none;
+    transform: translate(1px, 0); // optical centring of the triangle glyph
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  &__label {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--global-text-color);
+    line-height: 1.2;
+  }
+
+  &__progress {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.7rem;
+    color: var(--global-text-color-light);
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.12);
+    overflow: hidden;
+    position: relative;
+  }
+
+  &__fill {
+    display: block;
+    height: 100%;
+    background: var(--global-theme-color);
+    transition: width 0.1s linear;
+    border-radius: 999px;
+  }
+
+  &__time {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    white-space: nowrap;
+  }
+
+  &__time-sep { opacity: 0.5; }
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    border-radius: 16px;
+    max-width: none;
+  }
+}

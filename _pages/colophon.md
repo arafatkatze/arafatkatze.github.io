@@ -56,6 +56,21 @@ description: How this site is made.
   on top of three.js, with hand-rolled HUD chrome.
 </p>
 
+<h2>Audio intros</h2>
+<p>
+  Any post can carry a recorded "Ara reads this aloud" pill by adding
+  <code>audio_intro: https://your-cdn/intro.mp3</code> to its front matter. The
+  player is in
+  <a href="https://github.com/{{ site.github_username }}/{{ site.github_username }}.github.io/blob/master/_includes/audio_intro.liquid" rel="noopener"><code>_includes/audio_intro.liquid</code></a>
+  with the controller in <code>assets/js/audio-intro.js</code>. The longer-form
+  schema is:
+</p>
+<pre><code>audio_intro:
+  src: https://res.cloudinary.com/dozxd4znm/video/upload/v.../intro.mp3
+  duration: "1:42"           # optional, falls back to &lt;audio&gt; metadata
+  label: "Ara reads this"    # optional, overrides default label
+</code></pre>
+
 <h2>Source</h2>
 <p>
   Everything is open and forkable on
@@ -87,6 +102,12 @@ description: How this site is made.
   }
   .colophon-page li {
     margin-bottom: 0.4rem;
+  }
+  .colophon-page pre {
+    margin: 0.6rem 0 1rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    background: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.05);
   }
   .colophon-page .colophon-lede {
     font-style: italic;

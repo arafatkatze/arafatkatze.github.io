@@ -187,6 +187,11 @@
 <!-- Konami easter egg (skiing power-up) -->
 <script defer src="{{ '/assets/js/konami-snow.js' | relative_url | bust_file_cache }}"></script>
 
+{% if page.audio_intro %}
+  <!-- Audio intro player (only when the post defines audio_intro:) -->
+  <script defer src="{{ '/assets/js/audio-intro.js' | relative_url | bust_file_cache }}"></script>
+{% endif %}
+
 <!-- A11y: backfill aria-label from title= on icon-only links/buttons, and mark
      decorative font icons aria-hidden so screen readers don't pronounce gibberish. -->
 <script>
