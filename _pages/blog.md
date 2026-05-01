@@ -19,7 +19,12 @@ pagination:
 <div class="post">
 
 <div class="blog-hero">
-  <h1>writing.</h1>
+  <div class="blog-hero-row">
+    <h1>writing.</h1>
+    <a class="blog-hero-rss" href="{{ '/feed.xml' | relative_url }}" title="Subscribe via RSS" aria-label="Subscribe via RSS">
+      <i class="fa-solid fa-rss"></i> RSS
+    </a>
+  </div>
   <p>I have a blog that doesn't really adhere to any fixed themes. From philosophy essays to travel stories to love letters, it really is the wild west.</p>
 </div>
 
