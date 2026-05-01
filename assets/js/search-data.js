@@ -23,20 +23,6 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
-        },{id: "nav-resume",
-          title: "Resume",
-          description: "",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/cv/";
-          },
-        },{id: "nav-opensource",
-          title: "Opensource",
-          description: "",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/repositories/";
-          },
         },{id: "nav-reading",
           title: "Reading",
           description: "Books I&#39;m reading, have read, or hope to read next. Recommendations always welcome.",
@@ -57,6 +43,20 @@ ninja.data = [{
           section: "Navigation",
           handler: () => {
             window.location.href = "/pixels/";
+          },
+        },{id: "nav-opensource",
+          title: "Opensource",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
+        },{id: "nav-resume",
+          title: "Resume",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
           },
         },{id: "post-the-gift-of-an-agonizing-limerance",
         
