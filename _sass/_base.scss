@@ -2944,6 +2944,124 @@ html[data-theme="dark"] .about-content {
   }
 }
 
+// Featured essay rail (above bento on home)
+.featured-essay {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin: 2rem 0 1rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 14px;
+  background: linear-gradient(135deg,
+    rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.045) 0%,
+    rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.01) 60%,
+    transparent 100%);
+  text-decoration: none !important;
+  color: var(--global-text-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+    border-color: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.35);
+    color: var(--global-text-color);
+    text-decoration: none;
+
+    .featured-essay__cta {
+      color: var(--global-theme-color);
+    }
+  }
+
+  .featured-essay__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .featured-essay__eyebrow {
+    display: inline-block;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--global-theme-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .featured-essay__title {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.25;
+    color: var(--global-text-color);
+    margin: 0 0 0.6rem 0;
+    letter-spacing: -0.01em;
+  }
+
+  .featured-essay__excerpt {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--global-text-color-light);
+    margin: 0 0 0.6rem 0;
+  }
+
+  .featured-essay__cta {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--global-text-color-light);
+    transition: color 0.15s ease;
+  }
+
+  .featured-essay__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    text-align: right;
+    min-width: 130px;
+
+    .featured-essay__date {
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--global-text-color-light);
+    }
+
+    .featured-essay__cat {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--global-text-color-light);
+      padding: 0.15rem 0.55rem;
+      border: 1px solid var(--global-divider-color);
+      border-radius: 999px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    padding: 1.25rem 1.25rem;
+
+    .featured-essay__meta {
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: flex-end;
+      text-align: left;
+      min-width: 0;
+    }
+
+    .featured-essay__title {
+      font-size: 1.35rem;
+    }
+  }
+}
+
 // Bento Grid (chester.how-style front page tiles)
 .bento-grid {
   display: grid;

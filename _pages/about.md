@@ -14,6 +14,8 @@ profile:
 selected_papers: false
 social: true
 
+featured_post: 2026-04-26-limerance.md
+
 bento_tiles:
   # Row 1: wide text + travel + skiing
   - title: To My Future Son
