@@ -45,6 +45,9 @@
 {% endif %}
 
 {% assign is_blog_post = false %}
+{% if page.layout == 'post' or page.layout == 'distill' %}
+  {% assign is_blog_post = true %}
+{% endif %}
 {% if page.url != '/blog/index.html' and page.url contains '/blog/' %}
   {% unless page.url contains '/tag/' or page.url contains '/category/' %}
     {% assign is_blog_post = true %}
