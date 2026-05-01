@@ -18,8 +18,8 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNav">
-        <div class="pill-nav-row">
-          <div class="pill-nav-wrapper">
+        <div class="block-nav-row">
+          <div class="block-nav-wrapper">
             {% for page_item in site.pages %}
               {% if page_item.permalink == '/' %}
                 {% assign about_title = page_item.title %}
@@ -27,7 +27,7 @@
             {% endfor %}
 
             <!-- About / Home -->
-            <a class="pill-nav-link {% if page.permalink == '/' %}active{% endif %}" href="{{ '/' | relative_url }}">
+            <a class="block-nav-link {% if page.permalink == '/' %}active{% endif %}" href="{{ '/' | relative_url }}">
               {{- about_title -}}
             </a>
 
@@ -43,21 +43,21 @@
                 {%- else -%}
                   {%- assign url = p.url -%}
                 {%- endif %}
-                <a class="pill-nav-link {% if page.url contains parent_link %}active{% endif %}" href="{{ url | relative_url }}">
+                <a class="block-nav-link {% if page.url contains parent_link %}active{% endif %}" href="{{ url | relative_url }}">
                   {{- p.title -}}
                 </a>
               {% endif %}
             {% endfor %}
           </div>
 
-          <div class="pill-nav-actions">
+          <div class="block-nav-actions">
             {% if site.search_enabled %}
-              <button id="search-toggle" class="pill-nav-icon" title="Search" onclick="openSearchModal()">
+              <button id="search-toggle" class="block-nav-icon" title="Search" onclick="openSearchModal()">
                 <i class="ti ti-search"></i>
               </button>
             {% endif %}
             {% if site.enable_darkmode %}
-              <button id="light-toggle" class="pill-nav-icon" title="Change theme">
+              <button id="light-toggle" class="block-nav-icon" title="Change theme">
                 <i class="ti ti-sun-moon" id="light-toggle-system"></i>
                 <i class="ti ti-moon-filled" id="light-toggle-dark"></i>
                 <i class="ti ti-sun-filled" id="light-toggle-light"></i>
