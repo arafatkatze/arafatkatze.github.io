@@ -1,6 +1,11 @@
 <header>
   <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
+      <!-- Brand wordmark -->
+      <a class="navbar-brand" href="{{ '/' | relative_url }}" aria-label="ara — home">
+        <img src="{{ '/assets/img/wordmark.svg' | relative_url }}" alt="ara." class="navbar-brand-mark" />
+      </a>
+
       <!-- Navbar Toggle (mobile) -->
       <button
         class="navbar-toggler collapsed ml-auto"

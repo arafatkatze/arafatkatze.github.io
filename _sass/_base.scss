@@ -265,6 +265,39 @@ ul.task-list input[type="checkbox"] {
   .navbar-collapse.collapsing {
     display: block;
   }
+
+  // Brand wordmark — absolutely positioned so it doesn't push the centered pill nav
+  .navbar-brand {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    color: var(--global-text-color);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+      opacity: 0.7;
+    }
+
+    .navbar-brand-mark {
+      height: 26px;
+      width: auto;
+      display: block;
+    }
+  }
+}
+
+// Hide brand at very small widths where the centered pill bar would overlap it
+@media (min-width: 576px) and (max-width: 720px) {
+  .navbar .navbar-brand {
+    display: none;
+  }
 }
 
 @media (min-width: 576px) {
@@ -608,12 +641,125 @@ footer.fixed-bottom {
 
 footer.sticky-bottom {
   border-top: 1px solid var(--global-divider-color);
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 48px;
+  padding-bottom: 32px;
   font-size: 0.9rem;
+  background-color: transparent;
 
-  .container {
-    text-align: center;
+  .container.site-footer {
+    text-align: left;
+    max-width: 980px;
+  }
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+
+  @media (max-width: 720px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    text-align: left;
+  }
+}
+
+.site-footer__brand {
+  .site-footer__wordmark {
+    display: inline-flex;
+    color: var(--global-text-color);
+    text-decoration: none;
+    margin-bottom: 0.65rem;
+
+    img {
+      height: 30px;
+      width: auto;
+      display: block;
+    }
+  }
+
+  .site-footer__tag {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--global-text-color);
+    margin: 0 0 0.4rem 0;
+    line-height: 1.45;
+    max-width: 22ch;
+  }
+
+  .site-footer__loc {
+    font-size: 0.78rem;
+    color: var(--global-text-color-light);
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+}
+
+.site-footer__head {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light);
+  margin: 0 0 0.85rem 0;
+}
+
+.site-footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  li {
+    line-height: 1.4;
+  }
+
+  a {
+    color: var(--global-text-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      color: var(--global-theme-color);
+      text-decoration: none;
+    }
+  }
+}
+
+.site-footer__base {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--global-divider-color);
+  font-size: 0.75rem;
+  color: var(--global-text-color-light);
+  text-align: center;
+
+  .dot {
+    margin: 0 0.4rem;
+    opacity: 0.5;
+  }
+
+  a {
+    color: var(--global-text-color-light);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--global-text-color-light);
+
+    &:hover {
+      color: var(--global-theme-color);
+      border-bottom-color: var(--global-theme-color);
+    }
   }
 }
 
