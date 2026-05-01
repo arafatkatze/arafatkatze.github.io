@@ -39,7 +39,7 @@ ninja.data = [{
           },
         },{id: "nav-pixel-board",
           title: "Pixel Board",
-          description: "collaborative pixel art, leave your mark",
+          description: "collaborative pixel art, leave your mark on the board",
           section: "Navigation",
           handler: () => {
             window.location.href = "/pixels/";
