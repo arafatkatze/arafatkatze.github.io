@@ -46,6 +46,7 @@ description: New to the site? Here's a tour, in the order I'd give one to a frie
   <li><a href="{{ '/projects/Art/' | relative_url }}">Art</a> — graffiti is my favourite category of beauty.</li>
   <li><a href="{{ '/projects/communalArt/' | relative_url }}">The White Shirt Project</a> — a wearable map of the people I've loved.</li>
   <li><a href="{{ '/travel/' | relative_url }}">Travel</a> — every pin is a story.</li>
+  <li><a href="{{ '/photos/' | relative_url }}">Photos</a> — a scrapbook of moments, all in one place.</li>
   <li><a href="{{ '/pixels/' | relative_url }}">Pixel Board</a> — leave a mark, others will see it.</li>
 </ul>
 

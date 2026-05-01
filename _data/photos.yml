@@ -1,0 +1,52 @@
+# Curated scrapbook for /photos/ — pulled from existing Cloudinary assets used
+# across the projects pages. Each entry has: url, caption, where (project link).
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
+  caption: Cliffside, somewhere in the Rockies
+  where: Skiing
+  link: /projects/Skiing/
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417818/site/art/7.jpg
+  caption: Graffiti as resistance
+  where: Art
+  link: /projects/Art/
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
+  caption: Brazil, on a sunlit afternoon
+  where: Brazil
+  link: /projects/Brazil/
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
+  caption: The white shirt project
+  where: Communal Art
+  link: /projects/communalArt/
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/v1766803299/59a8cbc7-95fc-5b34-8d83-53f7729a6786_vvlnqo.jpg
+  caption: Mathematics of love
+  where: Mathmaking
+  link: /projects/mathmaking/
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1769234582/IMG_3229_1_k3ykmq.png
+  caption: Holding what I haven't met yet
+  where: To My Future Son
+  link: /philosophy/2026/01/21/son
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772992166/profile_photo_fvaxo9.png
+  caption: A self portrait, sunset, somewhere coastal
+  where: About
+  link: /
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
+  caption: Field notes from Cline
+  where: Agentic AI
+  link: /projects/AgenticAi/
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768169229/2025-02-28_14-33-24_610_lkm8fb.png
+  caption: Snowboarding in Georgia (the country)
+  where: News
+  link: /news/
+
+- url: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412625/blog_poetry_ai/3d_print_cline_b.jpg
+  caption: Cline, in the analog world
+  where: Cline's Analog Art
+  link: /projects/ClineAnalogArt/
