@@ -184,6 +184,21 @@
 <script defer src="{{ '/assets/js/common.js' | relative_url | bust_file_cache }}"></script>
 <script defer src="{{ '/assets/js/copy_code.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>
 
+<!-- A11y: backfill aria-label from title= on icon-only links/buttons, and mark
+     decorative font icons aria-hidden so screen readers don't pronounce gibberish. -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[title], button[title]').forEach(function (el) {
+      if (!el.getAttribute('aria-label') && !el.textContent.trim() && el.title) {
+        el.setAttribute('aria-label', el.title);
+      }
+    });
+    document.querySelectorAll('a > i, button > i, .pill-nav-icon i, .contact-fab i, .blog-card-arrow, .bento-tile-arrow').forEach(function (icon) {
+      if (!icon.getAttribute('aria-label')) icon.setAttribute('aria-hidden', 'true');
+    });
+  });
+</script>
+
 <!-- Jupyter Open External Links New Tab -->
 <script defer src="{{ '/assets/js/jupyter_new_tab.js' | relative_url | bust_file_cache }}"></script>
 

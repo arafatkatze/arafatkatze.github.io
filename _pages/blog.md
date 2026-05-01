@@ -2,6 +2,7 @@
 layout: default
 permalink: /blog/
 title: Writing
+description: Essays, love letters, philosophy and travel stories — the wild west of my thoughts.
 nav: true
 nav_order: 1
 pagination:

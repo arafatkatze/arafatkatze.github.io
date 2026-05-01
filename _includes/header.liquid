@@ -57,15 +57,15 @@
 
           <div class="pill-nav-actions">
             {% if site.search_enabled %}
-              <button id="search-toggle" class="pill-nav-icon" title="Search" onclick="openSearchModal()">
-                <i class="ti ti-search"></i>
+              <button id="search-toggle" class="pill-nav-icon" title="Search" aria-label="Open search" onclick="openSearchModal()">
+                <i class="ti ti-search" aria-hidden="true"></i>
               </button>
             {% endif %}
             {% if site.enable_darkmode %}
-              <button id="light-toggle" class="pill-nav-icon" title="Change theme">
-                <i class="ti ti-sun-moon" id="light-toggle-system"></i>
-                <i class="ti ti-moon-filled" id="light-toggle-dark"></i>
-                <i class="ti ti-sun-filled" id="light-toggle-light"></i>
+              <button id="light-toggle" class="pill-nav-icon" title="Change theme" aria-label="Toggle light, dark, or system theme">
+                <i class="ti ti-sun-moon" id="light-toggle-system" aria-hidden="true"></i>
+                <i class="ti ti-moon-filled" id="light-toggle-dark" aria-hidden="true"></i>
+                <i class="ti ti-sun-filled" id="light-toggle-light" aria-hidden="true"></i>
               </button>
             {% endif %}
           </div>
