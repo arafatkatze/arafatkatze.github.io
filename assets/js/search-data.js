@@ -11,7 +11,7 @@ ninja.data = [{
     },
   },{id: "nav-writing",
           title: "Writing",
-          description: "",
+          description: "Essays, love letters, philosophy and travel stories — the wild west of my thoughts.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/blog/";
@@ -53,7 +53,7 @@ ninja.data = [{
           },
         },{id: "nav-resume",
           title: "Resume",
-          description: "",
+          description: "Where I&#39;ve worked, what I&#39;ve shipped, and the awards I&#39;m fond of. AI engineer at Cline; previously Sourcegraph and Shopify.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/cv/";
