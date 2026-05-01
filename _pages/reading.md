@@ -3,7 +3,7 @@ layout: reading
 title: Reading
 permalink: /reading/
 nav: true
-nav_order: 5
+nav_order: 3
 description: Books I'm reading, have read, or hope to read next. Recommendations always welcome.
 ---
 

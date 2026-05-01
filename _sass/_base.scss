@@ -427,7 +427,19 @@ html[data-theme="dark"] {
     padding-top: 0.75rem;
 
     .container {
-      justify-content: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    // Brand is in flow on mobile (not absolute) so it sits next to the hamburger
+    .navbar-brand {
+      position: static;
+      transform: none;
+      margin-right: auto;
+
+      .navbar-brand-mark {
+        height: 24px;
+      }
     }
   }
 
