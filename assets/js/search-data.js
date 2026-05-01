@@ -39,7 +39,7 @@ ninja.data = [{
           },
         },{id: "nav-reading",
           title: "Reading",
-          description: "",
+          description: "Books I&#39;m reading, have read, or hope to read next. Recommendations always welcome.",
           section: "Navigation",
           handler: () => {
             window.location.href = "/reading/";
