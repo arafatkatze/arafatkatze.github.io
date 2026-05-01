@@ -5,6 +5,7 @@ permalink: /travel/
 description: Places I've been lucky enough to explore
 nav: true
 nav_order: 5
+use_fraunces: true
 ---
 
 <style>

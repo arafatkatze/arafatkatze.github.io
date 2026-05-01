@@ -5,6 +5,7 @@ permalink: /pixels/
 description: collaborative pixel art, leave your mark
 nav: true
 nav_order: 6
+use_fraunces: true
 ---
 
 <div id="pixel-board-app">
