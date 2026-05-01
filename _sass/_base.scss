@@ -446,7 +446,7 @@ html[data-theme="dark"] {
 
     // Make sure the hamburger stays visible on the right
     .navbar-toggler {
-      display: inline-block;
+      display: inline-block !important;
       margin-left: auto;
       padding: 0.5rem 0.75rem;
       flex-shrink: 0;
