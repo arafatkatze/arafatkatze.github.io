@@ -32,9 +32,20 @@ $grey-900: #212529;
 $white-color: #ffffff !default;
 $black-color: #000000 !default;
 
+// Brand palette — Ara
+// Warm, contemplative, love-letter palette. Used across the site as the unified
+// accent system. Rose is the primary accent; rose-soft is the warm complement;
+// ink is the dark-surface base.
+$ara-rose: #c9485b !default;
+$ara-rose-soft: #e8a6a6 !default;
+$ara-rose-deep: #9a2f44 !default;
+$ara-paper: #fdfaf4 !default;
+$ara-ink: #1a1a1f !default;
+$ara-ink-soft: #2a2a30 !default;
+
 // Theme colors
 
-$code-bg-color-light: rgba($purple-color, 0.05);
+$code-bg-color-light: rgba($ara-rose, 0.05);
 $code-bg-color-dark: #2c3237 !default;
 
 // Font awesome location

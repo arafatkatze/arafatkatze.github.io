@@ -873,39 +873,39 @@ footer.sticky-bottom {
 // ==========================================================================
 
 :root {
-  --contrib-accent-rgb: 181, 9, 172;
+  --contrib-accent-rgb: 201, 72, 91;
   --contrib-card-bg: #ffffff;
   --contrib-card-border: rgba(0, 0, 0, 0.07);
   --contrib-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 6px 16px rgba(0, 0, 0, 0.04);
   --contrib-card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.08), 0 16px 44px rgba(0, 0, 0, 0.06);
-  --contrib-hero-bg: linear-gradient(160deg, rgba(181, 9, 172, 0.035) 0%, rgba(181, 9, 172, 0.01) 40%, transparent 70%);
-  --contrib-stat-bg: rgba(181, 9, 172, 0.045);
-  --contrib-stat-border: rgba(181, 9, 172, 0.1);
-  --contrib-highlight-bg: rgba(181, 9, 172, 0.03);
-  --contrib-highlight-border: rgba(181, 9, 172, 0.1);
-  --contrib-role-bg: rgba(181, 9, 172, 0.07);
-  --contrib-role-color: #a81da0;
-  --contrib-quote-color: rgba(181, 9, 172, 0.2);
+  --contrib-hero-bg: linear-gradient(160deg, rgba(201, 72, 91, 0.035) 0%, rgba(201, 72, 91, 0.01) 40%, transparent 70%);
+  --contrib-stat-bg: rgba(201, 72, 91, 0.045);
+  --contrib-stat-border: rgba(201, 72, 91, 0.1);
+  --contrib-highlight-bg: rgba(201, 72, 91, 0.03);
+  --contrib-highlight-border: rgba(201, 72, 91, 0.1);
+  --contrib-role-bg: rgba(201, 72, 91, 0.07);
+  --contrib-role-color: #9a2f44;
+  --contrib-quote-color: rgba(201, 72, 91, 0.22);
   --contrib-meta-color: #6b7280;
-  --contrib-shimmer: linear-gradient(90deg, transparent 0%, rgba(181, 9, 172, 0.04) 50%, transparent 100%);
+  --contrib-shimmer: linear-gradient(90deg, transparent 0%, rgba(201, 72, 91, 0.04) 50%, transparent 100%);
 }
 
 html[data-theme="dark"] {
-  --contrib-accent-rgb: 38, 152, 186;
+  --contrib-accent-rgb: 232, 166, 166;
   --contrib-card-bg: #1a1d23;
   --contrib-card-border: rgba(255, 255, 255, 0.06);
   --contrib-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 6px 16px rgba(0, 0, 0, 0.18);
   --contrib-card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.3), 0 16px 44px rgba(0, 0, 0, 0.2);
-  --contrib-hero-bg: linear-gradient(160deg, rgba(38, 152, 186, 0.05) 0%, rgba(38, 152, 186, 0.015) 40%, transparent 70%);
-  --contrib-stat-bg: rgba(38, 152, 186, 0.06);
-  --contrib-stat-border: rgba(38, 152, 186, 0.12);
-  --contrib-highlight-bg: rgba(38, 152, 186, 0.04);
-  --contrib-highlight-border: rgba(38, 152, 186, 0.12);
-  --contrib-role-bg: rgba(38, 152, 186, 0.1);
-  --contrib-role-color: #5cc4d8;
-  --contrib-quote-color: rgba(38, 152, 186, 0.25);
+  --contrib-hero-bg: linear-gradient(160deg, rgba(232, 166, 166, 0.05) 0%, rgba(232, 166, 166, 0.015) 40%, transparent 70%);
+  --contrib-stat-bg: rgba(232, 166, 166, 0.06);
+  --contrib-stat-border: rgba(232, 166, 166, 0.12);
+  --contrib-highlight-bg: rgba(232, 166, 166, 0.04);
+  --contrib-highlight-border: rgba(232, 166, 166, 0.12);
+  --contrib-role-bg: rgba(232, 166, 166, 0.1);
+  --contrib-role-color: #f3c5c5;
+  --contrib-quote-color: rgba(232, 166, 166, 0.25);
   --contrib-meta-color: #9ca3af;
-  --contrib-shimmer: linear-gradient(90deg, transparent 0%, rgba(38, 152, 186, 0.06) 50%, transparent 100%);
+  --contrib-shimmer: linear-gradient(90deg, transparent 0%, rgba(232, 166, 166, 0.06) 50%, transparent 100%);
 }
 
 // Animations
