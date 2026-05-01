@@ -240,17 +240,17 @@ ninja.data = [{
               window.location.href = "/news/announcement_2.html";
             },},{id: "projects-agentic-ai-writings",
           title: 'Agentic AI writings',
-          description: "",
+          description: "Field notes from building AI coding agents at Cline.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/AgenticAi/";
             },},{id: "projects-art",
           title: 'Art',
-          description: "",
+          description: "What I see when I look at a wall — graffiti as resistance, beauty as defiance.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Art/";
             },},{id: "projects-brazil",
           title: 'Brazil',
-          description: "",
+          description: "Recife, Rio, and the city that quietly rearranged my insides.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Brazil/";
             },},{id: "projects-cline-39-s-analog-art",
@@ -265,12 +265,12 @@ ninja.data = [{
               window.location.href = "/projects/HillClimbing/";
             },},{id: "projects-skiing",
           title: 'Skiing',
-          description: "",
+          description: "How a Canadian guy fell head-over-heels for the Rockies, and what powder taught me about love.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Skiing/";
             },},{id: "projects-white-shirt-project",
           title: 'White Shirt Project',
-          description: "",
+          description: "A white t-shirt, a handful of friends, and a wearable map of the people I&#39;ve loved.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/communalArt/";
             },},{id: "projects-priviledged-homelessness",
@@ -280,7 +280,7 @@ ninja.data = [{
               window.location.href = "/projects/homelessness/";
             },},{id: "projects-mathematics-of-love",
           title: 'Mathematics of Love',
-          description: "",
+          description: "An in-person matchmaking experiment with 119 strangers, plotted, charted, and tenderly analysed.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/mathmaking/";
             },},{id: "projects-but-you-are-just-a-quot-content-creator-quot",
