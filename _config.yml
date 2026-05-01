@@ -1,5 +1,6 @@
 # -----------------------------------------------------------------------------
 # Site settings
+# (redeploy: rollback to 4c4ce5db)
 # -----------------------------------------------------------------------------
 
 title: "Ara's Digital Space" # the website title (if blank, full name will be used instead)
