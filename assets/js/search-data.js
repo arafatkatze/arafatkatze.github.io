@@ -11,7 +11,7 @@ ninja.data = [{
     },
   },{id: "nav-writing",
           title: "Writing",
-          description: "Essays, love letters, philosophy and travel stories — the wild west of my thoughts.",
+          description: "",
           section: "Navigation",
           handler: () => {
             window.location.href = "/blog/";
@@ -23,9 +23,23 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/projects/";
           },
+        },{id: "nav-resume",
+          title: "Resume",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "nav-opensource",
+          title: "Opensource",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/repositories/";
+          },
         },{id: "nav-reading",
           title: "Reading",
-          description: "Books I&#39;m reading, have read, or hope to read next. Recommendations always welcome.",
+          description: "",
           section: "Navigation",
           handler: () => {
             window.location.href = "/reading/";
@@ -39,24 +53,10 @@ ninja.data = [{
           },
         },{id: "nav-pixel-board",
           title: "Pixel Board",
-          description: "collaborative pixel art, leave your mark on the board",
+          description: "collaborative pixel art, leave your mark",
           section: "Navigation",
           handler: () => {
             window.location.href = "/pixels/";
-          },
-        },{id: "nav-opensource",
-          title: "Opensource",
-          description: "",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/repositories/";
-          },
-        },{id: "nav-resume",
-          title: "Resume",
-          description: "Where I&#39;ve worked, what I&#39;ve shipped, and the awards I&#39;m fond of. AI engineer at Cline; previously Sourcegraph and Shopify.",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/cv/";
           },
         },{id: "post-the-gift-of-an-agonizing-limerance",
         
@@ -240,17 +240,17 @@ ninja.data = [{
               window.location.href = "/news/announcement_2.html";
             },},{id: "projects-agentic-ai-writings",
           title: 'Agentic AI writings',
-          description: "Field notes from building AI coding agents at Cline.",
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/AgenticAi/";
             },},{id: "projects-art",
           title: 'Art',
-          description: "What I see when I look at a wall — graffiti as resistance, beauty as defiance.",
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Art/";
             },},{id: "projects-brazil",
           title: 'Brazil',
-          description: "Recife, Rio, and the city that quietly rearranged my insides.",
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Brazil/";
             },},{id: "projects-cline-39-s-analog-art",
@@ -265,12 +265,12 @@ ninja.data = [{
               window.location.href = "/projects/HillClimbing/";
             },},{id: "projects-skiing",
           title: 'Skiing',
-          description: "How a Canadian guy fell head-over-heels for the Rockies, and what powder taught me about love.",
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Skiing/";
             },},{id: "projects-white-shirt-project",
           title: 'White Shirt Project',
-          description: "A white t-shirt, a handful of friends, and a wearable map of the people I&#39;ve loved.",
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/communalArt/";
             },},{id: "projects-priviledged-homelessness",
@@ -280,7 +280,7 @@ ninja.data = [{
               window.location.href = "/projects/homelessness/";
             },},{id: "projects-mathematics-of-love",
           title: 'Mathematics of Love',
-          description: "An in-person matchmaking experiment with 119 strangers, plotted, charted, and tenderly analysed.",
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/mathmaking/";
             },},{id: "projects-but-you-are-just-a-quot-content-creator-quot",
