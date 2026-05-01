@@ -150,4 +150,4 @@ I like to find art and [beauty](projects/communalArt/) wherever I go and whateve
 
 As a Canadian with Indian and Asian heritage, I am a huge fan of nature, the Rockies have taught me so much about beauty, connection and self discovery. Whether I'm skiing down fresh powder or watching the sunset from a summit I've hiked, these moments with close friends have shaped my life. I would love to do intense adventures in nature as much as I can to get me out of my mind and into my own body (PS. If you drive me to a ski hill, I will come).
 
-I'm documenting more of my adventures and creative process these days. If you're curious about seeing life through my lens, here's a few links...
+I'm documenting more of my adventures and creative process these days. If you're curious about seeing life through my lens, here's a few links — and if you want a snapshot of what I'm up to right *now*, [here's that page](/now/).
