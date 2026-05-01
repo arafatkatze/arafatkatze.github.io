@@ -1,11 +1,12 @@
 ---
 layout: default
 ---
-<div class="post">
-  <header class="post-header">
+<div class="post about-page">
+  <header class="post-header about-header">
+    <span class="about-eyebrow">Hi, I'm Ara <span class="wave" aria-hidden="true">👋</span></span>
     <h1 class="post-title">
       <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }} (a.k.a Ara)
+        {{ site.last_name }} <span class="about-aka">(a.k.a Ara)</span>
     </h1>
     <p class="desc">{{ page.subtitle }}</p>
   </header>
@@ -27,11 +28,13 @@ layout: default
           {% endif %}
           {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
       30vw, 95vw"{% endcapture %}
-          {% if page.profile.image contains '://' %}
-            {% include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image %}
-          {% else %}
-            {% include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image cache_bust=true %}
-          {% endif %}
+          <div class="profile-frame">
+            {% if page.profile.image contains '://' %}
+              {% include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image %}
+            {% else %}
+              {% include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image cache_bust=true %}
+            {% endif %}
+          </div>
         {% endif %}
         {% if page.profile.more_info %}
           <div class="more-info">{{ page.profile.more_info }}</div>
@@ -43,6 +46,10 @@ layout: default
 
     <!-- Bento Grid -->
     {% if page.bento_tiles %}
+      <div class="bento-section-label">
+        <span class="bento-section-label-text">Little pieces of my world</span>
+        <span class="bento-section-label-sub">writing · books · travel · art · projects</span>
+      </div>
       {% include content_blocks.liquid %}
     {% endif %}
 
