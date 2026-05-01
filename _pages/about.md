@@ -41,12 +41,16 @@ bento_tiles:
     image: assets/img/travel/earth-day-from-iss.jpg
     image_dark: assets/img/travel/earth-night-from-iss.jpg
     type: image
+    note: 30+ countries ✦
+    note_pos: top-right
 
   - title: Skiing
     label: Projects · Fun
     link: /projects/Skiing/
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
     type: image
+    note: ↑ best gift of my life
+    note_pos: bottom-right
 
   # Row 2: art + book + math of love (wide)
   - title: Art
@@ -62,6 +66,8 @@ bento_tiles:
     type: book
     author: Rainer Maria Rilke
     badge: Read
+    note: re-read 4×
+    note_pos: top-right
 
   - title: Mathematics of Love
     label: Projects · Art
@@ -105,6 +111,8 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
     type: image
     span: tall
+    note: rearranged my insides
+    note_pos: top-left
 
   - title: Pixel Board
     label: Pixels · Art
