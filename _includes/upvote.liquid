@@ -1,0 +1,47 @@
+<div class="post-upvote">
+  <applause-button style="width: 50px; height: 50px;" multiclap="true"></applause-button>
+</div>
+<link rel="stylesheet" href="https://unpkg.com/applause-button/dist/applause-button.css">
+<script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
+<style>
+  .post-engagement {
+    max-width: 800px;
+    margin: 3rem auto 0;
+    padding: 0 1rem;
+  }
+
+  .post-upvote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--global-divider-color);
+  }
+
+  .post-upvote applause-button {
+    --applause-button-color: var(--global-theme-color);
+  }
+
+  .post-comments {
+    padding: 1.5rem 0 0;
+  }
+
+  .post-comments h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--global-text-color);
+  }
+
+  #cusdis_thread {
+    width: 100%;
+  }
+
+  #cusdis_thread iframe {
+    width: 100% !important;
+    min-height: 600px !important;
+    border: none !important;
+    color-scheme: normal;
+  }
+</style>

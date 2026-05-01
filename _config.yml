@@ -132,24 +132,29 @@ related_blog_posts:
   enabled: false
   max_related: 5
 
-# Giscus comments (RECOMMENDED)
-# Follow instructions on https://giscus.app/ to setup for your repo to fill out the information below.
+# Cusdis comments (anonymous, no auth required for visitors)
+# Sign up at https://cusdis.com, create a site, and paste your app_id below.
+cusdis:
+  app_id: 14a7f0bf-1e23-4af6-bb21-b77cd566f3fe
+  host: https://cusdis.com
+
+# Giscus comments (disabled — using Cusdis instead)
 giscus:
-  repo: # <your-github-user-name>/<your-github-repo-name>
-  repo_id: # leave empty or specify your repo_id (see https://giscus.app/)
-  category: Comments # name of the category under which discussions will be created
-  category_id: # leave empty or specify your category_id (see https://giscus.app/)
-  mapping: title # identify discussions by post title
-  strict: 1 # use strict identification mode
-  reactions_enabled: 1 # enable (1) or disable (0) emoji reactions
-  input_position: bottom # whether to display input form below (bottom) or above (top) the comments
-  dark_theme: dark # name of the dark color scheme (preferred works well with al-folio dark mode)
-  light_theme: light # name of the light color scheme (preferred works well with al-folio light mode)
+  repo:
+  repo_id:
+  category:
+  category_id:
+  mapping: pathname
+  strict: 0
+  reactions_enabled: 1
+  input_position: bottom
+  dark_theme: preferred_color_scheme
+  light_theme: preferred_color_scheme
   emit_metadata: 0
   lang: en
 
 # Disqus comments (DEPRECATED)
-disqus_shortname: al-folio # put your disqus shortname
+disqus_shortname: # disabled
 # https://help.disqus.com/en/articles/1717111-what-s-a-shortname
 
 # External sources.
@@ -256,6 +261,11 @@ defaults:
       path: "assets"
     values:
       sitemap: false
+  - scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      comments: true
 
 sass:
   style: compressed

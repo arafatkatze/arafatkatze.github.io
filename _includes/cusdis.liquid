@@ -1,0 +1,67 @@
+{% if site.cusdis and site.cusdis.app_id %}
+  <div class="post-comments">
+    <h3>Comments</h3>
+    <div
+      id="cusdis_thread"
+      data-host="{{ site.cusdis.host | default: 'https://cusdis.com' }}"
+      data-app-id="{{ site.cusdis.app_id }}"
+      data-page-id="{{ page.url }}"
+      data-page-url="{{ page.url | absolute_url }}"
+      data-page-title="{{ page.title }}"
+      data-theme="auto"
+    ></div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    <script>
+      (function() {
+        var target = document.getElementById('cusdis_thread');
+        if (!target) return;
+
+        window.addEventListener('message', function(e) {
+          try {
+            var msg = JSON.parse(e.data);
+            if (msg.from === 'cusdis' && msg.event === 'resize') {
+              var iframe = target.querySelector('iframe');
+              if (iframe) {
+                var h = Math.max(parseInt(msg.data, 10), 400);
+                iframe.style.height = h + 'px';
+              }
+            }
+          } catch(err) {}
+        });
+
+        // Cusdis has a known bug where the resize event fires before comments
+        // load from the API. Re-trigger resize after comments have had time to load.
+        setTimeout(function() {
+          var iframe = target.querySelector('iframe');
+          if (iframe && iframe.contentWindow) {
+            try {
+              iframe.contentWindow.postMessage(JSON.stringify({
+                from: 'cusdis',
+                event: 'resize'
+              }), '*');
+            } catch(err) {}
+          }
+        }, 3000);
+
+        setTimeout(function() {
+          var iframe = target.querySelector('iframe');
+          if (iframe && iframe.contentWindow) {
+            try {
+              iframe.contentWindow.postMessage(JSON.stringify({
+                from: 'cusdis',
+                event: 'resize'
+              }), '*');
+            } catch(err) {}
+          }
+        }, 6000);
+      })();
+    </script>
+  </div>
+{% else %}
+  {% capture cusdis_warning %}
+> ##### Comments not configured yet
+> Sign up at [cusdis.com](https://cusdis.com) and add your `app_id` to `_config.yml`.
+{: .block-danger }
+  {% endcapture %}
+  {{ cusdis_warning | markdownify }}
+{% endif %}
