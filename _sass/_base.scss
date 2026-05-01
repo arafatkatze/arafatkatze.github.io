@@ -2600,7 +2600,36 @@ mjx-container[jax="CHTML"][display="true"] {
   }
 }
 
-// About page intro text – Fraunces serif, muted gray
+// About page H1 + tagline
+.post-header {
+  .post-title {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+
+    .post-title-legal {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 0.55em;
+      color: var(--global-text-color-light);
+      margin-left: 0.35em;
+      vertical-align: baseline;
+      letter-spacing: 0;
+    }
+  }
+
+  .desc {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--global-text-color-light);
+    margin-top: 0.25rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+// About page intro text – Fraunces serif, slightly stronger contrast
 .about-content {
   p,
   li,
@@ -2608,7 +2637,13 @@ mjx-container[jax="CHTML"][display="true"] {
   em,
   strong {
     font-family: "Fraunces", Georgia, serif;
-    color: #666;
+    color: #3a3a3a;
+  }
+
+  // Make the very first paragraph the strongest hook
+  > p:first-of-type {
+    font-size: 1.15rem;
+    line-height: 1.7;
   }
 
   a {
@@ -2622,7 +2657,7 @@ html[data-theme="dark"] .about-content {
   span,
   em,
   strong {
-    color: #aaa;
+    color: #cfcfcf;
   }
 }
 
