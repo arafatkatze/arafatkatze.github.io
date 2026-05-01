@@ -4,9 +4,9 @@
     "image": "",
     "email": "arafat.da.khan@gmail.com",
     "url": "https://arafatkatze.github.io/",
-    "summary": "A backend engineer who does a little bit of everything.",
+    "summary": "An AI engineer who does a little bit of everything — backend, infra, agents, and the occasional love letter.",
     "location": {
-      "region": "Canada"
+      "region": "San Francisco, CA"
     },
     "profiles": [
       {
@@ -20,7 +20,7 @@
     {
       "name": "Cline",
       "position": "AI Engineer",
-      "url": "",
+      "url": "https://cline.bot",
       "startDate": "2025",
       "endDate": "",
       "summary": "",
@@ -28,12 +28,12 @@
     },
     {
       "name": "Sourcegraph",
-      "position": "AI Engineer at Cody Team",
-      "url": "",
+      "position": "AI Engineer, Cody Team",
+      "url": "https://sourcegraph.com",
       "startDate": "2024",
       "endDate": "2025",
       "summary": "",
-      "highlights": ["Built an enteprise AI coding assistant"]
+      "highlights": ["Built an enterprise AI coding assistant"]
     },
     {
       "name": "ImmigrantFirst",
@@ -52,9 +52,9 @@
       "endDate": "2023",
       "summary": "Restricted Infrastructure and Stacks Team",
       "highlights": [
-        "Co-Implemented a load balancerlevel splitting ofread and write requests using Kubernetes for Shopify’s financial transaction application which improved the p99 request times across most of Shopify’s payment transactions by 50%.",
-        "Enhanced networking/infra pipeline to make our payments infrastructure fully compliant with PCI/DSS regulations to pass the audit.",
-        "Built, maintained and upgraded highly scalable, fault tolerant Mysql database for critical credit card data"
+        "Co-implemented a load-balancer-level split of read and write requests using Kubernetes for Shopify's financial transaction application, improving p99 request times across most of Shopify's payment transactions by 50%.",
+        "Enhanced networking and infra pipeline to make our payments infrastructure fully compliant with PCI/DSS regulations and pass the audit.",
+        "Built, maintained, and upgraded a highly scalable, fault-tolerant MySQL database for critical credit card data."
       ]
     },
     {
@@ -65,8 +65,8 @@
       "endDate": "2021",
       "summary": "Risk Engineering Team",
       "highlights": [
-        "Built a majortech design for a technical pipeline touching multiple rails services to find major bottlenecks in Shopify’s fraud assessment flow and to improve the checkout latency by 60%.",
-        "Managed autoscaling for Black Friday sales as the traffic spiked 10x the normal limit"
+        "Designed a major-tech technical pipeline touching multiple Rails services to find major bottlenecks in Shopify's fraud assessment flow and improved checkout latency by 60%.",
+        "Managed autoscaling for Black Friday sales as the traffic spiked to 10x the normal limit."
       ]
     },
     {
@@ -76,7 +76,7 @@
       "startDate": "2017",
       "endDate": "2018",
       "summary": "",
-      "highlights": ["Applied ML techniques on CT Scans of Body segements for FAT analysis and body composition labelling for cancer patients"]
+      "highlights": ["Applied ML techniques on CT scans of body segments for fat analysis and body composition labelling for cancer patients."]
     }
   ],
   "education": [
@@ -104,13 +104,13 @@
       "title": "Google Summer of Code",
       "date": "2018",
       "awarder": "Scientific Ruby Foundation",
-      "summary": "Built the best plotting library for Ruby to support visulations for Science expermentation in Ruby -> https://github.com/SciRuby/rubyplot"
+      "summary": "Built the best plotting library for Ruby to support visualisations for science experimentation in Ruby — https://github.com/SciRuby/rubyplot"
     },
     {
       "title": "Ruby Grant",
       "date": "2016",
       "awarder": "Ruby Association",
-      "summary": "Official Grant from Ruby Association to build Tensorflow in Ruby -> https://github.com/somaticio/tensorflow.rb"
+      "summary": "Official grant from Ruby Association to build TensorFlow in Ruby — https://github.com/somaticio/tensorflow.rb"
     }
   ],
   "skills": [
@@ -148,27 +148,27 @@
       "name": "Tensorflow.rb",
       "summary": "I wrote Tensorflow for Ruby",
       "highlights": [
-        "Spoke about this project at many tech conferences all over Europe and North America",
-        "Project was eventually endorsed by Ruby Association",
-        "Project trended on Github for a few days"
+        "Spoke about this project at many tech conferences across Europe and North America.",
+        "Project was eventually endorsed by the Ruby Association.",
+        "Project trended on GitHub for several days."
       ]
     },
     {
       "url": "https://github.com/arafatkatze/dataviz",
       "name": "Dataviz",
-      "summary": "A perfect algorithms explaination library written in Golang",
+      "summary": "An algorithms explanation library written in Go.",
       "highlights": [
-        "Designed a user-friendly codebase to understand complex algorithms visually",
-        "Presented my work at Gophercon in Belarus and India"
+        "Designed a user-friendly codebase to understand complex algorithms visually.",
+        "Presented this work at Gophercon in Belarus and India."
       ]
     },
     {
       "url": "https://github.com/arafatkatze/glot",
       "name": "Glot",
-      "summary": "A plotting library in Golang built on top of GNU Plot",
+      "summary": "A plotting library in Go built on top of Gnuplot.",
       "highlights": [
-        "Added golang support for styles like lines, points, bars, steps, histogram, circle",
-        "Presented my work at Gophercon in Belarus and India"
+        "Added Go support for styles like lines, points, bars, steps, histograms, and circles.",
+        "Presented this work at Gophercon in Belarus and India."
       ]
     }
   ]
