@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Agentic AI writings
-description:
+description: Field notes from building AI coding agents at Cline.
 img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
 importance: 3
 category: work

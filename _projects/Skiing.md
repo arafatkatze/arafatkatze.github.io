@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Skiing
-description:
+description: How a Canadian guy fell head-over-heels for the Rockies, and what powder taught me about love.
 img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
 importance: 2
 category: fun
