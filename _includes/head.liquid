@@ -66,7 +66,7 @@
 {% elsif site.icon != blank %}
   <link rel="shortcut icon" href="{{ site.icon | prepend: '/assets/img/' | relative_url | bust_file_cache}}">
 {% endif %}
-<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url | bust_css_cache }}">
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url | bust_css_cache }}&v=2">
 <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
 
 {% if site.enable_darkmode %}
@@ -83,6 +83,29 @@
     initTheme();
   </script>
 {% endif %}
+
+<!-- Color Scheme (prevent FOUC — applied on every page) -->
+<script>
+  (function () {
+    var cs = localStorage.getItem("color-scheme");
+    var valid = [
+      "default",
+      "rose",
+      "orange",
+      "green",
+      "teal",
+      "blue",
+      "indigo",
+      "slate",
+    ];
+    if (!cs || valid.indexOf(cs) === -1) cs = "default";
+    document.documentElement.setAttribute("data-color-scheme", cs);
+    // Non-default schemes force light mode
+    if (cs !== "default") {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  })();
+</script>
 
 {% if page.map %}
   <!-- GeoJSON support via Leaflet -->
