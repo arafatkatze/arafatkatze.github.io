@@ -2,6 +2,25 @@
 // Pack My Suitcase — theme-aware styles
 // ─────────────────────────────────────────────
 
+.pack-loading {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+  padding: 1rem 0;
+  text-align: center;
+}
+
+.pack-noscript {
+  font-family: "Fraunces", Georgia, serif;
+  background: rgba(245, 158, 11, 0.1);
+  border-left: 3px solid #f59e0b;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
 .pack-page {
   --pk-bg: #ffffff;
   --pk-card: #f8f8fb;

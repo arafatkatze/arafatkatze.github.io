@@ -1,3 +1,13 @@
+.pixel-intro {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--global-text-color-light);
+  max-width: 620px;
+  margin: 0 0 1.5rem 0;
+}
+
 #pixel-board-app {
   position: relative;
   overflow: hidden;

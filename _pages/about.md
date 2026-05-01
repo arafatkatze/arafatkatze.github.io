@@ -17,6 +17,15 @@ social: true
 featured_post: 2026-04-26-limerance.md
 
 bento_tiles:
+  # Row 0: a friendly "new here?" entry tile
+  - title: new here?
+    label: Tour · Start Here
+    link: /start-here/
+    type: text
+    excerpt: "A handcrafted tour: the essays I'd give a new friend, in the order I'd give them."
+    bg: warm
+    span: wide
+
   # Row 1: wide text + travel + skiing
   - title: To My Future Son
     label: Writing · Philosophy
