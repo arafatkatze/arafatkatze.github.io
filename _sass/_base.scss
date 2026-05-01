@@ -428,6 +428,7 @@ html[data-theme="dark"] {
 
     .container {
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
     }
 
@@ -435,11 +436,26 @@ html[data-theme="dark"] {
     .navbar-brand {
       position: static;
       transform: none;
-      margin-right: auto;
+      margin: 0;
+      flex-shrink: 0;
 
       .navbar-brand-mark {
         height: 24px;
       }
+    }
+
+    // Make sure the hamburger stays visible on the right
+    .navbar-toggler {
+      display: inline-block;
+      margin-left: auto;
+      padding: 0.5rem 0.75rem;
+      flex-shrink: 0;
+    }
+
+    // Collapse menu spans full width on the next row
+    .navbar-collapse {
+      flex-basis: 100%;
+      width: 100%;
     }
   }
 
