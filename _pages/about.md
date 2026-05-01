@@ -59,42 +59,24 @@ bento_tiles:
     type: image
     span: wide
 
-  # Row 3: shirt + atomic habits + AI + alchemist
+  # Row 3: brazil + animation (2x2) + white shirt
+  - title: Brazil
+    label: Projects · Fun
+    link: /projects/Brazil/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
+    type: image
+
+  - title: ""
+    type: animation
+    span: wide-tall
+
   - title: White Shirt Project
     label: Projects · Art
     link: /projects/communalArt/
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
     type: image
 
-  - title: The Kite Runner
-    label: Reading · Books
-    link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/159463193X-L.jpg
-    type: book
-    author: Khaled Hosseini
-    badge: Read
-
-  - title: Agentic AI
-    label: Projects · Work
-    link: /projects/AgenticAi/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
-    type: image
-
-  - title: writing.
-    label: Blog · Essays
-    link: /blog/
-    type: text
-    excerpt: "Philosophy, love letters, travel stories — the wild west of my thoughts."
-    bg: warm
-
-  # Row 4: brazil tall + pixel board + on looking inwards + into the wild
-  - title: Brazil
-    label: Projects · Fun
-    link: /projects/Brazil/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
-    type: image
-    span: tall
-
+  # Row 4: pixel board + (animation cont.) + on looking inwards
   - title: Pixel Board
     label: Pixels · Art
     link: /pixels/
@@ -109,15 +91,7 @@ bento_tiles:
     excerpt: "I have been looking outwards for too long. It's time to look inwards."
     bg: warm
 
-  # Row 5: into the wild + matchmaking + sapiens
-  - title: Into the Wild
-    label: Reading · Books
-    link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0385486804-L.jpg
-    type: book
-    author: Jon Krakauer
-    badge: Read
-
+  # Row 5: messages (wide) + stranger + alchemist
   - title: Messages to 24 People I Know
     label: Writing · Letters
     link: /philosophy/2025/03/05/messages-to-24-people
@@ -131,6 +105,14 @@ bento_tiles:
     image: https://covers.openlibrary.org/b/isbn/0679720200-L.jpg
     type: book
     author: Albert Camus
+    badge: Read
+
+  - title: The Alchemist
+    label: Reading · Books
+    link: /reading/
+    image: https://covers.openlibrary.org/b/isbn/0061122416-L.jpg
+    type: book
+    author: Paulo Coelho
     badge: Read
 
 announcements:

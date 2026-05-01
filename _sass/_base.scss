@@ -2631,6 +2631,7 @@ html[data-theme="dark"] .about-content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: 210px;
+  grid-auto-flow: dense;
   gap: 12px;
   margin: 2rem 0;
 
@@ -2940,4 +2941,20 @@ html[data-theme="dark"] .bento-tile.image {
   font-size: 0.7rem;
   color: var(--global-text-color-light);
   margin-top: 1px;
+}
+
+// Network animation bento tile
+.bento-tile-animation {
+  position: relative;
+  cursor: default;
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+
+  #network-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
 }
