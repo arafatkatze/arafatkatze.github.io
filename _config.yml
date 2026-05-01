@@ -223,6 +223,9 @@ exclude:
   - README.md
   - readme_preview/
   - vendor
+  - sdk-wip-main/
+  - .cursor/
+  - node_modules/
 keep_files:
   - CNAME
   - .nojekyll

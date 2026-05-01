@@ -81,20 +81,16 @@ layout: default
       {% if tags != '' %}
         &nbsp;&middot;&nbsp;
         {% for tag in page.tags %}
-          <a href="{{ tag | slugify | prepend: '/books/tag/' | relative_url }}"> <i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</a>
-          {% unless forloop.last %}
-            &nbsp;
-          {% endunless %}
+          <span class="post-tag-static"><i class="fa-solid fa-hashtag fa-sm"></i> {{ tag }}</span>
+          {% unless forloop.last %}&nbsp;{% endunless %}
         {% endfor %}
       {% endif %}
 
       {% if categories != '' %}
         &nbsp;&middot;&nbsp;
         {% for category in page.categories %}
-          <a href="{{ category | slugify | prepend: '/books/category/' | relative_url }}"> <i class="fa-solid fa-tag fa-sm"></i> {{ category }}</a>
-          {% unless forloop.last %}
-            &nbsp;
-          {% endunless %}
+          <span class="post-tag-static"><i class="fa-solid fa-tag fa-sm"></i> {{ category }}</span>
+          {% unless forloop.last %}&nbsp;{% endunless %}
         {% endfor %}
       {% endif %}
     </p>
