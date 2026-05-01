@@ -3447,3 +3447,85 @@ html[data-theme="dark"] .bento-tile.image {
   color: var(--global-text-color-light);
   margin-top: 1px;
 }
+
+// ---------------------------------------------------------------
+// Konami code easter egg — snowflake "powder day" power-up.
+// ---------------------------------------------------------------
+.konami-snow-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1099;
+  overflow: hidden;
+}
+
+.konami-snow-flake {
+  position: absolute;
+  top: -32px;
+  user-select: none;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.55);
+  will-change: transform, opacity;
+}
+
+@keyframes konami-snow-fall {
+  0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); }
+  100% { transform: translate3d(var(--drift, 0), 110vh, 0) rotate(360deg); }
+}
+
+.konami-snow-banner {
+  position: fixed;
+  left: 50%;
+  top: 22%;
+  transform: translate(-50%, -8px);
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1.1rem 1.8rem 1.25rem;
+  background: rgba(26, 26, 31, 0.92);
+  color: #fdfaf4;
+  border: 1px solid rgba(232, 166, 166, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(201, 72, 91, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-align: center;
+  opacity: 0;
+  animation: konami-banner-in 600ms cubic-bezier(.2, .9, .25, 1.1) forwards;
+  pointer-events: none;
+  font-family: "Fraunces", Georgia, serif;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #f3c5c5;
+  }
+
+  &__sub {
+    font-size: 0.85rem;
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  &--fade {
+    animation: konami-banner-out 1.2s ease-out forwards;
+  }
+}
+
+@keyframes konami-banner-in {
+  0%   { opacity: 0; transform: translate(-50%, -28px) scale(0.92); }
+  100% { opacity: 1; transform: translate(-50%, 0)     scale(1); }
+}
+
+@keyframes konami-banner-out {
+  0%   { opacity: 1; transform: translate(-50%, 0)    scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -10px) scale(0.96); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .konami-snow-flake { display: none; }
+  .konami-snow-banner { animation: none; opacity: 1; }
+}
