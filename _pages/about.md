@@ -146,8 +146,8 @@ latest_posts:
 
 This is Ara (pronounced era like the beginning of an era). I live at the intersection of art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days [playing with AI](/projects/AgenticAi) to build experiences that delight people.
 
-I like to find art and [beauty](projects/communalArt/) wherever I go and whatever I do, sometimes it's staring at graffiti, other times it's in the delight of seeing an old friend. In the past, I had been a wandering spirit so I travelled a lot and after fulfilling this rite of passage I have settled down in the bay area to build relationships that will last for the rest of my life.
+I like to find art and [beauty](projects/communalArt/) wherever I go and whatever I do, sometimes it's staring at an art piece, other times it's in the delight of seeing an old friend. In the past, I had been a wandering spirit so I travelled a lot and after fulfilling this rite of passage I have settled down in the Bay Area to build lifelong relationships.
 
-As a Canadian with Indian and Asian heritage, I am a huge fan of nature, the Rockies have taught me so much about beauty, connection and self discovery. Whether I'm skiing down fresh powder or watching the sunset from a summit I've hiked, these moments with close friends have shaped my life. I would love to do intense adventures in nature as much as I can to get me out of my mind and into my own body (PS. If you drive me to a ski hill, I will come).
+As a Canadian, I am a huge fan of adventures in nature and I am always up for a hike, surf or skiing trip. If you ask nicely, I can teach you any of those things. 
 
 I'm documenting more of my adventures and creative process these days. If you're curious about seeing life through my lens, here's a few links...
