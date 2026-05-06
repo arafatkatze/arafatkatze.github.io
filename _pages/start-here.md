@@ -60,6 +60,12 @@ description: New to the site? Here's a tour, in the order I'd give one to a frie
   <li><a href="{{ '/moon/' | relative_url }}">Moon</a> — what the sky was doing on the day each essay was written.</li>
 </ul>
 
+<h2>If you want to see everything at once…</h2>
+<p>
+  There's an index of every page on this site at
+  <a href="{{ '/everything/' | relative_url }}">/everything</a>. Searchable.
+</p>
+
 <p class="start-meta">
   Want to chat? <a href="mailto:{{ site.email }}">Email me</a>. I read everything.
 </p>
