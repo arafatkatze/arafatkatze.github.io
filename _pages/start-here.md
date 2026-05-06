@@ -53,6 +53,7 @@ description: New to the site? Here's a tour, in the order I'd give one to a frie
   <li><a href="{{ '/where-is-ara/' | relative_url }}">Where is Ara</a> — a living dot on the globe, plus recent stops.</li>
   <li><a href="{{ '/this-week/' | relative_url }}">This week</a> — one rotating question, one-sentence answers from anyone who wanders in.</li>
   <li><a href="{{ '/letters-to-strangers/' | relative_url }}">Letters to strangers</a> — write one anonymous letter, receive one back from the queue.</li>
+  <li><a href="{{ '/atomic-letter/' | relative_url }}">Atomic letter</a> — pick a person, pick a constraint, get a starting line.</li>
   <li><a href="{{ '/sunset/' | relative_url }}">Sunset</a> — a single page where the background is the current sky, in your timezone.</li>
   <li><a href="{{ '/words-i-underline/' | relative_url }}">Words I underline</a> — a searchable commonplace book of quotes from books I've loved.</li>
   <li><a href="{{ '/moon/' | relative_url }}">Moon</a> — what the sky was doing on the day each essay was written.</li>

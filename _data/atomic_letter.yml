@@ -1,0 +1,97 @@
+# /atomic-letter/ — generator data.
+#
+# An "atomic letter" = pick a person archetype + a constraint, get a hand-crafted
+# opening line. The reader writes (or doesn't write) the rest in their head.
+#
+# To extend: append to either list. Openers can use {person} as a placeholder
+# which is replaced by the chosen archetype's `you` form ("you", "the one
+# who…", "the version of me that…", etc.) at render time.
+
+archetypes:
+  - id: apology
+    label: "someone you owe an apology to"
+    vocative: "you"                         # "Dear you," — short and flexible
+  - id: teacher
+    label: "someone who taught you a thing"
+    vocative: "the one who showed me how"
+  - id: never-again
+    label: "someone you'll never see again"
+    vocative: "you, wherever you are"
+  - id: future-child
+    label: "your future child"
+    vocative: "small one"
+  - id: past-self
+    label: "yourself, five years ago"
+    vocative: "younger me"
+  - id: future-self
+    label: "yourself, ten years from now"
+    vocative: "older me"
+  - id: parent
+    label: "your mother or your father"
+    vocative: "the one whose hands I remember"
+  - id: ex-friend
+    label: "a friend you've drifted from"
+    vocative: "you, my old friend"
+  - id: stranger
+    label: "a stranger who was kind"
+    vocative: "you, kind stranger"
+  - id: love
+    label: "the love you almost had"
+    vocative: "you, the one I think about at 2 a.m."
+  - id: home
+    label: "the city or country that raised you"
+    vocative: "old home"
+  - id: enemy
+    label: "the person you're angriest at"
+    vocative: "you, who hurt me"
+
+constraints:
+  - id: three-sentences
+    label: "in exactly three sentences"
+  - id: only-room
+    label: "describing only the room you were in"
+  - id: only-weather
+    label: "mentioning only the weather"
+  - id: no-i
+    label: "without using the word ‘I’"
+  - id: one-question
+    label: "as a single question, no statements"
+  - id: thank-you
+    label: "starting with the words ‘thank you’"
+  - id: forgive
+    label: "starting with ‘I forgive you’ — even if you don't yet"
+  - id: never-send
+    label: "knowing you'll never send it"
+  - id: future
+    label: "to be opened in five years"
+  - id: childhood
+    label: "in the language of your childhood"
+  - id: small
+    label: "fitting on the back of a postcard"
+  - id: large
+    label: "as long as it needs to be — no editing"
+
+# Each opener takes a {person} slot. Will be paired randomly with any
+# archetype + constraint, but each opener also has optional `prefer_archetype`
+# to bias choices that feel right.
+openers:
+  - "Dear {person}, I have been carrying this around for so long that I forgot it was even mine."
+  - "Dear {person}, the room smells like the room we sat in that summer."
+  - "Dear {person}, today I noticed I do something the way you used to do it, and I almost laughed."
+  - "Dear {person}, I am writing this so I never have to say it out loud."
+  - "Dear {person}, the small things you said are the things that stayed."
+  - "Dear {person}, there is a sentence I never finished. Here it is."
+  - "Dear {person}, if I could go back to the night I last saw you, I'd say less, not more."
+  - "Dear {person}, I owe you an apology that has waited too long to find a stamp."
+  - "Dear {person}, the person I am now is the person you said I might one day be."
+  - "Dear {person}, the song you played me has shown up in three lives since."
+  - "Dear {person}, I keep choosing the same kind of friend. I think I'm trying to find you again."
+  - "Dear {person}, you taught me a thing without ever saying it."
+  - "Dear {person}, I want you to know I'm okay. I want you to know I am not."
+  - "Dear {person}, the city is louder without you in it."
+  - "Dear {person}, I held this in for so many years it has its own weather now."
+  - "Dear {person}, the mistake was mine. I'd like to take it back, even if you've forgotten it."
+  - "Dear {person}, there is a place in my chest where you live, rent-free."
+  - "Dear {person}, I'm writing to ask you a question I'm afraid to answer."
+  - "Dear {person}, the ordinary days are the ones I miss most."
+  - "Dear {person}, you don't owe me anything. I just wanted to say it back."
