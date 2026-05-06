@@ -1,0 +1,35 @@
+# /this-week/ — one rotating question, picked deterministically by ISO week.
+# Answers are one-sentence, signed by name + city, stored on pantry.cloud.
+#
+# To add new questions: append to `questions`. The page picks
+# questions[isoWeek % questions.length], so order matters but you can append safely.
+# To force a specific question this week, set `force_index` to its 0-based index.
+
+force_index:   # leave blank for auto rotation, or set to e.g. 3
+
+questions:
+  - "What did you re-listen to this week?"
+  - "What are you avoiding?"
+  - "Who do you owe a phone call?"
+  - "What's a small thing that made you smile in the last seven days?"
+  - "What's a sentence you can't stop thinking about?"
+  - "Where would you go right now, if everything was paid for?"
+  - "What's the kindest thing a stranger has done for you?"
+  - "What did you want to be when you were eight?"
+  - "What did you make this week — anything at all?"
+  - "Who taught you what love is?"
+  - "What's the last thing that made you tear up — happy or sad?"
+  - "If you could bring back one ritual from your childhood, what would it be?"
+  - "What's something you used to love that you've drifted away from?"
+  - "What are you reading right now?"
+  - "What's a question you wish someone would ask you?"
+  - "What do you do when no one's watching?"
+  - "What's the smallest decision that changed your life?"
+  - "Who do you miss?"
+  - "What are you trying to forgive yourself for?"
+  - "What's a song from a different decade you'd put on tonight?"
+  - "What's the most beautiful thing you've seen this month?"
+  - "What's something you're proud of that no one knows about?"
+  - "Where in your body do you carry your stress?"
+  - "What's the last thing you wrote down by hand?"
+  - "Who would you call if you got really good news?"
