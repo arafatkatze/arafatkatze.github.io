@@ -4,7 +4,7 @@ title: Projects
 permalink: /projects/
 description: Some of my favourite life stories and photos
 nav: true
-nav_order: 3
+nav_order: 2
 display_categories: [art, fun, work]
 ---
 
