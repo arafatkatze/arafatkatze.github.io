@@ -135,6 +135,13 @@ bento_tiles:
     excerpt: "One question, open all week. Answers from anyone who wanders in. Be one of them."
     bg: warm
 
+  - title: sunset.
+    label: Sky · Now
+    link: /sunset/
+    type: text
+    excerpt: "A page whose background is the sky outside, wherever you are. Refresh through the day."
+    bg: sunset
+
   - title: On Looking Inwards
     label: Writing · Philosophy
     link: /philosophy/2024/05/06/inwards
