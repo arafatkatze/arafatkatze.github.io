@@ -128,6 +128,13 @@ bento_tiles:
     excerpt: "Press for a sentence from one of the books I've loved. Bookmark it."
     bg: warm
 
+  - title: "this week's question"
+    label: This week · Open
+    link: /this-week/
+    type: text
+    excerpt: "One question, open all week. Answers from anyone who wanders in. Be one of them."
+    bg: warm
+
   - title: On Looking Inwards
     label: Writing · Philosophy
     link: /philosophy/2024/05/06/inwards

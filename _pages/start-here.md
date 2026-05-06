@@ -51,6 +51,7 @@ description: New to the site? Here's a tour, in the order I'd give one to a frie
   <li><a href="{{ '/guestbook/' | relative_url }}">Guestbook</a> — a single line, signed and shared.</li>
   <li><a href="{{ '/fortune/' | relative_url }}">Fortune</a> — a quote from the bookshelf, randomized.</li>
   <li><a href="{{ '/where-is-ara/' | relative_url }}">Where is Ara</a> — a living dot on the globe, plus recent stops.</li>
+  <li><a href="{{ '/this-week/' | relative_url }}">This week</a> — one rotating question, one-sentence answers from anyone who wanders in.</li>
 </ul>
 
 <p class="start-meta">
