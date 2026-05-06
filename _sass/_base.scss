@@ -3236,6 +3236,20 @@ html[data-theme="dark"] .bento-tile.image {
       color: #fff;
     }
   }
+
+  // Sunset tile — a tiny window into /sunset/. The gradient mirrors a
+  // golden-hour sky.
+  &.bg-sunset {
+    background: linear-gradient(180deg, #5a6db5 0%, #d68a4c 60%, #f3c46b 100%);
+    border-color: rgba(255, 200, 130, 0.35);
+
+    .bento-tile-label    { color: rgba(255, 255, 255, 0.85); }
+    .bento-tile-title,
+    .bento-tile-excerpt,
+    .bento-tile-arrow    { color: #fff; }
+    .bento-tile-title    { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.18); }
+    .bento-tile-excerpt  { color: rgba(255, 255, 255, 0.92); }
+  }
 }
 
 // Book tile: cover image with title/author below
