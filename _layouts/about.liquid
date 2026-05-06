@@ -41,6 +41,31 @@ layout: default
 
     <div class="clearfix about-content">{{ content }}</div>
 
+    <!-- Featured essay rail -->
+    {% if page.featured_post %}
+      {% assign featured = nil %}
+      {% for post in site.posts %}
+        {% assign post_path = post.path | split: '/' | last %}
+        {% if post_path == page.featured_post %}
+          {% assign featured = post %}
+        {% endif %}
+      {% endfor %}
+      {% if featured %}
+        <a class="featured-essay" href="{{ featured.url | relative_url }}">
+          <div class="featured-essay__body">
+            <span class="featured-essay__eyebrow">Latest essay</span>
+            <h2 class="featured-essay__title">{{ featured.title }}</h2>
+            <p class="featured-essay__excerpt">{{ featured.content | strip_html | truncatewords: 38 }}</p>
+            <span class="featured-essay__cta">Read this →</span>
+          </div>
+          <div class="featured-essay__meta">
+            <span class="featured-essay__date">{{ featured.date | date: "%B %-d, %Y" }}</span>
+            {% if featured.category %}<span class="featured-essay__cat">{{ featured.category }}</span>{% endif %}
+          </div>
+        </a>
+      {% endif %}
+    {% endif %}
+
     <!-- Bento Grid -->
     {% if page.bento_tiles %}
       {% include content_blocks.liquid %}

@@ -318,7 +318,11 @@ nav_order: 4
 
 *The globe takes a few seconds to load.*
 
-I [used to travel](https://arafatkatze.github.io/philosophy/2026/01/05/travelling.html) full-time with just a carry-on. 30+ countries, one 18kg suitcase. If you're curious how I fit my entire life into a single bag, [try packing it yourself](/pack/).
+For a long stretch of my twenties, I lived out of one carry-on. **30+ countries, one 18kg suitcase**, no fixed address — just a slow, curious orbit through whichever city would have me next. The pin map below is what that looked like.
+
+Travel taught me three things that nothing else could. The first: how small your problems shrink when you stand in front of something genuinely old. The second: that the kindest people in the world live in places the news rarely shows. The third: that *home* is not a place — it's the moment you stop looking over your shoulder.
+
+I'm settled in San Francisco now, but the itch hasn't gone anywhere. If our paths cross — in any of these cities, or somewhere new — [let me know](mailto:{{ site.email }}). And if you're curious how I fit my entire life into a single bag, [try packing it yourself](/pack/).
 
 <div class="travel-page">
 

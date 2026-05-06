@@ -10,6 +10,9 @@
       href="{{ tile.link | relative_url }}"
       {% if tile.style %}style="{{ tile.style }}"{% endif %}
     >
+      {% if tile.note %}
+        <span class="bento-tile-note bento-tile-note--{{ tile.note_pos | default: 'top-right' }}">{{ tile.note }}</span>
+      {% endif %}
       {% if tile.image %}
         <div class="bento-tile-img">
           {% if tile.image contains '://' %}

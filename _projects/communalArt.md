@@ -1,7 +1,7 @@
 ---
 layout: page
 title: White Shirt Project
-description:
+description: A white t-shirt, a handful of friends, and a wearable map of the people I've loved.
 img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
 importance: 3
 category: art

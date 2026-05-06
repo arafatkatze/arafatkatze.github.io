@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Brazil
-description: # a project with a background image
+description: Recife, Rio, and the city that quietly rearranged my insides.
 img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
 importance: 1
 category: fun

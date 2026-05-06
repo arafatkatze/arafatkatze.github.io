@@ -30,13 +30,20 @@ nav: false
 
   <div class="pack-section">
     <h3 class="pack-section-title">What's Inside</h3>
-    <div class="pack-grid" id="pack-inside"></div>
+    <div class="pack-grid" id="pack-inside">
+      <noscript>
+        <p class="pack-noscript">This packing puzzle uses JavaScript — please enable it to play. The bag currently holds 41 items totalling about 21kg: 25 pieces of clothing &amp; shoes, a laptop + accessories, toiletries, and travel essentials. The challenge is to cut it down to 18kg.</p>
+      </noscript>
+      <div class="pack-loading">Unpacking the suitcase…</div>
+    </div>
   </div>
 
   <div class="pack-section">
     <h3 class="pack-section-title">The Shelf</h3>
     <p class="pack-section-sub">Think something's missing? Go ahead, add it. But the suitcase is already overloaded.</p>
-    <div id="pack-shelf"></div>
+    <div id="pack-shelf">
+      <div class="pack-loading">Loading the shelf…</div>
+    </div>
   </div>
 
   <div class="pack-section" id="pack-receipt-wrap" style="display:none;">

@@ -58,6 +58,8 @@ layout: default
     </p>
   </header>
 
+  {% include audio_intro.liquid %}
+
   <article class="post-content">
     {% if page.toc and page.toc.beginning %}
       <div id="table-of-contents">
@@ -73,6 +75,8 @@ layout: default
   {% if page.citation %}
     {% include citation.liquid %}
   {% endif %}
+
+  {% include post_subscribe.liquid %}
 
   {% if page.related_publications %}
     <h2>References</h2>

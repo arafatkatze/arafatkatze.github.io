@@ -2,10 +2,16 @@
 layout: page
 title: Pixel Board
 permalink: /pixels/
-description: collaborative pixel art, leave your mark
+description: collaborative pixel art, leave your mark on the board
 nav: true
 nav_order: 5
 ---
+
+<p class="pixel-intro">
+  This is a shared 50×50 canvas. Pick a color, click to place pixels, drag to draw,
+  right-click to erase. Everything you place is synced live for everyone who visits next.
+  Be kind. Make something pretty.
+</p>
 
 <div id="pixel-board-app">
   <div class="pixel-controls">
