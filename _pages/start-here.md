@@ -48,6 +48,7 @@ description: New to the site? Here's a tour, in the order I'd give one to a frie
   <li><a href="{{ '/travel/' | relative_url }}">Travel</a> — every pin is a story.</li>
   <li><a href="{{ '/photos/' | relative_url }}">Photos</a> — a scrapbook of moments, all in one place.</li>
   <li><a href="{{ '/pixels/' | relative_url }}">Pixel Board</a> — leave a mark, others will see it.</li>
+  <li><a href="{{ '/sketch/' | relative_url }}">Sketch</a> — a shared sheet of paper. Add one stroke. Watch it become something.</li>
   <li><a href="{{ '/guestbook/' | relative_url }}">Guestbook</a> — a single line, signed and shared.</li>
   <li><a href="{{ '/fortune/' | relative_url }}">Fortune</a> — a quote from the bookshelf, randomized.</li>
   <li><a href="{{ '/where-is-ara/' | relative_url }}">Where is Ara</a> — a living dot on the globe, plus recent stops.</li>
