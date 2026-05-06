@@ -4,7 +4,7 @@ title: Travel
 permalink: /travel/
 description: Places I've been lucky enough to explore
 nav: true
-nav_order: 5
+nav_order: 4
 ---
 
 <style>
@@ -22,11 +22,11 @@ nav_order: 5
   html[data-theme="light"] .travel-page {
     --tw-card-bg: #ffffff;
     --tw-card-border: rgba(0, 0, 0, 0.1);
-    --tw-card-accent: #b87333;
-    --tw-card-accent-dim: rgba(184, 115, 51, 0.45);
-    --tw-card-accent-faint: rgba(184, 115, 51, 0.08);
-    --tw-card-accent-hover: rgba(184, 115, 51, 0.06);
-    --tw-card-accent-glow: rgba(184, 115, 51, 0.3);
+    --tw-card-accent: #c9485b;
+    --tw-card-accent-dim: rgba(201, 72, 91, 0.45);
+    --tw-card-accent-faint: rgba(201, 72, 91, 0.08);
+    --tw-card-accent-hover: rgba(201, 72, 91, 0.06);
+    --tw-card-accent-glow: rgba(201, 72, 91, 0.3);
     --tw-card-text: #3a3a3a;
   }
 
