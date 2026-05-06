@@ -142,6 +142,13 @@ bento_tiles:
     excerpt: "A page whose background is the sky outside, wherever you are. Refresh through the day."
     bg: sunset
 
+  - title: Words I underline
+    label: Reading · Quotes
+    link: /words-i-underline/
+    type: text
+    excerpt: "A commonplace book of the lines that stopped me mid-paragraph. Searchable."
+    bg: warm
+
   - title: On Looking Inwards
     label: Writing · Philosophy
     link: /philosophy/2024/05/06/inwards

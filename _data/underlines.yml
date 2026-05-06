@@ -1,0 +1,243 @@
+# /words-i-underline/ — quotes from books on Ara's shelf, lightly annotated.
+# Each entry: text, author, source (book), tags (for filtering), and an
+# optional `why` (a single-line note from Ara about why this one stuck).
+#
+# Pulled from books in /reading/ where possible, plus a handful of borrowed
+# classics that have lived in the margins of Ara's notebooks.
+
+- text: "Have patience with everything that remains unsolved in your heart. Try to love the questions themselves, like locked rooms and like books written in a foreign language."
+  author: Rainer Maria Rilke
+  source: Letters to a Young Poet
+  tags: [love, patience, longing]
+  why: "I read this in my early twenties and have re-read it every year since. It made waiting feel honourable."
+
+- text: "Perhaps all the dragons in our lives are princesses who are only waiting to see us act, just once, with beauty and courage."
+  author: Rainer Maria Rilke
+  source: Letters to a Young Poet
+  tags: [courage, fear, transformation]
+  why: "I keep this taped to my desk. Every dragon I've ever feared turned out to be a teacher."
+
+- text: "And now we welcome the new year, full of things that have never been."
+  author: Rainer Maria Rilke
+  source: Letters to a Young Poet
+  tags: [time, hope, beginnings]
+
+- text: "For you, a thousand times over."
+  author: Khaled Hosseini
+  source: The Kite Runner
+  tags: [love, loyalty, devotion]
+  why: "Six words. The whole novel is a setup for them."
+
+- text: "There was a way to be good again."
+  author: Khaled Hosseini
+  source: The Kite Runner
+  tags: [redemption, return, regret]
+  why: "A sentence that opens an entire book. The architecture is staggering."
+
+- text: "It always hurts more to have and lose than to not have in the first place."
+  author: Khaled Hosseini
+  source: And the Mountains Echoed
+  tags: [grief, love, loss]
+
+- text: "I held my mother's hand when she crossed over, just as she'd held mine when I'd come into this world."
+  author: Khaled Hosseini
+  source: And the Mountains Echoed
+  tags: [grief, family, mortality]
+
+- text: "I opened myself to the gentle indifference of the world."
+  author: Albert Camus
+  source: The Stranger
+  tags: [meaning, acceptance, existentialism]
+  why: "Nothing has ever described peace to me as accurately as this line. The word *gentle* does so much work."
+
+- text: "Mother, I am dumb today. I cannot speak to you. I cannot understand. Forgive me."
+  author: Albert Camus
+  source: The Stranger
+  tags: [grief, family, regret]
+
+- text: "I am free and that is why I am lost."
+  author: Franz Kafka
+  source: The Metamorphosis
+  tags: [freedom, identity, longing]
+  why: "I felt this in my bones at 27. The kind of freedom no one warns you about."
+
+- text: "Don't bend; don't water it down; don't try to make it logical; don't edit your own soul according to the fashion. Rather, follow your most intense obsessions mercilessly."
+  author: Franz Kafka
+  source: The Metamorphosis
+  tags: [creativity, obsession, courage]
+  why: "Tattooed somewhere on the inside of my chest."
+
+- text: "If you want to find out what someone fears the most, listen to what they make fun of."
+  author: Nassim Nicholas Taleb
+  source: The Bed of Procrustes
+  tags: [fear, psychology, observation]
+
+- text: "An idea starts to be interesting when you get scared of taking it to its logical conclusion."
+  author: Nassim Nicholas Taleb
+  source: The Bed of Procrustes
+  tags: [thinking, courage, ideas]
+  why: "I use this as a litmus test for whether an essay is worth writing."
+
+- text: "We notice what doesn't fit, and miss what does — until everything in life is what it is, plus our worry about it."
+  author: Nassim Nicholas Taleb
+  source: The Bed of Procrustes
+  tags: [worry, attention, presence]
+
+- text: "Read what you love until you love to read."
+  author: Naval Ravikant
+  source: The Almanack of Naval Ravikant
+  tags: [reading, learning, joy]
+  why: "The kindest piece of reading advice I've received. Stop forcing yourself."
+
+- text: "Desire is a contract you make with yourself to be unhappy until you get what you want."
+  author: Naval Ravikant
+  source: The Almanack of Naval Ravikant
+  tags: [desire, unhappiness, attention]
+  why: "A bell rings in my head every time I notice a wanting."
+
+- text: "Happiness is what's there when you remove the sense that something is missing in your life."
+  author: Naval Ravikant
+  source: The Almanack of Naval Ravikant
+  tags: [happiness, presence, missing]
+
+- text: "Play long-term games with long-term people."
+  author: Naval Ravikant
+  source: The Almanack of Naval Ravikant
+  tags: [people, time, work]
+  why: "The closest thing I have to a life heuristic."
+
+- text: "Books break the shackles of time. A book is proof that humans are capable of working magic."
+  author: Carl Sagan
+  source: Cosmos
+  tags: [reading, time, magic]
+  why: "I quote this every time someone asks why I still buy physical books."
+
+- text: "We are made of star-stuff. We are a way for the cosmos to know itself."
+  author: Carl Sagan
+  source: Cosmos
+  tags: [cosmos, meaning, wonder]
+
+- text: "Somewhere, something incredible is waiting to be known."
+  author: Carl Sagan
+  tags: [wonder, curiosity, science]
+
+- text: "It pays to keep an open mind, but not so open your brains fall out."
+  author: Carl Sagan
+  tags: [thinking, skepticism, humour]
+
+- text: "I now walk into the wild."
+  author: Christopher McCandless
+  source: Into the Wild
+  tags: [freedom, wilderness, leaving]
+
+- text: "The joy of life comes from our encounters with new experiences, and hence there is no greater joy than to have an endlessly changing horizon."
+  author: Jon Krakauer
+  source: Into the Wild
+  tags: [travel, novelty, joy]
+
+- text: "Happiness is only real when shared."
+  author: Christopher McCandless via Krakauer
+  source: Into the Wild
+  tags: [happiness, sharing, regret]
+  why: "Underlined and starred. The line he wrote on a torn page after months alone."
+
+- text: "Most humans only live in fear because we can't see far enough."
+  author: Christopher McDougall
+  source: Born to Run
+  tags: [fear, perspective, running]
+
+- text: "You don't stop running because you get old. You get old because you stop running."
+  author: Christopher McDougall
+  source: Born to Run
+  tags: [aging, running, motion]
+
+- text: "There are countries you can leave, and there are countries that won't leave you."
+  author: Erika Fatland
+  source: Sovietistan
+  tags: [travel, memory, place]
+  why: "Brazil is one of the latter. Recife in particular."
+
+- text: "The road that connected us was a long road, and even when we got there I knew we'd never really arrive."
+  author: Erika Fatland
+  source: Sovietistan
+  tags: [travel, journey, longing]
+
+- text: "Dignity is the way we treat each other when we have every reason not to."
+  author: Chris Arnade
+  source: Dignity
+  tags: [dignity, kindness, ethics]
+  why: "I think about this every day in San Francisco."
+
+- text: "If you want to know what's broken in a place, look at the people the place forgot."
+  author: Chris Arnade
+  source: Dignity
+  tags: [society, attention, empathy]
+
+- text: "If you don't run, you don't know what your body can do. If you don't write, you don't know what your mind can hold."
+  author: Rickey Gates
+  source: Cross Country
+  tags: [body, mind, creating]
+
+- text: "Until they become conscious they will never rebel, and until after they have rebelled they cannot become conscious."
+  author: George Orwell
+  source: 1984
+  tags: [freedom, awareness, paradox]
+
+- text: "Perhaps one did not want to be loved so much as to be understood."
+  author: George Orwell
+  source: 1984
+  tags: [love, understanding, longing]
+  why: "The exact frequency of every conversation I've had at 2am."
+
+- text: "Freedom is the freedom to say that two plus two make four. If that is granted, all else follows."
+  author: George Orwell
+  source: 1984
+  tags: [freedom, truth, politics]
+
+- text: "He who has a why to live can bear almost any how."
+  author: Friedrich Nietzsche
+  tags: [meaning, suffering, purpose]
+
+- text: "Most of the evil in this world is done by people with good intentions."
+  author: T.S. Eliot
+  tags: [ethics, intent, history]
+
+- text: "We are all so much together, but we are all dying of loneliness."
+  author: Albert Schweitzer
+  tags: [loneliness, community, modernity]
+  why: "True at every dinner party I've ever been to."
+
+- text: "If we admit that human life can be ruled by reason, the possibility of life is destroyed."
+  author: Leo Tolstoy
+  tags: [reason, life, paradox]
+
+- text: "Tell me, what is it you plan to do with your one wild and precious life?"
+  author: Mary Oliver
+  source: The Summer Day
+  tags: [life, attention, meaning]
+  why: "I read this on a park bench in Toronto and didn't get up for an hour."
+
+- text: "Pay attention. Be astonished. Tell about it."
+  author: Mary Oliver
+  source: Sometimes
+  tags: [attention, wonder, writing]
+  why: "The closest thing I have to a personal manifesto."
+
+- text: "The cure for anything is salt water — sweat, tears, or the sea."
+  author: Isak Dinesen
+  tags: [healing, water, body]
+
+- text: "We are what we pretend to be, so we must be careful about what we pretend to be."
+  author: Kurt Vonnegut
+  source: Mother Night
+  tags: [identity, pretense, becoming]
+
+- text: "I want to do with you what spring does with the cherry trees."
+  author: Pablo Neruda
+  source: Twenty Love Poems and a Song of Despair
+  tags: [love, longing, beauty]
+  why: "If sentences could blush."
+
+- text: "Being deeply loved by someone gives you strength, while loving someone deeply gives you courage."
+  author: Lao Tzu
+  tags: [love, strength, courage]
