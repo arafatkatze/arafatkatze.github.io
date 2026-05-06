@@ -158,6 +158,14 @@ bento_tiles:
     excerpt: "24 honest, unfiltered messages to people who shaped my life — some will never read theirs."
     span: wide
 
+  - title: Letters to strangers
+    label: Letters · Open
+    link: /letters-to-strangers/
+    type: text
+    excerpt: "Write one anonymous letter to someone you'll never meet. Receive one back from the queue. Postcrossing for the heart."
+    bg: warm
+    span: wide
+
   - title: The Stranger
     label: Reading · Books
     link: /reading/

@@ -4335,3 +4335,292 @@ html[data-theme="dark"] .bento-tile.image {
   font-family: "Fraunces", Georgia, serif;
   font-size: 0.95rem;
 }
+
+// ---------------------------------------------------------------
+// /letters-to-strangers/ — write one, receive one
+// ---------------------------------------------------------------
+.lts-page {
+  max-width: 720px;
+  margin: 0 auto 4rem;
+  padding: 0 1rem;
+}
+
+.lts-eyebrow {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--global-theme-color);
+  margin: 0 0 0.6rem 0;
+}
+
+.lts-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 2.6rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--global-text-color);
+  margin: 0 0 1.25rem 0;
+
+  @media (max-width: 600px) { font-size: 1.95rem; }
+}
+
+.lts-rules {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--global-text-color-light);
+  max-width: 60ch;
+  margin: 0 0 2rem 0;
+}
+
+// Compose form
+.lts-compose { margin-bottom: 2rem; }
+
+.lts-textarea {
+  width: 100%;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--global-text-color);
+  padding: 1.1rem 1.25rem;
+  background:
+    linear-gradient(transparent 95%, rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.08) 95%) 0 0 / 100% 1.6em,
+    var(--global-bg-color);
+  background-attachment: local, local;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 10px;
+  outline: none;
+  resize: vertical;
+  min-height: 9rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:focus {
+    border-color: var(--global-theme-color);
+    box-shadow: 0 0 0 3px rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.12);
+  }
+
+  &::placeholder {
+    color: var(--global-text-color-light);
+    opacity: 0.7;
+    font-style: italic;
+    line-height: 1.55;
+  }
+}
+
+.lts-form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.65rem;
+}
+
+.lts-counter {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--global-text-color-light);
+  font-variant-numeric: tabular-nums;
+
+  &--full  { color: var(--global-theme-color); }
+  &--short { color: #b27a1f; }       // "keep going" warm amber
+}
+
+.lts-submit {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  background: var(--global-theme-color);
+  color: var(--global-bg-color);
+  border: 1px solid var(--global-theme-color);
+  border-radius: 999px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+
+  &:hover  { opacity: 0.92; transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  &:focus-visible {
+    outline: 2px solid var(--global-theme-color);
+    outline-offset: 3px;
+  }
+}
+
+.lts-meta {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--global-text-color-light);
+  margin: 0.85rem 0 0 0;
+  letter-spacing: 0.02em;
+}
+
+// Exchange (post-submit)
+.lts-exchange {
+  margin-top: 2rem;
+  animation: lts-fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes lts-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lts-ceremony {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--global-theme-color);
+  margin: 0 0 1.5rem 0;
+  letter-spacing: 0.01em;
+}
+
+.lts-letter {
+  position: relative;
+  padding: 1.5rem 1.6rem 1.25rem;
+  margin: 0 0 1.5rem 0;
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
+
+  &--you {
+    background:
+      linear-gradient(180deg,
+        rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.04) 0%,
+        transparent 30%),
+      var(--global-card-bg-color);
+  }
+
+  &--them {
+    transform: rotate(-0.15deg);
+    background:
+      linear-gradient(180deg,
+        rgba(255, 247, 230, 0.5) 0%,
+        var(--global-card-bg-color) 25%);
+  }
+
+  html[data-theme="dark"] &--them {
+    background:
+      linear-gradient(180deg,
+        rgba(255, 247, 230, 0.04) 0%,
+        var(--global-card-bg-color) 25%);
+  }
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.85rem;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+  }
+
+  &__chip {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--global-theme-color);
+  }
+
+  &__date {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--global-text-color-light);
+  }
+
+  &__body {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--global-text-color);
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  &__foot {
+    margin-top: 1.25rem;
+    padding-top: 0.85rem;
+    border-top: 1px dashed var(--global-divider-color);
+    text-align: right;
+  }
+}
+
+.lts-divider {
+  position: relative;
+  text-align: center;
+  margin: 1.75rem 0 1.5rem 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--global-text-color-light);
+  letter-spacing: 0.04em;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 25%;
+    height: 1px;
+    background: var(--global-divider-color);
+  }
+  &::before { left: 0; }
+  &::after  { right: 0; }
+
+  span { background: var(--global-bg-color); padding: 0 1rem; }
+}
+
+.lts-link {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--global-text-color-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.15rem 0.1rem;
+  border-bottom: 1px dotted var(--global-text-color-light);
+
+  &:hover, &:focus {
+    color: var(--global-theme-color);
+    border-bottom-color: var(--global-theme-color);
+  }
+}
+
+.lts-after {
+  text-align: center;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--global-text-color-light);
+  margin-top: 1.75rem;
+
+  a {
+    color: var(--global-theme-color);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--global-theme-color);
+
+    &:hover { border-bottom-style: solid; }
+  }
+}
+
+.lts-noscript {
+  margin-top: 1rem;
+  padding: 0.85rem 1.1rem;
+  background: rgba(245, 158, 11, 0.1);
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 8px 8px 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.95rem;
+}
