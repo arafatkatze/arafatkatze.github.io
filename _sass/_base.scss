@@ -728,6 +728,32 @@ footer.sticky-bottom {
     margin: 0;
     letter-spacing: 0.02em;
   }
+
+  .site-footer__here {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--global-text-color);
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover, &:focus {
+      color: var(--global-theme-color);
+    }
+  }
+
+  .site-footer__here-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--global-theme-color);
+    box-shadow: 0 0 0 0 rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.55);
+    animation: wia-pulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__here-dot { animation: none; }
 }
 
 .site-footer__head {
@@ -3847,4 +3873,263 @@ html[data-theme="dark"] .bento-tile.image {
   color: var(--global-text-color-light);
   margin: 4rem auto;
   max-width: 520px;
+}
+
+// ---------------------------------------------------------------
+// /where-is-ara/ — living dot on the globe
+// ---------------------------------------------------------------
+.wia-page {
+  max-width: 880px;
+  margin: 0 auto 4rem;
+  padding: 0 1rem;
+}
+
+.wia-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.wia-status__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 1rem 0.5rem 0.85rem;
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 999px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.92rem;
+  color: var(--global-text-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 6px 16px rgba(0, 0, 0, 0.04);
+
+  &__dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--global-theme-color);
+    box-shadow: 0 0 0 0 rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.55);
+    animation: wia-pulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    flex-shrink: 0;
+  }
+
+  &__where { font-weight: 500; }
+  &__city { color: var(--global-text-color); }
+  &__country { color: var(--global-text-color-light); }
+
+  &__verb {
+    font-style: italic;
+    color: var(--global-theme-color);
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+  }
+
+  &__since {
+    font-style: italic;
+    color: var(--global-text-color-light);
+    font-size: 0.85rem;
+  }
+
+  &__sep { color: var(--global-text-color-light); opacity: 0.55; }
+
+  // Status variants — tint the dot
+  &--home    .wia-status__dot { background: #c9485b; }
+  &--visiting .wia-status__dot { background: #e8a6a6; }
+  &--working  .wia-status__dot { background: #b07e3a; }
+  &--wandering .wia-status__dot { background: #5d8aa8; }
+}
+
+.wia-status__note {
+  margin: 0;
+  padding-left: 1rem;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--global-text-color-light);
+  line-height: 1.55;
+  max-width: 56ch;
+}
+
+@keyframes wia-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.55); }
+  70%  { box-shadow: 0 0 0 14px rgba(var(--global-theme-color-rgb, 201, 72, 91), 0); }
+  100% { box-shadow: 0 0 0 0   rgba(var(--global-theme-color-rgb, 201, 72, 91), 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wia-status__chip .wia-status__dot { animation: none; }
+}
+
+.wia-globe-wrap {
+  position: relative;
+  background: #0a0a0f;
+  border: 1px solid rgba(232, 166, 166, 0.18);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+#wia-globe {
+  width: 100%;
+  height: 480px;
+  cursor: grab;
+
+  &:active { cursor: grabbing; }
+  canvas   { outline: none; }
+
+  @media (max-width: 767px) { height: 360px; }
+}
+
+.wia-globe-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  color: rgba(232, 166, 166, 0.85);
+  text-align: center;
+  font-size: 0.95rem;
+
+  strong { color: #f3c5c5; font-style: normal; font-weight: 500; }
+}
+
+// Reuse the corner accents from /travel/ for visual consistency
+.wia-globe-corners,
+.wia-globe-corners-bottom {
+  position: absolute;
+  left: 0; right: 0;
+  z-index: 6;
+  pointer-events: none;
+  height: 40px;
+}
+.wia-globe-corners { top: 0; }
+.wia-globe-corners-bottom { bottom: 0; }
+.wia-globe-corners::before, .wia-globe-corners::after,
+.wia-globe-corners-bottom::before, .wia-globe-corners-bottom::after {
+  content: '';
+  position: absolute;
+  width: 28px; height: 28px;
+  border-color: rgba(232, 166, 166, 0.28);
+  border-style: solid;
+}
+.wia-globe-corners::before        { top: 8px; left: 8px;  border-width: 2px 0 0 2px; }
+.wia-globe-corners::after         { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+.wia-globe-corners-bottom::before { bottom: 8px; left: 8px;  border-width: 0 0 2px 2px; }
+.wia-globe-corners-bottom::after  { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+.wia-section {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--global-text-color);
+  margin: 1.5rem 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.wia-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 9px;
+    width: 1px;
+    background: var(--global-divider-color);
+  }
+}
+
+.wia-stop {
+  position: relative;
+  padding: 0.75rem 0 0.75rem 2.4rem;
+
+  &__pin {
+    position: absolute;
+    left: 0;
+    top: 0.95rem;
+    width: 19px;
+    text-align: center;
+    color: var(--global-theme-color);
+    font-size: 1rem;
+    line-height: 1;
+    background: var(--global-bg-color);
+  }
+
+  &__head {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45rem;
+  }
+
+  &__city {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--global-text-color);
+  }
+
+  &__country {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.85rem;
+    color: var(--global-text-color-light);
+    font-style: italic;
+  }
+
+  &__dates {
+    font-size: 0.78rem;
+    color: var(--global-text-color-light);
+    letter-spacing: 0.02em;
+    margin-top: 0.1rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__note {
+    margin: 0.35rem 0 0;
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--global-text-color);
+    line-height: 1.55;
+    max-width: 56ch;
+  }
+}
+
+.wia-meta {
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--global-divider-color);
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--global-text-color-light);
+}
+
+// Reuse the existing globe-tooltip class from /travel/ — define a default
+// here in case someone hits /where-is-ara/ without /travel/ being styled.
+.wia-globe-wrap {
+  .globe-tooltip {
+    background: rgba(10, 10, 15, 0.92);
+    border: 1px solid rgba(232, 166, 166, 0.3);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'Courier New', monospace;
+    color: #d4d4d4;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    max-width: 220px;
+    line-height: 1.4;
+
+    strong { color: #e8a6a6; font-weight: 600; }
+    .tt-country { color: rgba(232, 166, 166, 0.5); font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase; }
+    .tt-note { color: #999; font-size: 0.72rem; margin-top: 3px; }
+  }
 }

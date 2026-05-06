@@ -19,7 +19,18 @@
             <img src="{{ '/assets/img/wordmark.svg' | relative_url }}" alt="ara." />
           </a>
           <p class="site-footer__tag">at the intersection of art, love, and beauty.</p>
-          <p class="site-footer__loc">San Francisco, CA · {{ site.time | date: '%Y' }}</p>
+          {% assign w_current = site.data.whereami.current %}
+          {% if w_current %}
+            <p class="site-footer__loc">
+              <a href="{{ '/where-is-ara/' | relative_url }}" class="site-footer__here">
+                <span class="site-footer__here-dot"></span>
+                {{ w_current.city }}, {{ w_current.country }}
+              </a>
+              · {{ site.time | date: '%Y' }}
+            </p>
+          {% else %}
+            <p class="site-footer__loc">San Francisco, CA · {{ site.time | date: '%Y' }}</p>
+          {% endif %}
         </div>
 
         <div class="site-footer__col">
@@ -33,6 +44,7 @@
             <li><a href="{{ '/pixels/'      | relative_url }}">Pixel Board</a></li>
             <li><a href="{{ '/guestbook/'   | relative_url }}">Guestbook</a></li>
             <li><a href="{{ '/fortune/'     | relative_url }}">Fortune</a></li>
+            <li><a href="{{ '/where-is-ara/'| relative_url }}">Where is Ara</a></li>
             <li><a href="{{ '/pack/'        | relative_url }}">Pack My Suitcase</a></li>
             <li><a href="{{ '/repositories/'| relative_url }}">Open source</a></li>
             <li><a href="{{ '/start-here/'  | relative_url }}">Start here</a></li>

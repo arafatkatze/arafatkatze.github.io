@@ -1,0 +1,54 @@
+# Where I am right now. Edit `current` whenever you move; the page updates.
+# Past entries roll into `recent` automatically when you push a new `current`.
+
+current:
+  city: San Francisco
+  country: USA
+  lat: 37.7749
+  lng: -122.4194
+  since: 2024-03-01            # ISO date — when you arrived
+  status: home                 # one of: home, visiting, working, wandering
+  note: "Home base. Building Cline. Slow city walks."
+
+# Recent stops (newest first). Used for the "lately" timeline.
+# Add a new line whenever you finish a leg.
+recent:
+  - city: Chamonix
+    country: France
+    lat: 45.9237
+    lng: 6.8694
+    arrived: 2026-02-20
+    left: 2026-03-04
+    note: "Powder week with the boys. Got eaten by Aiguille du Midi."
+
+  - city: Tahoe City
+    country: USA
+    lat: 39.1668
+    lng: -120.1432
+    arrived: 2026-01-10
+    left: 2026-01-13
+    note: "First storm cycle of the season."
+
+  - city: Tokyo
+    country: Japan
+    lat: 35.6762
+    lng: 139.6503
+    arrived: 2025-11-15
+    left: 2025-11-25
+    note: "Old friend's wedding. Stayed for the bookstores."
+
+  - city: Calgary
+    country: Canada
+    lat: 51.0447
+    lng: -114.0719
+    arrived: 2025-09-01
+    left: 2025-09-12
+    note: "Family. Banff. Reset."
+
+  - city: Recife
+    country: Brazil
+    lat: -8.0476
+    lng: -34.8770
+    arrived: 2025-06-04
+    left: 2025-06-21
+    note: "Heat, music, the city that rearranged me."
