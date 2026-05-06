@@ -3250,6 +3250,24 @@ html[data-theme="dark"] .bento-tile.image {
     .bento-tile-title    { text-shadow: 0 1px 4px rgba(0, 0, 0, 0.18); }
     .bento-tile-excerpt  { color: rgba(255, 255, 255, 0.92); }
   }
+
+  // Moon tile — the night sky, with a faint star field behind the text.
+  &.bg-moon {
+    background:
+      radial-gradient(1px 1px at 18% 22%, rgba(253, 243, 216, 0.7) 50%, transparent 51%),
+      radial-gradient(1.5px 1.5px at 78% 18%, rgba(253, 243, 216, 0.85) 50%, transparent 51%),
+      radial-gradient(1px 1px at 35% 75%, rgba(253, 243, 216, 0.55) 50%, transparent 51%),
+      radial-gradient(1px 1px at 88% 70%, rgba(253, 243, 216, 0.5) 50%, transparent 51%),
+      radial-gradient(1px 1px at 60% 45%, rgba(253, 243, 216, 0.4) 50%, transparent 51%),
+      linear-gradient(160deg, #0c0d20 0%, #1a1a30 70%, #25223b 100%);
+    border-color: rgba(253, 243, 216, 0.18);
+
+    .bento-tile-label   { color: rgba(253, 243, 216, 0.7); }
+    .bento-tile-title,
+    .bento-tile-excerpt,
+    .bento-tile-arrow   { color: #fdf3d8; }
+    .bento-tile-excerpt { color: rgba(253, 243, 216, 0.85); }
+  }
 }
 
 // Book tile: cover image with title/author below
@@ -4887,4 +4905,269 @@ html[data-theme="dark"] .bento-tile.image {
   font-size: 0.85rem;
   color: var(--global-text-color-light);
   text-align: center;
+}
+
+// ---------------------------------------------------------------
+// Moon phase glyph (used inline in post headers + on /moon/)
+// ---------------------------------------------------------------
+.moon-phase {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  vertical-align: middle;
+  line-height: 1;
+
+  &__svg {
+    display: block;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 4px rgba(253, 243, 216, 0.18));
+  }
+
+  &__label {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  &__name {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.92rem;
+    color: var(--global-text-color);
+    font-weight: 500;
+  }
+
+  &__pct {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--global-text-color-light);
+  }
+}
+
+// In a post header, the moon sits next to the date — quietly
+.post-meta__moon {
+  display: inline-flex;
+  vertical-align: -3px;
+  margin-right: 0.4rem;
+  text-decoration: none;
+  border-bottom: none !important;
+  transition: opacity 0.2s ease;
+  &:hover { opacity: 0.7; }
+}
+
+// ---------------------------------------------------------------
+// /moon/ page
+// ---------------------------------------------------------------
+.moon-page {
+  max-width: 760px;
+  margin: 0 auto 4rem;
+  padding: 0 1rem;
+}
+
+.moon-eyebrow {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--global-theme-color);
+  margin: 0 0 0.6rem 0;
+}
+
+.moon-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 2.6rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--global-text-color);
+  margin: 0 0 1.25rem 0;
+
+  @media (max-width: 600px) { font-size: 1.95rem; }
+}
+
+.moon-rules {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--global-text-color-light);
+  max-width: 60ch;
+  margin: 0 0 2rem 0;
+}
+
+.moon-now {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  margin: 2.5rem 0;
+  padding: 2rem 1.5rem;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(253, 243, 216, 0.06) 0%, transparent 60%),
+    linear-gradient(135deg, #1a1a26 0%, #2a2230 100%);
+  border-radius: 14px;
+  color: #f3e8c8;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  &__visual {
+    flex-shrink: 0;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__chip {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(253, 243, 216, 0.7);
+    margin: 0 0 0.6rem 0;
+  }
+
+  &__name {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 2.4rem;
+    line-height: 1.1;
+    color: #fdf3d8;
+    margin: 0 0 0.6rem 0;
+
+    @media (max-width: 600px) { font-size: 1.9rem; }
+  }
+
+  &__when {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: rgba(253, 243, 216, 0.7);
+    margin: 0;
+  }
+}
+
+// Date lookup
+.moon-lookup {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 2rem 0 2.5rem 0;
+  flex-wrap: wrap;
+
+  &__label {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--global-text-color);
+  }
+
+  &__input {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    background: var(--global-bg-color);
+    color: var(--global-text-color);
+    outline: none;
+    color-scheme: light dark;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:focus {
+      border-color: var(--global-theme-color);
+      box-shadow: 0 0 0 3px rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.12);
+    }
+  }
+}
+
+.moon-section {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--global-text-color);
+  margin: 1.5rem 0 1rem;
+  letter-spacing: -0.01em;
+}
+
+.moon-essays {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.moon-essay {
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 8px;
+    text-decoration: none !important;
+    color: var(--global-text-color);
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    background: var(--global-card-bg-color);
+
+    &:hover {
+      transform: translateY(-1px);
+      border-color: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.35);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+      color: var(--global-text-color);
+
+      .moon-essay__title { color: var(--global-theme-color); }
+    }
+  }
+
+  &__moon { flex-shrink: 0; }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  &__title {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.95rem;
+    color: var(--global-text-color);
+    line-height: 1.25;
+    transition: color 0.15s ease;
+  }
+
+  &__date {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--global-text-color-light);
+  }
+}
+
+.moon-meta {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--global-divider-color);
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--global-text-color-light);
+  text-align: center;
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
 }

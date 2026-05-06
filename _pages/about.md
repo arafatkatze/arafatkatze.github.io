@@ -149,6 +149,13 @@ bento_tiles:
     excerpt: "A commonplace book of the lines that stopped me mid-paragraph. Searchable."
     bg: warm
 
+  - title: the moon, tonight
+    label: Sky · Moon
+    link: /moon/
+    type: text
+    excerpt: "What phase the moon is in, right now — plus the moon of every essay I've written."
+    bg: moon
+
   - title: On Looking Inwards
     label: Writing · Philosophy
     link: /philosophy/2024/05/06/inwards
