@@ -17,7 +17,10 @@ layout: default
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
     <p class="post-meta">
-      Created on {{ page.date | date: '%B %d, %Y' }}
+      <a class="post-meta__moon" href="{{ '/moon/' | relative_url }}?d={{ page.date | date: '%Y-%m-%d' }}" title="The moon on the day this was written">
+        {% include moon_phase.liquid date=page.date size=18 %}
+      </a>
+      <span class="post-meta__date">Created on {{ page.date | date: '%B %d, %Y' }}</span>
       {% if page.author %}by {{ page.author }}{% endif %}
       {% if page.last_updated %}, last updated on {{ page.last_updated | date: '%B %d, %Y' }}{% endif %}
       {% if page.meta %}• {{ page.meta }}{% endif %}

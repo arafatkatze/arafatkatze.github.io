@@ -1,0 +1,150 @@
+{% comment %}
+  Reusable moon-phase glyph (SVG, server-rendered).
+
+  Usage:
+    {% include moon_phase.liquid date=page.date size=22 %}
+    {% include moon_phase.liquid date=page.date size=80 show_label=true %}
+
+  Args:
+    date:       a Liquid date (page.date or any '%Y-%m-%d %H:%M:%S' string)
+    size:       pixel size of the SVG (default 22)
+    show_label: if true, also renders the phase name + percentage next to the moon
+
+  Math: synodic month = 29.5305882 days. Reference new moon: 2000-01-06 18:14 UTC,
+  expressed as the unix timestamp 947182440. Phase fraction is (now - ref) mod
+  synodic / synodic, where 0 = new, 0.5 = full.
+{% endcomment %}
+
+{% assign mp_size = include.size | default: 22 %}
+{% assign mp_radius = mp_size | times: 1.0 | divided_by: 2 %}
+{% assign mp_ref_unix = 947182440 %}
+{% assign mp_synodic_seconds = 2551443 %}    {% comment %} 29.5305882 * 86400 {% endcomment %}
+{% assign mp_now_unix = include.date | date: "%s" | plus: 0 %}
+
+{% comment %} Phase fraction in [0,1) {% endcomment %}
+{% assign mp_diff = mp_now_unix | minus: mp_ref_unix %}
+{% comment %} Liquid lacks float modulo; do it via integer division. {% endcomment %}
+{% assign mp_cycles = mp_diff | divided_by: mp_synodic_seconds %}
+{% assign mp_into_cycle = mp_cycles | times: mp_synodic_seconds %}
+{% assign mp_remainder = mp_diff | minus: mp_into_cycle %}
+{% assign mp_phase_x1000 = mp_remainder | times: 1000 | divided_by: mp_synodic_seconds %}
+{% assign mp_phase_pct = mp_phase_x1000 | divided_by: 10 %}
+
+{% comment %} Bucket into 8 phases (each ~3.69 days wide). {% endcomment %}
+{% if mp_phase_x1000 < 31 or mp_phase_x1000 >= 969 %}
+  {% assign mp_name = "new moon" %}
+  {% assign mp_glyph = "new" %}
+{% elsif mp_phase_x1000 < 219 %}
+  {% assign mp_name = "waxing crescent" %}
+  {% assign mp_glyph = "waxing-crescent" %}
+{% elsif mp_phase_x1000 < 281 %}
+  {% assign mp_name = "first quarter" %}
+  {% assign mp_glyph = "first-quarter" %}
+{% elsif mp_phase_x1000 < 469 %}
+  {% assign mp_name = "waxing gibbous" %}
+  {% assign mp_glyph = "waxing-gibbous" %}
+{% elsif mp_phase_x1000 < 531 %}
+  {% assign mp_name = "full moon" %}
+  {% assign mp_glyph = "full" %}
+{% elsif mp_phase_x1000 < 719 %}
+  {% assign mp_name = "waning gibbous" %}
+  {% assign mp_glyph = "waning-gibbous" %}
+{% elsif mp_phase_x1000 < 781 %}
+  {% assign mp_name = "last quarter" %}
+  {% assign mp_glyph = "last-quarter" %}
+{% else %}
+  {% assign mp_name = "waning crescent" %}
+  {% assign mp_glyph = "waning-crescent" %}
+{% endif %}
+
+{% comment %}
+  Render the SVG. Strategy:
+  - A round disc (the dark side of the moon, deep ink).
+  - A lit shape on top, drawn by combining a circle with a clipping ellipse.
+  - The lit shape is positioned/shaped according to the phase.
+  Each glyph is a small named template below.
+{% endcomment %}
+
+<span class="moon-phase moon-phase--{{ mp_glyph }}" title="{{ mp_name }} · {{ mp_phase_pct }}% through the cycle"
+      role="img" aria-label="Moon phase: {{ mp_name }}">
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 100 100"
+       width="{{ mp_size }}" height="{{ mp_size }}"
+       class="moon-phase__svg" aria-hidden="true">
+    {% comment %}
+      Strategy:
+      - Always draw the full dark disc first.
+      - Then layer the lit shape on top using two arcs (one outer, one inner).
+        For each phase, the lit half-disc is the half that's facing the sun;
+        the inner arc is an ellipse whose horizontal radius depends on the phase.
+      - Waxing → lit on the right; waning → lit on the left.
+      - Crescent (lit < 50%) → inner ellipse curves AWAY from terminator
+      - Gibbous  (lit > 50%) → inner ellipse curves TOWARD terminator
+    {% endcomment %}
+    {% comment %}
+      Strategy: draw the lit disc (full cream circle) under everything, then for
+      crescent / quarter / gibbous layer a DARK shape on top to carve out the
+      unlit portion. This is mathematically the easiest model:
+        - new                = full disc + dark full overlay (just a black dot)
+        - full               = full disc + tiny mare dots
+        - first-quarter      = lit right half  → dark left half
+        - last-quarter       = lit left  half  → dark right half
+        - waxing-crescent    = lit thin RIGHT  → dark big LEFT eye
+        - waning-crescent    = lit thin LEFT   → dark big RIGHT eye
+        - waxing-gibbous     = lit big  RIGHT  → dark thin LEFT sliver
+        - waning-gibbous     = lit big  LEFT   → dark thin RIGHT sliver
+      Each "dark overlay" is a path bounded by a half-circle arc on the
+      outer side and a half-ellipse arc on the inner side.
+    {% endcomment %}
+    <circle cx="50" cy="50" r="48" fill="#fdf3d8" stroke="rgba(232, 200, 200, 0.35)" stroke-width="1.2" />
+
+    {% case mp_glyph %}
+      {% when "new" %}
+        <circle cx="50" cy="50" r="48" fill="#13131c" />
+
+      {% when "full" %}
+        <circle cx="38" cy="42" r="3.5" fill="rgba(0,0,0,0.08)" />
+        <circle cx="60" cy="55" r="2.4" fill="rgba(0,0,0,0.07)" />
+        <circle cx="55" cy="32" r="1.8" fill="rgba(0,0,0,0.06)" />
+
+      {% when "first-quarter" %}
+        {% comment %} Dark left half {% endcomment %}
+        <path d="M50,4 A46,46 0 0 0 50,96 L50,4 Z" fill="#1a1a26" />
+
+      {% when "last-quarter" %}
+        {% comment %} Dark right half {% endcomment %}
+        <path d="M50,4 A46,46 0 0 1 50,96 L50,4 Z" fill="#1a1a26" />
+
+      {% when "waxing-crescent" %}
+        {% comment %}
+          Lit thin RIGHT → big dark "eye" covering most of the disc, terminator
+          curving from upper-mid to lower-mid bulging to the RIGHT.
+          Outer arc: top→bottom around the LEFT (sweep=0).
+          Inner arc: bottom→top with smaller rx, bulging RIGHT (sweep=0).
+        {% endcomment %}
+        <path d="M50,4 A46,46 0 0 0 50,96 A22,46 0 0 0 50,4 Z" fill="#1a1a26" />
+
+      {% when "waning-crescent" %}
+        {% comment %} Mirror — lit thin LEFT → big dark "eye" curving LEFT. {% endcomment %}
+        <path d="M50,4 A46,46 0 0 1 50,96 A22,46 0 0 1 50,4 Z" fill="#1a1a26" />
+
+      {% when "waxing-gibbous" %}
+        {% comment %}
+          Lit big RIGHT → small dark sliver on the LEFT, terminator bulging RIGHT.
+          Outer arc: top→bottom around the LEFT (sweep=0).
+          Inner arc: bottom→top with smaller rx, bulging LEFT (sweep=1).
+        {% endcomment %}
+        <path d="M50,4 A46,46 0 0 0 50,96 A22,46 0 0 1 50,4 Z" fill="#1a1a26" />
+
+      {% when "waning-gibbous" %}
+        {% comment %} Mirror — lit big LEFT → small dark sliver on the RIGHT. {% endcomment %}
+        <path d="M50,4 A46,46 0 0 1 50,96 A22,46 0 0 0 50,4 Z" fill="#1a1a26" />
+    {% endcase %}
+  </svg>
+  {% if include.show_label %}
+    <span class="moon-phase__label">
+      <span class="moon-phase__name">{{ mp_name }}</span>
+      <span class="moon-phase__pct">{{ mp_phase_pct }}% through the cycle</span>
+    </span>
+  {% endif %}
+</span>
