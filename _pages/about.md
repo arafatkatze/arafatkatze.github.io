@@ -121,6 +121,13 @@ bento_tiles:
     excerpt: "Collaborative pixel art, leave your mark on the board."
     bg: pixel
 
+  - title: a quote from the shelf
+    label: Fortune · Random
+    link: /fortune/
+    type: text
+    excerpt: "Press for a sentence from one of the books I've loved. Bookmark it."
+    bg: warm
+
   - title: On Looking Inwards
     label: Writing · Philosophy
     link: /philosophy/2024/05/06/inwards
