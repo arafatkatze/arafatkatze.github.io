@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Art
-description:
+description: What I see when I look at a wall — graffiti as resistance, beauty as defiance.
 img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417818/site/art/7.jpg
 importance: 3
 category: art

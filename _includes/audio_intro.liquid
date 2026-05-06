@@ -1,0 +1,43 @@
+{% comment %}
+  Audio intro pill — shows up under the post title when a post defines an
+  audio_intro: front-matter field. Field can be a single URL string or an object:
+    audio_intro: https://res.cloudinary.com/.../intro.mp3
+  or
+    audio_intro:
+      src: https://...
+      duration: "1:42"      # optional — falls back to <audio> metadata
+      label: "Ara reads this aloud"   # optional — overrides the default label
+{% endcomment %}
+
+{% assign ai = page.audio_intro %}
+{% if ai %}
+  {% if ai.src %}
+    {% assign ai_src = ai.src %}
+    {% assign ai_duration = ai.duration %}
+    {% assign ai_label = ai.label | default: "Ara reads this aloud" %}
+  {% else %}
+    {% assign ai_src = ai %}
+    {% assign ai_label = "Ara reads this aloud" %}
+  {% endif %}
+
+  <aside class="audio-intro" data-audio-intro>
+    <button type="button" class="audio-intro__play" aria-label="Play audio intro">
+      <span class="audio-intro__icon" aria-hidden="true">▶</span>
+    </button>
+    <div class="audio-intro__body">
+      <span class="audio-intro__label">{{ ai_label }}</span>
+      <span class="audio-intro__progress">
+        <span class="audio-intro__bar"><span class="audio-intro__fill" style="width:0%"></span></span>
+        <span class="audio-intro__time">
+          <span data-audio-current>0:00</span>
+          <span class="audio-intro__time-sep">/</span>
+          <span data-audio-duration>{{ ai_duration | default: "—:—" }}</span>
+        </span>
+      </span>
+    </div>
+    <audio preload="metadata" data-audio-src>
+      <source src="{{ ai_src }}" />
+      Your browser does not support the audio element.
+    </audio>
+  </aside>
+{% endif %}

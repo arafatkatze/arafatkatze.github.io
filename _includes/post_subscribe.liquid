@@ -1,0 +1,18 @@
+<aside class="post-subscribe">
+  <p class="post-subscribe__lede">
+    Liked this? I send these out whenever I write one.
+  </p>
+  <p class="post-subscribe__actions">
+    <a class="post-subscribe__btn" href="{{ '/feed.xml' | relative_url }}">
+      <i class="fa-solid fa-rss" aria-hidden="true"></i> Follow via RSS
+    </a>
+    {% if site.twitter_username %}
+      <a class="post-subscribe__btn post-subscribe__btn--ghost" href="https://twitter.com/{{ site.twitter_username }}" rel="me noopener" target="_blank">
+        <i class="fa-brands fa-twitter" aria-hidden="true"></i> Or on Twitter
+      </a>
+    {% endif %}
+    <a class="post-subscribe__btn post-subscribe__btn--ghost" href="mailto:{{ site.email | encode_email }}">
+      <i class="fa-solid fa-envelope" aria-hidden="true"></i> Just say hi
+    </a>
+  </p>
+</aside>

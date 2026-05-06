@@ -1478,13 +1478,45 @@ html[data-theme="dark"] {
 .blog-hero {
   padding: 2.5rem 0 1.5rem 0;
 
+  .blog-hero-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
   h1 {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: "Fraunces", Georgia, "Times New Roman", Times, serif;
     font-size: 4.5rem;
     font-weight: 400;
     color: var(--global-text-color);
     margin: 0 0 0.75rem 0;
     line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  .blog-hero-rss {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--global-divider-color);
+    background: transparent;
+    color: var(--global-text-color-light);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none !important;
+    transition: color 0.15s ease, border-color 0.15s ease;
+
+    i { color: var(--global-theme-color); font-size: 0.78rem; }
+
+    &:hover, &:focus {
+      color: var(--global-text-color);
+      border-color: var(--global-theme-color);
+    }
   }
 
   p {
@@ -1497,10 +1529,7 @@ html[data-theme="dark"] {
 
   @media (max-width: 768px) {
     padding: 1.5rem 0 1rem 0;
-
-    h1 {
-      font-size: 3rem;
-    }
+    h1 { font-size: 3rem; }
   }
 }
 
@@ -2072,15 +2101,15 @@ html.transition *:after {
 }
 
 progress {
-  /* Positioning */
+  /* Positioning — pin to the very top of the viewport so it sits above the navbar */
   position: fixed;
   left: 0;
-  top: 56px;
-  z-index: 10;
+  top: 0;
+  z-index: 1031;
 
-  /* Dimensions */
+  /* Dimensions — 3px is just enough to be felt, not enough to feel intrusive */
   width: 100%;
-  height: 1px;
+  height: 3px;
 
   /* Reset the appearance */
   -webkit-appearance: none;
@@ -2113,10 +2142,11 @@ progress::-moz-progress-bar {
   width: 100%;
   background-color: transparent;
   position: fixed;
-  top: 56px;
+  top: 0;
   left: 0;
-  height: 5px;
+  height: 3px;
   display: block;
+  z-index: 1031;
 }
 
 .progress-bar {
@@ -2124,6 +2154,7 @@ progress::-moz-progress-bar {
   width: 0%;
   display: block;
   height: inherit;
+  transition: width 0.08s ease-out;
 }
 
 /* Copy button */
@@ -2862,6 +2893,137 @@ html[data-theme="dark"] .about-content {
   }
 }
 
+// Featured essay rail (above bento on home)
+.featured-essay {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin: 2rem 0 1rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 14px;
+  background: linear-gradient(135deg,
+    rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.045) 0%,
+    rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.01) 60%,
+    transparent 100%);
+  text-decoration: none !important;
+  color: var(--global-text-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.06);
+    border-color: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.35);
+    color: var(--global-text-color);
+    text-decoration: none;
+    .featured-essay__cta { color: var(--global-theme-color); }
+  }
+
+  .featured-essay__body { flex: 1; min-width: 0; }
+  .featured-essay__eyebrow {
+    display: inline-block;
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--global-theme-color);
+    margin-bottom: 0.5rem;
+  }
+  .featured-essay__title {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 1.25;
+    color: var(--global-text-color);
+    margin: 0 0 0.6rem 0;
+    letter-spacing: -0.01em;
+  }
+  .featured-essay__excerpt {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--global-text-color-light);
+    margin: 0 0 0.6rem 0;
+  }
+  .featured-essay__cta {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--global-text-color-light);
+    transition: color 0.15s ease;
+  }
+  .featured-essay__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    text-align: right;
+    min-width: 130px;
+
+    .featured-essay__date {
+      font-family: "Fraunces", Georgia, serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--global-text-color-light);
+    }
+    .featured-essay__cat {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--global-text-color-light);
+      padding: 0.15rem 0.55rem;
+      border: 1px solid var(--global-divider-color);
+      border-radius: 999px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    padding: 1.25rem 1.25rem;
+    .featured-essay__meta {
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: flex-end;
+      text-align: left;
+      min-width: 0;
+    }
+    .featured-essay__title { font-size: 1.35rem; }
+  }
+}
+
+// Handwritten annotation overlays on bento tiles
+.bento-tile-note {
+  position: absolute;
+  z-index: 5;
+  font-family: "Caveat", "Bradley Hand", cursive;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--global-theme-color);
+  line-height: 1.1;
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.01em;
+  max-width: 60%;
+
+  &--top-right    { top: 6px; right: 10px; transform: rotate(3deg); text-align: right; }
+  &--top-left     { top: 6px; left: 10px;  transform: rotate(-3deg); }
+  &--bottom-right { bottom: 8px; right: 10px; transform: rotate(2deg); text-align: right; }
+  &--bottom-left  { bottom: 8px; left: 10px; transform: rotate(-2deg); }
+
+  .bento-tile.image & {
+    color: #fff7e6;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
+  }
+
+  html[data-theme="dark"] & {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+}
+
 // Bento Grid (chester.how-style front page tiles)
 .bento-grid {
   display: grid;
@@ -3176,4 +3338,385 @@ html[data-theme="dark"] .bento-tile.image {
   font-size: 0.7rem;
   color: var(--global-text-color-light);
   margin-top: 1px;
+}
+
+// ---------------------------------------------------------------
+// End-of-post subscribe block
+// ---------------------------------------------------------------
+.post-subscribe {
+  margin: 3rem 0 1rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 12px;
+  background-color: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.04);
+  text-align: center;
+
+  .post-subscribe__lede {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--global-text-color);
+    margin: 0 0 1rem 0;
+  }
+
+  .post-subscribe__actions {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .post-subscribe__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background-color: var(--global-theme-color);
+    color: var(--global-bg-color);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+
+    &:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      color: var(--global-bg-color);
+    }
+
+    &.post-subscribe__btn--ghost {
+      background-color: transparent;
+      color: var(--global-text-color);
+      border: 1px solid var(--global-divider-color);
+
+      &:hover {
+        color: var(--global-theme-color);
+        border-color: var(--global-theme-color);
+      }
+    }
+
+    i { font-size: 0.85rem; }
+  }
+}
+
+// ---------------------------------------------------------------
+// Audio intro pill (Wave 5.6)
+// ---------------------------------------------------------------
+.audio-intro {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 1.25rem 0 2rem;
+  padding: 0.7rem 0.85rem 0.7rem 0.7rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 999px;
+  background: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.04);
+  max-width: 480px;
+
+  audio { display: none; }
+
+  &__play {
+    flex-shrink: 0;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--global-theme-color);
+    color: var(--global-bg-color);
+    border: none; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; line-height: 1;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+
+    &:hover  { transform: scale(1.06); }
+    &:active { transform: scale(0.96); }
+    &:focus-visible { outline: 2px solid var(--global-theme-color); outline-offset: 3px; }
+  }
+
+  &__icon { pointer-events: none; transform: translate(1px, 0); }
+
+  &__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+
+  &__label {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic; font-size: 0.92rem;
+    color: var(--global-text-color); line-height: 1.2;
+  }
+
+  &__progress {
+    display: flex; align-items: center; gap: 0.55rem;
+    font-size: 0.7rem; color: var(--global-text-color-light);
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__bar {
+    flex: 1; height: 4px; border-radius: 999px;
+    background: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.12);
+    overflow: hidden; position: relative;
+  }
+
+  &__fill {
+    display: block; height: 100%;
+    background: var(--global-theme-color);
+    transition: width 0.1s linear; border-radius: 999px;
+  }
+
+  &__time { display: inline-flex; align-items: baseline; gap: 0.25rem; white-space: nowrap; }
+  &__time-sep { opacity: 0.5; }
+
+  @media (max-width: 480px) {
+    flex-wrap: wrap; border-radius: 16px; max-width: none;
+  }
+}
+
+// ---------------------------------------------------------------
+// Photos surface (Wave 5.5)
+// ---------------------------------------------------------------
+.photos-intro {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic; font-size: 1rem;
+  line-height: 1.65;
+  color: var(--global-text-color-light);
+  max-width: 600px;
+  margin: 0 0 2rem 0;
+}
+
+.photo-grid {
+  column-count: 3; column-gap: 0.75rem;
+  margin: 0 auto 3rem;
+  @media (max-width: 992px) { column-count: 2; }
+  @media (max-width: 540px) { column-count: 1; }
+}
+
+.photo-card {
+  display: block;
+  break-inside: avoid;
+  margin-bottom: 0.75rem;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  text-decoration: none !important;
+  color: var(--global-text-color);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+
+  img { width: 100%; height: auto; display: block; transition: transform 0.4s ease; }
+
+  .photo-card-meta {
+    position: absolute; inset: auto 0 0 0;
+    padding: 1.6rem 0.85rem 0.7rem;
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.78) 100%);
+    color: #fff;
+    display: flex; flex-direction: column; gap: 0.1rem;
+    opacity: 0; transition: opacity 0.25s ease;
+  }
+
+  .photo-card-caption {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.95rem; line-height: 1.25; color: #fff;
+  }
+
+  .photo-card-where {
+    font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: rgba(255,255,255,0.78);
+  }
+
+  &:hover, &:focus {
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.16);
+    border-color: rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.35);
+    color: var(--global-text-color);
+    img { transform: scale(1.02); }
+    .photo-card-meta { opacity: 1; }
+  }
+}
+
+// ---------------------------------------------------------------
+// Guestbook (Wave 5.4)
+// ---------------------------------------------------------------
+.guestbook-intro {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic; font-size: 1rem;
+  line-height: 1.65;
+  color: var(--global-text-color-light);
+  max-width: 600px; margin: 0 0 1.5rem 0;
+}
+
+.guestbook-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  gap: 0.5rem; margin: 0 0 1rem 0;
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.guestbook-input {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 8px;
+  background: var(--global-bg-color);
+  color: var(--global-text-color);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:focus {
+    border-color: var(--global-theme-color);
+    box-shadow: 0 0 0 3px rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.15);
+  }
+
+  &::placeholder {
+    color: var(--global-text-color-light);
+    opacity: 0.7; font-style: italic;
+  }
+}
+
+.guestbook-submit {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.95rem; font-weight: 500;
+  padding: 0.65rem 1.15rem;
+  background: var(--global-theme-color);
+  color: var(--global-bg-color);
+  border: 1px solid var(--global-theme-color);
+  border-radius: 8px; cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  white-space: nowrap;
+
+  &:hover { opacity: 0.92; transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+}
+
+.guestbook-meta {
+  font-size: 0.78rem; letter-spacing: 0.05em;
+  color: var(--global-text-color-light);
+  margin: 0 0 1.25rem 0; text-transform: uppercase;
+}
+
+.guestbook-list {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 0.6rem;
+  max-width: 760px;
+}
+
+.guestbook-entry {
+  display: flex; flex-direction: column; gap: 0.25rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--global-divider-color);
+  border-left: 3px solid rgba(var(--global-theme-color-rgb, 201, 72, 91), 0.35);
+  border-radius: 6px;
+  background: var(--global-card-bg-color);
+
+  &__msg {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1rem; line-height: 1.5;
+    color: var(--global-text-color);
+  }
+
+  &__meta {
+    display: flex; gap: 0.6rem; font-size: 0.78rem;
+    color: var(--global-text-color-light); align-items: baseline;
+  }
+
+  &__name { font-weight: 600; color: var(--global-theme-color); }
+  &__when { font-style: italic; }
+}
+
+.guestbook-noscript {
+  margin-top: 1rem;
+  padding: 0.85rem 1.1rem;
+  background: rgba(245, 158, 11, 0.1);
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 8px 8px 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.95rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ---------------------------------------------------------------
+// Konami easter egg snowflake layer (Wave 5.3)
+// ---------------------------------------------------------------
+.konami-snow-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1099;
+  overflow: hidden;
+}
+
+.konami-snow-flake {
+  position: absolute;
+  top: -32px;
+  user-select: none;
+  color: #fff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.55);
+  will-change: transform, opacity;
+}
+
+@keyframes konami-snow-fall {
+  0%   { transform: translate3d(0, -10vh, 0) rotate(0deg); }
+  100% { transform: translate3d(var(--drift, 0), 110vh, 0) rotate(360deg); }
+}
+
+.konami-snow-banner {
+  position: fixed;
+  left: 50%; top: 22%;
+  transform: translate(-50%, -8px);
+  z-index: 1100;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0.4rem;
+  padding: 1.1rem 1.8rem 1.25rem;
+  background: rgba(26, 26, 31, 0.92);
+  color: #fdfaf4;
+  border: 1px solid rgba(232, 166, 166, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 60px rgba(201, 72, 91, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  text-align: center;
+  opacity: 0;
+  animation: konami-banner-in 600ms cubic-bezier(.2, .9, .25, 1.1) forwards;
+  pointer-events: none;
+  font-family: "Fraunces", Georgia, serif;
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #f3c5c5;
+  }
+
+  &__sub {
+    font-size: 0.85rem;
+    font-style: italic;
+    opacity: 0.8;
+  }
+
+  &--fade { animation: konami-banner-out 1.2s ease-out forwards; }
+}
+
+@keyframes konami-banner-in {
+  0%   { opacity: 0; transform: translate(-50%, -28px) scale(0.92); }
+  100% { opacity: 1; transform: translate(-50%, 0)     scale(1); }
+}
+
+@keyframes konami-banner-out {
+  0%   { opacity: 1; transform: translate(-50%, 0)    scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -10px) scale(0.96); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .konami-snow-flake { display: none; }
+  .konami-snow-banner { animation: none; opacity: 1; }
 }

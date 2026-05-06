@@ -14,7 +14,18 @@ profile:
 selected_papers: false
 social: true
 
+featured_post: 2026-04-26-limerance.md
+
 bento_tiles:
+  # Row 0: a friendly "new here?" entry tile
+  - title: new here?
+    label: Tour · Start Here
+    link: /start-here/
+    type: text
+    excerpt: "A handcrafted tour: the essays I'd give a new friend, in the order I'd give them."
+    bg: warm
+    span: wide
+
   # Row 1: wide text + travel + skiing
   - title: To My Future Son
     label: Writing · Philosophy
@@ -30,12 +41,16 @@ bento_tiles:
     image: assets/img/travel/earth-day-from-iss.jpg
     image_dark: assets/img/travel/earth-night-from-iss.jpg
     type: image
+    note: 30+ countries ✦
+    note_pos: top-right
 
   - title: Skiing
     label: Projects · Fun
     link: /projects/Skiing/
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
     type: image
+    note: ↑ best gift of my life
+    note_pos: bottom-right
 
   # Row 2: art + book + math of love (wide)
   - title: Art
@@ -51,6 +66,8 @@ bento_tiles:
     type: book
     author: Rainer Maria Rilke
     badge: Read
+    note: re-read 4×
+    note_pos: top-right
 
   - title: Mathematics of Love
     label: Projects · Art
@@ -94,6 +111,8 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
     type: image
     span: tall
+    note: rearranged my insides
+    note_pos: top-left
 
   - title: Pixel Board
     label: Pixels · Art
@@ -150,4 +169,4 @@ I like to find art and [beauty](projects/communalArt/) wherever I go and whateve
 
 As a Canadian with Indian and Asian heritage, I am a huge fan of nature, the Rockies have taught me so much about beauty, connection and self discovery. Whether I'm skiing down fresh powder or watching the sunset from a summit I've hiked, these moments with close friends have shaped my life. I would love to do intense adventures in nature as much as I can to get me out of my mind and into my own body (PS. If you drive me to a ski hill, I will come).
 
-I'm documenting more of my adventures and creative process these days. If you're curious about seeing life through my lens, here's a few links...
+I'm documenting more of my adventures and creative process these days. If you're curious about seeing life through my lens, here's a few links — and if you want a snapshot of what I'm up to right *now*, [here's that page](/now/).
