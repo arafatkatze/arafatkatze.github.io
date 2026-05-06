@@ -9,8 +9,9 @@ middle_name:
 last_name: Khan
 email: arafat.da.khan@gmail.com
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-footer_text: >
+  Ara (Arafat Khan) — a digital space at the intersection of art, love, and beauty.
+  AI engineer, writer, skier, traveller. Currently in San Francisco, building Cline.
+footer_text: at the intersection of art, love, and beauty.
 
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
 
@@ -19,7 +20,7 @@ icon: 💌 # the emoji used as the favicon (alternatively, provide image name in
 
 url: https://arafatkatze.github.io # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog/
-last_updated: false # set to true if you want to display last updated in the footer
+last_updated: true # set to true if you want to display last updated in the footer
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
 back_to_top: false # set to false to disable the back to top button
 
@@ -48,7 +49,7 @@ rss_icon: false
 # -----------------------------------------------------------------------------
 
 navbar_fixed: true
-footer_fixed: true
+footer_fixed: false
 search_enabled: true
 socials_in_search: true
 posts_in_search: true
@@ -64,9 +65,9 @@ max_width: 930px
 # -----------------------------------------------------------------------------
 # Display links to the page with a preview object on social media.
 # see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
-serve_schema_org: false # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
+serve_og_meta: true # Include Open Graph meta tags in the HTML head
+serve_schema_org: true # Include Schema.org in the HTML head
+og_image: https://res.cloudinary.com/dozxd4znm/image/upload/c_fill,w_1200,h_630,g_face,q_auto,f_auto/v1772992166/profile_photo_fvaxo9.png # The site-wide (default for all links) Open Graph preview image
 
 # -----------------------------------------------------------------------------
 # Social integration
@@ -285,7 +286,7 @@ jekyll-archives:
       tags: "/blog/:type/:name/"
       categories: "/blog/:type/:name/"
   books:
-    enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
+    enabled: [] # archives disabled — single /reading/ page is the index
 
 display_tags: [] # these tags will be displayed on the front page of your blog
 display_categories: [] # these categories will be displayed on the front page of your blog

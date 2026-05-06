@@ -45,10 +45,39 @@
 {% endif %}
 
 {% assign is_blog_post = false %}
+{% if page.layout == 'post' or page.layout == 'distill' %}
+  {% assign is_blog_post = true %}
+{% endif %}
 {% if page.url != '/blog/index.html' and page.url contains '/blog/' %}
   {% unless page.url contains '/tag/' or page.url contains '/category/' %}
     {% assign is_blog_post = true %}
   {% endunless %}
+{% endif %}
+
+{% comment %}
+  Build a per-post Open Graph image dynamically via Cloudinary text overlays.
+  Falls back to site.og_image otherwise. Renders a 1200x630 deep-ink card with
+  the post title in cream serif, the brand "ara." wordmark, and the post date.
+{% endcomment %}
+{% assign og_image_resolved = site.og_image %}
+{% if page.og_image %}
+  {% assign og_image_resolved = page.og_image %}
+{% elsif is_blog_post and page.title %}
+  {% assign og_title_raw = page.title | strip | truncate: 80 %}
+  {% assign og_title = og_title_raw
+       | replace: '%', '%25'
+       | replace: '/', '%2F'
+       | replace: ',', '%2C'
+       | replace: '?', '%3F'
+       | replace: '#', '%23'
+       | replace: '&', '%26'
+       | replace: '"', '%22'
+       | replace: "'", '%27'
+       | replace: ':', '%3A'
+       | replace: ';', '%3B'
+       | replace: ' ', '%20' %}
+  {% assign og_date_str = page.date | date: "%-d %B %Y" | replace: ' ', '%20' %}
+  {% capture og_image_resolved %}https://res.cloudinary.com/dozxd4znm/image/upload/w_1200,h_630,c_fill,e_colorize:100,co_rgb:1a1a1f/l_text:Georgia_64_bold_italic:{{ og_title }},co_rgb:fdfaf4,w_1040,c_fit/fl_layer_apply,g_west,x_80,y_-60/l_text:Georgia_24_italic:ara.,co_rgb:c9485b/fl_layer_apply,g_north_west,x_80,y_60/l_text:Georgia_22_italic:{{ og_date_str }},co_rgb:c9485b/fl_layer_apply,g_south_west,x_80,y_60/q_auto,f_auto/v1772992166/profile_photo_fvaxo9.png{% endcapture %}
 {% endif %}
 
 {% if site.serve_og_meta %}
@@ -58,17 +87,19 @@
   <meta property="og:title" content="{% if page.title %}{{ title }} | {{ page.title }}{% else %}{{ title }}{% endif %}">
   <meta property="og:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url | remove_first: 'index.html' }}">
   <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  {% if page.og_image or site.og_image %}
-    <meta property="og:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
+  {% if og_image_resolved %}
+    <meta property="og:image" content="{{ og_image_resolved }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
   {% endif %}
   <meta property="og:locale" content="{{ site.lang }}">
 
   <!-- Twitter card -->
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="{% if og_image_resolved %}summary_large_image{% else %}summary{% endif %}">
   <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ title }}{% endif %}">
   <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  {% if page.og_image or site.og_image %}
-    <meta name="twitter:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
+  {% if og_image_resolved %}
+    <meta name="twitter:image" content="{{ og_image_resolved }}">
   {% endif %}
   {% if site.x_username %}
     <meta name="twitter:site" content="@{{ site.x_username }}">

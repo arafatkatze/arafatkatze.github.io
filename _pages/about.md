@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle:
+subtitle: at the intersection of art, love, and beauty.
 
 profile:
   align: right
