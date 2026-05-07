@@ -203,6 +203,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/letters_to_a_young_poet.html";
+            },},{id: "books-love-in-the-void-where-god-finds-us",
+          title: 'Love in the Void: Where God Finds Us',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/love_in_the_void.html";
             },},{id: "books-sovietistan-travels-in-turkmenistan-kazakhstan-tajikistan-kyrgyzstan-and-uzbekistan",
           title: 'Sovietistan: Travels in Turkmenistan, Kazakhstan, Tajikistan, Kyrgyzstan, and Uzbekistan',
           description: "",
