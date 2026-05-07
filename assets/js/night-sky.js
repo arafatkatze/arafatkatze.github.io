@@ -521,11 +521,13 @@
       const heading = el("div");
       heading.appendChild(el("p", { class: "ns-tt-name", text: p.name || p.id }));
       const metaBits = [];
+      if (p.constellation) metaBits.push("in " + p.constellation);
       if (p.since) metaBits.push("since " + p.since);
       if (metaBits.length) heading.appendChild(el("p", { class: "ns-tt-meta", text: metaBits.join(" · ") }));
       head.appendChild(heading);
       tooltip.appendChild(head);
 
+      if (p.star_meaning) tooltip.appendChild(el("p", { class: "ns-tt-meaning", text: p.star_meaning }));
       if (p.role) tooltip.appendChild(el("p", { class: "ns-tt-role", text: p.role }));
       if (p.story) {
         const firstPara = paragraphs(p.story)[0] || "";
@@ -589,10 +591,15 @@
       }));
       if (p.role)  heading.appendChild(el("p", { class: "ns-modal-role", text: p.role }));
       const metaBits = [];
+      if (p.constellation) metaBits.push("in " + p.constellation);
       if (p.since) metaBits.push("since " + p.since);
       if (metaBits.length) heading.appendChild(el("p", { class: "ns-modal-meta", text: metaBits.join(" · ") }));
       head.appendChild(heading);
       modalCard.appendChild(head);
+
+      if (p.star_meaning) {
+        modalCard.appendChild(el("p", { class: "ns-modal-meaning", text: p.star_meaning }));
+      }
 
       const story = el("div", { class: "ns-modal-story" });
       paragraphs(p.story).forEach(function (text) {
@@ -642,7 +649,10 @@
         });
         btn.appendChild(el("p", { class: "ns-card-name", text: p.name || p.id }));
         if (p.role) btn.appendChild(el("p", { class: "ns-card-role", text: p.role }));
-        if (p.since) btn.appendChild(el("p", { class: "ns-card-meta", text: "since " + p.since }));
+        const cardMetaBits = [];
+        if (p.constellation) cardMetaBits.push(p.constellation);
+        if (p.since) cardMetaBits.push("since " + p.since);
+        if (cardMetaBits.length) btn.appendChild(el("p", { class: "ns-card-meta", text: cardMetaBits.join(" · ") }));
         btn.appendChild(el("span", { class: "ns-card-cta", text: "read story" }));
         btn.addEventListener("click", function () { openModal(p); });
         li.appendChild(btn);

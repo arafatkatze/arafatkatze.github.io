@@ -12,7 +12,9 @@ nav_order: 7
   <header class="nightsky-hero">
     <h1 class="nightsky-title">Stories from my night sky.</h1>
     <p class="nightsky-sub">
-      Every star here is someone I know. Hover on a bright one to read a little of their story.
+      Every star up there is a real one in the night sky, and every star up there is a person I know.
+      Its name and meaning are a portrait of who they are to me — but who they are stays mine.
+      Hover any star to read a little of their story.
       <span class="nightsky-hint-mobile">Tap a star on mobile.</span>
     </p>
   </header>
