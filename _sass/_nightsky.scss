@@ -5,9 +5,9 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 .nightsky-page {
-  --ns-bg-top:    #1a1f3d;
+  --ns-bg-top:    #1c1f3d;
   --ns-bg-mid:    #0a0d1f;
-  --ns-bg-bottom: #05060d;
+  --ns-bg-bottom: #04050b;
   --ns-text:      #e6e9ff;
   --ns-text-soft: #b6bcdb;
   --ns-text-mute: #7d85a8;
@@ -61,16 +61,46 @@
   aspect-ratio: 16 / 9;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  background:
-    radial-gradient(ellipse at 25% 15%, rgba(120, 90, 200, 0.18) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 85%, rgba(50, 110, 180, 0.16) 0%, transparent 60%),
-    radial-gradient(ellipse at top,    var(--ns-bg-top) 0%, var(--ns-bg-mid) 55%, var(--ns-bg-bottom) 100%);
   cursor: crosshair;
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
+  // Layered cosmic background:
+  //   1. Faint Milky Way band (diagonal, blue-violet-warm)
+  //   2. A purple nebula bloom (top-left)
+  //   3. A blue nebula bloom (bottom-right)
+  //   4. Deep base sky gradient
+  background:
+    linear-gradient(
+      115deg,
+      transparent 22%,
+      rgba(170, 190, 255, 0.05) 38%,
+      rgba(215, 195, 255, 0.10) 50%,
+      rgba(255, 220, 200, 0.07) 60%,
+      transparent 78%
+    ),
+    radial-gradient(ellipse at 18% 22%, rgba(120, 80, 200, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 84% 78%, rgba(40, 110, 200, 0.20) 0%, transparent 60%),
+    radial-gradient(ellipse at top,    var(--ns-bg-top) 0%, var(--ns-bg-mid) 55%, var(--ns-bg-bottom) 100%);
 
   @media (max-width: 600px) {
     aspect-ratio: 4 / 5;
     border-radius: 14px;
+  }
+
+  // Soft vignette around the edges so the sky feels like a porthole.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 55%,
+      rgba(0, 0, 0, 0.35) 88%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+    z-index: 2;
   }
 }
 
@@ -80,16 +110,16 @@
   width: 100%;
   height: 100%;
   display: block;
+  z-index: 1;
 }
 
 // ── Ambient stars ────────────────────────────────────────────────────────
 @keyframes ns-twinkle {
   0%, 100% { opacity: var(--ns-op, 0.7); }
-  50%      { opacity: calc(var(--ns-op, 0.7) * 0.25); }
+  50%      { opacity: calc(var(--ns-op, 0.7) * 0.55); }
 }
 
 .ns-ambient {
-  fill: #ffffff;
   animation-name: ns-twinkle;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
@@ -97,25 +127,52 @@
   pointer-events: none;
 }
 
-// ── Constellations (faint connecting lines) ──────────────────────────────
+// Mid + bright field stars get a soft halo too (already part of the SVG).
+.ns-field-halo {
+  pointer-events: none;
+}
+
+// ── Constellations (faint connecting lines, only if explicitly enabled) ──
 .ns-constellation {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.10);
-  stroke-width: 0.8;
+  stroke: rgba(255, 255, 255, 0.07);
+  stroke-width: 0.6;
   stroke-linecap: round;
   stroke-linejoin: round;
   pointer-events: none;
+  stroke-dasharray: 2 4;
   transition: stroke 0.4s ease;
 }
 
 .ns-stage-hover .ns-constellation {
-  stroke: rgba(255, 255, 255, 0.18);
+  stroke: rgba(255, 255, 255, 0.14);
+}
+
+// ── Diffraction spikes ───────────────────────────────────────────────────
+// Real photographed stars have 4-point spikes from the telescope vanes.
+// We add them to bright field stars and to the named "people" stars.
+.ns-spike {
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.ns-spike-line {
+  stroke-linecap: round;
+}
+
+// ── Shooting stars ───────────────────────────────────────────────────────
+.ns-shooting {
+  pointer-events: none;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 1.4;
+  stroke-linecap: round;
 }
 
 // ── Named stars ──────────────────────────────────────────────────────────
 @keyframes ns-pulse {
   0%, 100% { transform: scale(1);    opacity: 0.85; }
-  50%      { transform: scale(1.08); opacity: 1;    }
+  50%      { transform: scale(1.06); opacity: 1;    }
 }
 
 .ns-named {
@@ -125,8 +182,8 @@
   .ns-halo {
     transform-origin: center;
     transform-box: fill-box;
-    animation: ns-pulse 4s ease-in-out infinite;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    animation: ns-pulse 4.5s ease-in-out infinite;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
   }
 
@@ -134,6 +191,8 @@
     fill: #ffffff;
     pointer-events: none;
   }
+
+  .ns-spike { transition: opacity 0.3s ease; }
 
   .ns-hit {
     fill: transparent;
@@ -144,23 +203,25 @@
   .ns-label {
     font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 14px;
-    fill: rgba(255, 255, 255, 0.92);
+    fill: rgba(255, 255, 255, 0.94);
     opacity: 0;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.3s ease;
     pointer-events: none;
     letter-spacing: 0.02em;
+    paint-order: stroke;
+    stroke: rgba(0, 0, 0, 0.5);
+    stroke-width: 3px;
   }
 
   &.is-active,
   &:focus-within {
     .ns-halo {
       animation-play-state: paused;
-      transform: scale(1.4);
+      transform: scale(1.35);
       opacity: 1;
     }
-    .ns-label {
-      opacity: 1;
-    }
+    .ns-spike  { opacity: 1; }
+    .ns-label  { opacity: 1; }
   }
 }
 
@@ -291,6 +352,24 @@
     outline: 2px solid var(--ns-accent);
     outline-offset: 2px;
   }
+}
+
+// Subtle hint badge in the bottom-left of the stage.
+.nightsky-hint {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(230, 233, 255, 0.45);
+  z-index: 3;
+  pointer-events: none;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.78rem;
 }
 
 // ── List of all stars (mobile + no-pointer fallback) ─────────────────────
@@ -520,6 +599,7 @@
 @media (prefers-reduced-motion: reduce) {
   .ns-ambient,
   .ns-named .ns-halo,
-  .nightsky-modal-card { animation: none !important; }
+  .nightsky-modal-card,
+  .ns-shooting { animation: none !important; }
   .nightsky-reset { transition: none; }
 }

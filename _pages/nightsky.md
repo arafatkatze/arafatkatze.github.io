@@ -44,6 +44,7 @@ nav_order: 7
 {% comment %} People + constellations injected as JSON for the JS layer to read. {% endcomment %}
 <script id="nightsky-data" type="application/json">
 {
+  "show_constellations": {{ site.data.nightsky.show_constellations | default: false | jsonify }},
   "people": {{ site.data.nightsky.people | jsonify }},
   "constellations": {{ site.data.nightsky.constellations | default: empty | jsonify }}
 }
