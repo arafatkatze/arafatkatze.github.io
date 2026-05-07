@@ -295,6 +295,11 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/mathmaking/";
+            },},{id: "projects-stories-from-my-night-sky",
+          title: 'Stories from my night sky',
+          description: "a small constellation of the people who shaped me — hover any star, read their story.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/nightsky/";
             },},{id: "projects-but-you-are-just-a-quot-content-creator-quot",
           title: 'But you are just a &amp;quot;content creator&amp;quot;',
           description: "",
