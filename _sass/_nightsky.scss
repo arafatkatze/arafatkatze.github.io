@@ -1,0 +1,525 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Stories from my night sky — interactive page styles.
+// Page-scoped: lives entirely under .nightsky-page so nothing leaks to the
+// rest of the site. The sky is dark in both light and dark site themes.
+// ─────────────────────────────────────────────────────────────────────────────
+
+.nightsky-page {
+  --ns-bg-top:    #1a1f3d;
+  --ns-bg-mid:    #0a0d1f;
+  --ns-bg-bottom: #05060d;
+  --ns-text:      #e6e9ff;
+  --ns-text-soft: #b6bcdb;
+  --ns-text-mute: #7d85a8;
+  --ns-card-bg:   rgba(20, 24, 46, 0.92);
+  --ns-card-border: rgba(255, 255, 255, 0.12);
+  --ns-accent:    var(--global-theme-color);
+
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--ns-text);
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0.5rem 0 4rem;
+}
+
+// ── Hero ─────────────────────────────────────────────────────────────────
+.nightsky-hero {
+  padding: 1.5rem 0 1.75rem;
+  text-align: left;
+}
+
+.nightsky-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0 0 0.6rem;
+  color: var(--global-text-color);
+  font-style: italic;
+}
+
+.nightsky-sub {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--global-text-color-light);
+  margin: 0;
+  max-width: 640px;
+}
+
+.nightsky-hint-mobile {
+  display: none;
+  color: var(--global-text-color-light);
+  @media (hover: none) and (pointer: coarse) {
+    display: inline;
+  }
+}
+
+// ── Stage (the sky itself) ───────────────────────────────────────────────
+.nightsky-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  background:
+    radial-gradient(ellipse at 25% 15%, rgba(120, 90, 200, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 85%, rgba(50, 110, 180, 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse at top,    var(--ns-bg-top) 0%, var(--ns-bg-mid) 55%, var(--ns-bg-bottom) 100%);
+  cursor: crosshair;
+
+  @media (max-width: 600px) {
+    aspect-ratio: 4 / 5;
+    border-radius: 14px;
+  }
+}
+
+.nightsky-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+// ── Ambient stars ────────────────────────────────────────────────────────
+@keyframes ns-twinkle {
+  0%, 100% { opacity: var(--ns-op, 0.7); }
+  50%      { opacity: calc(var(--ns-op, 0.7) * 0.25); }
+}
+
+.ns-ambient {
+  fill: #ffffff;
+  animation-name: ns-twinkle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  will-change: opacity;
+  pointer-events: none;
+}
+
+// ── Constellations (faint connecting lines) ──────────────────────────────
+.ns-constellation {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.10);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+  transition: stroke 0.4s ease;
+}
+
+.ns-stage-hover .ns-constellation {
+  stroke: rgba(255, 255, 255, 0.18);
+}
+
+// ── Named stars ──────────────────────────────────────────────────────────
+@keyframes ns-pulse {
+  0%, 100% { transform: scale(1);    opacity: 0.85; }
+  50%      { transform: scale(1.08); opacity: 1;    }
+}
+
+.ns-named {
+  cursor: pointer;
+  outline: none;
+
+  .ns-halo {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: ns-pulse 4s ease-in-out infinite;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    pointer-events: none;
+  }
+
+  .ns-core {
+    fill: #ffffff;
+    pointer-events: none;
+  }
+
+  .ns-hit {
+    fill: transparent;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .ns-label {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 14px;
+    fill: rgba(255, 255, 255, 0.92);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+  }
+
+  &.is-active,
+  &:focus-within {
+    .ns-halo {
+      animation-play-state: paused;
+      transform: scale(1.4);
+      opacity: 1;
+    }
+    .ns-label {
+      opacity: 1;
+    }
+  }
+}
+
+// ── Tooltip ──────────────────────────────────────────────────────────────
+.nightsky-tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 280px;
+  max-width: calc(100% - 24px);
+  padding: 0.85rem 1rem 0.95rem;
+  background: var(--ns-card-bg);
+  border: 1px solid var(--ns-card-border);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+  color: var(--ns-text);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -110%);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 4;
+
+  &[data-visible="true"] {
+    opacity: 1;
+  }
+}
+
+.ns-tt-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.4rem;
+}
+
+.ns-tt-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  flex: 0 0 auto;
+}
+
+.ns-tt-avatar-placeholder {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.04));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  flex: 0 0 auto;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.ns-tt-name {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.ns-tt-meta {
+  font-size: 0.78rem;
+  color: var(--ns-text-mute);
+  margin: 0.1rem 0 0;
+}
+
+.ns-tt-role {
+  font-size: 0.85rem;
+  color: var(--ns-text-soft);
+  margin: 0 0 0.35rem;
+  font-style: italic;
+}
+
+.ns-tt-story {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ns-text-soft);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ns-tt-hint {
+  margin: 0.55rem 0 0;
+  font-size: 0.72rem;
+  color: var(--ns-text-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+// ── Reset button ─────────────────────────────────────────────────────────
+.nightsky-reset {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(10, 13, 31, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 3;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: rgba(20, 25, 50, 0.85);
+    transform: rotate(60deg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--ns-accent);
+    outline-offset: 2px;
+  }
+}
+
+// ── List of all stars (mobile + no-pointer fallback) ─────────────────────
+.nightsky-list {
+  margin-top: 2.5rem;
+}
+
+.nightsky-list-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--global-text-color);
+  margin: 0 0 1rem;
+}
+
+.nightsky-list-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.85rem;
+}
+
+.ns-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.1rem 1.05rem;
+  background: var(--global-card-bg-color, rgba(255, 255, 255, 0.03));
+  border: 1px solid var(--global-divider-color, rgba(127, 127, 127, 0.18));
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: var(--global-text-color);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--ns-accent);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+    outline: none;
+  }
+
+  .ns-card-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .ns-card-role {
+    font-size: 0.85rem;
+    color: var(--global-text-color-light);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .ns-card-meta {
+    font-size: 0.75rem;
+    color: var(--global-text-color-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.3rem;
+  }
+
+  .ns-card-cta {
+    margin-top: 0.55rem;
+    font-size: 0.8rem;
+    color: var(--ns-accent);
+    font-weight: 600;
+
+    &::after {
+      content: " →";
+      transition: transform 0.18s ease;
+      display: inline-block;
+    }
+  }
+
+  &:hover .ns-card-cta::after { transform: translateX(3px); }
+}
+
+// ── Modal ────────────────────────────────────────────────────────────────
+.nightsky-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  &[aria-hidden="false"] {
+    display: flex;
+  }
+}
+
+.nightsky-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 6, 13, 0.78);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.nightsky-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  max-height: 85vh;
+  overflow: auto;
+  padding: 1.75rem 1.75rem 1.5rem;
+  background: var(--ns-card-bg);
+  border: 1px solid var(--ns-card-border);
+  border-radius: 16px;
+  color: var(--ns-text);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: ns-modal-in 0.22s ease-out;
+
+  @media (max-width: 600px) {
+    padding: 1.25rem 1.2rem 1.1rem;
+  }
+}
+
+@keyframes ns-modal-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+.ns-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ns-text);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover { background: rgba(255, 255, 255, 0.1); }
+  &:focus-visible {
+    outline: 2px solid var(--ns-accent);
+    outline-offset: 2px;
+  }
+}
+
+.ns-modal-head {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+  margin: 0 2rem 1rem 0;
+}
+
+.ns-modal-avatar,
+.ns-modal-avatar-placeholder {
+  width: 56px;
+  height: 56px;
+  flex: 0 0 auto;
+}
+.ns-modal-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.ns-modal-avatar-placeholder {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.04));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ns-modal-name {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 1.55rem;
+  font-style: italic;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.ns-modal-role {
+  margin: 0.15rem 0 0;
+  font-size: 0.95rem;
+  color: var(--ns-text-soft);
+  font-style: italic;
+}
+
+.ns-modal-meta {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ns-text-mute);
+}
+
+.ns-modal-story p {
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--ns-text);
+  margin: 0 0 0.85rem;
+
+  &:last-child { margin-bottom: 0; }
+}
+
+.ns-modal-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--ns-accent);
+  text-decoration: none;
+  font-weight: 600;
+
+  &::after { content: " →"; }
+  &:hover { text-decoration: underline; }
+}
+
+// Reduce motion
+@media (prefers-reduced-motion: reduce) {
+  .ns-ambient,
+  .ns-named .ns-halo,
+  .nightsky-modal-card { animation: none !important; }
+  .nightsky-reset { transition: none; }
+}
