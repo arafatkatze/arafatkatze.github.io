@@ -291,16 +291,28 @@
 }
 
 .ns-tt-meta {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--ns-text-mute);
-  margin: 0.1rem 0 0;
+  margin: 0.12rem 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ns-tt-meaning {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--ns-text-soft);
+  margin: 0.5rem 0 0.35rem;
+  font-style: italic;
+  border-left: 2px solid rgba(255, 255, 255, 0.18);
+  padding-left: 0.55rem;
 }
 
 .ns-tt-role {
-  font-size: 0.85rem;
-  color: var(--ns-text-soft);
+  font-size: 0.9rem;
+  color: var(--ns-text);
   margin: 0 0 0.35rem;
-  font-style: italic;
+  font-weight: 600;
 }
 
 .ns-tt-story {
@@ -561,17 +573,29 @@
 
 .ns-modal-role {
   margin: 0.15rem 0 0;
-  font-size: 0.95rem;
-  color: var(--ns-text-soft);
-  font-style: italic;
+  font-size: 1rem;
+  color: var(--ns-text);
+  font-weight: 600;
 }
 
 .ns-modal-meta {
   margin: 0.2rem 0 0;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--ns-text-mute);
+}
+
+.ns-modal-meaning {
+  margin: 0 0 1.1rem;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ns-text-soft);
+  font-style: italic;
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 2px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
 }
 
 .ns-modal-story p {
