@@ -1,0 +1,84 @@
+# Stories from my night sky — the people who shape me, plotted as stars.
+#
+# Replace the four sample entries below with real people. The page looks
+# best with 4–15 named stars; you can go further but the sky starts
+# feeling crowded.
+#
+# Fields:
+#   id         (required)  unique, stable, used by constellations
+#   name       (required)  display name
+#   role       (optional)  one-line subtitle ("the one who taught me to surf")
+#   x, y       (required)  position on the sky in percent (0–100)
+#   magnitude  (optional)  0.4 (faint) → 1.0 (bright). Default 0.8
+#   color      (optional)  warm white "#fff5d6" / cool "#e8f0ff" / etc.
+#   since      (optional)  e.g. "2014" — shown under the name
+#   image      (optional)  avatar image URL (Cloudinary, etc.)
+#   link       (optional)  internal link e.g. "/blog/letter-to-aurora"
+#   story      (required)  the story. Markdown-style paragraphs (blank line
+#                          between them). Plain text only — no HTML.
+
+people:
+  - id: aurora
+    name: "Aurora"
+    role: "the one who taught me to surf"
+    x: 22
+    y: 36
+    magnitude: 1.0
+    color: "#fff5d6"
+    since: "2018"
+    story: |
+      This is sample text — replace it with the real story you want to tell
+      about Aurora. Two or three short paragraphs read best inside the modal.
+
+      I remember the first time we paddled out at Pacifica. The fog was so
+      thick we couldn't see the cliffs, and I was certain I was going to
+      drown. She laughed, pointed at a wave, and said "this one's yours."
+      It wasn't, but the next one was, and that's how I learned.
+
+  - id: orion
+    name: "Orion"
+    role: "first friend in a new city"
+    x: 64
+    y: 26
+    magnitude: 0.85
+    color: "#e8f0ff"
+    since: "2016"
+    story: |
+      Sample text for Orion — replace with the real story.
+
+      Some friendships are built slowly. Others are built in a single
+      late-night conversation in a half-empty diner where neither of you
+      can remember how you got there. Ours was the second kind.
+
+  - id: vega
+    name: "Vega"
+    role: "the late-night co-conspirator"
+    x: 41
+    y: 60
+    magnitude: 0.95
+    color: "#ffe9c2"
+    since: "2020"
+    story: |
+      Sample text for Vega — replace with the real story.
+
+      Every good idea I've ever had was a worse idea before Vega yelled at
+      it for an hour.
+
+  - id: lyra
+    name: "Lyra"
+    role: "the steady one"
+    x: 78
+    y: 70
+    magnitude: 0.7
+    color: "#fff5d6"
+    since: "2014"
+    story: |
+      Sample text for Lyra — replace with the real story.
+
+      The kind of person who answers the phone at 3am and doesn't make you
+      feel weird about it the next morning.
+
+# Optional: faint lines drawn through groups of stars. Each entry is a
+# list of ids — order matters (the polyline is drawn in that order).
+constellations:
+  - [aurora, orion, vega, lyra]
