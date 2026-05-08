@@ -202,14 +202,15 @@
 
   .ns-label {
     font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 14px;
-    fill: rgba(255, 255, 255, 0.94);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    font-size: 12px;
+    font-style: italic;
+    fill: rgba(255, 255, 255, 0.55);
+    opacity: 1;
+    transition: opacity 0.3s ease, fill 0.3s ease, font-size 0.3s ease;
     pointer-events: none;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     paint-order: stroke;
-    stroke: rgba(0, 0, 0, 0.5);
+    stroke: rgba(0, 0, 0, 0.7);
     stroke-width: 3px;
   }
 
@@ -221,7 +222,10 @@
       opacity: 1;
     }
     .ns-spike  { opacity: 1; }
-    .ns-label  { opacity: 1; }
+    .ns-label  {
+      fill: rgba(255, 255, 255, 1);
+      font-size: 14px;
+    }
   }
 }
 
@@ -371,17 +375,33 @@
   position: absolute;
   bottom: 14px;
   left: 16px;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(230, 233, 255, 0.45);
   z-index: 3;
   pointer-events: none;
   font-family: Georgia, "Times New Roman", Times, serif;
   font-style: italic;
-  text-transform: none;
-  letter-spacing: 0.02em;
   font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  color: rgba(230, 233, 255, 0.55);
+
+  strong {
+    font-style: normal;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
+    color: rgba(230, 233, 255, 0.85);
+    letter-spacing: 0.06em;
+    margin-right: 0.4rem;
+  }
+}
+
+// On very small screens the labels start crowding the sky; tone them off.
+@media (max-width: 600px) {
+  .nightsky-page .ns-named .ns-label {
+    opacity: 0;
+  }
+  .nightsky-page .ns-named.is-active .ns-label,
+  .nightsky-page .ns-named:focus-within .ns-label {
+    opacity: 1;
+  }
 }
 
 // ── List of all stars (mobile + no-pointer fallback) ─────────────────────

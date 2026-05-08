@@ -28,6 +28,10 @@ nav_order: 7
 
     <div class="nightsky-tooltip" id="nightsky-tooltip" role="tooltip" aria-hidden="true"></div>
 
+    <p class="nightsky-hint" id="nightsky-hint" aria-hidden="true">
+      <strong id="nightsky-count">{{ site.data.nightsky.people | size }} stars</strong>hover any
+    </p>
+
     <button class="nightsky-reset" id="nightsky-reset" type="button" aria-label="Reshuffle the ambient stars" title="Reshuffle the ambient stars">↻</button>
   </div>
 
