@@ -369,9 +369,9 @@
 
     // ── Named stars ────────────────────────────────────────────────────
     enriched.forEach(function (p) {
-      const haloR  = 18 + p.magnitude * 16;
-      const coreR  = 1.6 + p.magnitude * 2.4;
-      const spikeLen = 28 + p.magnitude * 20;
+      const haloR  = 22 + p.magnitude * 18;
+      const coreR  = 2.0 + p.magnitude * 2.6;
+      const spikeLen = 32 + p.magnitude * 22;
 
       const g = svgEl("g", { class: "ns-named", "data-id": p.id });
 
