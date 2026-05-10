@@ -202,16 +202,13 @@
 
   .ns-label {
     font-family: Georgia, "Times New Roman", Times, serif;
-    font-size: 12px;
+    font-size: 14px;
     font-style: italic;
-    fill: rgba(255, 255, 255, 0.55);
-    opacity: 1;
-    transition: opacity 0.3s ease, fill 0.3s ease, font-size 0.3s ease;
+    fill: rgba(255, 255, 255, 1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
     pointer-events: none;
-    letter-spacing: 0.04em;
-    paint-order: stroke;
-    stroke: rgba(0, 0, 0, 0.7);
-    stroke-width: 3px;
+    letter-spacing: 0.02em;
   }
 
   &.is-active,
@@ -222,10 +219,7 @@
       opacity: 1;
     }
     .ns-spike  { opacity: 1; }
-    .ns-label  {
-      fill: rgba(255, 255, 255, 1);
-      font-size: 14px;
-    }
+    .ns-label  { opacity: 1; }
   }
 }
 
@@ -393,16 +387,6 @@
   }
 }
 
-// On very small screens the labels start crowding the sky; tone them off.
-@media (max-width: 600px) {
-  .nightsky-page .ns-named .ns-label {
-    opacity: 0;
-  }
-  .nightsky-page .ns-named.is-active .ns-label,
-  .nightsky-page .ns-named:focus-within .ns-label {
-    opacity: 1;
-  }
-}
 
 // ── List of all stars (mobile + no-pointer fallback) ─────────────────────
 .nightsky-list {
