@@ -11,8 +11,8 @@ nav: false
   <header class="nightsky-hero">
     <p class="nightsky-sub">
       Every star here is a real one in the night sky, and it represents a person I know.
-      The name and meaning are a portrait of who they are to me, but who they are stays mine.
-      Hover over any star to read about them.
+      The name and meaning are a portrait of who they are to me, but their real identity stays mine.
+      Hover over any star to read about them. 
       <span class="nightsky-hint-mobile">Tap a star on mobile.</span>
     </p>
   </header>
