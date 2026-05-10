@@ -1446,8 +1446,9 @@ html[data-theme="dark"] {
 .project-card-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  // Equal height across every row so cards in row 2 line up with row 1.
-  grid-auto-rows: 1fr;
+  // Natural card heights — cards without descriptions don't get stretched
+  // into a big empty block. Tops still align within a row.
+  align-items: start;
   gap: 1rem;
   margin-top: 1rem;
   margin-bottom: 2.5rem;
@@ -1458,7 +1459,6 @@ html[data-theme="dark"] {
 
   @media (max-width: 576px) {
     grid-template-columns: 1fr;
-    grid-auto-rows: auto;
   }
 }
 
