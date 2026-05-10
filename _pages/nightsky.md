@@ -3,8 +3,7 @@ layout: page
 title: stars
 permalink: /nightsky/
 description: stories from my night sky — people who shaped me, plotted as stars.
-nav: true
-nav_order: 7
+nav: false
 ---
 
 <div class="nightsky-page" id="nightsky-page">
