@@ -20,7 +20,7 @@ nav: false
   <div class="nightsky-stage" id="nightsky-stage" aria-label="Interactive night sky">
     <svg class="nightsky-svg" id="nightsky-svg"
          viewBox="0 0 1000 600"
-         preserveAspectRatio="xMidYMid slice"
+         preserveAspectRatio="xMidYMid meet"
          role="img"
          aria-hidden="true"></svg>
 
