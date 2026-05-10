@@ -32,7 +32,7 @@ people:
   - id: polaris
     name: "Polaris"
     role: "the one I steer by"
-    star_meaning: "the North Star — what sailors looked up at to find their way home."
+    star_meaning: ""
     constellation: "Ursa Minor"
     x: 50
     y: 12
@@ -40,13 +40,10 @@ people:
     color: "#fff5e0"
     since: ""
     story: |
-      Some people you go to with a problem. Others you go to with a
-      version of yourself you don't quite trust yet, and they listen long
-      enough that the version becomes real.
-
-      I have one of those. They don't say much. They don't need to. I
-      have walked into rooms with them and walked out a slightly steadier
-      person than I came in.
+      I struggle between deep admiration and a pure confusion when I think of you. 
+      You have suffered so much to make magic and I am honored to be part of your
+      it and yet You make me wonder how someone can be so kind and 
+      so callous at the same time.
 
   - id: sirius
     name: "Sirius"
@@ -59,11 +56,9 @@ people:
     color: "#d8e8ff"
     since: ""
     story: |
-      Some friendships are seasonal. This one is not.
-
-      Through the years, the moves, the bad decisions, the long phases of
-      silence — they have always still been there when I came back, with
-      the same eyes, asking the same first question.
+      I can't believe you gave up so many things to make me happy. Its unreal.
+      Your life is almost a biblical tale. I wish we had done right by you. 
+      I am really sorry but I do love you a lot and I hope you know that.
 
   - id: vega
     name: "Vega"
@@ -76,16 +71,14 @@ people:
     color: "#dde8ff"
     since: ""
     story: |
-      Most days I think in straight lines. Around them I think in chords.
-
-      They are the friend who hears the same song I hear and adds the
-      harmony I didn't know was missing. Almost everything I have made
-      that I'm proud of has their fingerprints somewhere on it.
+      I look at you like I have never seen a women, I can't help but stare at you,
+      its one of my favorite things to do. there's no point in trying to hide it, 
+      I know that you know. I hope you remember that on your bad days. 
 
   - id: altair
     name: "Altair"
     role: "the wanderer"
-    star_meaning: "the flying eagle — fast, far, hard to keep up with."
+    star_meaning: "the flying eagle, fast, far, hard to keep up with."
     constellation: "Aquila"
     x: 88
     y: 46
@@ -93,16 +86,16 @@ people:
     color: "#f0f4ff"
     since: ""
     story: |
-      They are never where I left them. New city, new project, new
-      tangle of people, every time.
-
-      I love them precisely for it. They remind me that a life can be
-      restless without being lost.
+      I love how you keep floating through life like a bird. Always drifting
+      with the wave of emotion, I wish I could be more like you. A bit more 
+      free a bit more alive a bit more relaxed. You make me feel like love is 
+      the only thing that matters and everything else is just
+       a haze of logistics to get to love.
 
   - id: antares
     name: "Antares"
     role: "the one who fights me on every idea"
-    star_meaning: "rival of Mars — the red, defiant heart of the scorpion."
+    star_meaning: "rival of Mars: the red, defiant heart of the scorpion."
     constellation: "Scorpius"
     x: 70
     y: 80
@@ -110,29 +103,12 @@ people:
     color: "#ff9c80"
     since: ""
     story: |
-      Every good idea I have ever had was a worse idea before they yelled
-      at it for an hour.
+      You know if we didn't fight about dumb stuff all day life won't be as fun
+      as it is. I know we will part ways soon and I don't know what I will 
+      do if I don't get to pick a fight with you. I hope you are
+      happy wherever you go, I hope you miss me atleast half as much as I will 
+      miss you.
 
-      They do not let me get away with my own nonsense. The conversations
-      I dread the most before, I'm always grateful for after.
-
-  - id: betelgeuse
-    name: "Betelgeuse"
-    role: "the dramatic one"
-    star_meaning: "a red supergiant — so massive it's expected to go supernova in our galaxy's lifetime."
-    constellation: "Orion"
-    x: 30
-    y: 28
-    magnitude: 0.85
-    color: "#ff8d6e"
-    since: ""
-    story: |
-      Nothing is small with them. A coffee is an event. A bad day is a
-      tragedy. A good day is the best thing that has ever happened.
-
-      Some people find this exhausting. I find it instructive. They have
-      taught me that flattening your feelings is not the same as having
-      them under control.
 
   - id: rigel
     name: "Rigel"
@@ -145,61 +121,10 @@ people:
     color: "#c8d6ff"
     since: ""
     story: |
-      When I get loud and reckless, they get quiet and specific. They
-      ask the question whose answer I have been avoiding.
+      I worry about you a lot and someday I hope we solve all your
+      troubles. There's no one who deserves as much joy as you. 
+      You were once my protector and now I wish to be yours.
 
-      I do not always like them in those moments. I always need them in
-      those moments.
-
-  - id: spica
-    name: "Spica"
-    role: "the one who feeds me"
-    star_meaning: "'ear of wheat' — held by the goddess of the harvest."
-    constellation: "Virgo"
-    x: 46
-    y: 72
-    magnitude: 0.75
-    color: "#cfdcff"
-    since: ""
-    story: |
-      Their love language is dinner, and tea, and a chair pulled up to
-      the kitchen counter while I tell them what is wrong this week.
-
-      I have eaten so many of my best memories in their kitchen.
-
-  - id: capella
-    name: "Capella"
-    role: "the playful one"
-    star_meaning: "'little she-goat' — Auriga's golden binary, said to keep the charioteer warm."
-    constellation: "Auriga"
-    x: 62
-    y: 36
-    magnitude: 0.9
-    color: "#ffe0a8"
-    since: ""
-    story: |
-      They are the reason I still know how to be a child sometimes. Tag
-      in the hallway. Made-up words at dinner. The bit we have been
-      doing together for years that no one else gets.
-
-      I forget how to laugh at nothing without them.
-
-  - id: arcturus
-    name: "Arcturus"
-    role: "the protector"
-    star_meaning: "'guardian of the bear' — the orange giant that watches over Ursa Major."
-    constellation: "Boötes"
-    x: 78
-    y: 64
-    magnitude: 0.95
-    color: "#ffc488"
-    since: ""
-    story: |
-      They were the first person to tell me, in plain words, that I was
-      worth defending.
-
-      Years later it is still the sentence I reach for when I have
-      forgotten it.
 
 # Optional faint connecting lines. Off by default.
 constellations: []

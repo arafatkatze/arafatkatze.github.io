@@ -1,19 +1,18 @@
 ---
 layout: page
-title: stars
+title: Stories from my night sky
 permalink: /nightsky/
-description: stories from my night sky — people who shaped me, plotted as stars.
+description: 
 nav: false
 ---
 
 <div class="nightsky-page" id="nightsky-page">
 
   <header class="nightsky-hero">
-    <h1 class="nightsky-title">Stories from my night sky.</h1>
     <p class="nightsky-sub">
-      Every star up there is a real one in the night sky, and every star up there is a person I know.
-      Its name and meaning are a portrait of who they are to me — but who they are stays mine.
-      Hover any star to read a little of their story.
+      Every star here is a real one in the night sky, and it represents a person I know.
+      The name and meaning are a portrait of who they are to me, but who they are stays mine.
+      Hover over any star to read about them.
       <span class="nightsky-hint-mobile">Tap a star on mobile.</span>
     </p>
   </header>
@@ -28,7 +27,7 @@ nav: false
     <div class="nightsky-tooltip" id="nightsky-tooltip" role="tooltip" aria-hidden="true"></div>
 
     <p class="nightsky-hint" id="nightsky-hint" aria-hidden="true">
-      <strong id="nightsky-count">{{ site.data.nightsky.people | size }} stars</strong>hover any
+      <strong id="nightsky-count"> hover any stars</strong>
     </p>
 
     <button class="nightsky-reset" id="nightsky-reset" type="button" aria-label="Reshuffle the ambient stars" title="Reshuffle the ambient stars">↻</button>
