@@ -58,13 +58,6 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/pixels/";
           },
-        },{id: "nav-stars",
-          title: "stars",
-          description: "stories from my night sky — people who shaped me, plotted as stars.",
-          section: "Navigation",
-          handler: () => {
-            window.location.href = "/nightsky/";
-          },
         },{id: "post-the-gift-of-an-agonizing-limerance",
         
           title: "The gift of an agonizing limerance",
