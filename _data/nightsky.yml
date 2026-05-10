@@ -31,7 +31,6 @@ show_constellations: false
 people:
   - id: polaris
     name: "Polaris"
-    role: "the one I steer by"
     star_meaning: ""
     constellation: "Ursa Minor"
     x: 50
@@ -47,7 +46,6 @@ people:
 
   - id: sirius
     name: "Sirius"
-    role: "the loyal one"
     star_meaning: "the brightest star in the night sky. The Dog Star."
     constellation: "Canis Major"
     x: 18
@@ -62,7 +60,6 @@ people:
 
   - id: vega
     name: "Vega"
-    role: "the one who makes things sing"
     star_meaning: "the harp star — Lyra's brightest, named for the falling vulture-musician."
     constellation: "Lyra"
     x: 82
@@ -77,7 +74,6 @@ people:
 
   - id: altair
     name: "Altair"
-    role: "the wanderer"
     star_meaning: "the flying eagle, fast, far, hard to keep up with."
     constellation: "Aquila"
     x: 88
@@ -94,7 +90,6 @@ people:
 
   - id: antares
     name: "Antares"
-    role: "the one who fights me on every idea"
     star_meaning: "rival of Mars: the red, defiant heart of the scorpion."
     constellation: "Scorpius"
     x: 70
@@ -112,7 +107,6 @@ people:
 
   - id: rigel
     name: "Rigel"
-    role: "the one who keeps me grounded"
     star_meaning: "'foot of the giant' — Orion's blue-white anchor."
     constellation: "Orion"
     x: 12
