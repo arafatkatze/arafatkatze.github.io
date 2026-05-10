@@ -527,7 +527,6 @@
       head.appendChild(heading);
       tooltip.appendChild(head);
 
-      if (p.star_meaning) tooltip.appendChild(el("p", { class: "ns-tt-meaning", text: p.star_meaning }));
       if (p.role) tooltip.appendChild(el("p", { class: "ns-tt-role", text: p.role }));
       if (p.story) {
         const firstPara = paragraphs(p.story)[0] || "";
@@ -535,9 +534,23 @@
       }
       tooltip.appendChild(el("p", { class: "ns-tt-hint", text: "click to read more" }));
 
+      // Use getScreenCTM so we get the *real* screen position of the star
+      // even when the SVG is letterboxed inside a non-matching stage
+      // aspect-ratio (which happens on mobile / tablet sizes).
       const stageRect = stage.getBoundingClientRect();
-      const sx = (p.cx / VB_W) * stageRect.width;
-      const sy = (p.cy / VB_H) * stageRect.height;
+      const ctm = svg.getScreenCTM();
+      let sx, sy;
+      if (ctm) {
+        const pt = svg.createSVGPoint();
+        pt.x = p.cx;
+        pt.y = p.cy;
+        const s = pt.matrixTransform(ctm);
+        sx = s.x - stageRect.left;
+        sy = s.y - stageRect.top;
+      } else {
+        sx = (p.cx / VB_W) * stageRect.width;
+        sy = (p.cy / VB_H) * stageRect.height;
+      }
 
       tooltip.setAttribute("data-visible", "true");
       tooltip.setAttribute("aria-hidden", "false");
@@ -596,10 +609,6 @@
       if (metaBits.length) heading.appendChild(el("p", { class: "ns-modal-meta", text: metaBits.join(" · ") }));
       head.appendChild(heading);
       modalCard.appendChild(head);
-
-      if (p.star_meaning) {
-        modalCard.appendChild(el("p", { class: "ns-modal-meaning", text: p.star_meaning }));
-      }
 
       const story = el("div", { class: "ns-modal-story" });
       paragraphs(p.story).forEach(function (text) {
