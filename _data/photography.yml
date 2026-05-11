@@ -1,0 +1,43 @@
+# Photography projects.
+#
+# Each entry becomes a pill in the project switcher on /photography/ and its
+# images become the grid for that selection. The first entry is the default.
+#
+# Image URL is built from:   image_base + image_prefix + zero-padded N + ".jpg"
+# (or set `images:` explicitly as a list of full URLs to override that scheme).
+#
+# NOTE: the URLs below are TEMPORARY external placeholders used only to
+# preview the layout. Replace each project with my own photos before launch.
+
+projects:
+  - slug: for-god-so-loved-the-world
+    title: For God So Loved the World
+    description: ""
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 1
+    image_end: 66
+
+  - slug: a-day-on-mt-diablo
+    title: A Day on Mt. Diablo
+    description: ""
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 1
+    image_end: 18
+
+  - slug: a-dinner
+    title: A Dinner
+    description: ""
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 19
+    image_end: 36
+
+  - slug: point-reyes-storm
+    title: Point Reyes, Storm
+    description: ""
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 37
+    image_end: 60
