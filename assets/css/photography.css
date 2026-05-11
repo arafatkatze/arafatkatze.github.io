@@ -48,6 +48,54 @@
   margin: 0 auto;
 }
 
+.photo-gallery__caption[hidden] { display: none; }
+
+/* Project switcher (pill bar) */
+.photo-gallery__projects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 0.5rem;
+  margin: 0 auto 1.75rem;
+  padding: 0 1rem;
+  max-width: 100%;
+}
+
+.photo-gallery__pill {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid var(--global-divider-color, rgba(0, 0, 0, 0.15));
+  color: var(--global-text-color, #333);
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 120ms ease;
+  white-space: nowrap;
+}
+
+.photo-gallery__pill:hover {
+  border-color: var(--global-text-color, #333);
+}
+
+.photo-gallery__pill:focus-visible {
+  outline: 2px solid var(--global-theme-color, #b509ac);
+  outline-offset: 2px;
+}
+
+.photo-gallery__pill.is-active {
+  background: var(--global-text-color, #1c1c1d);
+  color: var(--global-bg-color, #fff);
+  border-color: var(--global-text-color, #1c1c1d);
+}
+
+.photo-gallery__pill.is-active:hover {
+  transform: none;
+}
+
 .photo-gallery__stack {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
