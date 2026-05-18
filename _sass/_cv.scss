@@ -2,6 +2,72 @@
  * CV shared styles
  *****************************/
 
+a.cv-pdf-cta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin: 1.25rem 0 1.75rem;
+  padding: 1.1rem 1.5rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.75rem;
+  background-color: var(--global-card-bg-color, var(--global-bg-color));
+  color: var(--global-text-color) !important;
+  text-decoration: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+a.cv-pdf-cta:hover,
+a.cv-pdf-cta:focus {
+  transform: translateY(-1px);
+  border-color: var(--global-theme-color);
+  color: var(--global-theme-color) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  text-decoration: none !important;
+}
+
+.cv-pdf-cta__icon {
+  font-size: 1.85rem;
+  color: var(--global-theme-color);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cv-pdf-cta__text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  line-height: 1.25;
+}
+
+.cv-pdf-cta__title {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.cv-pdf-cta__subtitle {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 0.15rem;
+}
+
+.cv-pdf-cta__arrow {
+  font-size: 0.95rem;
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+a.cv-pdf-cta:hover .cv-pdf-cta__arrow {
+  opacity: 1;
+}
+
 div.container-link-button {
   margin-right: 0.5rem;
 }
