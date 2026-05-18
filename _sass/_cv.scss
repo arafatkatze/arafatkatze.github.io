@@ -2,6 +2,18 @@
  * CV shared styles
  *****************************/
 
+.cv-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.25rem 0 1.75rem;
+}
+
+.cv-cta-row > a.cv-pdf-cta {
+  flex: 1 1 280px;
+  margin: 0;
+}
+
 a.cv-pdf-cta {
   display: flex;
   align-items: center;
