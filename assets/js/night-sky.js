@@ -604,7 +604,6 @@
       }));
       if (p.role)  heading.appendChild(el("p", { class: "ns-modal-role", text: p.role }));
       const metaBits = [];
-      if (p.constellation) metaBits.push("in " + p.constellation);
       if (p.since) metaBits.push("since " + p.since);
       if (metaBits.length) heading.appendChild(el("p", { class: "ns-modal-meta", text: metaBits.join(" · ") }));
       head.appendChild(heading);
