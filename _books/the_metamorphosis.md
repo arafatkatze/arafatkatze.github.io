@@ -6,5 +6,5 @@ cover: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v17781826
 isbn: "0553213695"
 categories: fiction classics
 buy_link: https://www.goodreads.com/book/show/485894.The_Metamorphosis
-status: Favorite
+status: Read
 ---

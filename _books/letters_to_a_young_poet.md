@@ -6,5 +6,5 @@ cover: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v17781826
 isbn: "0393310396"
 categories: nonfiction poetry philosophy
 buy_link: https://www.goodreads.com/book/show/780534.Letters_to_a_Young_Poet
-status: Favorite
+status: Read
 ---
