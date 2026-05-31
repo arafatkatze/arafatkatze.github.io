@@ -1,9 +1,6 @@
 {% assign book = include.book %}
 {% assign badge = include.badge %}
 <a class="book-card" href="{{ book.buy_link | default: book.url | relative_url }}">
-  <div class="book-card-top">
-    <span class="card-arrow">↗</span>
-  </div>
   <div class="card-body">
     <div class="book-cover">
       {% if book.cover %}
