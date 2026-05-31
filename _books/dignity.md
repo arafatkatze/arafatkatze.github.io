@@ -6,5 +6,5 @@ cover: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v17781826
 isbn: "0525534733"
 categories: nonfiction sociology photography
 buy_link: https://www.goodreads.com/book/show/38796298-dignity
-status: Favorite
+status: Read
 ---

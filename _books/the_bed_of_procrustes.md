@@ -6,5 +6,5 @@ cover: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v17781826
 isbn: "0812982401"
 categories: nonfiction philosophy
 buy_link: https://www.goodreads.com/book/show/9402297-the-bed-of-procrustes
-status: Favorite
+status: Read
 ---

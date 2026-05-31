@@ -6,5 +6,5 @@ cover: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v17781826
 isbn: "159463193X"
 categories: fiction classics
 buy_link: https://www.goodreads.com/book/show/6066095-the-kite-runner
-status: Favorite
+status: Read
 ---

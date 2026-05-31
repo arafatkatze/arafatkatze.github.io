@@ -6,5 +6,5 @@ cover: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v17781826
 isbn: "1544514212"
 categories: nonfiction self-help
 buy_link: https://www.goodreads.com/book/show/59277017-the-almanack-of-naval-ravikant
-status: Favorite
+status: Read
 ---
