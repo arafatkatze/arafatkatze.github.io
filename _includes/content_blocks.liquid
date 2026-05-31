@@ -3,10 +3,23 @@
   Tiles are defined in page.bento_tiles front matter.
 {% endcomment %}
 
+{% comment %}
+  Each tile pops in a different direction on hover. A tile can set its own
+  direction with `pop:` in front matter (pop-up, pop-down, pop-left,
+  pop-right, pop-zoom, pop-tilt); otherwise we cycle through the variants so
+  adjacent tiles animate differently.
+{% endcomment %}
+{% assign pop_cycle = "pop-up,pop-left,pop-zoom,pop-down,pop-right,pop-tilt" | split: "," %}
 <div class="bento-grid">
   {% for tile in page.bento_tiles %}
+    {% if tile.pop %}
+      {% assign pop_class = tile.pop %}
+    {% else %}
+      {% assign pop_index = forloop.index0 | modulo: 6 %}
+      {% assign pop_class = pop_cycle[pop_index] %}
+    {% endif %}
     <a
-      class="bento-tile {{ tile.type | default: 'image' }} {% if tile.span %}span-{{ tile.span }}{% endif %} {% if tile.bg %}bg-{{ tile.bg }}{% endif %}"
+      class="bento-tile {{ tile.type | default: 'image' }} {{ pop_class }} {% if tile.span %}span-{{ tile.span }}{% endif %} {% if tile.bg %}bg-{{ tile.bg }}{% endif %}"
       href="{{ tile.link | relative_url }}"
       {% if tile.style %}style="{{ tile.style }}"{% endif %}
     >
