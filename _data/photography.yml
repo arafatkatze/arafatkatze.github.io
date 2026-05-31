@@ -9,14 +9,6 @@
 
 projects:
 
-  - slug: switzerland
-    title: "Switzerland"
-    description: ""
-    images:
-      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197660/2026-03-26_20-35-55_313_wdsryh.jpg
-      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197656/2026-03-26_20-36-29_769_qlsxnq.jpg
-      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197642/2026-03-27_10-47-51_631_ythmmx.jpg
-
   - slug: canada
     title: "Canada"
     description: ""

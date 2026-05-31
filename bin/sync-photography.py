@@ -29,7 +29,6 @@ TRANSFORM = "q_auto,f_auto,c_limit,w_1600"
 # (Cloudinary asset folder, page slug). Order matters -- first entry is
 # the default tab. Edit this list to add / reorder / remove projects.
 FOLDERS: list[tuple[str, str]] = [
-    ("Switzerland",    "switzerland"),
     ("Canada",         "canada"),
     ("United Kingdom", "united-kingdom"),
     ("United States",  "united-states"),
