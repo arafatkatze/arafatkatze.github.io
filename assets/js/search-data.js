@@ -193,6 +193,11 @@ ninja.data = [{
           description: "",
           section: "Books",handler: () => {
               window.location.href = "/books/dignity.html";
+            },},{id: "books-gravity-and-grace",
+          title: 'Gravity and Grace',
+          description: "",
+          section: "Books",handler: () => {
+              window.location.href = "/books/gravity_and_grace.html";
             },},{id: "books-into-the-wild",
           title: 'Into the Wild',
           description: "",
