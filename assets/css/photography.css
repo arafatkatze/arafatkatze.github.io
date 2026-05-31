@@ -50,18 +50,64 @@
 
 .photo-gallery__caption[hidden] { display: none; }
 
-/* Project switcher (pill bar) */
+/* Project switcher (pill bar)
+ *
+ * Wrap (.photo-gallery__projects-wrap) hosts the scrollable nav plus two
+ * absolutely-positioned nudge arrows. The nav itself is a single-row
+ * horizontal scroll strip with an edge-fade mask so the list scales
+ * gracefully from 4 to 20+ projects. JS toggles a data-overflow attribute
+ * on the wrap to show/hide the nudge buttons when overflow is present. */
+.photo-gallery__projects-wrap {
+  position: relative;
+  max-width: min(1100px, 100%);
+  margin: 0 auto 1.75rem;
+  padding: 0;
+}
+
 .photo-gallery__projects {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding: 0.4rem 1.25rem 0.6rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.photo-gallery__projects::-webkit-scrollbar { display: none; }
+
+/* Centre the pills until they actually overflow (so 4 projects don't look
+ * left-aligned in a wide bar). Once they exceed the container we fall back
+ * to flex-start via the data-overflow flag set by JS. */
+.photo-gallery__projects-wrap:not([data-overflow="true"]) .photo-gallery__projects {
   justify-content: center;
-  gap: 0.4rem 0.5rem;
-  margin: 0 auto 1.75rem;
-  padding: 0 1rem;
-  max-width: 100%;
+}
+
+/* Edge fade only when the strip is actually scrollable. */
+.photo-gallery__projects-wrap[data-overflow="true"] .photo-gallery__projects {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 32px,
+    #000 calc(100% - 32px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 32px,
+    #000 calc(100% - 32px),
+    transparent 100%
+  );
 }
 
 .photo-gallery__pill {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
   appearance: none;
   -webkit-appearance: none;
   background: transparent;
@@ -73,7 +119,7 @@
   padding: 0.5rem 0.95rem;
   border-radius: 999px;
   cursor: pointer;
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease, transform 120ms ease;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
   white-space: nowrap;
 }
 
@@ -92,8 +138,54 @@
   border-color: var(--global-text-color, #1c1c1d);
 }
 
-.photo-gallery__pill.is-active:hover {
-  transform: none;
+/* Nudge arrow buttons -- shown only when there is content to scroll to. */
+.photo-gallery__nudge {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--global-bg-color, #fff);
+  color: var(--global-text-color, #1c1c1d);
+  border: 1px solid var(--global-divider-color, rgba(0, 0, 0, 0.15));
+  border-radius: 999px;
+  font: inherit;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 140ms ease, color 140ms ease, opacity 160ms ease, transform 140ms ease;
+  padding: 0;
+}
+
+.photo-gallery__nudge[hidden] { display: none; }
+
+.photo-gallery__nudge--prev { left: -0.25rem; }
+.photo-gallery__nudge--next { right: -0.25rem; }
+
+.photo-gallery__nudge:hover {
+  background: var(--global-text-color, #1c1c1d);
+  color: var(--global-bg-color, #fff);
+  border-color: var(--global-text-color, #1c1c1d);
+}
+
+.photo-gallery__nudge:focus-visible {
+  outline: 2px solid var(--global-theme-color, #b509ac);
+  outline-offset: 2px;
+}
+
+@media (max-width: 540px) {
+  .photo-gallery__projects { padding: 0.4rem 0.75rem 0.6rem; }
+  .photo-gallery__nudge { display: none !important; }
+  .photo-gallery__projects-wrap[data-overflow="true"] .photo-gallery__projects {
+    /* Smaller fade on phones so the first/last pills aren't washed out */
+    mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+  }
 }
 
 .photo-gallery__stack {

@@ -12,6 +12,9 @@
     var dataNode = document.getElementById("photo-projects-data");
     var stack = document.getElementById("photo-gallery-stack");
     var pillsContainer = document.getElementById("photo-gallery-projects");
+    var pillsWrap = pillsContainer ? pillsContainer.parentElement : null;
+    var nudgePrev = pillsWrap ? pillsWrap.querySelector('[data-photo-nudge="prev"]') : null;
+    var nudgeNext = pillsWrap ? pillsWrap.querySelector('[data-photo-nudge="next"]') : null;
     var titleEl = document.getElementById("photo-gallery-title");
     var captionEl = document.getElementById("photo-gallery-caption");
     var lightbox = document.getElementById("photo-lightbox");
@@ -114,6 +117,9 @@
 
       document.title = project.title + " · Photography";
 
+      scrollActivePillIntoView(slug);
+      updatePillOverflow();
+
       // Reset scroll to the top of the gallery section on switch (but not
       // on initial load, which would fight deep-link anchors).
       if (opts && opts.scrollTo) {
@@ -183,6 +189,58 @@
       }
     });
 
+    /* ---------- Pill bar overflow + nudge arrows ---------- */
+
+    function updatePillOverflow() {
+      if (!pillsContainer || !pillsWrap) return;
+      var scrollW = pillsContainer.scrollWidth;
+      var clientW = pillsContainer.clientWidth;
+      var scrollL = pillsContainer.scrollLeft;
+      var overflowing = scrollW - clientW > 1;
+      pillsWrap.setAttribute("data-overflow", overflowing ? "true" : "false");
+      if (nudgePrev) {
+        var atStart = scrollL <= 2;
+        nudgePrev.hidden = !overflowing || atStart;
+        nudgePrev.tabIndex = nudgePrev.hidden ? -1 : 0;
+      }
+      if (nudgeNext) {
+        var atEnd = scrollL + clientW >= scrollW - 2;
+        nudgeNext.hidden = !overflowing || atEnd;
+        nudgeNext.tabIndex = nudgeNext.hidden ? -1 : 0;
+      }
+    }
+
+    function nudgeBy(delta) {
+      if (!pillsContainer) return;
+      pillsContainer.scrollBy({ left: delta, behavior: "smooth" });
+    }
+
+    if (nudgePrev) {
+      nudgePrev.addEventListener("click", function () {
+        nudgeBy(-Math.max(160, pillsContainer.clientWidth * 0.7));
+      });
+    }
+    if (nudgeNext) {
+      nudgeNext.addEventListener("click", function () {
+        nudgeBy(Math.max(160, pillsContainer.clientWidth * 0.7));
+      });
+    }
+
+    pillsContainer.addEventListener("scroll", updatePillOverflow, { passive: true });
+    window.addEventListener("resize", updatePillOverflow);
+
+    function scrollActivePillIntoView(slug) {
+      if (!pillsContainer) return;
+      var pill = pillsContainer.querySelector('[data-project-slug="' + slug + '"]');
+      if (!pill) return;
+      var pillRect = pill.getBoundingClientRect();
+      var contRect = pillsContainer.getBoundingClientRect();
+      if (pillRect.left < contRect.left + 12 || pillRect.right > contRect.right - 12) {
+        var offset = pill.offsetLeft - (pillsContainer.clientWidth - pill.offsetWidth) / 2;
+        pillsContainer.scrollTo({ left: Math.max(0, offset), behavior: "smooth" });
+      }
+    }
+
     /* ---------- Pill switcher ---------- */
 
     pillsContainer.addEventListener("click", function (event) {
@@ -225,6 +283,15 @@
     /* ---------- Boot ---------- */
 
     setActiveProject(readSlugFromUrl(), { updateUrl: false });
+
+    // Pill widths depend on font + layout; recheck overflow once layout
+    // settles and again after webfonts (if any) finish loading.
+    requestAnimationFrame(updatePillOverflow);
+    if (document.fonts && typeof document.fonts.ready === "object") {
+      document.fonts.ready.then(updatePillOverflow).catch(function () {});
+    } else {
+      window.setTimeout(updatePillOverflow, 250);
+    }
   }
 
   if (document.readyState === "loading") {

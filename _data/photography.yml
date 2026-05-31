@@ -3,8 +3,12 @@
 # Each entry becomes a pill in the project switcher on /photography/ and its
 # images become the grid for that selection. The first entry is the default.
 #
-# Image URL is built from:   image_base + image_prefix + zero-padded N + ".jpg"
+# Image URLs are built from:  image_base + image_prefix + zero-padded N + ".jpg"
 # (or set `images:` explicitly as a list of full URLs to override that scheme).
+#
+# When the pill bar overflows the viewport, it becomes a single-row horizontal
+# scroll strip with edge fades + nudge arrows -- so the list scales gracefully
+# from a few projects to many.
 #
 # NOTE: the URLs below are TEMPORARY external placeholders used only to
 # preview the layout. Replace each project with my own photos before launch.
@@ -20,7 +24,6 @@ projects:
 
   - slug: a-day-on-mt-diablo
     title: A Day on Mt. Diablo
-    description: ""
     image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
     image_prefix: p-
     image_start: 1
@@ -28,7 +31,6 @@ projects:
 
   - slug: a-dinner
     title: A Dinner
-    description: ""
     image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
     image_prefix: p-
     image_start: 19
@@ -36,8 +38,49 @@ projects:
 
   - slug: point-reyes-storm
     title: Point Reyes, Storm
-    description: ""
     image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
     image_prefix: p-
     image_start: 37
     image_end: 60
+
+  - slug: brazil
+    title: Brazil
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 1
+    image_end: 12
+
+  - slug: tokyo-nights
+    title: Tokyo Nights
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 13
+    image_end: 30
+
+  - slug: portraits
+    title: Portraits
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 6
+    image_end: 22
+
+  - slug: street
+    title: Street
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 23
+    image_end: 50
+
+  - slug: skiing
+    title: Skiing
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 40
+    image_end: 56
+
+  - slug: architecture
+    title: Architecture
+    image_base: https://asemenza.net/photos/For%20God%20So%20Loved%20the%20World/
+    image_prefix: p-
+    image_start: 50
+    image_end: 66
