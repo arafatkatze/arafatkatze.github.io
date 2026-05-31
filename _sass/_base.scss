@@ -2672,17 +2672,68 @@ html[data-theme="dark"] .about-content {
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  // Springy easing (overshoots slightly) gives the tile a satisfying "pop".
+  transition:
+    transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.32s ease;
+  will-change: transform;
   background: var(--global-card-bg-color);
   border: 1px solid var(--global-divider-color);
 
+  // Default pop: lift + grow. Individual tiles override the transform below
+  // to pop in different directions (see .pop-* variants).
   &:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
     text-decoration: none;
+    z-index: 2;
 
     .bento-tile-img img {
-      transform: scale(1.04);
+      transform: scale(1.09);
+    }
+  }
+
+  // --- Directional pop variants (chester.how-style varied hovers) ---
+  &.pop-up:hover {
+    transform: translateY(-10px) scale(1.04);
+  }
+
+  &.pop-down:hover {
+    transform: translateY(9px) scale(1.03);
+  }
+
+  &.pop-left:hover {
+    transform: translateX(-10px) scale(1.04);
+  }
+
+  &.pop-right:hover {
+    transform: translateX(10px) scale(1.04);
+  }
+
+  &.pop-zoom:hover {
+    transform: scale(1.07);
+
+    .bento-tile-img img {
+      transform: scale(1.13);
+    }
+  }
+
+  &.pop-tilt:hover {
+    transform: translateY(-8px) rotate(-2deg) scale(1.04);
+  }
+
+  // Respect users who prefer reduced motion.
+  @media (prefers-reduced-motion: reduce) {
+    transition: box-shadow 0.2s ease;
+
+    &:hover,
+    &.pop-up:hover,
+    &.pop-down:hover,
+    &.pop-left:hover,
+    &.pop-right:hover,
+    &.pop-zoom:hover,
+    &.pop-tilt:hover {
+      transform: none;
     }
   }
 
