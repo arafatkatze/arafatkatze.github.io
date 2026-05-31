@@ -20,17 +20,37 @@ nav_order: 7
     <p class="photo-gallery__caption" id="photo-gallery-caption" hidden></p>
   </header>
 
-  <nav class="photo-gallery__projects" id="photo-gallery-projects" aria-label="Projects">
-    {% for project in site.data.photography.projects %}
-      <button
-        class="photo-gallery__pill{% if forloop.first %} is-active{% endif %}"
-        type="button"
-        role="tab"
-        data-project-slug="{{ project.slug }}"
-        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-      >{{ project.title }}</button>
-    {% endfor %}
-  </nav>
+  <div class="photo-gallery__projects-wrap" data-overflow="false">
+    <button
+      type="button"
+      class="photo-gallery__nudge photo-gallery__nudge--prev"
+      data-photo-nudge="prev"
+      aria-label="Scroll projects left"
+      tabindex="-1"
+      hidden
+    >&#8249;</button>
+
+    <nav class="photo-gallery__projects" id="photo-gallery-projects" aria-label="Projects" role="tablist">
+      {% for project in site.data.photography.projects %}
+        <button
+          class="photo-gallery__pill{% if forloop.first %} is-active{% endif %}"
+          type="button"
+          role="tab"
+          data-project-slug="{{ project.slug }}"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        >{{ project.title }}</button>
+      {% endfor %}
+    </nav>
+
+    <button
+      type="button"
+      class="photo-gallery__nudge photo-gallery__nudge--next"
+      data-photo-nudge="next"
+      aria-label="Scroll projects right"
+      tabindex="-1"
+      hidden
+    >&#8250;</button>
+  </div>
 
   <div class="photo-gallery__stack" id="photo-gallery-stack" aria-live="polite"></div>
 </section>
