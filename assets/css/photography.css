@@ -1,0 +1,338 @@
+---
+---
+
+/*
+ * Photography gallery + lightbox
+ * Responsive full-bleed grid (3 -> 2 -> 1 column) with a click-to-zoom modal.
+ */
+
+/* Break out of the Bootstrap .container that wraps page content so the
+ * gallery can fill the full viewport width. */
+.photo-gallery {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 0 clamp(0.5rem, 1.2vw, 1.25rem) 4rem;
+  box-sizing: border-box;
+}
+
+.photo-gallery__intro {
+  text-align: center;
+  margin: 1.5rem auto 2rem;
+  padding: 0 1rem;
+}
+
+.photo-gallery__eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--global-text-color-light, #828282);
+  margin: 0 0 0.5rem;
+}
+
+.photo-gallery__title {
+  font-family: var(--global-theme-font, inherit);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.photo-gallery__caption {
+  color: var(--global-text-color-light, #6a6a6a);
+  font-size: 0.9rem;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.photo-gallery__caption[hidden] { display: none; }
+
+/* Project switcher (pill bar)
+ *
+ * Wrap (.photo-gallery__projects-wrap) hosts the scrollable nav plus two
+ * absolutely-positioned nudge arrows. The nav itself is a single-row
+ * horizontal scroll strip with an edge-fade mask so the list scales
+ * gracefully from 4 to 20+ projects. JS toggles a data-overflow attribute
+ * on the wrap to show/hide the nudge buttons when overflow is present. */
+.photo-gallery__projects-wrap {
+  position: relative;
+  max-width: min(1100px, 100%);
+  margin: 0 auto 1.75rem;
+  padding: 0;
+}
+
+.photo-gallery__projects {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding: 0.4rem 1.25rem 0.6rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.photo-gallery__projects::-webkit-scrollbar { display: none; }
+
+/* Centre the pills until they actually overflow (so 4 projects don't look
+ * left-aligned in a wide bar). Once they exceed the container we fall back
+ * to flex-start via the data-overflow flag set by JS. */
+.photo-gallery__projects-wrap:not([data-overflow="true"]) .photo-gallery__projects {
+  justify-content: center;
+}
+
+/* Edge fade only when the strip is actually scrollable. */
+.photo-gallery__projects-wrap[data-overflow="true"] .photo-gallery__projects {
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 32px,
+    #000 calc(100% - 32px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 32px,
+    #000 calc(100% - 32px),
+    transparent 100%
+  );
+}
+
+.photo-gallery__pill {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid var(--global-divider-color, rgba(0, 0, 0, 0.15));
+  color: var(--global-text-color, #333);
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  white-space: nowrap;
+}
+
+.photo-gallery__pill:hover {
+  border-color: var(--global-text-color, #333);
+}
+
+.photo-gallery__pill:focus-visible {
+  outline: 2px solid var(--global-theme-color, #b509ac);
+  outline-offset: 2px;
+}
+
+.photo-gallery__pill.is-active {
+  background: var(--global-text-color, #1c1c1d);
+  color: var(--global-bg-color, #fff);
+  border-color: var(--global-text-color, #1c1c1d);
+}
+
+/* Nudge arrow buttons -- shown only when there is content to scroll to. */
+.photo-gallery__nudge {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--global-bg-color, #fff);
+  color: var(--global-text-color, #1c1c1d);
+  border: 1px solid var(--global-divider-color, rgba(0, 0, 0, 0.15));
+  border-radius: 999px;
+  font: inherit;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background 140ms ease, color 140ms ease, opacity 160ms ease, transform 140ms ease;
+  padding: 0;
+}
+
+.photo-gallery__nudge[hidden] { display: none; }
+
+.photo-gallery__nudge--prev { left: -0.25rem; }
+.photo-gallery__nudge--next { right: -0.25rem; }
+
+.photo-gallery__nudge:hover {
+  background: var(--global-text-color, #1c1c1d);
+  color: var(--global-bg-color, #fff);
+  border-color: var(--global-text-color, #1c1c1d);
+}
+
+.photo-gallery__nudge:focus-visible {
+  outline: 2px solid var(--global-theme-color, #b509ac);
+  outline-offset: 2px;
+}
+
+@media (max-width: 540px) {
+  .photo-gallery__projects { padding: 0.4rem 0.75rem 0.6rem; }
+  .photo-gallery__nudge { display: none !important; }
+  .photo-gallery__projects-wrap[data-overflow="true"] .photo-gallery__projects {
+    /* Smaller fade on phones so the first/last pills aren't washed out */
+    mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16px, #000 calc(100% - 16px), transparent 100%);
+  }
+}
+
+.photo-gallery__stack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.4rem, 0.8vw, 0.9rem);
+}
+
+.photo-gallery__frame {
+  margin: 0;
+  cursor: zoom-in;
+  background: var(--global-bg-color, #eee);
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  position: relative;
+  transition: opacity 200ms ease, transform 240ms ease;
+}
+
+.photo-gallery__frame:hover,
+.photo-gallery__frame:focus-visible {
+  opacity: 0.92;
+  outline: none;
+}
+
+.photo-gallery__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms ease;
+}
+
+.photo-gallery__frame:hover .photo-gallery__image,
+.photo-gallery__frame:focus-visible .photo-gallery__image {
+  transform: scale(1.02);
+}
+
+@media (max-width: 900px) {
+  .photo-gallery__stack { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 540px) {
+  .photo-gallery__stack { grid-template-columns: 1fr; }
+  .photo-gallery__frame { aspect-ratio: 4 / 5; }
+}
+
+/* Lightbox overlay */
+.photo-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.photo-lightbox[data-open="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.photo-lightbox[hidden] {
+  display: none;
+}
+
+.photo-lightbox__stage {
+  margin: 0;
+  max-width: min(100%, 1400px);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.photo-lightbox__image {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 7rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+}
+
+.photo-lightbox__counter {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.photo-lightbox__close,
+.photo-lightbox__nav {
+  position: absolute;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.photo-lightbox__close:hover,
+.photo-lightbox__nav:hover {
+  color: #fff;
+}
+
+.photo-lightbox__close {
+  top: 1rem;
+  right: 1.25rem;
+  font-size: 2.4rem;
+}
+
+.photo-lightbox__nav {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.photo-lightbox__nav:hover {
+  transform: translateY(-50%) scale(1.08);
+}
+
+.photo-lightbox__nav--prev { left: 0.75rem; }
+.photo-lightbox__nav--next { right: 0.75rem; }
+
+@media (max-width: 600px) {
+  .photo-lightbox { padding: 0.75rem; }
+  .photo-lightbox__nav { font-size: 2.2rem; }
+  .photo-lightbox__close { font-size: 2rem; top: 0.5rem; right: 0.75rem; }
+}
+
+/* Lock body scroll when lightbox is open */
+body.photo-lightbox-open {
+  overflow: hidden;
+}
