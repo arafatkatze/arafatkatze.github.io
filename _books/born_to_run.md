@@ -6,5 +6,5 @@ cover: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v17781826
 isbn: "0307266303"
 categories: nonfiction running adventure
 buy_link: https://www.goodreads.com/book/show/6289283-born-to-run
-status: Favorite
+status: Read
 ---
