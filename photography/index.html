@@ -1,0 +1,120 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Photography | Ara's Space </title> <meta name="author" content="Ara Khan"> <meta name="description" content="A full-bleed grid of photographs, grouped by project."> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5"> <link defer rel="stylesheet" href="/assets/css/scholar-icons.css?62b2ac103a88034e6882a5be5f3e2772"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Fraunces:300,400,500,600,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%92%8C&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e"> <link rel="canonical" href="https://arafatkatze.github.io/photography/"> <script src="/assets/js/theme.js?a81d82887dd692e91686b43de4542f18"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse" id="navbarNav"> <div class="pill-nav-row"> <div class="pill-nav-wrapper"> <a class="pill-nav-link " href="/">About</a> <a class="pill-nav-link " href="/reading/">Reading</a> <a class="pill-nav-link " href="/blog/">Writing</a> <a class="pill-nav-link " href="/projects/">Projects</a> <a class="pill-nav-link " href="/cv/">Resume</a> <a class="pill-nav-link " href="/travel/">Travel</a> <a class="pill-nav-link active" href="/photography/">Photography</a> <a class="pill-nav-link " href="/pixels/">Pixel Board</a> </div> <div class="pill-nav-actions"> <button id="search-toggle" class="pill-nav-icon" title="Search" onclick="openSearchModal()"> <i class="ti ti-search"></i> </button> <button id="light-toggle" class="pill-nav-icon" title="Change theme"> <i class="ti ti-sun-moon" id="light-toggle-system"></i> <i class="ti ti-moon-filled" id="light-toggle-dark"></i> <i class="ti ti-sun-filled" id="light-toggle-light"></i> </button> </div> </div> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <section class="photo-gallery" aria-label="Photography projects"> <header class="photo-gallery__intro"> <p class="photo-gallery__eyebrow">Photographs</p> <h1 class="photo-gallery__title" id="photo-gallery-title">Canada</h1> <p class="photo-gallery__caption" id="photo-gallery-caption" hidden=""></p> </header> <div class="photo-gallery__projects-wrap" data-overflow="false"> <button type="button" class="photo-gallery__nudge photo-gallery__nudge--prev" data-photo-nudge="prev" aria-label="Scroll projects left" tabindex="-1" hidden="">‹</button> <nav class="photo-gallery__projects" id="photo-gallery-projects" aria-label="Projects" role="tablist"> <button class="photo-gallery__pill is-active" type="button" role="tab" data-project-slug="canada" aria-selected="true">Canada</button> <button class="photo-gallery__pill" type="button" role="tab" data-project-slug="united-kingdom" aria-selected="false">United Kingdom</button> <button class="photo-gallery__pill" type="button" role="tab" data-project-slug="united-states" aria-selected="false">United States</button> </nav> <button type="button" class="photo-gallery__nudge photo-gallery__nudge--next" data-photo-nudge="next" aria-label="Scroll projects right" tabindex="-1" hidden="">›</button> </div> <div class="photo-gallery__stack" id="photo-gallery-stack" aria-live="polite"></div> </section> <div class="photo-lightbox" id="photo-lightbox" hidden="" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Photograph viewer"> <button class="photo-lightbox__close" type="button" data-photo-action="close" aria-label="Close viewer">×</button> <button class="photo-lightbox__nav photo-lightbox__nav--prev" type="button" data-photo-action="prev" aria-label="Previous photograph">‹</button> <figure class="photo-lightbox__stage"> <img class="photo-lightbox__image" id="photo-lightbox-image" alt=""> <figcaption class="photo-lightbox__counter" id="photo-lightbox-counter"></figcaption> </figure> <button class="photo-lightbox__nav photo-lightbox__nav--next" type="button" data-photo-action="next" aria-label="Next photograph">›</button> </div> <script id="photo-projects-data" type="application/json">
+{
+  "projects": [{
+        "slug": "canada",
+        "title": "Canada",
+        "description": "",
+        "images": ["https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197643/2025-12-03_07-22-00_933_p6yypf.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197637/2025-12-06_11-35-32_559_ihxhcm.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197634/2025-12-09_15-29-49_018_ql8uyq.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197671/2025-12-10_11-08-04_824_vxusvk.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197628/2025-12-12_07-13-13_813_ggkv8s.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197639/2025-12-20_11-06-05_612_gjzku8.jpg"]
+      },{
+        "slug": "united-kingdom",
+        "title": "United Kingdom",
+        "description": "",
+        "images": ["https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197685/2026-04-09_15-39-14_601_i6bnpy.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197665/2026-04-10_16-51-37_360_xfxzz8.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197637/2026-04-12_11-05-40_302_ik3fvb.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197633/2026-04-12_11-14-51_110_kpb66n.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197644/2026-04-12_12-01-02_856_mzybun.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197640/2026-04-12_13-08-49_396_wbp6rw.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197626/2026-04-12_13-24-23_093_uqsgpt.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197630/2026-04-12_13-32-00_214_yxmt6c.jpg"]
+      },{
+        "slug": "united-states",
+        "title": "United States",
+        "description": "",
+        "images": ["https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197634/2025-10-03_18-11-18_695_zdr8kk.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197633/2025-10-03_18-12-34_139_xfmhy7.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197635/2025-10-05_15-20-05_000_peqwpp.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197626/2025-11-01_16-33-29_487_ujlidw.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197630/2025-11-01_16-45-11_363_ek0xi2.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197634/2025-11-01_17-17-52_829_cfqu8e.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197659/2025-11-01_17-34-24_743_fnhjz6.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197635/2025-12-30_17-08-25_454_fkx6bf.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197652/2025-12-31_12-40-18_132_tux5qa.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197655/2026-01-01_16-14-00_700_ldtnoq.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197635/2026-01-01_16-16-42_679_ljcj4p.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197628/2026-01-02_15-09-09_294_n5y1kz.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197630/2026-01-02_15-09-58_661_u7penp.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197646/2026-02-28_12-17-47_331_aiq5fm.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197648/2026-03-13_18-49-45_941_bmq1qv.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197649/2026-03-19_19-41-19_146_zxkmxz.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197650/2026-03-21_15-52-33_963_fqj5mj.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197660/2026-03-22_12-35-32_109_lekjq6.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197674/2026-03-22_12-35-44_757_ookwa9.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197650/2026-04-08_05-04-44_173_cbvjq9.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197666/2026-04-17_16-26-08_638_qc98ks.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197646/2026-04-18_17-15-39_524_w7zloi.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197636/2026-05-05_18-37-21_085_zh3qio.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197648/2026-05-15_11-03-23_827_gep5br.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197669/2026-05-15_14-14-28_818_jpbnkr.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197643/2026-05-15_14-21-58_146_fcijqg.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197661/2026-05-17_15-06-23_379_ucwlmv.jpg","https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780197631/SZuB0qv8T5uHii7ixNBdOA_n6vqj6.jpg"]
+      }]
+}
+</script> <link rel="stylesheet" href="/assets/css/photography.css"> <script src="/assets/js/photography.js" defer></script> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Ara Khan. </div> </footer> <button class="contact-fab" onclick="openContactModal()" aria-label="Contact me"> <i class="fa-solid fa-envelope"></i> </button> <div id="contactModal" class="contact-modal" onclick="closeContactModalOutside(event)"> <div class="contact-modal-content"> <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">×</button> <div id="contactFormState"> <h4 class="contact-modal-title">Get in Touch</h4> <p class="contact-modal-subtitle"> Some of my best relationships started with a random message out of the blue. Whether you want to reconnect, share something, or just say hello I'm here and I'd love to hear from you. I read everything and I always respond. </p> <form id="contactForm" class="contact-form"> <div class="form-group"> <input type="email" name="email" id="contactEmail" class="form-control contact-input" placeholder="Your email" required> <span id="emailError" class="contact-error" style="display: none;">Please enter a valid email address</span> </div> <div class="form-group"> <textarea name="message" id="contactMessage" class="form-control contact-textarea" placeholder="Your message" rows="4" required></textarea> </div> <button type="submit" class="btn contact-submit-btn" id="contactSubmitBtn">Send Message</button> <span id="submitError" class="contact-error" style="display: none; margin-top: 10px;">Something went wrong. Please try again.</span> </form> </div> <div id="contactSuccessState" style="display: none; text-align: center; padding: 20px 0;"> <div style="font-size: 2.5rem; margin-bottom: 16px; color: var(--global-theme-color);"><i class="fa-solid fa-check-circle"></i></div> <h4 class="contact-modal-title">Message Sent!</h4> <p class="contact-modal-subtitle" style="margin-bottom: 0;">Thanks for reaching out. I'll get back to you soon!</p> </div> </div> </div> <script>
+  function openContactModal() {
+    document.getElementById('contactModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Reset to form state when opening
+    document.getElementById('contactFormState').style.display = 'block';
+    document.getElementById('contactSuccessState').style.display = 'none';
+    // Clear any previous errors
+    document.getElementById('emailError').style.display = 'none';
+    document.getElementById('submitError').style.display = 'none';
+    document.getElementById('contactEmail').classList.remove('input-error');
+  }
+
+  function closeContactModal() {
+    document.getElementById('contactModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeContactModalOutside(event) {
+    if (event.target.id === 'contactModal') {
+      closeContactModal();
+    }
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      closeContactModal();
+    }
+  });
+
+  // Email validation function
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  // Clear error on input
+  document.getElementById('contactEmail').addEventListener('input', function () {
+    document.getElementById('emailError').style.display = 'none';
+    this.classList.remove('input-error');
+  });
+
+  // Handle form submission with AJAX
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const emailInput = document.getElementById('contactEmail');
+    const emailError = document.getElementById('emailError');
+    const submitError = document.getElementById('submitError');
+    const submitBtn = document.getElementById('contactSubmitBtn');
+
+    // Clear previous errors
+    emailError.style.display = 'none';
+    submitError.style.display = 'none';
+    emailInput.classList.remove('input-error');
+
+    // Validate email
+    if (!isValidEmail(emailInput.value)) {
+      emailError.style.display = 'block';
+      emailInput.classList.add('input-error');
+      emailInput.focus();
+      return;
+    }
+
+    const formData = new FormData(form);
+
+    // Disable button and show loading
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    fetch('https://formspree.io/f/mqeenowa', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Show success state
+          document.getElementById('contactFormState').style.display = 'none';
+          document.getElementById('contactSuccessState').style.display = 'block';
+          // Reset form
+          form.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch((error) => {
+        submitError.style.display = 'block';
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      });
+  });
+</script> <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> <script src="/assets/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?a0db7e5d5c70cc3252b3138b0c91dcaf" type="text/javascript"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script> <script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script> <script defer src="/assets/js/common.js?c15de51d4bb57887caa2c21988d97279"></script> <script defer src="/assets/js/copy_code.js?c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/js/mathjax-setup.js?a5bb4e6a542c546dd929b24b8b236dfd"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script defer src="/assets/js/progress-bar.js?2f30e0e6801ea8f5036fa66e1ab0a71a" type="text/javascript"></script> <script type="module" src="/assets/js/search/ninja-keys.min.js?a3446f084dcaecc5f75aa1757d087dcf"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/js/search-setup.js?6c304f7b1992d4b60f7a07956e52f04a"></script> <script src="/assets/js/search-data.js"></script> <script src="/assets/js/shortcut-key.js?6f508d74becd347268a7f822bca7309d"></script> </body> </html>

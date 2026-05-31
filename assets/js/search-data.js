@@ -44,6 +44,13 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/travel/";
           },
+        },{id: "nav-photography",
+          title: "Photography",
+          description: "A full-bleed grid of photographs, grouped by project.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/photography/";
+          },
         },{id: "nav-pixel-board",
           title: "Pixel Board",
           description: "collaborative pixel art, leave your mark",
