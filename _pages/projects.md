@@ -12,7 +12,6 @@ display_categories: [art, fun, work]
 
 <div class="blog-hero">
   <h1>projects.</h1>
-  <p>Some of my favourite life stories and photos. Art, travel, work — it's all here.</p>
 </div>
 
 {% assign all_projects = "" | split: "" %}
