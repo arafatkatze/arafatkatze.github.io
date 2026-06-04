@@ -35,7 +35,7 @@ TRANSFORM = "q_auto,f_auto,c_limit,w_1600"
 # Folders that exist in Cloudinary but should NOT appear as photography tabs
 # (e.g. assets for blog posts or general site graphics). Compared
 # case-insensitively against folder names.
-IGNORE_FOLDERS: set[str] = {"blogs", "site"}
+IGNORE_FOLDERS: set[str] = {"blogs", "site", "Switzerland"}
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 OUT_PATH = REPO_ROOT / "_data" / "photography.yml"
