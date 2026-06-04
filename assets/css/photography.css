@@ -72,7 +72,9 @@
   padding: 0.4rem 1.25rem 0.6rem;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-behavior: smooth;
+  /* No scroll-behavior here -- we want all post-load scrolls to be
+   * instant. The single smooth scroll on initial page load is opted
+   * into explicitly from JS via behavior: "smooth". */
   scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
