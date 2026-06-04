@@ -52,7 +52,22 @@ nav_order: 7
     >&#8250;</button>
   </div>
 
-  <div class="photo-gallery__stack" id="photo-gallery-stack" aria-live="polite"></div>
+  <div class="photo-gallery__stack" id="photo-gallery-stack" aria-live="polite" data-default-slug="{{ site.data.photography.projects[0].slug }}">
+    {%- comment -%}
+      Server-render the default project's grid so the page paints with photos
+      already in place -- no empty-to-populated pop on first load. The JS
+      controller detects this pre-rendered grid via data-default-slug and
+      just attaches click/keyboard handlers instead of re-rendering.
+    {%- endcomment -%}
+    {%- assign default_project = site.data.photography.projects[0] -%}
+    {%- if default_project.images -%}
+      {%- for url in default_project.images -%}
+        <figure class="photo-gallery__frame" data-index="{{ forloop.index0 }}" tabindex="0" role="button" aria-label="Open photograph {{ forloop.index }}">
+          <img class="photo-gallery__image" src="{{ url }}" alt="Photograph {{ forloop.index }}" loading="lazy" decoding="async" />
+        </figure>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
 </section>
 
 <div class="photo-lightbox" id="photo-lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Photograph viewer">

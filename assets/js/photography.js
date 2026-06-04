@@ -58,6 +58,19 @@
       } catch (e) { /* no-op */ }
     }
 
+    function bindFrameHandlers() {
+      var frames = stack.querySelectorAll(".photo-gallery__frame");
+      frames.forEach(function (fig, idx) {
+        fig.addEventListener("click", function () { openLightbox(idx); });
+        fig.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openLightbox(idx);
+          }
+        });
+      });
+    }
+
     function renderGrid(project) {
       stack.innerHTML = "";
       var frag = document.createDocumentFragment();
@@ -75,21 +88,16 @@
         img.loading = "lazy";
         img.decoding = "async";
         fig.appendChild(img);
-        fig.addEventListener("click", function () { openLightbox(idx); });
-        fig.addEventListener("keydown", function (event) {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            openLightbox(idx);
-          }
-        });
         frag.appendChild(fig);
       });
       stack.appendChild(frag);
+      bindFrameHandlers();
     }
 
     function setActiveProject(slug, opts) {
       var project = bySlug[slug];
       if (!project) return;
+      var initial = !!(opts && opts.initial);
       activeSlug = slug;
       activeImages = project.images || [];
 
@@ -111,13 +119,21 @@
         pill.setAttribute("aria-selected", isActive ? "true" : "false");
       });
 
-      renderGrid(project);
+      // On initial boot, if the active slug matches the server-rendered
+      // default we can keep the existing DOM and just attach handlers --
+      // avoids a visible empty-to-populated jump on first paint.
+      var defaultSlug = stack.getAttribute("data-default-slug");
+      if (initial && slug === defaultSlug && stack.children.length > 0) {
+        bindFrameHandlers();
+      } else {
+        renderGrid(project);
+      }
 
       if (opts && opts.updateUrl) writeSlugToUrl(slug);
 
       document.title = project.title + " · Photography";
 
-      scrollActivePillIntoView(slug);
+      scrollActivePillIntoView(slug, initial);
       updatePillOverflow();
 
       // Reset scroll to the top of the gallery section on switch (but not
@@ -229,7 +245,7 @@
     pillsContainer.addEventListener("scroll", updatePillOverflow, { passive: true });
     window.addEventListener("resize", updatePillOverflow);
 
-    function scrollActivePillIntoView(slug) {
+    function scrollActivePillIntoView(slug, instant) {
       if (!pillsContainer) return;
       var pill = pillsContainer.querySelector('[data-project-slug="' + slug + '"]');
       if (!pill) return;
@@ -237,7 +253,10 @@
       var contRect = pillsContainer.getBoundingClientRect();
       if (pillRect.left < contRect.left + 12 || pillRect.right > contRect.right - 12) {
         var offset = pill.offsetLeft - (pillsContainer.clientWidth - pill.offsetWidth) / 2;
-        pillsContainer.scrollTo({ left: Math.max(0, offset), behavior: "smooth" });
+        pillsContainer.scrollTo({
+          left: Math.max(0, offset),
+          behavior: instant ? "auto" : "smooth"
+        });
       }
     }
 
@@ -282,7 +301,7 @@
 
     /* ---------- Boot ---------- */
 
-    setActiveProject(readSlugFromUrl(), { updateUrl: false });
+    setActiveProject(readSlugFromUrl(), { updateUrl: false, initial: true });
 
     // Pill widths depend on font + layout; recheck overflow once layout
     // settles and again after webfonts (if any) finish loading.
