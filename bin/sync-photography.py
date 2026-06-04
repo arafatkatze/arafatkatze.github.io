@@ -4,14 +4,20 @@
 Usage:
     CLOUDINARY_KEY=...  CLOUDINARY_SECRET=...  bin/sync-photography.py
 
-Reads the asset folders listed in FOLDERS below from your Cloudinary
-account and writes one YAML project per folder, with an `images:` list
-of delivery URLs. Image URLs include `q_auto,f_auto,c_limit,w_1600`
-transformations so browsers get a properly sized WebP/AVIF.
+The script auto-discovers every top-level asset folder in your Cloudinary
+account (cloud name defaults to `dozxd4znm`, override with
+CLOUDINARY_CLOUD_NAME) and emits one YAML project per folder, sorted
+alphabetically by display title.
 
-To add a new tab/project, upload photos into a new asset folder in
-Cloudinary, then add a (folder_name, slug) tuple to FOLDERS and rerun
-this script.
+Folder -> tab mapping:
+  - Folder name is title-cased for the tab label  (e.g. "brazil" -> "Brazil").
+  - Slug is the lowercase folder name with spaces replaced by hyphens
+    (e.g. "United Kingdom" -> "united-kingdom").
+  - Folders in IGNORE_FOLDERS (case-insensitive) are skipped so non-photo
+    folders like `blogs` / `site` never become tabs.
+
+To add a new tab: upload photos to a new asset folder in Cloudinary and
+rerun this script -- no code changes needed.
 """
 from __future__ import annotations
 
@@ -26,33 +32,43 @@ from pathlib import Path
 CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME", "dozxd4znm")
 TRANSFORM = "q_auto,f_auto,c_limit,w_1600"
 
-# (Cloudinary asset folder, page slug). Order matters -- first entry is
-# the default tab. Edit this list to add / reorder / remove projects.
-FOLDERS: list[tuple[str, str]] = [
-    ("Canada",         "canada"),
-    ("United Kingdom", "united-kingdom"),
-    ("United States",  "united-states"),
-]
+# Folders that exist in Cloudinary but should NOT appear as photography tabs
+# (e.g. assets for blog posts or general site graphics). Compared
+# case-insensitively against folder names.
+IGNORE_FOLDERS: set[str] = {"blogs", "site"}
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 OUT_PATH = REPO_ROOT / "_data" / "photography.yml"
 
+API_BASE = f"https://api.cloudinary.com/v1_1/{CLOUD_NAME}"
+
+
+def _request(api_key: str, api_secret: str, path: str, params: dict | None = None):
+    """GET helper that returns the parsed JSON body."""
+    qs = ("?" + urllib.parse.urlencode(params)) if params else ""
+    url = f"{API_BASE}{path}{qs}"
+    auth = b64encode(f"{api_key}:{api_secret}".encode()).decode()
+    req = urllib.request.Request(url, headers={"Authorization": f"Basic {auth}"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.load(resp)
+
+
+def list_root_folders(api_key: str, api_secret: str) -> list[str]:
+    """Discover every top-level asset folder, minus the ignore list."""
+    data = _request(api_key, api_secret, "/folders")
+    names = [f["name"] for f in data.get("folders", [])]
+    return [n for n in names if n.lower() not in {x.lower() for x in IGNORE_FOLDERS}]
+
 
 def fetch_folder(api_key: str, api_secret: str, folder: str) -> list[dict]:
-    """Fetch every resource in a Cloudinary asset folder, paging if needed."""
-    base = f"https://api.cloudinary.com/v1_1/{CLOUD_NAME}/resources/by_asset_folder"
-    auth = b64encode(f"{api_key}:{api_secret}".encode()).decode()
-    headers = {"Authorization": f"Basic {auth}"}
+    """Fetch every resource in an asset folder, paging if needed."""
     resources: list[dict] = []
-    cursor = None
+    cursor: str | None = None
     while True:
         params = {"asset_folder": folder, "max_results": "500"}
         if cursor:
             params["next_cursor"] = cursor
-        url = f"{base}?{urllib.parse.urlencode(params)}"
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.load(resp)
+        data = _request(api_key, api_secret, "/resources/by_asset_folder", params)
         resources.extend(data.get("resources", []))
         cursor = data.get("next_cursor")
         if not cursor:
@@ -62,7 +78,7 @@ def fetch_folder(api_key: str, api_secret: str, folder: str) -> list[dict]:
 
 
 def url_for(resource: dict) -> str:
-    """Inject our transformations into the Cloudinary delivery URL."""
+    """Inject the delivery transformations into a Cloudinary secure_url."""
     secure = resource["secure_url"]
     marker = "/image/upload/"
     i = secure.find(marker)
@@ -71,6 +87,19 @@ def url_for(resource: dict) -> str:
     head = secure[: i + len(marker)]
     tail = secure[i + len(marker):]
     return f"{head}{TRANSFORM}/{tail}"
+
+
+def title_for(folder: str) -> str:
+    """`brazil` -> `Brazil`, but preserve existing capitalisation otherwise.
+    `United Kingdom` stays as-is, `iPhone` would also stay as-is."""
+    if folder.islower() or folder.isupper():
+        return folder.title()
+    return folder
+
+
+def slug_for(folder: str) -> str:
+    """`United Kingdom` -> `united-kingdom`."""
+    return folder.lower().replace(" ", "-")
 
 
 def yaml_string(s: str) -> str:
@@ -87,25 +116,45 @@ def main() -> int:
         )
         return 1
 
-    out: list[str] = []
-    out.append("# Photography projects.")
-    out.append("#")
-    out.append("# Each entry below is one tab in the project switcher on /photography/.")
-    out.append("# Image URLs use Cloudinary's q_auto,f_auto delivery so the browser gets a")
-    out.append("# properly sized WebP/AVIF without us managing variants. To regenerate this")
-    out.append("# file after uploading new photos to Cloudinary, run:")
-    out.append("#")
-    out.append("#   CLOUDINARY_KEY=... CLOUDINARY_SECRET=... bin/sync-photography.py")
-    out.append("")
-    out.append("projects:")
+    try:
+        folder_names = list_root_folders(key, secret)
+    except Exception as e:
+        print(f"error: failed to list folders: {e}", file=sys.stderr)
+        return 1
 
-    for title, slug in FOLDERS:
+    # Order tabs alphabetically by their display title for stability.
+    projects = sorted(folder_names, key=lambda n: title_for(n).lower())
+
+    out: list[str] = [
+        "# Photography projects.",
+        "#",
+        "# AUTO-GENERATED by bin/sync-photography.py from your Cloudinary",
+        "# top-level asset folders (excluding bin/sync-photography.py IGNORE_FOLDERS).",
+        "# Each folder becomes one tab in /photography/.",
+        "#",
+        "# To regenerate after uploading new photos / folders to Cloudinary, run:",
+        "#",
+        "#   CLOUDINARY_KEY=... CLOUDINARY_SECRET=... bin/sync-photography.py",
+        "",
+        "projects:",
+    ]
+
+    total_images = 0
+    tab_count = 0
+    for folder in projects:
+        title = title_for(folder)
+        slug = slug_for(folder)
         try:
-            resources = fetch_folder(key, secret, title)
+            resources = fetch_folder(key, secret, folder)
         except Exception as e:
-            print(f"error: failed to fetch {title!r}: {e}", file=sys.stderr)
+            print(f"error: failed to fetch {folder!r}: {e}", file=sys.stderr)
             return 1
+        if not resources:
+            print(f"{title}: (skipped, 0 images)")
+            continue
         print(f"{title}: {len(resources)} images")
+        total_images += len(resources)
+        tab_count += 1
         out.append("")
         out.append(f"  - slug: {slug}")
         out.append(f"    title: {yaml_string(title)}")
@@ -116,7 +165,8 @@ def main() -> int:
 
     out.append("")
     OUT_PATH.write_text("\n".join(out))
-    print(f"\nWrote {OUT_PATH.relative_to(REPO_ROOT)}")
+    print(f"\n{total_images} images across {tab_count} folders")
+    print(f"Wrote {OUT_PATH.relative_to(REPO_ROOT)}")
     return 0
 
 
