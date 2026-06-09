@@ -9,7 +9,7 @@ tags: philosophy relationships life
 
 <div style="display: flex; justify-content: center;">
   <div style="width: 100%; max-width: 550px;">
-    {% twitter https://x.com/bluewmist/status/2006044097845350754 %}
+    {% twitter https://twitter.com/bluewmist/status/2006044097845350754 %}
   </div>
 </div>
 
