@@ -80,12 +80,11 @@
 
 .photo-gallery__projects::-webkit-scrollbar { display: none; }
 
-/* Centre the pills until they actually overflow (so 4 projects don't look
- * left-aligned in a wide bar). Once they exceed the container we fall back
- * to flex-start via the data-overflow flag set by JS. */
-.photo-gallery__projects-wrap:not([data-overflow="true"]) .photo-gallery__projects {
-  justify-content: center;
-}
+/* Pills are always left-aligned. We previously toggled justify-content
+ * between center (no overflow) and flex-start (overflow) via the
+ * data-overflow attribute set by JS, but that caused a visible
+ * right-to-left jump on first paint as JS measured and switched the
+ * alignment. Always left-aligning gives a stable initial paint. */
 
 /* Edge fade only when the strip is actually scrollable. */
 .photo-gallery__projects-wrap[data-overflow="true"] .photo-gallery__projects {
