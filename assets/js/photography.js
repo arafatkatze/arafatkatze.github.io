@@ -59,6 +59,9 @@
     }
 
     function renderGrid(project) {
+      // The first project's grid is rendered server-side (see photography.md)
+      // so the page paints with content before JS runs; don't rebuild it.
+      if (stack.getAttribute("data-rendered-slug") === project.slug) return;
       stack.innerHTML = "";
       var frag = document.createDocumentFragment();
       project.images.forEach(function (src, idx) {
@@ -75,17 +78,33 @@
         img.loading = "lazy";
         img.decoding = "async";
         fig.appendChild(img);
-        fig.addEventListener("click", function () { openLightbox(idx); });
-        fig.addEventListener("keydown", function (event) {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            openLightbox(idx);
-          }
-        });
         frag.appendChild(fig);
       });
       stack.appendChild(frag);
+      stack.setAttribute("data-rendered-slug", project.slug);
     }
+
+    // Delegated handlers so both server-rendered and JS-rendered frames work.
+    function frameIndex(event) {
+      var frame = event.target.closest(".photo-gallery__frame");
+      if (!frame || !stack.contains(frame)) return -1;
+      var idx = parseInt(frame.getAttribute("data-index"), 10);
+      return isNaN(idx) ? -1 : idx;
+    }
+
+    stack.addEventListener("click", function (event) {
+      var idx = frameIndex(event);
+      if (idx >= 0) openLightbox(idx);
+    });
+
+    stack.addEventListener("keydown", function (event) {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      var idx = frameIndex(event);
+      if (idx >= 0) {
+        event.preventDefault();
+        openLightbox(idx);
+      }
+    });
 
     function setActiveProject(slug, opts) {
       var project = bySlug[slug];

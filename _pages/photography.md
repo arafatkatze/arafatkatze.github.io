@@ -5,6 +5,7 @@ permalink: /photography/
 description: A full-bleed grid of photographs, grouped by project.
 nav: true
 nav_order: 7
+photography: true
 ---
 
 <!--
@@ -52,7 +53,29 @@ nav_order: 7
     >&#8250;</button>
   </div>
 
-  <div class="photo-gallery__stack" id="photo-gallery-stack" aria-live="polite"></div>
+  <!-- First project is rendered at build time so the grid is visible before
+       JS runs; photography.js skips re-rendering when data-rendered-slug
+       already matches the active project. -->
+  {% assign first_project = site.data.photography.projects[0] %}
+  <div class="photo-gallery__stack" id="photo-gallery-stack" aria-live="polite" data-rendered-slug="{{ first_project.slug }}">
+    {% for url in first_project.images %}
+      <figure
+        class="photo-gallery__frame"
+        data-index="{{ forloop.index0 }}"
+        tabindex="0"
+        role="button"
+        aria-label="Open photograph {{ forloop.index }}"
+      >
+        <img
+          class="photo-gallery__image"
+          src="{{ url }}"
+          alt="Photograph {{ forloop.index }}"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    {% endfor %}
+  </div>
 </section>
 
 <div class="photo-lightbox" id="photo-lightbox" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Photograph viewer">
@@ -94,6 +117,3 @@ nav_order: 7
   ]
 }
 </script>
-
-<link rel="stylesheet" href="{{ '/assets/css/photography.css' | relative_url }}" />
-<script src="{{ '/assets/js/photography.js' | relative_url }}" defer></script>
