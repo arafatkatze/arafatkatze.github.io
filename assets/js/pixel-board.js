@@ -284,13 +284,12 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.dispatchEvent(new MouseEvent("mouseup"));
   });
 
-  downloadBtn.addEventListener("click", function () {
+  function renderBoardImage(cellPx) {
     var exportCanvas = document.createElement("canvas");
-    var exportSize = GRID_SIZE * 16;
+    var exportSize = GRID_SIZE * cellPx;
     exportCanvas.width = exportSize;
     exportCanvas.height = exportSize;
     var exportCtx = exportCanvas.getContext("2d");
-    var exportCell = exportSize / GRID_SIZE;
 
     exportCtx.fillStyle = "#1a1a2e";
     exportCtx.fillRect(0, 0, exportSize, exportSize);
@@ -299,20 +298,131 @@ document.addEventListener("DOMContentLoaded", function () {
       for (var x = 0; x < GRID_SIZE; x++) {
         if (grid[y][x]) {
           exportCtx.fillStyle = grid[y][x];
-          exportCtx.fillRect(
-            x * exportCell,
-            y * exportCell,
-            exportCell,
-            exportCell
-          );
+          exportCtx.fillRect(x * cellPx, y * cellPx, cellPx, cellPx);
         }
       }
     }
+    return exportCanvas.toDataURL("image/png");
+  }
 
+  downloadBtn.addEventListener("click", function () {
     var link = document.createElement("a");
     link.download = "pixel-board.png";
-    link.href = exportCanvas.toDataURL("image/png");
+    link.href = renderBoardImage(16);
     link.click();
+  });
+
+  // ----- submit-to-ara modal -----
+  var SUBMIT_URL = "https://formspree.io/f/mqeenowa";
+  var SUBMIT_COOLDOWN_KEY = "pixel-submit-timestamp";
+  var SUBMIT_COOLDOWN_MS = 60000;
+
+  var submitBtn = document.getElementById("submit-board");
+  var submitModal = document.getElementById("pixel-submit-modal");
+  var submitFormState = document.getElementById("pixel-submit-form-state");
+  var submitSuccessState = document.getElementById("pixel-submit-success-state");
+  var submitForm = document.getElementById("pixel-submit-form");
+  var submitPreview = document.getElementById("pixel-submit-preview");
+  var submitCaption = document.getElementById("pixel-submit-caption");
+  var submitMessage = document.getElementById("pixel-submit-message");
+  var submitError = document.getElementById("pixel-submit-error");
+  var submitSend = document.getElementById("pixel-submit-send");
+
+  function showSubmitError(text) {
+    submitError.textContent = text;
+    submitError.classList.add("visible");
+  }
+
+  function clearSubmitError() {
+    submitError.textContent = "";
+    submitError.classList.remove("visible");
+  }
+
+  function openSubmitModal() {
+    if (pixelCount === 0) {
+      metaEl.textContent = "place some pixels first!";
+      metaEl.style.color = "#E84855";
+      return;
+    }
+    submitPreview.src = renderBoardImage(4);
+    submitCaption.textContent =
+      pixelCount + (pixelCount === 1 ? " pixel" : " pixels") + " of pure art";
+    submitFormState.style.display = "block";
+    submitSuccessState.style.display = "none";
+    clearSubmitError();
+    submitModal.classList.add("open");
+    document.body.style.overflow = "hidden";
+    submitMessage.focus();
+  }
+
+  function closeSubmitModal() {
+    submitModal.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  submitBtn.addEventListener("click", openSubmitModal);
+
+  submitModal.querySelectorAll("[data-pixel-close]").forEach(function (el) {
+    el.addEventListener("click", closeSubmitModal);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && submitModal.classList.contains("open")) {
+      closeSubmitModal();
+    }
+  });
+
+  submitMessage.addEventListener("input", clearSubmitError);
+
+  submitForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var message = submitMessage.value.trim();
+    if (!message) {
+      showSubmitError("say something first — a message is required :)");
+      submitMessage.focus();
+      return;
+    }
+
+    var previous = Number(localStorage.getItem(SUBMIT_COOLDOWN_KEY) || 0);
+    if (previous && previous + SUBMIT_COOLDOWN_MS > Date.now()) {
+      showSubmitError("you just sent one — give it a minute before sending another");
+      return;
+    }
+
+    submitSend.disabled = true;
+    submitSend.textContent = "sending...";
+    clearSubmitError();
+
+    fetch(SUBMIT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        _subject: "someone sent you a pixel board",
+        message: message,
+        pixels_placed: pixelCount,
+        pixel_board_image: renderBoardImage(8),
+      }),
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("submit failed");
+        }
+        localStorage.setItem(SUBMIT_COOLDOWN_KEY, String(Date.now()));
+        submitMessage.value = "";
+        submitFormState.style.display = "none";
+        submitSuccessState.style.display = "block";
+      })
+      .catch(function () {
+        showSubmitError("something went wrong sending it — please try again");
+      })
+      .finally(function () {
+        submitSend.disabled = false;
+        submitSend.textContent = "send it";
+      });
   });
 
   function createParticles() {
