@@ -80,12 +80,13 @@
 
 .photo-gallery__projects::-webkit-scrollbar { display: none; }
 
-/* Centre the pills until they actually overflow (so 4 projects don't look
- * left-aligned in a wide bar). Once they exceed the container we fall back
- * to flex-start via the data-overflow flag set by JS. */
-.photo-gallery__projects-wrap:not([data-overflow="true"]) .photo-gallery__projects {
-  justify-content: center;
-}
+/* Centre the pills with auto margins on the first/last pill instead of
+ * justify-content: center. Auto margins collapse to 0 once the strip
+ * overflows, so the bar is centred when it fits and start-aligned (and
+ * fully scrollable) when it doesn't -- with no JS involved, which avoids
+ * the first-paint jump that toggling data-overflow used to cause. */
+.photo-gallery__pill:first-child { margin-left: auto; }
+.photo-gallery__pill:last-child { margin-right: auto; }
 
 /* Edge fade only when the strip is actually scrollable. */
 .photo-gallery__projects-wrap[data-overflow="true"] .photo-gallery__projects {
