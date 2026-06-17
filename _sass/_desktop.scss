@@ -308,6 +308,76 @@
   user-select: text;
 }
 
+// ── Documents (Finder) app ───────────────────────────────────────────────────
+.os-files { margin-top: 0.4rem; }
+.os-files-group { margin-bottom: 0.9rem; }
+.os-files-head {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--os-win-muted);
+  padding: 0 4px 4px;
+}
+.os-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 8px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--os-win-text);
+  text-align: left;
+  cursor: pointer;
+  &:hover { background: rgba(0, 0, 0, 0.06); }
+}
+.os-file-ico { flex: 0 0 auto; }
+.os-file-name { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.os-file-date { flex: 0 0 auto; font-size: 0.72rem; color: var(--os-win-muted); }
+html[data-theme="dark"] .os-file:hover { background: rgba(255, 255, 255, 0.08); }
+
+// ── Document windows (injected post/project content) ──────────────────────────
+.os-window--doc { height: min(72%, 560px); }
+.os-doc-status { color: var(--os-win-muted); font-size: 0.9rem; }
+.os-doc-title { margin: 0 0 0.15rem; font-size: 1.3rem; line-height: 1.2; }
+.os-doc-meta {
+  color: var(--os-win-muted);
+  font-size: 0.78rem;
+  margin-bottom: 1rem;
+}
+.os-doc-article {
+  max-width: 64ch;
+  margin: 0 auto;
+  font-size: 0.95rem;
+  line-height: 1.65;
+
+  h1, h2, h3 { line-height: 1.25; margin: 1.4rem 0 0.6rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.08rem; }
+  p { margin: 0 0 0.9rem; }
+
+  // images / figures from the real post
+  img { max-width: 100%; height: auto; border-radius: 6px; }
+  picture { display: block; }
+  figure { margin: 1rem 0; text-align: center; }
+  figcaption,
+  .caption { font-size: 0.78rem; color: var(--os-win-muted); margin-top: 0.35rem; }
+
+  // tweets / X embeds rendered by widgets.js
+  .twitter-tweet { margin: 1rem auto !important; }
+  blockquote { border-left: 3px solid var(--os-accent); padding-left: 0.9rem; margin: 1rem 0; }
+}
+.os-doc-source {
+  margin-top: 1.5rem !important;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--os-win-border);
+  font-size: 0.82rem;
+}
+
 // ── start menu ───────────────────────────────────────────────────────────────
 .os-startmenu {
   position: absolute;
