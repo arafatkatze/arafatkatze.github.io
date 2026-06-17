@@ -1,0 +1,477 @@
+// =============================================================================
+// /zone/ — a cute retro "old web" hub page.
+// Everything is scoped under .zone-page so none of these playful styles leak
+// into the rest of the academic site. Colors lean on the global CSS variables
+// so light + dark themes both look right.
+// =============================================================================
+
+.zone-page {
+  --zn-accent: #ff5fa2;
+  --zn-accent-2: #6a5cff;
+  --zn-accent-3: #ffd166;
+  --zn-mint: #3dd8c4;
+  --zn-ink: var(--global-text-color);
+  --zn-panel: var(--global-card-bg-color);
+  --zn-border: var(--global-text-color);
+
+  font-family: "Courier New", ui-monospace, monospace;
+  max-width: 920px;
+  margin: 0 auto;
+  line-height: 1.5;
+
+  // soft dotted "graph paper" backdrop that works in both themes
+  background-image: radial-gradient(
+    rgba(106, 92, 255, 0.16) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+  padding: 1.25rem;
+  border-radius: 14px;
+
+  a {
+    color: var(--zn-accent-2);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--zn-accent-2);
+
+    &:hover {
+      color: var(--zn-accent);
+      border-bottom-style: solid;
+    }
+  }
+}
+
+// ---- generic retro window ---------------------------------------------------
+.zone-window {
+  border: 2px solid var(--zn-border);
+  border-radius: 8px;
+  background: var(--zn-panel);
+  box-shadow: 4px 4px 0 rgba(106, 92, 255, 0.35);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.zone-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  background: linear-gradient(90deg, var(--zn-accent-2), var(--zn-accent));
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  user-select: none;
+}
+
+.zone-titlebar-dots {
+  display: inline-flex;
+  gap: 4px;
+
+  i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.25);
+  }
+}
+
+.zone-titlebar-title {
+  letter-spacing: 0.5px;
+}
+
+.zone-titlebar-spacer {
+  flex: 1;
+}
+
+.zone-titlebar-close {
+  margin-left: auto;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #222;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    background: #fff;
+    transform: scale(1.08);
+  }
+}
+
+.zone-window-body {
+  padding: 1.1rem 1.25rem 1.35rem;
+  color: var(--zn-ink);
+}
+
+// ---- hero -------------------------------------------------------------------
+.zone-hero {
+  text-align: center;
+}
+
+.zone-logo {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  font-weight: 900;
+  font-size: clamp(2rem, 9vw, 3.6rem);
+  letter-spacing: 1px;
+  margin-bottom: 0.75rem;
+
+  span {
+    display: inline-block;
+    color: var(--zn-accent-2);
+    text-shadow: 2px 2px 0 var(--zn-accent-3);
+    animation: zone-bob 2.4s ease-in-out infinite;
+  }
+
+  // stagger the bounce per letter
+  @for $i from 1 through 8 {
+    span:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.12}s;
+      &:nth-child(even) { color: var(--zn-accent); }
+    }
+  }
+}
+
+@keyframes zone-bob {
+  0%,
+  100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.zone-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 2px dashed var(--zn-mint);
+  border-bottom: 2px dashed var(--zn-mint);
+  padding: 0.4rem 0;
+  margin: 0.5rem 0 1rem;
+  font-size: 0.85rem;
+  color: var(--zn-ink);
+}
+
+.zone-marquee-track {
+  display: inline-block;
+  padding-left: 100%;
+  animation: zone-scroll 22s linear infinite;
+  will-change: transform;
+}
+
+@keyframes zone-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.zone-tagline {
+  font-size: 0.95rem;
+  margin: 0 auto;
+  max-width: 36rem;
+
+  strong { color: var(--zn-accent); }
+}
+
+// ---- links grid ("everything in tiny boxes") --------------------------------
+.zone-section-title {
+  text-align: center;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: var(--zn-accent-2);
+  margin: 1.5rem 0 1rem;
+}
+
+.zone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 0.7rem;
+}
+
+.zone-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  aspect-ratio: 1 / 1;
+  padding: 0.5rem;
+  text-align: center;
+  border: 2px solid var(--zn-border);
+  border-radius: 8px;
+  background: var(--zn-panel);
+  color: var(--zn-ink) !important;
+  box-shadow: 3px 3px 0 rgba(255, 95, 162, 0.3);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background 0.12s ease;
+  animation: zone-pop-in 0.4s backwards;
+  animation-delay: calc(var(--box) * 0.04s);
+
+  &:hover,
+  &:focus-visible {
+    transform: translate(-2px, -2px) rotate(-1.5deg);
+    box-shadow: 6px 6px 0 var(--zn-accent);
+    background: rgba(106, 92, 255, 0.08);
+    outline: none;
+  }
+}
+
+@keyframes zone-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.zone-box-emoji {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.zone-box-label {
+  font-size: 0.72rem;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+}
+
+// ---- lower section: news window + sidebar -----------------------------------
+.zone-lower {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  align-items: start;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
+
+.zone-window--news {
+  margin-bottom: 0;
+  // becomes free-floating once the visitor drags it
+  &.zone-dragging {
+    position: fixed;
+    z-index: 1050;
+    width: min(420px, 90vw);
+    margin: 0;
+    cursor: grabbing;
+    box-shadow: 8px 8px 0 rgba(106, 92, 255, 0.5);
+  }
+}
+
+#zone-news-handle {
+  cursor: grab;
+}
+
+.zone-news-body {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.zone-news-hint {
+  font-size: 0.7rem;
+  text-align: center;
+  opacity: 0.6;
+  margin: 0 0 0.75rem;
+}
+
+.zone-news-item {
+  border-left: 3px solid var(--zn-accent-3);
+  padding: 0.25rem 0 0.5rem 0.7rem;
+  margin-bottom: 0.9rem;
+
+  h4 {
+    margin: 0.1rem 0 0.3rem;
+    font-size: 0.95rem;
+    color: var(--zn-accent);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.85rem;
+  }
+}
+
+.zone-news-date {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--zn-accent-2);
+  font-weight: bold;
+}
+
+.zone-news-launcher {
+  text-align: center;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.zone-btn {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--zn-border);
+  border-radius: 8px;
+  background: var(--zn-accent-3);
+  color: #2a2a2a;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  }
+}
+
+// ---- sidebar cards ----------------------------------------------------------
+.zone-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.zone-card {
+  border: 2px solid var(--zn-border);
+  border-radius: 8px;
+  background: var(--zn-panel);
+  padding: 0.9rem 1rem;
+  box-shadow: 4px 4px 0 rgba(61, 216, 196, 0.35);
+}
+
+.zone-card-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin: 0 0 0.6rem;
+  color: var(--zn-accent-2);
+}
+
+// pet
+.zone-pet {
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover .zone-pet-sprite {
+    animation: zone-wiggle 0.5s ease;
+  }
+}
+
+.zone-pet-sprite {
+  font-size: 3rem;
+  line-height: 1;
+  display: inline-block;
+}
+
+.zone-pet-status {
+  margin: 0.4rem 0 0;
+  font-size: 0.78rem;
+  font-weight: bold;
+  color: var(--zn-accent);
+}
+
+.zone-pet-bounce .zone-pet-sprite {
+  animation: zone-jump 0.5s ease;
+}
+
+@keyframes zone-wiggle {
+  0%,
+  100% { transform: rotate(0); }
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
+}
+
+@keyframes zone-jump {
+  0%,
+  100% { transform: translateY(0) scale(1); }
+  40% { transform: translateY(-14px) scale(1.15); }
+}
+
+.zone-status-line {
+  margin: 0;
+  font-size: 0.85rem;
+  min-height: 2.4em;
+}
+
+// 88x31 web buttons
+.zone-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.zone-88x31 {
+  width: 88px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 8px;
+  line-height: 1.1;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  color: #fff;
+  image-rendering: pixelated;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3);
+
+  &.b1 { background: linear-gradient(135deg, #ff5fa2, #6a5cff); }
+  &.b2 { background: linear-gradient(135deg, #3dd8c4, #6a5cff); }
+  &.b3 { background: linear-gradient(135deg, #222, #555); }
+  &.b4 { background: linear-gradient(135deg, #ffd166, #ff5fa2); color: #2a2a2a; }
+}
+
+// ---- status bar -------------------------------------------------------------
+.zone-statusbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  border: 2px solid var(--zn-border);
+  border-radius: 8px;
+  background: var(--zn-panel);
+  overflow: hidden;
+  font-size: 0.78rem;
+}
+
+.zone-statusbar-cell {
+  flex: 1 1 auto;
+  padding: 0.5rem 0.8rem;
+  text-align: center;
+  border-right: 1px dashed var(--global-divider-color);
+
+  &:last-child { border-right: none; }
+
+  strong { color: var(--zn-accent); }
+}
+
+.zone-statusbar-construction {
+  animation: zone-blink 1.2s steps(2, start) infinite;
+}
+
+@keyframes zone-blink {
+  50% { opacity: 0.35; }
+}
+
+// ---- accessibility: respect reduced motion ----------------------------------
+@media (prefers-reduced-motion: reduce) {
+  .zone-page {
+    .zone-logo span,
+    .zone-marquee-track,
+    .zone-box,
+    .zone-statusbar-construction {
+      animation: none !important;
+    }
+  }
+}
