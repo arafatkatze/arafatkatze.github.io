@@ -28,6 +28,9 @@ nav: false
       <button class="os-icon" data-open="win-gallery" role="listitem">
         <span class="os-icon-glyph">🖼️</span><span class="os-icon-label">Gallery</span>
       </button>
+      <button class="os-icon" data-open="win-files" role="listitem">
+        <span class="os-icon-glyph">📂</span><span class="os-icon-label">Documents</span>
+      </button>
       <button class="os-icon" data-open="win-contact" role="listitem">
         <span class="os-icon-glyph">📡</span><span class="os-icon-label">Contact</span>
       </button>
@@ -66,6 +69,23 @@ nav: false
           <li>try the <strong>⌨️ Terminal</strong> — type <code>help</code>.</li>
         </ul>
         <p class="os-muted">all of this is plain HTML, CSS and vanilla JS — copy it into any site.</p>
+      </div>
+    </section>
+
+    <!-- documents / finder: lists every post + project, opens them in-OS -->
+    <section class="os-window" id="win-files" data-title="Documents" data-icon="📂"
+             data-x="150" data-y="80" data-w="560">
+      <header class="os-window-bar">
+        <span class="os-window-title"><span class="os-window-ico">📂</span> Documents</span>
+        <div class="os-window-controls">
+          <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button>
+          <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button>
+          <button class="os-ctl os-close" title="Close" aria-label="Close"></button>
+        </div>
+      </header>
+      <div class="os-window-body">
+        <p class="os-muted">every post &amp; project — opens right here in the OS (tweets and images included).</p>
+        <div class="os-files" id="os-files"><p class="os-doc-status">loading…</p></div>
       </div>
     </section>
 
@@ -238,6 +258,7 @@ nav: false
     <button class="os-startitem" data-open="win-projects"><span>🗂️</span> Projects</button>
     <button class="os-startitem" data-open="win-writing"><span>✍️</span> Writing</button>
     <button class="os-startitem" data-open="win-reading"><span>📚</span> Reading</button>
+    <button class="os-startitem" data-open="win-files"><span>📂</span> Documents</button>
     <button class="os-startitem" data-open="win-gallery"><span>🖼️</span> Gallery</button>
     <button class="os-startitem" data-open="win-contact"><span>📡</span> Contact</button>
     <button class="os-startitem" data-open="win-terminal"><span>⌨️</span> Terminal</button>
@@ -259,5 +280,20 @@ nav: false
   </footer>
 
 </div>
+
+{% comment %} Every post + project, injected as JSON so the Documents app can
+open each one inside a window (content is lazy-fetched from the real page). {% endcomment %}
+<script id="os-docs" type="application/json">
+{
+  "posts": [
+    {% for post in site.posts %}{"title": {{ post.title | jsonify }}, "url": {{ post.url | relative_url | jsonify }}, "date": {{ post.date | date: "%b %-d, %Y" | jsonify }}, "year": {{ post.date | date: "%Y" | jsonify }}}{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "projects": [
+    {% for p in site.projects %}{"title": {{ p.title | jsonify }}, "url": {{ p.url | relative_url | jsonify }}, "date": {{ p.category | default: "" | jsonify }}, "year": {{ p.category | default: "" | jsonify }}}{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
 
 <script src="{{ '/assets/js/desktop-os.js' | relative_url }}" defer></script>
