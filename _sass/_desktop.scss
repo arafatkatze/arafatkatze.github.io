@@ -1,0 +1,457 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// araOS — a tiny desktop operating system, inspired by zvava.org.
+// Page-scoped under .os so nothing leaks into the rest of the site.
+// Self-contained: markup (_pages/desktop.md) + JS (assets/js/desktop-os.js) +
+// this file are everything you need to drop the toy OS into any page.
+// ─────────────────────────────────────────────────────────────────────────────
+
+.os {
+  // chrome palette — tuned for the light site theme
+  --os-bar:        #2b2740;
+  --os-bar-text:   #f4f1ff;
+  --os-win-bg:     #ffffff;
+  --os-win-text:   #1d1b29;
+  --os-win-muted:  #6b6880;
+  --os-win-border: rgba(0, 0, 0, 0.18);
+  --os-shadow:     0 18px 40px rgba(20, 16, 40, 0.35);
+  --os-accent:     var(--global-theme-color);
+  --os-radius:     9px;
+
+  position: relative;
+  width: 100%;
+  height: min(78vh, 760px);
+  min-height: 480px;
+  margin: 0.5rem 0 1rem;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--os-shadow);
+  border: 1px solid var(--os-win-border);
+  font-family: "Ubuntu Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+// ── desktop surface ──────────────────────────────────────────────────────────
+.os-desktop {
+  position: absolute;
+  inset: 0 0 44px 0;            // leave room for the taskbar
+  overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 18% 12%, #8a6fe0 0%, rgba(138, 111, 224, 0) 55%),
+    radial-gradient(120% 90% at 85% 90%, #ff8fc7 0%, rgba(255, 143, 199, 0) 50%),
+    linear-gradient(160deg, #4b3fa6 0%, #2a2350 60%, #161235 100%);
+}
+
+// faint grid so it reads as a "screen"
+.os-desktop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+// ── desktop icons ────────────────────────────────────────────────────────────
+.os-icons {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 6px 14px;
+  max-height: calc(100% - 28px);
+  z-index: 1;
+}
+
+.os-icon {
+  width: 86px;
+  padding: 10px 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.12s ease, border-color 0.12s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.32);
+    outline: none;
+  }
+}
+
+.os-icon-glyph {
+  font-size: 1.85rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.4));
+}
+
+.os-icon-label {
+  font-size: 0.72rem;
+  line-height: 1.1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+// ── windows ──────────────────────────────────────────────────────────────────
+.os-window {
+  position: absolute;
+  top: 80px;
+  left: 120px;
+  width: 520px;
+  max-width: calc(100% - 16px);
+  display: none;                 // JS toggles to flex when opened
+  flex-direction: column;
+  background: var(--os-win-bg);
+  color: var(--os-win-text);
+  border: 1px solid var(--os-win-border);
+  border-radius: var(--os-radius);
+  box-shadow: var(--os-shadow);
+  overflow: hidden;
+  max-height: calc(100% - 16px);
+
+  &.is-open  { display: flex; }
+  &.is-min   { display: none !important; }
+
+  &.is-max {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  &.is-focused {
+    box-shadow: 0 0 0 1px var(--os-accent), var(--os-shadow);
+  }
+}
+
+.os-window-bar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--os-bar);
+  color: var(--os-bar-text);
+  cursor: grab;
+  touch-action: none;
+
+  .os-window.is-max & { cursor: default; }
+}
+
+.os-window-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.os-window-ico { margin-right: 2px; }
+
+.os-window-controls {
+  display: flex;
+  gap: 7px;
+  flex: 0 0 auto;
+}
+
+.os-ctl {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: filter 0.12s ease;
+  &:hover { filter: brightness(1.15); }
+}
+
+.os-min   { background: #f7c948; }
+.os-max   { background: #36c46a; }
+.os-close { background: #ff5f57; }
+
+.os-window-body {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 14px 16px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  -webkit-user-select: text;
+  user-select: text;
+
+  h3 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+  p  { margin: 0 0 0.7rem; }
+  a  { color: var(--os-accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code {
+    background: rgba(0, 0, 0, 0.07);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 0.85em;
+  }
+}
+
+.os-muted { color: var(--os-win-muted); font-size: 0.85rem; }
+
+.os-button {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 6px 12px;
+  background: var(--os-accent);
+  color: #fff !important;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  text-decoration: none !important;
+  &:hover { filter: brightness(1.08); }
+}
+
+// inline status dots used inside read.me
+.os-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 0 1px;
+}
+.os-dot-y { background: #f7c948; }
+.os-dot-g { background: #36c46a; }
+.os-dot-r { background: #ff5f57; }
+
+// file-list style links
+.os-filelist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li { margin: 0; }
+  a {
+    display: block;
+    padding: 6px 8px;
+    border-radius: 6px;
+    &:hover { background: rgba(0, 0, 0, 0.06); text-decoration: none; }
+  }
+}
+
+// about app
+.os-about {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.os-about-pic {
+  width: 96px;
+  height: 96px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+// gallery app
+.os-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 0.8rem;
+  img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+  }
+}
+
+// ── terminal app ─────────────────────────────────────────────────────────────
+.os-window--term .os-window-bar { background: #14121f; }
+.os-term-body {
+  background: #0c0a16;
+  color: #d6f7c4;
+  font-family: "Ubuntu Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  padding: 10px 12px;
+}
+.os-term-out { white-space: pre-wrap; word-break: break-word; }
+.os-term-out a { color: #8fd0ff; }
+.os-term-line { display: flex; gap: 8px; align-items: baseline; }
+.os-term-prompt { color: #8affc1; flex: 0 0 auto; }
+.os-term-input {
+  flex: 1 1 auto;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #d6f7c4;
+  font: inherit;
+  caret-color: #8affc1;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+// ── start menu ───────────────────────────────────────────────────────────────
+.os-startmenu {
+  position: absolute;
+  left: 6px;
+  bottom: 50px;
+  width: 220px;
+  background: var(--os-bar);
+  color: var(--os-bar-text);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  box-shadow: var(--os-shadow);
+  padding: 8px;
+  z-index: 60;
+  display: none;
+
+  &.is-open { display: block; }
+}
+.os-startmenu-head {
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  padding: 4px 8px 8px;
+}
+.os-startmenu-sep {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.14);
+  margin: 6px 4px;
+}
+.os-startitem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: inherit;
+  font: inherit;
+  font-size: 0.86rem;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover { background: rgba(255, 255, 255, 0.14); }
+  span { width: 1.2em; text-align: center; }
+}
+
+// ── taskbar ──────────────────────────────────────────────────────────────────
+.os-taskbar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px;
+  background: rgba(18, 15, 32, 0.94);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  z-index: 50;
+}
+
+.os-start {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+  padding: 7px 14px;
+  background: var(--os-accent);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.12s ease;
+  &:hover { filter: brightness(1.1); }
+}
+.os-start-glyph { font-size: 0.95rem; }
+
+.os-tasks {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+}
+.os-task {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 170px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4f1ff;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover { background: rgba(255, 255, 255, 0.16); }
+  &.is-active {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--os-accent);
+  }
+  span { overflow: hidden; text-overflow: ellipsis; }
+}
+
+.os-tray {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 6px;
+  color: #cfc9e8;
+  font-size: 0.8rem;
+}
+.os-tray-net { letter-spacing: 1px; opacity: 0.7; }
+.os-clock { font-variant-numeric: tabular-nums; }
+
+// ── dark site theme: keep windows readable ───────────────────────────────────
+html[data-theme="dark"] .os {
+  --os-win-bg:     #1f1d2b;
+  --os-win-text:   #e7e5f2;
+  --os-win-muted:  #9d9ab5;
+  --os-win-border: rgba(255, 255, 255, 0.14);
+  --os-bar:        #15131f;
+}
+html[data-theme="dark"] .os-window-body code { background: rgba(255, 255, 255, 0.1); }
+html[data-theme="dark"] .os-filelist a:hover { background: rgba(255, 255, 255, 0.08); }
+
+// ── small screens: stack icons, full-width windows ───────────────────────────
+@media (max-width: 640px) {
+  .os { height: 82vh; }
+  .os-icons { flex-direction: row; max-height: none; width: calc(100% - 28px); }
+  .os-window {
+    left: 6px !important;
+    right: 6px;
+    width: auto !important;
+    max-width: none;
+  }
+  .os-about { flex-direction: column; }
+  .os-task { max-width: 110px; }
+}
