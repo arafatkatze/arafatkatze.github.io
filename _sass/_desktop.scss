@@ -209,7 +209,7 @@
 
 .os-muted { color: var(--os-win-muted); font-size: 0.85rem; }
 
-.os-button {
+.os .os-window-body a.os-button {
   display: inline-block;
   margin-top: 4px;
   padding: 6px 12px;
@@ -278,25 +278,30 @@
 }
 
 // ── terminal app ─────────────────────────────────────────────────────────────
+// Note: the theme's distill/article styles set text color with `!important`,
+// so the terminal text colors are forced with matching specificity + !important
+// to stay readable on the dark terminal background.
 .os-window--term .os-window-bar { background: #14121f; }
 .os-term-body {
   background: #0c0a16;
-  color: #d6f7c4;
   font-family: "Ubuntu Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.85rem;
   line-height: 1.5;
   padding: 10px 12px;
 }
+.os .os-term-body,
+.os .os-term-out,
+.os .os-term-out div { color: #d6f7c4 !important; }
 .os-term-out { white-space: pre-wrap; word-break: break-word; }
-.os-term-out a { color: #8fd0ff; }
+.os .os-term-out a { color: #8fd0ff !important; }
 .os-term-line { display: flex; gap: 8px; align-items: baseline; }
-.os-term-prompt { color: #8affc1; flex: 0 0 auto; }
-.os-term-input {
+.os .os-term-prompt { color: #8affc1 !important; flex: 0 0 auto; }
+.os .os-term-input {
   flex: 1 1 auto;
   background: transparent;
   border: none;
   outline: none;
-  color: #d6f7c4;
+  color: #d6f7c4 !important;
   font: inherit;
   caret-color: #8affc1;
   -webkit-user-select: text;
