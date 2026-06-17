@@ -63,6 +63,21 @@ projects:
       - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780547686/2023-11-04_18-40-26_122_shlw8m.jpg
       - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780547685/2023-12-07_17-39-08_530_ceumuy.jpg
 
+  - slug: peru
+    title: "Peru"
+    description: ""
+    images:
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698245/3044dd06-906f-4fc2-bed2-372828f24c87.png
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698167/IMG_4721_xkrcnc.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698167/IMG_4736_za6vam.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698168/IMG_4807_phcvuy.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698093/IMG_4830_zn14m1.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698167/IMG_4895_eeclsv.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698168/IMG_4918_cfkkbl.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698167/IMG_4923_qdqvus.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698092/IMG_4942_gjmt3g.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781698167/IMG_4942_vyuy6m.jpg
+
   - slug: united-kingdom
     title: "United Kingdom"
     description: ""
