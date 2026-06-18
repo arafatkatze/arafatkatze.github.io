@@ -224,6 +224,7 @@ exclude:
   - readme_preview/
   - sdk-wip-main/
   - vendor
+  - html-review-replica/
 keep_files:
   - CNAME
   - .nojekyll

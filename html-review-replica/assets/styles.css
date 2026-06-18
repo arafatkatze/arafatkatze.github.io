@@ -1,0 +1,312 @@
+:root {
+  --scroll: 0px;
+  --visible: 170;
+  --accent: #59363c;
+  --background: #f4efe9;
+
+  font-family: "Times New Roman", serif;
+  word-spacing: 0.3em;
+  letter-spacing: -0.09em;
+  text-underline-offset: 3px;
+  color: var(--accent);
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  backface-visibility: hidden;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--background);
+}
+
+/* tall scroll track; the scene itself stays pinned */
+body {
+  height: 18000px;
+}
+
+h1,
+h2,
+nav,
+#link,
+.hint {
+  font-family: "Helvetica", Arial, sans-serif;
+}
+
+h1 {
+  margin: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(2.2rem, 9vw, 4rem);
+  text-align: center;
+  width: 100%;
+  line-height: 1em;
+  padding: 0 1rem;
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+}
+
+nav a {
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.hint {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  opacity: 0.7;
+  animation: bob 2.2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+header,
+footer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 1rem;
+}
+
+header {
+  z-index: 100;
+  position: relative;
+  top: calc(100dvh - 12rem);
+  padding: 0 1rem;
+}
+
+/* ---- panels / frames ---- */
+article {
+  border: 3px solid var(--accent);
+  border-bottom: none;
+}
+
+p,
+pre {
+  margin: 0;
+}
+
+pre {
+  font-family: monospace;
+  letter-spacing: normal;
+  word-spacing: normal;
+}
+
+.title,
+.author {
+  position: absolute;
+  padding: 1rem;
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
+}
+
+.title {
+  width: calc(100% - 4rem);
+  z-index: 1;
+  left: 0;
+  top: 0;
+}
+
+#link,
+.title {
+  color: var(--accent);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+#link:hover,
+.title:hover {
+  text-decoration-style: solid;
+}
+
+.author {
+  right: 0;
+  bottom: 100%;
+  text-align: right;
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+  transform: rotate(90deg) translate(100%, 4rem);
+  width: max-content;
+  height: min-content;
+  transform-origin: bottom right;
+}
+
+.description {
+  padding: 0 0.5rem;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+  font-size: clamp(1.4rem, 4.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: justify;
+}
+
+.description,
+.description a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.description a {
+  display: block;
+}
+
+.description p {
+  background: var(--background);
+  line-height: 110%;
+  max-width: 40rem;
+  padding-top: 14rem;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 90%, #000 60%, transparent 100%);
+          mask-image: radial-gradient(ellipse at 50% 90%, #000 60%, transparent 100%);
+}
+
+.ascii .description pre {
+  font-size: clamp(0.7rem, 2.4vw, 1.2rem);
+}
+
+/* extended side slabs to make the corridor read as continuous walls */
+article:after {
+  left: 100vw;
+  margin-left: -6px;
+  border-left: 3px solid var(--accent);
+}
+
+article:before {
+  left: -300vw;
+  margin-left: -2px;
+  border-right: 3px solid var(--accent);
+}
+
+article:after,
+article:before {
+  content: "";
+  position: absolute;
+  width: 300vw;
+  border-bottom: 3px solid var(--accent);
+  bottom: 0;
+  height: 100%;
+  background: var(--background);
+}
+
+/* ---- floating "enter" doorway ---- */
+#link {
+  position: fixed;
+  font-size: 1.125rem;
+  padding: 1.1rem 1.25rem;
+  background: yellow;
+  border: 1px solid;
+  transform: translate(-50%, -50%);
+  top: calc(100dvh - 4.5rem);
+  left: 50%;
+  text-align: center;
+  letter-spacing: -0.03em;
+  word-spacing: 0.2em;
+  width: max-content;
+  max-width: 90%;
+  display: none;
+  z-index: 200;
+}
+
+footer {
+  position: fixed;
+  width: 100%;
+  left: 50%;
+  bottom: 3rem;
+  transform: translateX(-50%);
+  opacity: calc(31 + -1 * var(--visible));
+  z-index: 100;
+}
+
+/* ============================================================
+   THE 3D TUNNEL  (applied on every screen size)
+   Each panel sits 1000px deeper than the last; --scroll pulls
+   the whole stack toward the camera as you scroll.
+   ============================================================ */
+main {
+  perspective: 600px;
+  height: 100dvh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+}
+
+article {
+  position: absolute;
+  width: 100vw;
+  margin: 0;
+  height: calc(100dvh - 6rem);
+}
+
+article:nth-child(1)  { transform: translateZ(calc(var(--scroll) - 2500px));  z-index: 20; opacity: calc(var(--visible) - 141); }
+article:nth-child(2)  { transform: translateZ(calc(var(--scroll) - 3500px));  z-index: 19; opacity: calc(var(--visible) - 131); }
+article:nth-child(3)  { transform: translateZ(calc(var(--scroll) - 4500px));  z-index: 18; opacity: calc(var(--visible) - 121); }
+article:nth-child(4)  { transform: translateZ(calc(var(--scroll) - 5500px));  z-index: 17; opacity: calc(var(--visible) - 111); }
+article:nth-child(5)  { transform: translateZ(calc(var(--scroll) - 6500px));  z-index: 16; opacity: calc(var(--visible) - 101); }
+article:nth-child(6)  { transform: translateZ(calc(var(--scroll) - 7500px));  z-index: 15; opacity: calc(var(--visible) - 91); }
+article:nth-child(7)  { transform: translateZ(calc(var(--scroll) - 8500px));  z-index: 14; opacity: calc(var(--visible) - 81); }
+article:nth-child(8)  { transform: translateZ(calc(var(--scroll) - 9500px));  z-index: 13; opacity: calc(var(--visible) - 71); }
+article:nth-child(9)  { transform: translateZ(calc(var(--scroll) - 10500px)); z-index: 12; opacity: calc(var(--visible) - 61); }
+article:nth-child(10) { transform: translateZ(calc(var(--scroll) - 11500px)); z-index: 11; opacity: calc(var(--visible) - 51); }
+article:nth-child(11) { transform: translateZ(calc(var(--scroll) - 12500px)); z-index: 10; opacity: calc(var(--visible) - 41); }
+article:nth-child(12) { transform: translateZ(calc(var(--scroll) - 13500px)); z-index: 9;  opacity: calc(var(--visible) - 31); }
+
+/* slightly gentler depth + bigger type on small screens */
+@media screen and (max-width: 800px) {
+  main { perspective: 520px; }
+  .description p { padding-top: 9rem; }
+}
+
+/* ---- calm fallback: no flight, just a vertical list ---- */
+@media (prefers-reduced-motion: reduce) {
+  :root { scroll-behavior: auto; }
+  body { height: auto; }
+  main {
+    position: relative;
+    perspective: none;
+    height: auto;
+    overflow: visible;
+  }
+  header { top: 0; padding: 6rem 1rem 3rem; }
+  article {
+    position: relative;
+    transform: none !important;
+    opacity: 1 !important;
+    width: 84vw;
+    height: 70vh;
+    margin: 6rem 8vw;
+  }
+  article:after { left: 84vw; width: 8vw; }
+  .description p { padding-top: 0; -webkit-mask-image: none; mask-image: none; }
+  footer { position: relative; opacity: 1; margin-top: 6rem; bottom: 0; padding-bottom: 6rem; }
+  #link { display: none !important; }
+}
