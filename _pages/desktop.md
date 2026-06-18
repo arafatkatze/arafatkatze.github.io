@@ -128,16 +128,8 @@ nav: false
         </div>
       </header>
       <div class="os-window-body">
-        <p class="os-muted">a few things I've been making.</p>
-        <ul class="os-filelist">
-          <li><a href="/projects/AgenticAi/">🤖 Agentic AI</a></li>
-          <li><a href="/projects/Art/">🎨 Art</a></li>
-          <li><a href="/projects/mathmaking/">💗 Mathematics of Love</a></li>
-          <li><a href="/projects/communalArt/">👕 White Shirt Project</a></li>
-          <li><a href="/pixels/">🟦 Pixel Board</a></li>
-          <li><a href="/nightsky/">✨ Stories from my night sky</a></li>
-          <li><a href="/projects/">📁 all projects…</a></li>
-        </ul>
+        <p class="os-muted">a few things I've been making. click any to open it right here.</p>
+        <div class="os-files" id="os-projects"><p class="os-doc-status">loading…</p></div>
       </div>
     </section>
 
@@ -285,7 +277,7 @@ open each one inside a window (content is lazy-fetched from the real page). {% e
     {% endfor %}
   ],
   "projects": [
-    {% for p in site.projects %}{"title": {{ p.title | jsonify }}, "url": {{ p.url | relative_url | jsonify }}, "date": {{ p.category | default: "" | jsonify }}, "year": {{ p.category | default: "" | jsonify }}}{% unless forloop.last %},{% endunless %}
+    {% for p in site.projects %}{"title": {{ p.title | jsonify }}, "url": {{ p.url | relative_url | jsonify }}, "date": {{ p.category | default: "" | jsonify }}, "year": {{ p.category | default: "" | jsonify }}, "redirect": {% if p.redirect %}{% if p.redirect contains "://" %}{{ p.redirect | jsonify }}{% else %}{{ p.redirect | relative_url | jsonify }}{% endif %}{% else %}""{% endif %}}{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ]
 }
