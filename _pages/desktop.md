@@ -151,8 +151,8 @@ nav: false
     </section>
 
     <!-- reading -->
-    <section class="os-window" id="win-reading" data-title="Reading" data-icon="📚"
-             data-x="360" data-y="110" data-w="480">
+    <section class="os-window os-window--app" id="win-reading" data-title="Reading" data-icon="📚"
+             data-x="240" data-y="90" data-w="600">
       <header class="os-window-bar">
         <span class="os-window-title"><span class="os-window-ico">📚</span> Reading</span>
         <div class="os-window-controls">
@@ -162,19 +162,32 @@ nav: false
         </div>
       </header>
       <div class="os-window-body">
-        <p class="os-muted">books that have stayed with me.</p>
-        <ul class="os-filelist">
-          <li><a href="/reading/">📖 Letters to a Young Poet, Rilke</a></li>
-          <li><a href="/reading/">📖 Into the Wild, Jon Krakauer</a></li>
-          <li><a href="/reading/">📖 The Stranger, Albert Camus</a></li>
-          <li><a href="/reading/">🛏️ my full bookshelf…</a></li>
-        </ul>
+        <p class="os-muted">my bookshelf. click a cover to find the book.</p>
+        <div class="os-books">
+          {% assign books = site.books | sort: "date" | reverse %}
+          {% for book in books %}
+            {% assign s = book.status | downcase | strip %}
+            {% if s == "reading" %}{% assign badge = "Reading" %}{% assign badgeclass = "is-reading" %}
+            {% elsif s == "interested" or s == "queued" or s == "to-read" %}{% assign badge = "To Read" %}{% assign badgeclass = "is-toread" %}
+            {% else %}{% assign badge = "Read" %}{% assign badgeclass = "is-read" %}{% endif %}
+            <a class="os-book" href="{{ book.buy_link | default: book.url | relative_url }}" target="_blank" rel="noopener">
+              <span class="os-book-cover">
+                {% if book.cover %}<img src="{{ book.cover | relative_url }}" alt="{{ book.title }}" loading="lazy">
+                {% elsif book.olid %}<img src="https://covers.openlibrary.org/b/olid/{{ book.olid }}-L.jpg?default=false" alt="{{ book.title }}" loading="lazy">
+                {% elsif book.isbn %}<img src="https://covers.openlibrary.org/b/isbn/{{ book.isbn }}-L.jpg?default=false" alt="{{ book.title }}" loading="lazy">{% endif %}
+                <span class="os-book-badge {{ badgeclass }}">{{ badge }}</span>
+              </span>
+              <span class="os-book-title">{{ book.title }}</span>
+              <span class="os-book-author">{{ book.author }}</span>
+            </a>
+          {% endfor %}
+        </div>
       </div>
     </section>
 
     <!-- gallery -->
-    <section class="os-window" id="win-gallery" data-title="Gallery" data-icon="🖼️"
-             data-x="220" data-y="160" data-w="560">
+    <section class="os-window os-window--app" id="win-gallery" data-title="Gallery" data-icon="🖼️"
+             data-x="200" data-y="90" data-w="640">
       <header class="os-window-bar">
         <span class="os-window-title"><span class="os-window-ico">🖼️</span> Gallery</span>
         <div class="os-window-controls">
@@ -184,13 +197,20 @@ nav: false
         </div>
       </header>
       <div class="os-window-body">
-        <p class="os-muted">a little wall of things I've seen and made.</p>
-        <div class="os-gallery">
-          <a href="/travel/"><img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_300/v1772417810/site/skiing/11.jpg" alt="Skiing" loading="lazy"></a>
-          <a href="/projects/Art/"><img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_300/v1772417818/site/art/7.jpg" alt="Art" loading="lazy"></a>
-          <a href="/projects/Brazil/"><img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_300/v1772417805/site/brazil_1.png" alt="Brazil" loading="lazy"></a>
-        </div>
-        <p><a class="os-button" href="/photography/">open the photography gallery →</a></p>
+        <p class="os-muted">my photographs, grouped by place. click any to enlarge.</p>
+        {% for project in site.data.photography.projects %}
+          <div class="os-gallery-group">
+            <h4 class="os-gallery-head">{{ project.title }}</h4>
+            <div class="os-gallery-grid">
+              {% for url in project.images %}
+                <button type="button" class="os-gallery-photo" data-full="{{ url }}" aria-label="View a photograph from {{ project.title }}">
+                  <img src="{{ url | replace: 'w_1600', 'w_400' }}" alt="{{ project.title }} photograph" loading="lazy" decoding="async">
+                </button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+        <p><a class="os-button" href="/photography/">open the full photography gallery →</a></p>
       </div>
     </section>
 
@@ -265,6 +285,12 @@ nav: false
       <time class="os-clock" id="os-clock">--:--</time>
     </div>
   </footer>
+
+  <!-- lightbox for gallery photos -->
+  <div class="os-lightbox" id="os-lightbox" aria-hidden="true">
+    <button class="os-lightbox-close" id="os-lightbox-close" type="button" aria-label="Close">&times;</button>
+    <img class="os-lightbox-img" id="os-lightbox-img" alt="">
+  </div>
 
 </div>
 
