@@ -119,7 +119,6 @@
     const svg       = document.getElementById("nightsky-svg");
     const tooltip   = document.getElementById("nightsky-tooltip");
     const resetBtn  = document.getElementById("nightsky-reset");
-    const listGrid  = document.getElementById("nightsky-list-grid");
     const modal     = document.getElementById("nightsky-modal");
     const modalCard = document.getElementById("nightsky-modal-card");
     if (!stage || !svg) return;
@@ -642,27 +641,6 @@
       });
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closeModal();
-      });
-    }
-
-    // ── Card list (no-JS friendly fallback / mobile alt) ──────────────
-    if (listGrid) {
-      enriched.forEach(function (p) {
-        const li = el("li");
-        const btn = el("button", {
-          class: "ns-card",
-          type: "button",
-          "aria-label": "Read story of " + (p.name || p.id),
-        });
-        btn.appendChild(el("p", { class: "ns-card-name", text: p.name || p.id }));
-        if (p.role) btn.appendChild(el("p", { class: "ns-card-role", text: p.role }));
-        const cardMetaBits = [];
-        if (p.since) cardMetaBits.push("since " + p.since);
-        if (cardMetaBits.length) btn.appendChild(el("p", { class: "ns-card-meta", text: cardMetaBits.join(" · ") }));
-        btn.appendChild(el("span", { class: "ns-card-cta", text: "read story" }));
-        btn.addEventListener("click", function () { openModal(p); });
-        li.appendChild(btn);
-        listGrid.appendChild(li);
       });
     }
 
