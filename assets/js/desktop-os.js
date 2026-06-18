@@ -489,11 +489,6 @@
     return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   }
 
-  // ── boot: open a couple of windows so it doesn't look empty ───────────────────
-  if (desktop.clientWidth > 660) {
-    openWindow("win-readme");
-    openWindow("win-about");
-  } else {
-    openWindow("win-readme");
-  }
+  // ── boot: open just the read.me so first impression is calm ───────────────────
+  openWindow("win-readme");
 })();
