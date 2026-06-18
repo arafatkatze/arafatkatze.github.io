@@ -112,18 +112,16 @@ body {
 .line span {
   /* faint analog chromatic-print fringing */
   text-shadow: 0.6px 0 rgba(150, 40, 40, 0.18), -0.6px 0 rgba(40, 70, 150, 0.18);
-  text-decoration: underline transparent;
+  text-decoration: none;
   text-decoration-thickness: 0.06em;
   text-underline-offset: 0.18em;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  transition: text-decoration-color 0.25s ease, color 0.2s ease, text-shadow 0.2s ease;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
-/* underline the words on hover */
+/* underline the words ONLY while hovering the frame */
 .frame:hover .line span {
   color: #3a2c12;
-  text-decoration-color: var(--ink);
+  text-decoration: underline;
   text-shadow: 1px 0 rgba(150, 40, 40, 0.3), -1px 0 rgba(40, 70, 150, 0.3);
 }
 
