@@ -45,6 +45,21 @@ html:has(.scroll-essay) {
     background: #0e7afe;
     color: var(--se-bg);
   }
+
+  // al-folio sets `span,em,div,strong,…{color:var(--global-text-color)}`
+  // globally (specificity 0,0,1), which beats colour merely inherited from
+  // `.scroll-essay`. Set the resting (faint) colour explicitly on each fragment
+  // and its inline children so it wins on specificity. The active fragment then
+  // overrides this with the dark colour.
+  .se-item,
+  .se-item * {
+    color: var(--se-text);
+  }
+
+  .se-item.active,
+  .se-item.active * {
+    color: var(--se-active);
+  }
 }
 
 // The real (programmatically scrolled) surface. Native overflow is hidden;
