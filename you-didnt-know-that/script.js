@@ -13,7 +13,8 @@ const PAPERS = ["img/paper-1.png", "img/paper-2.png", "img/paper-3.png"];
 
 const lineEl = document.getElementById("line");
 const bgEl = document.getElementById("bg");
-const boilEls = Array.from(document.querySelectorAll(".boil"));
+const boilEls = Array.from(document.querySelectorAll(".boil")); // gentle (1x) shake
+const boil2xEls = Array.from(document.querySelectorAll(".boil-2x")); // 2x shake
 
 // ---- routing: keep position on refresh / back / forward ----
 function currentIndex() {
@@ -51,16 +52,23 @@ document.addEventListener("keydown", function (e) {
 });
 
 // ---- the boil: cycle paper + nudge/displace the printed ink ----
+// The header gets a gentle shake; the line below shakes exactly twice as hard.
 let frame = 0;
 window.setInterval(function () {
   frame++;
   bgEl.style.backgroundImage = "url(" + PAPERS[frame % PAPERS.length] + ")";
-  const filterId = "boil" + (frame % 3);
-  const dx = (frame % 2 === 0 ? 0.4 : -0.4);
-  const dy = (frame % 3 === 0 ? -0.4 : 0.3);
+
+  const slot = frame % 3;
+  const dx = (frame % 2 === 0 ? 0.3 : -0.3);
+  const dy = (frame % 3 === 0 ? -0.3 : 0.3);
+
   boilEls.forEach(function (el) {
-    el.style.filter = "url(#" + filterId + ")";
+    el.style.filter = "url(#boilS" + slot + ")";
     el.style.transform = "translate(" + dx + "px, " + dy + "px)";
+  });
+  boil2xEls.forEach(function (el) {
+    el.style.filter = "url(#boil" + slot + ")";
+    el.style.transform = "translate(" + dx * 2 + "px, " + dy * 2 + "px)";
   });
 }, 130);
 
