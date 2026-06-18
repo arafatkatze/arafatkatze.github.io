@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then(function (data) {
         if (!data || !data.grid || data.grid.length !== GRID_SIZE) {
-          if (localRevision > 0) {
+          if (localUpdatedAt > localRevision) {
             syncToRemote(true);
           }
           return;
@@ -204,15 +204,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var remoteRevision = stateRevision(data);
 
-        if (remoteRevision > localRevision) {
+        if (remoteRevision > localUpdatedAt) {
           applyState(data);
           hasUnsyncedChanges = false;
-        } else if (localRevision > remoteRevision) {
+        } else if (localUpdatedAt > remoteRevision) {
           syncToRemote(true);
         }
       })
       .catch(function () {
-        if (localRevision > 0) {
+        if (localUpdatedAt > localRevision) {
           syncToRemote(true);
         }
       });
