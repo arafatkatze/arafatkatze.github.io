@@ -312,46 +312,63 @@
     }[c]));
   }
 
-  // ── Documents app: list every post/project and open them inside the OS ────────
+  // ── Documents + Writing apps: list posts/projects and open them inside the OS ──
   setupDocuments();
   function setupDocuments() {
-    const listEl = root.querySelector("#os-files");
     const dataEl = document.getElementById("os-docs");
-    if (!listEl || !dataEl) return;
+    if (!dataEl) return;
 
     let data;
     try { data = JSON.parse(dataEl.textContent || "{}"); } catch (e) { data = {}; }
     const posts = data.posts || [];
     const projects = data.projects || [];
 
-    if (!posts.length && !projects.length) {
-      listEl.innerHTML = '<p class="os-doc-status">no documents found.</p>';
-      return;
+    // Documents = everything; Writing = just the blog. Both open in-OS windows.
+    const docsList = root.querySelector("#os-files");
+    if (docsList) {
+      populateList(docsList, [
+        { label: "Blog", items: posts, icon: "📝" },
+        { label: "Projects", items: projects, icon: "🗂️" },
+      ], "no documents found.");
     }
 
-    const section = (label, items, icon) => {
-      if (!items.length) return "";
-      let html = '<div class="os-files-group"><div class="os-files-head">' + label + "</div>";
-      items.forEach((it, i) => {
-        html +=
-          '<button class="os-file" data-kind="' + escapeHtml(label) + '" data-i="' + i + '">' +
-          '<span class="os-file-ico">' + icon + "</span>" +
+    const writingList = root.querySelector("#os-writing");
+    if (writingList) {
+      populateList(writingList, [{ label: "Blog", items: posts, icon: "📝" }], "no posts yet.");
+    }
+  }
+
+  // Render grouped, clickable file rows into a container; each opens in a window.
+  function populateList(container, groups, emptyMsg) {
+    const total = groups.reduce((n, g) => n + (g.items ? g.items.length : 0), 0);
+    if (!total) {
+      container.innerHTML = '<p class="os-doc-status">' + (emptyMsg || "nothing here.") + "</p>";
+      return;
+    }
+    const multi = groups.filter((g) => g.items && g.items.length).length > 1;
+    container.innerHTML = "";
+
+    groups.forEach((g) => {
+      if (!g.items || !g.items.length) return;
+      const group = document.createElement("div");
+      group.className = "os-files-group";
+      if (multi) {
+        const head = document.createElement("div");
+        head.className = "os-files-head";
+        head.textContent = g.label;
+        group.appendChild(head);
+      }
+      g.items.forEach((it) => {
+        const btn = document.createElement("button");
+        btn.className = "os-file";
+        btn.innerHTML =
+          '<span class="os-file-ico">' + g.icon + "</span>" +
           '<span class="os-file-name">' + escapeHtml(it.title || "untitled") + "</span>" +
-          '<span class="os-file-date">' + escapeHtml(it.date || "") + "</span>" +
-          "</button>";
+          '<span class="os-file-date">' + escapeHtml(it.date || "") + "</span>";
+        btn.addEventListener("click", () => openDoc(it, g.icon));
+        group.appendChild(btn);
       });
-      return html + "</div>";
-    };
-
-    listEl.innerHTML = section("Blog", posts, "📝") + section("Projects", projects, "🗂️");
-
-    listEl.querySelectorAll(".os-file").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const kind = btn.dataset.kind;
-        const idx = parseInt(btn.dataset.i, 10);
-        const item = (kind === "Blog" ? posts : projects)[idx];
-        if (item) openDoc(item, kind === "Blog" ? "📝" : "🗂️");
-      });
+      container.appendChild(group);
     });
   }
 
