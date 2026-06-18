@@ -1,12 +1,12 @@
 ---
 layout: page
-title: araOS
+title: arOS
 permalink: /desktop/
 description: my website, reimagined as a little desktop operating system. drag the windows around.
 nav: false
 ---
 
-<div class="os" id="araos" aria-label="araOS desktop environment">
+<div class="os" id="araos" aria-label="arOS desktop environment">
 
   <!-- ───────────────────────── desktop ───────────────────────── -->
   <div class="os-desktop" id="os-desktop">
@@ -56,7 +56,7 @@ nav: false
         </div>
       </header>
       <div class="os-window-body">
-        <h3>welcome to araOS 🌸</h3>
+        <h3>welcome to arOS 🌸</h3>
         <p>
           this is my whole website pretending to be a tiny desktop operating system,
           inspired by the lovely <a href="https://zvava.org/" target="_blank" rel="noopener">zvava.org</a>.
@@ -232,7 +232,7 @@ nav: false
     <section class="os-window os-window--term" id="win-terminal" data-title="Terminal" data-icon="⌨️"
              data-x="180" data-y="200" data-w="560">
       <header class="os-window-bar">
-        <span class="os-window-title"><span class="os-window-ico">⌨️</span> ara@araOS: ~</span>
+        <span class="os-window-title"><span class="os-window-ico">⌨️</span> ara@arOS: ~</span>
         <div class="os-window-controls">
           <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button>
           <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button>
@@ -242,7 +242,7 @@ nav: false
       <div class="os-window-body os-term-body" id="os-term">
         <div class="os-term-out" id="os-term-out"></div>
         <div class="os-term-line">
-          <span class="os-term-prompt">ara@araOS:~$</span>
+          <span class="os-term-prompt">ara@arOS:~$</span>
           <input class="os-term-input" id="os-term-input" type="text" autocomplete="off"
                  spellcheck="false" aria-label="terminal input">
         </div>
@@ -253,7 +253,7 @@ nav: false
 
   <!-- ───────────────────────── start menu ───────────────────────── -->
   <nav class="os-startmenu" id="os-startmenu" aria-hidden="true">
-    <div class="os-startmenu-head">araOS</div>
+    <div class="os-startmenu-head">arOS</div>
     <button class="os-startitem" data-open="win-about"><span>🪪</span> About Me</button>
     <button class="os-startitem" data-open="win-projects"><span>🗂️</span> Projects</button>
     <button class="os-startitem" data-open="win-writing"><span>✍️</span> Writing</button>
