@@ -272,6 +272,8 @@ let currentIndex = null;
 let topOffset = window.matchMedia("(min-width: 576px)").matches ? 16 : 9;
 let bottomOffset = window.matchMedia("(min-width: 576px)").matches ? 14 : 8;
 let paragraphsTemplate = null;
+let userHasScrolled = false;
+let advanceLocked = false;
 
 window.currentY = 0;
 window.paragraphsList = [];
@@ -375,18 +377,26 @@ function updateProgress() {
   document.querySelector(".js-progress").textContent = `${Math.round(percent)}%`;
 }
 
+function paragraphBounds(active) {
+  const half = active.offsetHeight / 2;
+  const start = active.offsetTop + Math.min(topOffset, half);
+  const end = active.offsetTop + active.offsetHeight - Math.min(bottomOffset, half);
+  return { start, end: Math.max(end, start) };
+}
+
 function watchScrollPosition() {
   const active = document.querySelector(".js-paragraphsItem.active");
   updateProgress();
 
-  if (active && window.currentY !== 0) {
-    const start = active.offsetTop + topOffset;
-    const end = active.offsetTop + active.offsetHeight - bottomOffset;
+  if (active && userHasScrolled && !advanceLocked && window.currentY !== 0) {
+    const { start, end } = paragraphBounds(active);
 
     if (Math.round(window.currentY) > end) {
+      advanceLocked = true;
       const nextIndex = currentIndex < window.pLength - 1 ? currentIndex + 1 : 0;
       snapToParagraph(nextIndex, "start");
     } else if (Math.round(window.currentY) < start) {
+      advanceLocked = true;
       const previousIndex = currentIndex > 0 ? currentIndex - 1 : window.pLength - 1;
       snapToParagraph(previousIndex, "end");
     }
@@ -397,6 +407,8 @@ function watchScrollPosition() {
 
 function bindWheelScroll() {
   scrollContainer.addEventListener("wheel", (event) => {
+    userHasScrolled = true;
+    advanceLocked = false;
     scrollToPosition(scrollContainer.scrollTop + event.deltaY);
   });
 }
@@ -407,6 +419,8 @@ function bindTouchScroll() {
   let velocity = 0;
 
   gesture.on("panmove", () => {
+    userHasScrolled = true;
+    advanceLocked = false;
     scrollToPosition(scrollContainer.scrollTop - gesture.velocityY);
     velocity = gesture.velocityY;
     if (inertiaTimer) clearInterval(inertiaTimer);
@@ -503,7 +517,6 @@ async function init() {
   bindProgressReset();
 
   setTimeout(() => {
-    buildParagraphsList();
     snapToParagraph(0);
     document.body.classList.add("loaded");
     setTimeout(startScrollLoop, 100);
