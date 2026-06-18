@@ -7,10 +7,12 @@
 // ── Full-page cosmic background ───────────────────────────────────────────
 // When the night-sky page is on screen, paint a deep nebula gradient with a
 // tiling starfield (the star tile is sourced from kokorobot.ca) across the
-// whole viewport — behind the navbar, content, and footer. Scoped with :has()
-// so it never leaks to the rest of the site; browsers without :has() simply
-// fall back to the normal site theme.
-body:has(.nightsky-page) {
+// whole page — behind the navbar, content, and footer. The background lives on
+// the root <html> element so it reliably covers the entire scroll canvas
+// (top-to-bottom), and the body is made transparent so it shows through.
+// Scoped with :has() so it never leaks to the rest of the site; browsers
+// without :has() simply fall back to the normal site theme.
+html:has(.nightsky-page) {
   // Re-theme the whole chrome (navbar, footer, headings) so text stays
   // readable on the dark sky regardless of the active light/dark site theme.
   --global-bg-color: transparent;
@@ -23,23 +25,20 @@ body:has(.nightsky-page) {
   --global-footer-link-color: #e6e9ff;
 
   background-color: #04050b;
+  // Gradients stay anchored to the viewport for a steady nebula glow, while
+  // the star tile repeats down the full length of the page.
+  background-image:
+    radial-gradient(ellipse at 18% 16%, rgba(120, 80, 200, 0.28) 0%, transparent 55%),
+    radial-gradient(ellipse at 84% 84%, rgba(40, 110, 200, 0.26) 0%, transparent 60%),
+    url("../img/nightsky/starfield.png"),
+    radial-gradient(ellipse at top, #1c1f3d 0%, #0a0d1f 55%, #04050b 100%);
+  background-repeat: no-repeat, no-repeat, repeat, no-repeat;
+  background-size: auto, auto, 200px 200px, cover;
+  background-position: center, center, center, center;
+  background-attachment: fixed, fixed, scroll, fixed;
 
-  // Fixed full-viewport layer that stays put while the page scrolls.
-  &::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-color: #04050b;
-    background-image:
-      radial-gradient(ellipse at 18% 16%, rgba(120, 80, 200, 0.28) 0%, transparent 55%),
-      radial-gradient(ellipse at 84% 84%, rgba(40, 110, 200, 0.26) 0%, transparent 60%),
-      url("../img/nightsky/starfield.png"),
-      radial-gradient(ellipse at top, #1c1f3d 0%, #0a0d1f 55%, #04050b 100%);
-    background-repeat: no-repeat, no-repeat, repeat, no-repeat;
-    background-size: auto, auto, 200px 200px, cover;
-    background-position: center, center, center, center;
+  body {
+    background-color: transparent;
   }
 }
 
