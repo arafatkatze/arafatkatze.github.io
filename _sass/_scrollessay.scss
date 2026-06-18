@@ -1,0 +1,193 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Scroll-essay — interactive web-essay replica (/scroll-essay/).
+//
+// Page-scoped under .scroll-essay so nothing leaks to the rest of the site.
+// The experience is a full-screen takeover: native page scrolling is disabled
+// and the al-folio chrome (navbar, footer, progress bar) is hidden while this
+// page is on screen. Markup lives in _pages/scroll-essay.md, behaviour in
+// assets/js/scroll-essay.js, and copy in _data/scroll_essay.yml.
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Full-screen takeover: silence the site chrome and lock native scrolling.
+// Scoped with :has() so it never affects any other page; browsers without
+// :has() simply keep their normal chrome behind the opaque overlay.
+html:has(.scroll-essay) {
+  overflow: hidden;
+
+  body {
+    overflow: hidden;
+  }
+
+  #navbar,
+  footer,
+  #progress {
+    display: none !important;
+  }
+}
+
+.scroll-essay {
+  --se-bg: #ffffff;
+  --se-text: rgb(222, 222, 222); // faint grey — the resting state of every fragment
+  --se-active: #000000; // the one fragment you are meant to read
+  --se-link: #0e7afe;
+
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  overflow: hidden;
+  background: var(--se-bg);
+  color: var(--se-text);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  ::selection {
+    background: #0e7afe;
+    color: var(--se-bg);
+  }
+}
+
+// The real (programmatically scrolled) surface. Native overflow is hidden;
+// JS sets scrollTop directly so no scrollbar is drawn here.
+.se-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.se-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  @media screen and (min-width: 768px) {
+    align-items: center;
+  }
+}
+
+.se-paragraphs {
+  width: calc(100% - 2rem);
+  max-width: 650px;
+  padding-right: 1rem;
+  word-spacing: 0.12em;
+  font-size: 16px;
+  line-height: 19px;
+
+  @media screen and (min-width: 576px) {
+    font-size: 27px;
+    line-height: 32px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: calc(100% - 8rem);
+    padding: 0;
+  }
+}
+
+// Fragments flow as one continuous inline stream, like running prose.
+.se-item {
+  display: inline;
+  pointer-events: none;
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  small {
+    font-size: 0.62em;
+    word-spacing: normal;
+  }
+
+  &--title {
+    display: inline-block;
+
+    strong {
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    small {
+      display: block;
+    }
+  }
+
+  &.active {
+    color: var(--se-active);
+    pointer-events: auto;
+
+    a {
+      color: var(--se-active);
+      text-decoration: underline dotted;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+
+      &:hover {
+        color: var(--se-link);
+      }
+    }
+  }
+
+  &:not(.active) {
+    user-select: none;
+  }
+}
+
+.se-spacer {
+  display: inline;
+  user-select: none;
+}
+
+// Progress read-out, pinned to the left edge mid-screen.
+.se-counter {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 2;
+  padding: 0 0.5rem;
+  color: var(--se-active);
+  font-size: 14px;
+  user-select: none;
+  cursor: pointer;
+}
+
+// Transparent overlay whose tall inner div makes the browser draw a real
+// scrollbar as a position cue. pointer-events:none lets clicks fall through.
+.se-scroll {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: auto;
+  pointer-events: none;
+  -webkit-overflow-scrolling: touch;
+
+  > div {
+    width: 1px;
+  }
+}
+
+// A quiet way back into the rest of the site.
+.se-back {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 3;
+  color: var(--se-active);
+  font-size: 13px;
+  text-decoration: none;
+  opacity: 0.5;
+  pointer-events: auto;
+
+  &:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+}
+
+// Avoid a flash of un-shuffled content before the JS scatters the fragments.
+.scroll-essay:not(.se-loaded) .se-paragraphs {
+  visibility: hidden;
+}

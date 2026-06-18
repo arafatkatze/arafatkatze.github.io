@@ -1,0 +1,34 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Content for the "scroll essay" project (/scroll-essay/).
+#
+# This is a faithful replica of an interactive web-essay mechanic: a single
+# running collage of text where exactly ONE fragment is highlighted at a time,
+# and that highlight advances in strict sequence (index 0 → 1 → 2 → …) as you
+# scroll — the page auto-jumps to wherever the next fragment happens to sit.
+#
+# Everything below is PLACEHOLDER copy. To make the essay your own, just edit
+# `title`, `subtitle`, and the `fragments` list. The first fragment is index 1;
+# the title is index 0. `repeats` controls how many scattered copies of each
+# fragment are sprinkled through the page (more = denser collage).
+# ─────────────────────────────────────────────────────────────────────────────
+
+title: "Scroll, and find your place"
+subtitle: "A placeholder web-essay — replace this text with your own writing later."
+
+repeats: 5
+
+fragments:
+  - "This is placeholder text. Each fragment you read is one stop on a hidden path; the words around it are only there to keep you company while you look for the next one."
+  - "<em>“I keep scrolling and I am never quite sure how far there is left to go.”</em> <small>placeholder citation, a forum thread, some year</small>"
+  - "Notice how only one fragment is dark at a time. The rest fade into a soft grey, present but quiet, waiting their turn to be the one you are meant to read."
+  - "As you move, the highlight does not drift at random. It steps forward in order — first this, then the next, then the next — even though the fragments themselves are scattered all over the page."
+  - "<em>“Where did the part I was just reading go? I am certain it was right here a moment ago.”</em> <small>placeholder citation, a comment section, some afternoon</small>"
+  - "The counter on the left tells you how far along the sequence you are. It is the closest thing this page has to a map, and like all maps it is a small, hopeful lie about a much larger thing."
+  - "Replace me. Replace all of us. These sentences exist only to prove that the machinery underneath works: that the right words show up, in the right order, no matter where they were hiding."
+  - "A scrollbar used to be a promise. It told you how much was left, where you stood, whether the end was near. Somewhere along the way that promise grew faint, then optional, then almost imaginary."
+  - "<em>“Please, just leave the scrolling alone — it was fine the way it was.”</em> <small>placeholder citation, a long argument, some evening</small>"
+  - "Try scrolling slowly, then quickly. Watch the highlight chase the sequence. The faster you go, the more the page feels like it is reading you back, deciding what you are allowed to notice."
+  - "Getting a little lost is part of the point. You are not just sliding past words; you are being pulled, gently, from one fixed point to the next, whether you meant to move or not."
+  - "Every fragment here repeats elsewhere on the page. The version you are reading now is one of several twins, chosen at the last second, so the path is never quite the same twice."
+  - "When you reach the end of the sequence, it folds back to the beginning. There is no true bottom — only the same handful of thoughts, rearranged, asking to be found again."
+  - "This is the last placeholder fragment in the list. After this, the sequence loops. Swap these lines for your own essay and the whole machine becomes yours."
