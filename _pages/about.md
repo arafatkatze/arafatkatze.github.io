@@ -15,7 +15,7 @@ selected_papers: false
 social: true
 
 bento_tiles:
-  # Row 1: wide text + travel + skiing
+  # Row 1: wide text + travel + arOS desktop
   - title: To My Future Son
     label: Writing · Philosophy
     link: /philosophy/2026/01/21/son
@@ -31,11 +31,12 @@ bento_tiles:
     image_dark: assets/img/travel/earth-night-from-iss.jpg
     type: image
 
-  - title: Skiing
-    label: Projects · Fun
-    link: /projects/Skiing/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
-    type: image
+  - title: arOS
+    label: Play · Desktop
+    link: /desktop/
+    image: assets/img/aros-tile.png
+    type: card
+    excerpt: "This whole site, reimagined as a tiny desktop operating system. Click to boot it up."
 
   # Row 2: art + book + math of love (wide)
   - title: Art
@@ -80,12 +81,11 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
     type: image
 
-  - title: writing.
-    label: Blog · Essays
-    link: /blog/
-    type: text
-    excerpt: "Philosophy, love letters, travel stories — the wild west of my thoughts."
-    bg: warm
+  - title: Skiing
+    label: Projects · Fun
+    link: /projects/Skiing/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
+    type: image
 
   # Row 4: brazil tall + pixel board + on looking inwards + into the wild
   - title: Brazil
@@ -144,10 +144,12 @@ latest_posts:
   limit: 5
 ---
 
-This is Ara (pronounced era like the beginning of an era). I live at the intersection of art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days [playing with AI](/projects/AgenticAi) to build experiences that delight people.
+This is Ara (pronounced era like the beginning of an era). I live at the intersection of art, love and beauty in all its forms. My primary expression of art is technology, I spend most of my days [playing with AI](/projects/AgenticAi) to build [experiences that delight people](/desktop/).
 
 I like to find art and [beauty](projects/communalArt/) wherever I go and whatever I do, sometimes it's staring at an art piece, other times it's in the delight of seeing an old friend. In the past, I had been a wandering spirit so I travelled a lot and after fulfilling this rite of passage I have settled down in the Bay Area to build lifelong relationships.
 
 As a Canadian, I am a huge fan of adventures in nature and I am always up for a hike, surf or skiing trip. If you ask nicely, I can teach you any of those things. 
 
 I'm documenting more of my adventures and creative process these days. If you're curious about seeing life through my lens, here's a few links...
+
+*Psst, this whole site also runs as a tiny [desktop operating system](/desktop/). Go play.*
