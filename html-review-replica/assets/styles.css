@@ -14,7 +14,6 @@
 
 * {
   box-sizing: border-box;
-  backface-visibility: hidden;
 }
 
 html,
@@ -185,15 +184,15 @@ pre {
   line-height: 110%;
   max-width: 40rem;
   padding-top: 14rem;
-  -webkit-mask-image: radial-gradient(ellipse at 50% 90%, #000 60%, transparent 100%);
-          mask-image: radial-gradient(ellipse at 50% 90%, #000 60%, transparent 100%);
 }
 
 .ascii .description pre {
   font-size: clamp(0.7rem, 2.4vw, 1.2rem);
 }
 
-/* extended side slabs to make the corridor read as continuous walls */
+/* extended side slabs to make the corridor read as continuous walls.
+   Kept modest (150vw) so the GPU backing store stays small on high-DPR
+   phones; the body background (same colour) covers anything beyond. */
 article:after {
   left: 100vw;
   margin-left: -6px;
@@ -201,7 +200,7 @@ article:after {
 }
 
 article:before {
-  left: -300vw;
+  left: -150vw;
   margin-left: -2px;
   border-right: 3px solid var(--accent);
 }
@@ -210,7 +209,7 @@ article:after,
 article:before {
   content: "";
   position: absolute;
-  width: 300vw;
+  width: 150vw;
   border-bottom: 3px solid var(--accent);
   bottom: 0;
   height: 100%;
@@ -265,20 +264,25 @@ article {
   width: 100vw;
   margin: 0;
   height: calc(100dvh - 6rem);
+  /* Only the 12 panels are GPU-composited (they carry a 3D transform);
+     opacity + display are driven from JS so far/passed panels are culled
+     and never allocate a backing store on memory-constrained phones. */
+  backface-visibility: hidden;
+  opacity: 0;
 }
 
-article:nth-child(1)  { transform: translateZ(calc(var(--scroll) - 2500px));  z-index: 20; opacity: calc(var(--visible) - 141); }
-article:nth-child(2)  { transform: translateZ(calc(var(--scroll) - 3500px));  z-index: 19; opacity: calc(var(--visible) - 131); }
-article:nth-child(3)  { transform: translateZ(calc(var(--scroll) - 4500px));  z-index: 18; opacity: calc(var(--visible) - 121); }
-article:nth-child(4)  { transform: translateZ(calc(var(--scroll) - 5500px));  z-index: 17; opacity: calc(var(--visible) - 111); }
-article:nth-child(5)  { transform: translateZ(calc(var(--scroll) - 6500px));  z-index: 16; opacity: calc(var(--visible) - 101); }
-article:nth-child(6)  { transform: translateZ(calc(var(--scroll) - 7500px));  z-index: 15; opacity: calc(var(--visible) - 91); }
-article:nth-child(7)  { transform: translateZ(calc(var(--scroll) - 8500px));  z-index: 14; opacity: calc(var(--visible) - 81); }
-article:nth-child(8)  { transform: translateZ(calc(var(--scroll) - 9500px));  z-index: 13; opacity: calc(var(--visible) - 71); }
-article:nth-child(9)  { transform: translateZ(calc(var(--scroll) - 10500px)); z-index: 12; opacity: calc(var(--visible) - 61); }
-article:nth-child(10) { transform: translateZ(calc(var(--scroll) - 11500px)); z-index: 11; opacity: calc(var(--visible) - 51); }
-article:nth-child(11) { transform: translateZ(calc(var(--scroll) - 12500px)); z-index: 10; opacity: calc(var(--visible) - 41); }
-article:nth-child(12) { transform: translateZ(calc(var(--scroll) - 13500px)); z-index: 9;  opacity: calc(var(--visible) - 31); }
+article:nth-child(1)  { transform: translateZ(calc(var(--scroll) - 2500px));  z-index: 20; }
+article:nth-child(2)  { transform: translateZ(calc(var(--scroll) - 3500px));  z-index: 19; }
+article:nth-child(3)  { transform: translateZ(calc(var(--scroll) - 4500px));  z-index: 18; }
+article:nth-child(4)  { transform: translateZ(calc(var(--scroll) - 5500px));  z-index: 17; }
+article:nth-child(5)  { transform: translateZ(calc(var(--scroll) - 6500px));  z-index: 16; }
+article:nth-child(6)  { transform: translateZ(calc(var(--scroll) - 7500px));  z-index: 15; }
+article:nth-child(7)  { transform: translateZ(calc(var(--scroll) - 8500px));  z-index: 14; }
+article:nth-child(8)  { transform: translateZ(calc(var(--scroll) - 9500px));  z-index: 13; }
+article:nth-child(9)  { transform: translateZ(calc(var(--scroll) - 10500px)); z-index: 12; }
+article:nth-child(10) { transform: translateZ(calc(var(--scroll) - 11500px)); z-index: 11; }
+article:nth-child(11) { transform: translateZ(calc(var(--scroll) - 12500px)); z-index: 10; }
+article:nth-child(12) { transform: translateZ(calc(var(--scroll) - 13500px)); z-index: 9;  }
 
 /* slightly gentler depth + bigger type on small screens */
 @media screen and (max-width: 800px) {
