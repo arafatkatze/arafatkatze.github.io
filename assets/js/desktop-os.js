@@ -1,5 +1,5 @@
 /* ───────────────────────────────────────────────────────────────────────────
- * araOS — a tiny desktop operating system for the browser.
+ * araOS: a tiny desktop operating system for the browser.
  * Inspired by zvava.org. Vanilla JS, no dependencies.
  *
  * Handles: opening/closing windows, minimize/maximize, focus + z-order,
@@ -253,7 +253,7 @@
         return "available commands: <b>help, about, ls, open &lt;app&gt;, whoami, date, clear, neofetch</b>";
       },
       about() {
-        return "araOS — Ara Khan's website as a desktop. inspired by zvava.org. built with vanilla JS.";
+        return "araOS: Ara Khan's website as a desktop. inspired by zvava.org. built with vanilla JS.";
       },
       whoami() { return "guest@araOS"; },
       date() { return new Date().toString(); },
@@ -284,7 +284,7 @@
       clear() { out.innerHTML = ""; return ""; },
     };
 
-    print("araOS terminal — type <b>help</b> to get started.");
+    print("araOS terminal: type <b>help</b> to get started.");
 
     input.addEventListener("keydown", (e) => {
       if (e.key !== "Enter") return;
@@ -457,7 +457,7 @@
       s.addEventListener("load", render);
       document.head.appendChild(s);
     } else {
-      // script already requested — poll until the API is ready
+      // script already requested, poll until the API is ready
       let n = 0;
       const t = setInterval(() => {
         if ((window.twttr && window.twttr.widgets) || n++ > 50) {
