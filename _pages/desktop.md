@@ -63,12 +63,12 @@ nav: false
         </p>
         <p><strong>how it works:</strong></p>
         <ul>
-          <li>every app is a <em>window</em> — drag it by its title bar.</li>
+          <li>every app is a <em>window</em>, drag it by its title bar.</li>
           <li>the three dots resize it: <span class="os-dot os-dot-y"></span> minimize, <span class="os-dot os-dot-g"></span> maximize, <span class="os-dot os-dot-r"></span> close.</li>
           <li>open apps from the <strong>desktop icons</strong>, the <strong>◈ start</strong> menu, or the <strong>taskbar</strong>.</li>
-          <li>try the <strong>⌨️ Terminal</strong> — type <code>help</code>.</li>
+          <li>try the <strong>⌨️ Terminal</strong>, type <code>help</code>.</li>
         </ul>
-        <p class="os-muted">all of this is plain HTML, CSS and vanilla JS — copy it into any site.</p>
+        <p class="os-muted">all of this is plain HTML, CSS and vanilla JS, copy it into any site.</p>
       </div>
     </section>
 
@@ -84,7 +84,7 @@ nav: false
         </div>
       </header>
       <div class="os-window-body">
-        <p class="os-muted">every post &amp; project — opens right here in the OS (tweets and images included).</p>
+        <p class="os-muted">every post &amp; project, opened right here in the OS (tweets and images included).</p>
         <div class="os-files" id="os-files"><p class="os-doc-status">loading…</p></div>
       </div>
     </section>
@@ -108,7 +108,7 @@ nav: false
           <div>
             <h3>Ara Khan</h3>
             <p>This is Ara (pronounced <em>era</em>, like the beginning of an era). I live at the
-            intersection of art, love and beauty — my primary expression of art is technology,
+            intersection of art, love and beauty. My primary expression of art is technology,
             and I spend most days <a href="/projects/AgenticAi/">playing with AI</a>.</p>
             <p><a class="os-button" href="/">open the real homepage →</a></p>
           </div>
@@ -153,7 +153,7 @@ nav: false
         </div>
       </header>
       <div class="os-window-body">
-        <p class="os-muted">philosophy, love letters, travel stories — the wild west of my thoughts.</p>
+        <p class="os-muted">philosophy, love letters, travel stories, the wild west of my thoughts.</p>
         <ul class="os-filelist">
           <li><a href="/philosophy/2026/01/21/son">📝 To My Future Son</a></li>
           <li><a href="/philosophy/2025/03/05/messages-to-24-people">📝 Messages to 24 People I Know</a></li>
@@ -177,9 +177,9 @@ nav: false
       <div class="os-window-body">
         <p class="os-muted">books that have stayed with me.</p>
         <ul class="os-filelist">
-          <li><a href="/reading/">📖 Letters to a Young Poet — Rilke</a></li>
-          <li><a href="/reading/">📖 Into the Wild — Jon Krakauer</a></li>
-          <li><a href="/reading/">📖 The Stranger — Albert Camus</a></li>
+          <li><a href="/reading/">📖 Letters to a Young Poet, Rilke</a></li>
+          <li><a href="/reading/">📖 Into the Wild, Jon Krakauer</a></li>
+          <li><a href="/reading/">📖 The Stranger, Albert Camus</a></li>
           <li><a href="/reading/">🛏️ my full bookshelf…</a></li>
         </ul>
       </div>
@@ -219,7 +219,7 @@ nav: false
         </div>
       </header>
       <div class="os-window-body">
-        <p class="os-muted">say hi — I always write back.</p>
+        <p class="os-muted">say hi, I always write back.</p>
         <ul class="os-filelist">
           <li><a href="https://github.com/arafatkatze" target="_blank" rel="noopener">🐙 github / arafatkatze</a></li>
           <li><a href="/cv/">📄 curriculum vitae</a></li>
