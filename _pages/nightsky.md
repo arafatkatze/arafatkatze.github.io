@@ -33,11 +33,6 @@ nav: false
     <button class="nightsky-reset" id="nightsky-reset" type="button" aria-label="Reshuffle the ambient stars" title="Reshuffle the ambient stars">↻</button>
   </div>
 
-  <section class="nightsky-list" aria-label="All stars">
-    <h2 class="nightsky-list-title">All the stars.</h2>
-    <ol class="nightsky-list-grid" id="nightsky-list-grid"></ol>
-  </section>
-
   <div class="nightsky-modal" id="nightsky-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="nightsky-modal-title">
     <div class="nightsky-modal-overlay" data-nightsky-close></div>
     <div class="nightsky-modal-card" id="nightsky-modal-card" tabindex="-1"></div>
