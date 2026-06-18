@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>you didn't know that</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="you didn't know that">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- boiling scanned-paper background -->
+  <div class="bg" id="bg"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- displacement filters used to make the printed ink "boil" -->
+  <svg class="defs" aria-hidden="true" focusable="false">
+    <filter id="boil0" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="2" seed="2" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="boil1" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.015" numOctaves="2" seed="9" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="boil2" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="2" seed="17" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <header class="corner boil">You didn't know that:</header>
+
+  <main class="stage">
+    <div class="frame boil">
+      <p class="line" id="line"></p>
+    </div>
+    <div class="hint boil" id="hint">click anywhere to continue&nbsp;&rarr;</div>
+  </main>
+
+  <!-- full-screen invisible click target, mirrors the original's hidden button -->
+  <button class="advance" id="advance" type="button" aria-label="next"></button>
+
+  <script src="script.js"></script>
+</body>
+</html>
