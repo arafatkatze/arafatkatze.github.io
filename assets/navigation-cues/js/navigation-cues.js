@@ -310,21 +310,9 @@ function reorderParagraphsDom(list) {
 function buildParagraphsList() {
   restoreParagraphsTemplate();
 
-  const allItems = [...paragraphsRoot.querySelectorAll(".js-paragraphsItem")];
-  const middleTop = window.innerHeight / 2 + topOffset;
-  const middleBottom = paragraphsRoot.offsetHeight - window.innerHeight / 2 - bottomOffset;
-
-  const middleZone = allItems.filter(
-    (item) =>
-      item.offsetTop > middleTop && item.offsetTop + item.offsetHeight < middleBottom,
+  const list = [...paragraphsRoot.querySelectorAll(".js-paragraphsItem")].sort(
+    (a, b) => Number(a.dataset.index) - Number(b.dataset.index),
   );
-
-  const list = [];
-  for (let index = 0; index < window.pLength; index += 1) {
-    const matches = middleZone.filter((item) => item.dataset.index == String(index));
-    if (!matches.length) continue;
-    list.push(matches[Math.floor(Math.random() * matches.length)]);
-  }
 
   window.paragraphsList = list;
   reorderParagraphsDom(list);
