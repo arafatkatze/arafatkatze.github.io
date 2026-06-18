@@ -81,6 +81,8 @@ body {
   letter-spacing: 0.01em;
   color: var(--ink);
   max-width: 60vw;
+  /* static print fringe so the anchor never jitters or clips */
+  text-shadow: 0.5px 0 rgba(150, 40, 40, 0.16), -0.5px 0 rgba(40, 70, 150, 0.16);
 }
 
 .stage {
