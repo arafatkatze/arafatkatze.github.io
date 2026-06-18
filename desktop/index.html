@@ -1,0 +1,132 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> arOS | Ara's Space </title> <meta name="author" content="Ara Khan"> <meta name="description" content="my website, reimagined as a little desktop operating system. drag the windows around."> <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website"> <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04"> <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5"> <link defer rel="stylesheet" href="/assets/css/scholar-icons.css?62b2ac103a88034e6882a5be5f3e2772"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Fraunces:300,400,500,600,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%92%8C&lt;/text&gt;&lt;/svg&gt;"> <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e"> <link rel="canonical" href="https://arafatkatze.github.io/desktop/"> <script src="/assets/js/theme.js?a81d82887dd692e91686b43de4542f18"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse" id="navbarNav"> <div class="pill-nav-row"> <div class="pill-nav-wrapper"> <a class="pill-nav-link " href="/">About</a> <a class="pill-nav-link " href="/reading/">Reading</a> <a class="pill-nav-link " href="/blog/">Writing</a> <a class="pill-nav-link " href="/projects/">Projects</a> <a class="pill-nav-link " href="/cv/">Resume</a> <a class="pill-nav-link " href="/travel/">Travel</a> <a class="pill-nav-link " href="/photography/">Photography</a> <a class="pill-nav-link " href="/pixels/">Pixel Board</a> </div> <div class="pill-nav-actions"> <button id="search-toggle" class="pill-nav-icon" title="Search" onclick="openSearchModal()"> <i class="ti ti-search"></i> </button> <button id="light-toggle" class="pill-nav-icon" title="Change theme"> <i class="ti ti-sun-moon" id="light-toggle-system"></i> <i class="ti ti-moon-filled" id="light-toggle-dark"></i> <i class="ti ti-sun-filled" id="light-toggle-light"></i> </button> </div> </div> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">arOS</h1> <p class="post-description">my website, reimagined as a little desktop operating system. drag the windows around.</p> </header> <article> <div class="os" id="araos" aria-label="arOS desktop environment"> <div class="os-desktop" id="os-desktop"> <div class="os-icons" id="os-icons" role="list"> <button class="os-icon" data-open="win-about" role="listitem"> <span class="os-icon-glyph">🪪</span><span class="os-icon-label">About Me</span> </button> <button class="os-icon" data-open="win-projects" role="listitem"> <span class="os-icon-glyph">🗂️</span><span class="os-icon-label">Projects</span> </button> <button class="os-icon" data-open="win-writing" role="listitem"> <span class="os-icon-glyph">✍️</span><span class="os-icon-label">Writing</span> </button> <button class="os-icon" data-open="win-reading" role="listitem"> <span class="os-icon-glyph">📚</span><span class="os-icon-label">Reading</span> </button> <button class="os-icon" data-open="win-gallery" role="listitem"> <span class="os-icon-glyph">🖼️</span><span class="os-icon-label">Gallery</span> </button> <button class="os-icon" data-open="win-files" role="listitem"> <span class="os-icon-glyph">📂</span><span class="os-icon-label">Documents</span> </button> <button class="os-icon" data-open="win-contact" role="listitem"> <span class="os-icon-glyph">📡</span><span class="os-icon-label">Contact</span> </button> <button class="os-icon" data-open="win-terminal" role="listitem"> <span class="os-icon-glyph">⌨️</span><span class="os-icon-label">Terminal</span> </button> <button class="os-icon" data-open="win-readme" role="listitem"> <span class="os-icon-glyph">💡</span><span class="os-icon-label">read.me</span> </button> </div> <section class="os-window" id="win-readme" data-title="read.me" data-icon="💡" data-x="120" data-y="70" data-w="520"> <header class="os-window-bar"> <span class="os-window-title"><span class="os-window-ico">💡</span> read.me</span> <div class="os-window-controls"> <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button> <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button> <button class="os-ctl os-close" title="Close" aria-label="Close"></button> </div> </header> <div class="os-window-body"> <h3>welcome to arOS 🌸</h3> <p> this is my whole website pretending to be a tiny desktop operating system, inspired by the lovely <a href="https://zvava.org/" target="_blank" rel="noopener">zvava.org</a>. </p> <p><strong>how it works:</strong></p> <ul> <li>every app is a <em>window</em>, drag it by its title bar.</li> <li>the three dots resize it: <span class="os-dot os-dot-y"></span> minimize, <span class="os-dot os-dot-g"></span> maximize, <span class="os-dot os-dot-r"></span> close.</li> <li>open apps from the <strong>desktop icons</strong>, the <strong>◈ start</strong> menu, or the <strong>taskbar</strong>.</li> <li>try the <strong>⌨️ Terminal</strong>, type <code>help</code>.</li> </ul> <p class="os-muted">all of this is plain HTML, CSS and vanilla JS, copy it into any site.</p> </div> </section> <section class="os-window" id="win-files" data-title="Documents" data-icon="📂" data-x="150" data-y="80" data-w="560"> <header class="os-window-bar"> <span class="os-window-title"><span class="os-window-ico">📂</span> Documents</span> <div class="os-window-controls"> <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button> <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button> <button class="os-ctl os-close" title="Close" aria-label="Close"></button> </div> </header> <div class="os-window-body"> <p class="os-muted">every post &amp; project, opened right here in the OS (tweets and images included).</p> <div class="os-files" id="os-files"><p class="os-doc-status">loading…</p></div> </div> </section> <section class="os-window" id="win-about" data-title="About Me" data-icon="🪪" data-x="200" data-y="120" data-w="560"> <header class="os-window-bar"> <span class="os-window-title"><span class="os-window-ico">🪪</span> About Me</span> <div class="os-window-controls"> <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button> <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button> <button class="os-ctl os-close" title="Close" aria-label="Close"></button> </div> </header> <div class="os-window-body"> <div class="os-about"> <img class="os-about-pic" src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_240/v1772992166/profile_photo_fvaxo9.png" alt="Ara Khan" loading="lazy"> <div> <h3>Ara Khan</h3> <p>This is Ara (pronounced <em>era</em>, like the beginning of an era). I live at the intersection of art, love and beauty. My primary expression of art is technology, and I spend most days <a href="/projects/AgenticAi/">playing with AI</a>.</p> <p><a class="os-button" href="/">open the real homepage →</a></p> </div> </div> </div> </section> <section class="os-window" id="win-projects" data-title="Projects" data-icon="🗂️" data-x="260" data-y="90" data-w="500"> <header class="os-window-bar"> <span class="os-window-title"><span class="os-window-ico">🗂️</span> Projects</span> <div class="os-window-controls"> <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button> <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button> <button class="os-ctl os-close" title="Close" aria-label="Close"></button> </div> </header> <div class="os-window-body"> <p class="os-muted">a few things I've been making.</p> <ul class="os-filelist"> <li><a href="/projects/AgenticAi/">🤖 Agentic AI</a></li> <li><a href="/projects/Art/">🎨 Art</a></li> <li><a href="/projects/mathmaking/">💗 Mathematics of Love</a></li> <li><a href="/projects/communalArt/">👕 White Shirt Project</a></li> <li><a href="/pixels/">🟦 Pixel Board</a></li> <li><a href="/nightsky/">✨ Stories from my night sky</a></li> <li><a href="/projects/">📁 all projects…</a></li> </ul> </div> </section> <section class="os-window" id="win-writing" data-title="Writing" data-icon="✍️" data-x="320" data-y="140" data-w="520"> <header class="os-window-bar"> <span class="os-window-title"><span class="os-window-ico">✍️</span> Writing</span> <div class="os-window-controls"> <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button> <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button> <button class="os-ctl os-close" title="Close" aria-label="Close"></button> </div> </header> <div class="os-window-body"> <p class="os-muted">philosophy, love letters, travel stories, the wild west of my thoughts. click any to read it right here.</p> <div class="os-files" id="os-writing"><p class="os-doc-status">loading…</p></div> </div> </section> <section class="os-window" id="win-reading" data-title="Reading" data-icon="📚" data-x="360" data-y="110" data-w="480"> <header class="os-window-bar"> <span class="os-window-title"><span class="os-window-ico">📚</span> Reading</span> <div class="os-window-controls"> <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button> <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button> <button class="os-ctl os-close" title="Close" aria-label="Close"></button> </div> </header> <div class="os-window-body"> <p class="os-muted">books that have stayed with me.</p> <ul class="os-filelist"> <li><a href="/reading/">📖 Letters to a Young Poet, Rilke</a></li> <li><a href="/reading/">📖 Into the Wild, Jon Krakauer</a></li> <li><a href="/reading/">📖 The Stranger, Albert Camus</a></li> <li><a href="/reading/">🛏️ my full bookshelf…</a></li> </ul> </div> </section> <section class="os-window" id="win-gallery" data-title="Gallery" data-icon="🖼️" data-x="220" data-y="160" data-w="560"> <header class="os-window-bar"> <span class="os-window-title"><span class="os-window-ico">🖼️</span> Gallery</span> <div class="os-window-controls"> <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button> <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button> <button class="os-ctl os-close" title="Close" aria-label="Close"></button> </div> </header> <div class="os-window-body"> <p class="os-muted">a little wall of things I've seen and made.</p> <div class="os-gallery"> <a href="/travel/"><img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_300/v1772417810/site/skiing/11.jpg" alt="Skiing" loading="lazy"></a> <a href="/projects/Art/"><img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_300/v1772417818/site/art/7.jpg" alt="Art" loading="lazy"></a> <a href="/projects/Brazil/"><img src="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,w_300/v1772417805/site/brazil_1.png" alt="Brazil" loading="lazy"></a> </div> <p><a class="os-button" href="/photography/">open the photography gallery →</a></p> </div> </section> <section class="os-window" id="win-contact" data-title="Contact" data-icon="📡" data-x="300" data-y="130" data-w="440"> <header class="os-window-bar"> <span class="os-window-title"><span class="os-window-ico">📡</span> Contact</span> <div class="os-window-controls"> <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button> <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button> <button class="os-ctl os-close" title="Close" aria-label="Close"></button> </div> </header> <div class="os-window-body"> <p class="os-muted">say hi, I always write back.</p> <ul class="os-filelist"> <li><a href="https://github.com/arafatkatze" target="_blank" rel="noopener">🐙 github / arafatkatze</a></li> <li><a href="/cv/">📄 curriculum vitae</a></li> <li><a href="/">🏠 homepage &amp; socials</a></li> </ul> </div> </section> <section class="os-window os-window--term" id="win-terminal" data-title="Terminal" data-icon="⌨️" data-x="180" data-y="200" data-w="560"> <header class="os-window-bar"> <span class="os-window-title"><span class="os-window-ico">⌨️</span> ara@arOS: ~</span> <div class="os-window-controls"> <button class="os-ctl os-min" title="Minimize" aria-label="Minimize"></button> <button class="os-ctl os-max" title="Maximize" aria-label="Maximize"></button> <button class="os-ctl os-close" title="Close" aria-label="Close"></button> </div> </header> <div class="os-window-body os-term-body" id="os-term"> <div class="os-term-out" id="os-term-out"></div> <div class="os-term-line"> <span class="os-term-prompt">ara@arOS:~$</span> <input class="os-term-input" id="os-term-input" type="text" autocomplete="off" spellcheck="false" aria-label="terminal input"> </div> </div> </section> </div> <nav class="os-startmenu" id="os-startmenu" aria-hidden="true"> <div class="os-startmenu-head">arOS</div> <button class="os-startitem" data-open="win-about"><span>🪪</span> About Me</button> <button class="os-startitem" data-open="win-projects"><span>🗂️</span> Projects</button> <button class="os-startitem" data-open="win-writing"><span>✍️</span> Writing</button> <button class="os-startitem" data-open="win-reading"><span>📚</span> Reading</button> <button class="os-startitem" data-open="win-files"><span>📂</span> Documents</button> <button class="os-startitem" data-open="win-gallery"><span>🖼️</span> Gallery</button> <button class="os-startitem" data-open="win-contact"><span>📡</span> Contact</button> <button class="os-startitem" data-open="win-terminal"><span>⌨️</span> Terminal</button> <button class="os-startitem" data-open="win-readme"><span>💡</span> read.me</button> <div class="os-startmenu-sep"></div> <a class="os-startitem" href="/"><span>🚪</span> Exit to homepage</a> </nav> <footer class="os-taskbar" id="os-taskbar"> <button class="os-start" id="os-start" aria-haspopup="true" aria-expanded="false"> <span class="os-start-glyph">◈</span> start </button> <div class="os-tasks" id="os-tasks"></div> <div class="os-tray"> <span class="os-tray-net" title="connected">▢▣▤</span> <time class="os-clock" id="os-clock">--:--</time> </div> </footer> </div> <script id="os-docs" type="application/json">
+{
+  "posts": [
+    {"title": "The gift of an agonizing limerance", "url": "/philosophy/2026/04/26/limerance.html", "date": "Apr 26, 2026", "year": "2026"},
+    {"title": "To My Future Son", "url": "/philosophy/2026/01/21/son.html", "date": "Jan 21, 2026", "year": "2026"},
+    {"title": "Lessons from Traveling to 30 Countries", "url": "/philosophy/2026/01/05/travelling.html", "date": "Jan 5, 2026", "year": "2026"},
+    {"title": "Mountain of Spirits", "url": "/philosophy/2025/12/15/mountain-of-spirits.html", "date": "Dec 15, 2025", "year": "2025"},
+    {"title": "I Hope It Happens For You", "url": "/philosophy/2025/08/10/i-hope-it-happens-for-you.html", "date": "Aug 10, 2025", "year": "2025"},
+    {"title": "Messages to 24 People I Know", "url": "/philosophy/2025/03/05/messages-to-24-people.html", "date": "Mar 5, 2025", "year": "2025"},
+    {"title": "With or Without You", "url": "/philosophy/2025/01/10/with-or-without-you.html", "date": "Jan 10, 2025", "year": "2025"},
+    {"title": "The Bike Trip that Never Was", "url": "/philosophy/2024/12/20/bike-trip-that-never-was.html", "date": "Dec 20, 2024", "year": "2024"},
+    {"title": "Faith is All You Need", "url": "/philosophy/2024/12/15/faith-is-all-you-need.html", "date": "Dec 15, 2024", "year": "2024"},
+    {"title": "On Looking Inwards", "url": "/philosophy/2024/05/06/inwards.html", "date": "May 6, 2024", "year": "2024"}
+    
+  ],
+  "projects": [
+    {"title": "Agentic AI writings", "url": "/projects/AgenticAi/", "date": "work", "year": "work"},
+    {"title": "Art", "url": "/projects/Art/", "date": "art", "year": "art"},
+    {"title": "Brazil", "url": "/projects/Brazil/", "date": "fun", "year": "fun"},
+    {"title": "Cline's Analog Art", "url": "/projects/ClineAnalogArt/", "date": "art", "year": "art"},
+    {"title": "A Practical Guide to Hill Climbing", "url": "/projects/HillClimbing/", "date": "work", "year": "work"},
+    {"title": "Skiing", "url": "/projects/Skiing/", "date": "fun", "year": "fun"},
+    {"title": "arOS", "url": "/projects/arOS/", "date": "work", "year": "work"},
+    {"title": "White Shirt Project", "url": "/projects/communalArt/", "date": "art", "year": "art"},
+    {"title": "Priviledged Homelessness", "url": "/projects/homelessness/", "date": "unpublished", "year": "unpublished"},
+    {"title": "Mathematics of Love", "url": "/projects/mathmaking/", "date": "art", "year": "art"},
+    {"title": "Stories from my night sky", "url": "/projects/nightsky/", "date": "art", "year": "art"},
+    {"title": "But you are just a \"content creator\"", "url": "/projects/writers/", "date": "unpublished", "year": "unpublished"}
+    
+  ]
+}
+</script> <script src="/assets/js/desktop-os.js" defer></script> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Ara Khan. </div> </footer> <button class="contact-fab" onclick="openContactModal()" aria-label="Contact me"> <i class="fa-solid fa-envelope"></i> </button> <div id="contactModal" class="contact-modal" onclick="closeContactModalOutside(event)"> <div class="contact-modal-content"> <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">×</button> <div id="contactFormState"> <h4 class="contact-modal-title">Get in Touch</h4> <p class="contact-modal-subtitle"> Some of my best relationships started with a random message out of the blue. Whether you want to reconnect, share something, or just say hello I'm here and I'd love to hear from you. I read everything and I always respond. </p> <form id="contactForm" class="contact-form"> <div class="form-group"> <input type="email" name="email" id="contactEmail" class="form-control contact-input" placeholder="Your email" required> <span id="emailError" class="contact-error" style="display: none;">Please enter a valid email address</span> </div> <div class="form-group"> <textarea name="message" id="contactMessage" class="form-control contact-textarea" placeholder="Your message" rows="4" required></textarea> </div> <button type="submit" class="btn contact-submit-btn" id="contactSubmitBtn">Send Message</button> <span id="submitError" class="contact-error" style="display: none; margin-top: 10px;">Something went wrong. Please try again.</span> </form> </div> <div id="contactSuccessState" style="display: none; text-align: center; padding: 20px 0;"> <div style="font-size: 2.5rem; margin-bottom: 16px; color: var(--global-theme-color);"><i class="fa-solid fa-check-circle"></i></div> <h4 class="contact-modal-title">Message Sent!</h4> <p class="contact-modal-subtitle" style="margin-bottom: 0;">Thanks for reaching out. I'll get back to you soon!</p> </div> </div> </div> <script>
+  function openContactModal() {
+    document.getElementById('contactModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Reset to form state when opening
+    document.getElementById('contactFormState').style.display = 'block';
+    document.getElementById('contactSuccessState').style.display = 'none';
+    // Clear any previous errors
+    document.getElementById('emailError').style.display = 'none';
+    document.getElementById('submitError').style.display = 'none';
+    document.getElementById('contactEmail').classList.remove('input-error');
+  }
+
+  function closeContactModal() {
+    document.getElementById('contactModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeContactModalOutside(event) {
+    if (event.target.id === 'contactModal') {
+      closeContactModal();
+    }
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      closeContactModal();
+    }
+  });
+
+  // Email validation function
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  // Clear error on input
+  document.getElementById('contactEmail').addEventListener('input', function () {
+    document.getElementById('emailError').style.display = 'none';
+    this.classList.remove('input-error');
+  });
+
+  // Handle form submission with AJAX
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const emailInput = document.getElementById('contactEmail');
+    const emailError = document.getElementById('emailError');
+    const submitError = document.getElementById('submitError');
+    const submitBtn = document.getElementById('contactSubmitBtn');
+
+    // Clear previous errors
+    emailError.style.display = 'none';
+    submitError.style.display = 'none';
+    emailInput.classList.remove('input-error');
+
+    // Validate email
+    if (!isValidEmail(emailInput.value)) {
+      emailError.style.display = 'block';
+      emailInput.classList.add('input-error');
+      emailInput.focus();
+      return;
+    }
+
+    const formData = new FormData(form);
+
+    // Disable button and show loading
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    fetch('https://formspree.io/f/mqeenowa', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Show success state
+          document.getElementById('contactFormState').style.display = 'none';
+          document.getElementById('contactSuccessState').style.display = 'block';
+          // Reset form
+          form.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      })
+      .catch((error) => {
+        submitError.style.display = 'block';
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      });
+  });
+</script> <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> <script src="/assets/js/bootstrap.bundle.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?a0db7e5d5c70cc3252b3138b0c91dcaf" type="text/javascript"></script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script> <script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script> <script defer src="/assets/js/common.js?c15de51d4bb57887caa2c21988d97279"></script> <script defer src="/assets/js/copy_code.js?c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script> <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script> <script async src="https://badge.dimensions.ai/badge.js"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/js/mathjax-setup.js?a5bb4e6a542c546dd929b24b8b236dfd"></script> <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script> <script defer src="/assets/js/progress-bar.js?2f30e0e6801ea8f5036fa66e1ab0a71a" type="text/javascript"></script> <script type="module" src="/assets/js/search/ninja-keys.min.js?a3446f084dcaecc5f75aa1757d087dcf"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/js/search-setup.js?6c304f7b1992d4b60f7a07956e52f04a"></script> <script src="/assets/js/search-data.js"></script> <script src="/assets/js/shortcut-key.js?6f508d74becd347268a7f822bca7309d"></script> </body> </html>

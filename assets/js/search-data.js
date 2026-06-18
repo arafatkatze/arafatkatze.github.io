@@ -278,6 +278,11 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Skiing/";
+            },},{id: "projects-aros",
+          title: 'arOS',
+          description: "my whole website, reimagined as a tiny desktop operating system. drag the windows around.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/arOS/";
             },},{id: "projects-white-shirt-project",
           title: 'White Shirt Project',
           description: "",
