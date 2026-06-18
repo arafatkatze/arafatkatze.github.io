@@ -100,6 +100,10 @@ zotero_username: # your zotero username
 contact_note: >
   The best way to reach to me is my email arafat.da.khan@gmail.com
 
+enable_view_counter: true
+view_counter_initial: 11235
+view_counter_url: "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/viewcounter"
+
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
 # -----------------------------------------------------------------------------
