@@ -15,7 +15,7 @@ selected_papers: false
 social: true
 
 bento_tiles:
-  # Row 1: wide text + travel + skiing
+  # Row 1: wide text + travel + arOS desktop
   - title: To My Future Son
     label: Writing · Philosophy
     link: /philosophy/2026/01/21/son
@@ -31,11 +31,12 @@ bento_tiles:
     image_dark: assets/img/travel/earth-night-from-iss.jpg
     type: image
 
-  - title: Skiing
-    label: Projects · Fun
-    link: /projects/Skiing/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
-    type: image
+  - title: arOS
+    label: Play · Desktop
+    link: /desktop/
+    type: text
+    excerpt: "This whole site, reimagined as a tiny desktop operating system. Click to boot it up."
+    bg: warm
 
   # Row 2: art + book + math of love (wide)
   - title: Art
@@ -80,12 +81,11 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
     type: image
 
-  - title: writing.
-    label: Blog · Essays
-    link: /blog/
-    type: text
-    excerpt: "Philosophy, love letters, travel stories — the wild west of my thoughts."
-    bg: warm
+  - title: Skiing
+    label: Projects · Fun
+    link: /projects/Skiing/
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
+    type: image
 
   # Row 4: brazil tall + pixel board + on looking inwards + into the wild
   - title: Brazil
