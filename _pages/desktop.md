@@ -153,13 +153,8 @@ nav: false
         </div>
       </header>
       <div class="os-window-body">
-        <p class="os-muted">philosophy, love letters, travel stories, the wild west of my thoughts.</p>
-        <ul class="os-filelist">
-          <li><a href="/philosophy/2026/01/21/son">📝 To My Future Son</a></li>
-          <li><a href="/philosophy/2025/03/05/messages-to-24-people">📝 Messages to 24 People I Know</a></li>
-          <li><a href="/philosophy/2024/05/06/inwards">📝 On Looking Inwards</a></li>
-          <li><a href="/blog/">🗞️ the whole blog…</a></li>
-        </ul>
+        <p class="os-muted">philosophy, love letters, travel stories, the wild west of my thoughts. click any to read it right here.</p>
+        <div class="os-files" id="os-writing"><p class="os-doc-status">loading…</p></div>
       </div>
     </section>
 
