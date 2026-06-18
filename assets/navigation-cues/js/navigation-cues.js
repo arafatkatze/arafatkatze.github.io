@@ -274,6 +274,8 @@ let bottomOffset = window.matchMedia("(min-width: 576px)").matches ? 14 : 8;
 let paragraphsTemplate = null;
 let userHasScrolled = false;
 let advanceLocked = false;
+let currentCycle = 1;
+let totalCycles = 1;
 
 window.currentY = 0;
 window.paragraphsList = [];
@@ -296,31 +298,25 @@ function restoreParagraphsTemplate() {
   paragraphsRoot.innerHTML = paragraphsTemplate;
 }
 
-function reorderParagraphsDom(list) {
-  const fragment = document.createDocumentFragment();
+function refreshParagraphsList() {
+  window.paragraphsList = [];
 
-  list.forEach((item, index) => {
-    if (index > 0) fragment.appendChild(createSpacer());
-    fragment.appendChild(item);
-  });
-
-  paragraphsRoot.replaceChildren(fragment);
+  for (let index = 0; index < window.pLength; index += 1) {
+    const item = paragraphsRoot.querySelector(
+      `.js-paragraphsItem[data-index="${index}"][data-cycle="${currentCycle}"]`,
+    );
+    if (item) window.paragraphsList.push(item);
+  }
 }
 
-function buildParagraphsList() {
-  restoreParagraphsTemplate();
-
-  const list = [...paragraphsRoot.querySelectorAll(".js-paragraphsItem")].sort(
-    (a, b) => Number(a.dataset.index) - Number(b.dataset.index),
-  );
-
-  window.paragraphsList = list;
-  reorderParagraphsDom(list);
+function advanceCycle() {
+  currentCycle += 1;
+  if (currentCycle > totalCycles) currentCycle = 1;
+  window.currentCycle = currentCycle;
+  refreshParagraphsList();
 }
 
 function snapToParagraph(index = 0, position = "start") {
-  if (index === 0 || index === window.pLength - 1) buildParagraphsList();
-
   const target = window.paragraphsList[index];
   if (!target) return;
 
@@ -337,6 +333,7 @@ function snapToParagraph(index = 0, position = "start") {
   target.classList.add("active");
   currentIndex = index;
   window.M = index;
+  window.currentCycle = currentCycle;
 }
 
 function scrollToPosition(scrollTop) {
@@ -381,12 +378,22 @@ function watchScrollPosition() {
 
     if (Math.round(window.currentY) > end) {
       advanceLocked = true;
-      const nextIndex = currentIndex < window.pLength - 1 ? currentIndex + 1 : 0;
-      snapToParagraph(nextIndex, "start");
+      if (currentIndex < window.pLength - 1) {
+        snapToParagraph(currentIndex + 1, "start");
+      } else {
+        advanceCycle();
+        snapToParagraph(0, "start");
+      }
     } else if (Math.round(window.currentY) < start) {
       advanceLocked = true;
-      const previousIndex = currentIndex > 0 ? currentIndex - 1 : window.pLength - 1;
-      snapToParagraph(previousIndex, "end");
+      if (currentIndex > 0) {
+        snapToParagraph(currentIndex - 1, "end");
+      } else {
+        currentCycle -= 1;
+        if (currentCycle < 1) currentCycle = totalCycles;
+        refreshParagraphsList();
+        snapToParagraph(window.pLength - 1, "end");
+      }
     }
   }
 
@@ -446,6 +453,8 @@ function bindMirrorResize() {
 
 function bindProgressReset() {
   document.querySelector(".js-progress").addEventListener("click", () => {
+    currentCycle = 1;
+    refreshParagraphsList();
     snapToParagraph(0);
   });
 }
@@ -492,6 +501,8 @@ function startScrollLoop() {
 
 async function init() {
   window.pLength = Number.parseInt(paragraphsRoot.dataset.length, 10);
+  totalCycles = Number.parseInt(paragraphsRoot.dataset.cycles, 10) || 1;
+  currentCycle = 1;
 
   const template = document.getElementById("navigation-cues-template");
   if (template?.content?.firstChild) {
@@ -501,6 +512,7 @@ async function init() {
   }
 
   captureParagraphsTemplate();
+  refreshParagraphsList();
   bindMirrorResize();
   bindProgressReset();
 
