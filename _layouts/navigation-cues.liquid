@@ -11,12 +11,12 @@
   <body>
     <div class="container js-scrollContainer">
       <main class="main">
-        <div class="paragraphs js-paragraphs" data-length="{{ site.data.navigation-cues.paragraphs.size | plus: 1 }}"></div>
+        <div class="paragraphs js-paragraphs" data-length="{{ site.data.navigation-cues.paragraphs.size | plus: 1 }}" data-cycles="{{ site.data.navigation-cues.cycles | default: 6 }}"></div>
         <template id="navigation-cues-template">{% capture nav_cues_paragraphs %}{% include navigation-cues/paragraphs.liquid %}{% endcapture %}{{ nav_cues_paragraphs | strip_newlines }}</template>
       </main>
       <div class="counter js-progress">0%</div>
     </div>
     <div class="scroll js-scrollMirror"><div></div></div>
-    <script src="{{ '/assets/navigation-cues/js/navigation-cues.js' | relative_url }}?v=4" defer></script>
+    <script src="{{ '/assets/navigation-cues/js/navigation-cues.js' | relative_url }}?v=5" defer></script>
   </body>
 </html>

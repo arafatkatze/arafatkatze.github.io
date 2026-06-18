@@ -4,11 +4,13 @@
 # - paragraphs: one scroll step per item
 #   * plain string = prose paragraph
 #   * quote/cite/url object = quoted passage with attribution
+# - cycles: how many times the full essay repeats for infinite scroll (default 6)
 
 title: 'Navigation queues
 
   Navigation cues'
 byline: A web-essay written by Domitille Debret, designed and developed by F451 for The HTML Review Issue 04, Spring 2025.
+cycles: 6
 paragraphs:
 - Drawing from my work as a web designer and the all-too-familiar experience of late-night doomscrolling, I’ve come to recognise a quiet, persistent fear. A fear that unsettles those trying to sway what users see and those trying to protect their own attention from being wholly consumed. The fear of scrolling.
 - Clients and collaborators are often uneasy about letting information live beyond the first visible viewport. They worry users won’t scroll, that key details will go unnoticed and that attention will vanish when an image, a button or a title slips out of view. In contrast, as we trawl mindlessly through endless streams of content, the fear shifts. It’s no longer about missing information, it’s about being lost.
