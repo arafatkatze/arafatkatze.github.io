@@ -110,39 +110,28 @@ body {
 .line {
   margin: 0;
   font-size: clamp(1.35rem, 3.1vw, 2.6rem);
-  line-height: 1.45;
+  line-height: 1.6;
   color: var(--ink);
+}
+
+.line span {
   /* faint analog chromatic-print fringing */
   text-shadow: 0.6px 0 rgba(150, 40, 40, 0.18), -0.6px 0 rgba(40, 70, 150, 0.18);
+  padding: 0.06em 0.18em;
+  background-color: transparent;
+  background-image: linear-gradient(transparent 0, transparent 100%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-color 0.25s ease, color 0.2s ease, text-shadow 0.2s ease;
 }
 
-.hint {
-  font-size: clamp(0.85rem, 1.5vw, 1.15rem);
-  font-style: italic;
-  color: var(--ink-soft);
-  letter-spacing: 0.02em;
-  animation: pulse 2.6s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.35; }
-  50%      { opacity: 0.75; }
-}
-
-.advance {
-  position: fixed;
-  inset: 0;
-  z-index: 4;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
+/* highlight the words on hover, like a marker swipe */
+.frame:hover .line span {
+  color: #3a2c12;
+  background-color: rgba(244, 221, 96, 0.6);
+  text-shadow: 1px 0 rgba(150, 40, 40, 0.3), -1px 0 rgba(40, 70, 150, 0.3);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .grain { animation: none; }
-  .hint { animation: none; opacity: 0.6; }
 }
