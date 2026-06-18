@@ -258,11 +258,6 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/Art/";
-            },},{id: "projects-brazil",
-          title: 'Brazil',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/Brazil/";
             },},{id: "projects-cline-39-s-analog-art",
           title: 'Cline&amp;#39;s Analog Art',
           description: "On loneliness, soulfulness, and making beautiful things with your hands while building the future",
