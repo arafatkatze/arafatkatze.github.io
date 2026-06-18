@@ -274,8 +274,7 @@ let bottomOffset = window.matchMedia("(min-width: 576px)").matches ? 14 : 8;
 let paragraphsTemplate = null;
 let userHasScrolled = false;
 let advanceLocked = false;
-let currentCycle = 1;
-let totalCycles = 1;
+let totalCopies = 3;
 
 window.currentY = 0;
 window.paragraphsList = [];
@@ -285,6 +284,14 @@ function createSpacer() {
   spacer.className = "paragraphs__spacer";
   spacer.textContent = " ";
   return spacer;
+}
+
+function shuffleArray(items) {
+  for (let index = items.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [items[index], items[swapIndex]] = [items[swapIndex], items[index]];
+  }
+  return items;
 }
 
 function captureParagraphsTemplate() {
@@ -298,25 +305,56 @@ function restoreParagraphsTemplate() {
   paragraphsRoot.innerHTML = paragraphsTemplate;
 }
 
-function refreshParagraphsList() {
-  window.paragraphsList = [];
+function expandAndShuffleParagraphs(copies) {
+  restoreParagraphsTemplate();
 
-  for (let index = 0; index < window.pLength; index += 1) {
-    const item = paragraphsRoot.querySelector(
-      `.js-paragraphsItem[data-index="${index}"][data-cycle="${currentCycle}"]`,
-    );
-    if (item) window.paragraphsList.push(item);
+  const canonicalItems = Array.from(paragraphsRoot.querySelectorAll(".js-paragraphsItem"));
+  const expandedItems = [];
+
+  for (const item of canonicalItems) {
+    for (let copy = 0; copy < copies; copy += 1) {
+      expandedItems.push(item.cloneNode(true));
+    }
   }
+
+  shuffleArray(expandedItems);
+
+  const fragment = document.createDocumentFragment();
+  for (const item of expandedItems) {
+    fragment.appendChild(item);
+    fragment.appendChild(createSpacer());
+  }
+
+  paragraphsRoot.replaceChildren(fragment);
 }
 
-function advanceCycle() {
-  currentCycle += 1;
-  if (currentCycle > totalCycles) currentCycle = 1;
-  window.currentCycle = currentCycle;
-  refreshParagraphsList();
+function buildParagraphsList() {
+  const allItems = Array.from(document.querySelectorAll(".js-paragraphsItem"));
+  const middleZone = allItems.filter(
+    (item) =>
+      item.offsetTop > window.innerHeight / 2 + topOffset &&
+      item.offsetTop + item.offsetHeight <
+        paragraphsRoot.offsetHeight - window.innerHeight / 2 - bottomOffset,
+  );
+
+  const list = [];
+  for (let index = 0; index < window.pLength; index += 1) {
+    const middleMatches = middleZone.filter((item) => item.dataset.index == index);
+    const pool = middleMatches.length
+      ? middleMatches
+      : allItems.filter((item) => item.dataset.index == index);
+    const picked = pool[Math.floor(Math.random() * pool.length)];
+    if (picked) list.push(picked);
+  }
+
+  window.paragraphsList = list;
 }
 
 function snapToParagraph(index = 0, position = "start") {
+  if (index === 0 || index === window.pLength - 1) {
+    buildParagraphsList();
+  }
+
   const target = window.paragraphsList[index];
   if (!target) return;
 
@@ -333,7 +371,6 @@ function snapToParagraph(index = 0, position = "start") {
   target.classList.add("active");
   currentIndex = index;
   window.M = index;
-  window.currentCycle = currentCycle;
 }
 
 function scrollToPosition(scrollTop) {
@@ -378,22 +415,12 @@ function watchScrollPosition() {
 
     if (Math.round(window.currentY) > end) {
       advanceLocked = true;
-      if (currentIndex < window.pLength - 1) {
-        snapToParagraph(currentIndex + 1, "start");
-      } else {
-        advanceCycle();
-        snapToParagraph(0, "start");
-      }
+      const nextIndex = currentIndex < window.pLength - 1 ? currentIndex + 1 : 0;
+      snapToParagraph(nextIndex, "start");
     } else if (Math.round(window.currentY) < start) {
       advanceLocked = true;
-      if (currentIndex > 0) {
-        snapToParagraph(currentIndex - 1, "end");
-      } else {
-        currentCycle -= 1;
-        if (currentCycle < 1) currentCycle = totalCycles;
-        refreshParagraphsList();
-        snapToParagraph(window.pLength - 1, "end");
-      }
+      const previousIndex = currentIndex > 0 ? currentIndex - 1 : window.pLength - 1;
+      snapToParagraph(previousIndex, "end");
     }
   }
 
@@ -453,8 +480,8 @@ function bindMirrorResize() {
 
 function bindProgressReset() {
   document.querySelector(".js-progress").addEventListener("click", () => {
-    currentCycle = 1;
-    refreshParagraphsList();
+    expandAndShuffleParagraphs(totalCopies);
+    buildParagraphsList();
     snapToParagraph(0);
   });
 }
@@ -501,8 +528,7 @@ function startScrollLoop() {
 
 async function init() {
   window.pLength = Number.parseInt(paragraphsRoot.dataset.length, 10);
-  totalCycles = Number.parseInt(paragraphsRoot.dataset.cycles, 10) || 1;
-  currentCycle = 1;
+  totalCopies = Number.parseInt(paragraphsRoot.dataset.copies, 10) || 3;
 
   const template = document.getElementById("navigation-cues-template");
   if (template?.content?.firstChild) {
@@ -512,7 +538,8 @@ async function init() {
   }
 
   captureParagraphsTemplate();
-  refreshParagraphsList();
+  expandAndShuffleParagraphs(totalCopies);
+  buildParagraphsList();
   bindMirrorResize();
   bindProgressReset();
 
