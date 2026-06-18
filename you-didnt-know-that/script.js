@@ -12,7 +12,6 @@ const LINES = [
 const PAPERS = ["img/paper-1.png", "img/paper-2.png", "img/paper-3.png"];
 
 const lineEl = document.getElementById("line");
-const hintEl = document.getElementById("hint");
 const bgEl = document.getElementById("bg");
 const boilEls = Array.from(document.querySelectorAll(".boil"));
 
@@ -24,13 +23,7 @@ function currentIndex() {
 }
 
 function render() {
-  const i = currentIndex();
-  lineEl.textContent = LINES[i];
-  if (i === LINES.length - 1) {
-    hintEl.innerHTML = "click anywhere to begin again&nbsp;&#8635;";
-  } else {
-    hintEl.innerHTML = "click anywhere to continue&nbsp;&rarr;";
-  }
+  lineEl.textContent = LINES[currentIndex()];
 }
 
 function advance() {
