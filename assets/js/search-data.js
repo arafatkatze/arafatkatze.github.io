@@ -288,6 +288,11 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/homelessness/";
+            },},{id: "projects-the-math-of-llm-inference",
+          title: 'The Math of LLM Inference',
+          description: "How to save millions by self-hosting LLMs — the math of inference and the real dollars, grounded in production traffic.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/inferenceMath/";
             },},{id: "projects-mathematics-of-love",
           title: 'Mathematics of Love',
           description: "",
