@@ -552,6 +552,13 @@ html[data-theme="dark"] {
   .contact-note {
     font-size: 0.8rem;
   }
+
+  .view-counter {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--global-text-color-light);
+    letter-spacing: 0.02em;
+  }
 }
 
 .wechat-modal {
