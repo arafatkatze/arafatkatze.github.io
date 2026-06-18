@@ -298,6 +298,11 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/mathmaking/";
+            },},{id: "projects-navigation-queues-navigation-cues",
+          title: 'Navigation queues | Navigation cues',
+          description: "A scroll-driven web essay about scrollbars, infinite scroll, and the fear of getting lost — replica for future customization.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/navigationCues/";
             },},{id: "projects-stories-from-my-night-sky",
           title: 'Stories from my night sky',
           description: "a small constellation of the people who shaped me — hover any star, read their story.",
