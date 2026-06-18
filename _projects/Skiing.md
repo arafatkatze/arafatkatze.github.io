@@ -7,13 +7,11 @@ importance: 2
 category: fun
 ---
 
-Skiing has been one of the best gifts of my life, it completely changed the direction of my life and I so glad I stumbled upon this.
-
 Many moons ago I was doomscrolling on youtube when I came across this video
 
 <iframe width="800" height="480" src="https://www.youtube.com/embed/C-y70ZOSzE0" title="GoPro: Let Me Take You To The Mountain" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-Something about this hypnotized me so much that I couldn't resist wanting to DO whatever it is that these people were doing. It took me a few years to get myself to the logisitcs and the finances to get to a point where I could actually afford to go skiing(Its a priviledged person's sport and does have a very high barrier to entry for most folks).
+Something about this hypnotized me so much that I couldn't resist wanting to DO whatever it is that these people were doing. It took me a few years to get myself the finances to get to a point where I could actually afford to go skiing but the wait was well worth it.
 
 As I learnt the sport the first few days I would fall a zillion times in my attempts to learn it. I am almost surprized I didn't break all my bones in trying to learn skiing(Perhaps its my over cautious brain that stopped me anytime I got too fast so I errored on the side of overprotection).
 
