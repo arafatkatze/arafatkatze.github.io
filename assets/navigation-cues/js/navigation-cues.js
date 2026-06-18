@@ -1,1 +1,518 @@
-(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const i of document.querySelectorAll('link[rel="modulepreload"]'))s(i);new MutationObserver(i=>{for(const n of i)if(n.type==="childList")for(const r of n.addedNodes)r.tagName==="LINK"&&r.rel==="modulepreload"&&s(r)}).observe(document,{childList:!0,subtree:!0});function e(i){const n={};return i.integrity&&(n.integrity=i.integrity),i.referrerPolicy&&(n.referrerPolicy=i.referrerPolicy),i.crossOrigin==="use-credentials"?n.credentials="include":i.crossOrigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function s(i){if(i.ep)return;i.ep=!0;const n=e(i);fetch(i.href,n)}})();class H{constructor(t,e){this.element=t,this.touch1=null,this.touch2=null,this.touchStartX=null,this.touchStartY=null,this.touchEndX=null,this.touchEndY=null,this.touchMove1=null,this.touchMove2=null,this.touchMoveX=null,this.touchMoveY=null,this.velocityX=null,this.velocityY=null,this.longPressTimer=null,this.doubleTapTimer=null,this.doubleTapWaiting=!1,this.thresholdX=0,this.thresholdY=0,this.disregardVelocityThresholdX=0,this.disregardVelocityThresholdY=0,this.swipingHorizontal=!1,this.swipingVertical=!1,this.swipingDirection=null,this.swipedHorizontal=!1,this.swipedVertical=!1,this.originalDistance=null,this.newDistance=null,this.scale=null,this.originalAngle=null,this.newAngle=null,this.rotation=null,this.handlers={panstart:[],panmove:[],panend:[],swipeleft:[],swiperight:[],swipeup:[],swipedown:[],tap:[],doubletap:[],longpress:[],pinch:[],pinchend:[],rotate:[],rotateend:[]},this._onTouchStart=this.onTouchStart.bind(this),this._onTouchMove=this.onTouchMove.bind(this),this._onTouchEnd=this.onTouchEnd.bind(this),this.opts=Object.assign({},H.defaults,e),this.element.addEventListener("touchstart",this._onTouchStart,_),this.element.addEventListener("touchmove",this._onTouchMove,_),this.element.addEventListener("touchend",this._onTouchEnd,_),this.opts.mouseSupport&&!("ontouchstart"in window)&&(this.element.addEventListener("mousedown",this._onTouchStart,_),document.addEventListener("mousemove",this._onTouchMove,_),document.addEventListener("mouseup",this._onTouchEnd,_))}destroy(){var t,e;this.element.removeEventListener("touchstart",this._onTouchStart),this.element.removeEventListener("touchmove",this._onTouchMove),this.element.removeEventListener("touchend",this._onTouchEnd),this.element.removeEventListener("mousedown",this._onTouchStart),document.removeEventListener("mousemove",this._onTouchMove),document.removeEventListener("mouseup",this._onTouchEnd),clearTimeout((t=this.longPressTimer)!==null&&t!==void 0?t:void 0),clearTimeout((e=this.doubleTapTimer)!==null&&e!==void 0?e:void 0)}on(t,e){if(this.handlers[t])return this.handlers[t].push(e),{type:t,fn:e,cancel:()=>this.off(t,e)}}off(t,e){if(this.handlers[t]){const s=this.handlers[t].indexOf(e);s!==-1&&this.handlers[t].splice(s,1)}}fire(t,e){for(let s=0;s<this.handlers[t].length;s++)this.handlers[t][s](e)}onTouchStart(t){var e,s,i,n,r,p,v,m,g,w,a,c,h,d,f,u,l,T,y,P,x,V,O,q,I,A;let b=!1;if(t.type!=="mousedown"){if(this.touch1||(this.touch1=t.changedTouches[0],b=!0),(b&&t.changedTouches.length>1||!b)&&!this.touch2){this.touch2=[...t.changedTouches].find(D=>{var j;return D.identifier!==((j=this.touch1)===null||j===void 0?void 0:j.identifier)})||null,this.originalDistance=Math.sqrt(Math.pow(((s=(e=this.touch2)===null||e===void 0?void 0:e.screenX)!==null&&s!==void 0?s:0)-((p=(n=(i=this.touchMove1)===null||i===void 0?void 0:i.screenX)!==null&&n!==void 0?n:(r=this.touch1)===null||r===void 0?void 0:r.screenX)!==null&&p!==void 0?p:0),2)+Math.pow(((m=(v=this.touch2)===null||v===void 0?void 0:v.screenY)!==null&&m!==void 0?m:0)-((c=(w=(g=this.touchMove1)===null||g===void 0?void 0:g.screenY)!==null&&w!==void 0?w:(a=this.touch1)===null||a===void 0?void 0:a.screenY)!==null&&c!==void 0?c:0),2)),this.originalAngle=Math.atan2(((d=(h=this.touch2)===null||h===void 0?void 0:h.screenY)!==null&&d!==void 0?d:0)-((T=(u=(f=this.touchMove1)===null||f===void 0?void 0:f.screenY)!==null&&u!==void 0?u:(l=this.touch1)===null||l===void 0?void 0:l.screenY)!==null&&T!==void 0?T:0),((P=(y=this.touch2)===null||y===void 0?void 0:y.screenX)!==null&&P!==void 0?P:0)-((q=(V=(x=this.touchMove1)===null||x===void 0?void 0:x.screenX)!==null&&V!==void 0?V:(O=this.touch1)===null||O===void 0?void 0:O.screenX)!==null&&q!==void 0?q:0))/(Math.PI/180);return}if(!b)return}(b||t.type==="mousedown")&&(this.thresholdX=this.opts.threshold("x",this),this.thresholdY=this.opts.threshold("y",this),this.disregardVelocityThresholdX=this.opts.disregardVelocityThreshold("x",this),this.disregardVelocityThresholdY=this.opts.disregardVelocityThreshold("y",this),this.touchStartX=t.type==="mousedown"?t.screenX:((I=this.touch1)===null||I===void 0?void 0:I.screenX)||0,this.touchStartY=t.type==="mousedown"?t.screenY:((A=this.touch1)===null||A===void 0?void 0:A.screenY)||0,this.touchMoveX=null,this.touchMoveY=null,this.touchEndX=null,this.touchEndY=null,this.swipingDirection=null,this.longPressTimer=setTimeout(()=>this.fire("longpress",t),this.opts.longPressTime),this.scale=1,this.rotation=0,this.fire("panstart",t))}onTouchMove(t){var e,s,i,n,r,p,v,m,g,w,a,c,h;if(t.type==="mousemove"&&(!this.touchStartX||this.touchEndX!==null))return;let d,f;if(t.type!=="mousemove"&&(d=[...t.changedTouches].find(u=>{var l;return u.identifier===((l=this.touch1)===null||l===void 0?void 0:l.identifier)}),this.touchMove1=d||this.touchMove1,f=[...t.changedTouches].find(u=>{var l;return u.identifier===((l=this.touch2)===null||l===void 0?void 0:l.identifier)}),this.touchMove2=f||this.touchMove2),t.type==="mousemove"||d){const u=(t.type==="mousemove"?t.screenX:(e=d==null?void 0:d.screenX)!==null&&e!==void 0?e:0)-((s=this.touchStartX)!==null&&s!==void 0?s:0);this.velocityX=u-((i=this.touchMoveX)!==null&&i!==void 0?i:0),this.touchMoveX=u;const l=(t.type==="mousemove"?t.screenY:(n=d==null?void 0:d.screenY)!==null&&n!==void 0?n:0)-((r=this.touchStartY)!==null&&r!==void 0?r:0);this.velocityY=l-((p=this.touchMoveY)!==null&&p!==void 0?p:0),this.touchMoveY=l;const T=Math.abs(this.touchMoveX),y=Math.abs(this.touchMoveY);this.swipingHorizontal=T>this.thresholdX,this.swipingVertical=y>this.thresholdY,this.swipingDirection=T>y?this.swipingHorizontal?"horizontal":"pre-horizontal":this.swipingVertical?"vertical":"pre-vertical",Math.max(T,y)>this.opts.pressThreshold&&clearTimeout((v=this.longPressTimer)!==null&&v!==void 0?v:void 0),this.fire("panmove",t)}t.type!=="mousemove"&&this.touchMove1!=null&&this.touchMove2!=null&&(this.newDistance=Math.sqrt(Math.pow(this.touchMove2.screenX-this.touchMove1.screenX,2)+Math.pow(this.touchMove2.screenY-this.touchMove1.screenY,2)),this.scale=this.newDistance/((m=this.originalDistance)!==null&&m!==void 0?m:0),this.fire("pinch",t),this.newAngle=Math.atan2(((g=this.touchMove2.screenY)!==null&&g!==void 0?g:0)-((w=this.touchMove1.screenY)!==null&&w!==void 0?w:0),((a=this.touchMove2.screenX)!==null&&a!==void 0?a:0)-((c=this.touchMove1.screenX)!==null&&c!==void 0?c:0))/(Math.PI/180),this.rotation=this.newAngle-((h=this.originalAngle)!==null&&h!==void 0?h:0),this.fire("rotate",t))}onTouchEnd(t){var e,s,i,n,r,p,v,m,g,w;let a;if(t.type!=="mouseup"&&(a=[...t.changedTouches].find(c=>{var h;return c.identifier===((h=this.touch1)===null||h===void 0?void 0:h.identifier)}),[...t.touches].find(c=>{var h;return c.identifier===((h=this.touch1)===null||h===void 0?void 0:h.identifier)})||(this.touch1=null,this.touchMove1=null),[...t.touches].find(c=>{var h;return c.identifier===((h=this.touch2)===null||h===void 0?void 0:h.identifier)})||(this.touch2=null,this.touchMove2=null)),!(t.type==="mouseup"&&(!this.touchStartX||this.touchEndX!==null))){if(t.type==="mouseup"||a){this.touchEndX=t.type==="mouseup"?t.screenX:(e=a==null?void 0:a.screenX)!==null&&e!==void 0?e:0,this.touchEndY=t.type==="mouseup"?t.screenY:(s=a==null?void 0:a.screenY)!==null&&s!==void 0?s:0,this.fire("panend",t),clearTimeout((i=this.longPressTimer)!==null&&i!==void 0?i:void 0);const c=this.touchEndX-((n=this.touchStartX)!==null&&n!==void 0?n:0),h=Math.abs(c),d=this.touchEndY-((r=this.touchStartY)!==null&&r!==void 0?r:0),f=Math.abs(d),u=Math.sqrt(Math.pow(c,2)+Math.pow(d,2)),l=Math.abs(u),T=f/h;h>this.thresholdX||f>this.thresholdY||this.opts.diagonalSwipes&&(l>this.thresholdX||l>this.thresholdY)?(this.swipedHorizontal=h>this.thresholdX||this.opts.diagonalSwipes&&l>this.thresholdX,this.swipedVertical=f>this.thresholdY||this.opts.diagonalSwipes&&l>this.thresholdY,(!this.opts.diagonalSwipes||T<Math.tan((45-this.opts.diagonalLimit)*Math.PI/180)||T>Math.tan((45+this.opts.diagonalLimit)*Math.PI/180))&&(h>=f&&(this.swipedVertical=!1),f>h&&(this.swipedHorizontal=!1)),this.swipedHorizontal&&(c<0?(((p=this.velocityX)!==null&&p!==void 0?p:0)<-this.opts.velocityThreshold||u<-this.disregardVelocityThresholdX)&&this.fire("swipeleft",t):(((v=this.velocityX)!==null&&v!==void 0?v:0)>this.opts.velocityThreshold||u>this.disregardVelocityThresholdX)&&this.fire("swiperight",t)),this.swipedVertical&&(d<0?(((m=this.velocityY)!==null&&m!==void 0?m:0)<-this.opts.velocityThreshold||u<-this.disregardVelocityThresholdY)&&this.fire("swipeup",t):(((g=this.velocityY)!==null&&g!==void 0?g:0)>this.opts.velocityThreshold||u>this.disregardVelocityThresholdY)&&this.fire("swipedown",t))):h<this.opts.pressThreshold&&f<this.opts.pressThreshold&&(this.doubleTapWaiting?(this.doubleTapWaiting=!1,clearTimeout((w=this.doubleTapTimer)!==null&&w!==void 0?w:void 0),this.fire("doubletap",t)):(this.doubleTapWaiting=!0,this.doubleTapTimer=setTimeout(()=>this.doubleTapWaiting=!1,this.opts.doubleTapTime),this.fire("tap",t)))}!this.touch1&&!this.touch2&&(this.fire("pinchend",t),this.fire("rotateend",t),this.originalDistance=null,this.newDistance=null,this.scale=null,this.originalAngle=null,this.newAngle=null,this.rotation=null)}}}H.defaults={threshold:(o,t)=>Math.max(25,Math.floor(.15*(o==="x"?window.innerWidth||document.body.clientWidth:window.innerHeight||document.body.clientHeight))),velocityThreshold:10,disregardVelocityThreshold:(o,t)=>Math.floor(.5*(o==="x"?t.element.clientWidth:t.element.clientHeight)),pressThreshold:8,diagonalSwipes:!1,diagonalLimit:15,longPressTime:500,doubleTapTime:300,mouseSupport:!0};let _=!1;try{window.addEventListener("test",null,Object.defineProperty({},"passive",{get:function(){_={passive:!0}}}))}catch{}const Y=document.querySelector(".js-scrollContainer"),W=document.querySelector(".js-scrollMirror");let M=null;window.currentY=0;window.paragraphsList=[];let X=window.matchMedia("(min-width: 576px)").matches?16:9,L=window.matchMedia("(min-width: 576px)").matches?14:8;const S=(o=0,t="start")=>{(o===0||o===window.pLength-1)&&B();const e=window.paragraphsList[o],s=t=="start"?e.offsetTop-window.innerHeight/2+X:e.offsetTop+e.offsetHeight-window.innerHeight/2-L;E(s),document.querySelectorAll(".js-paragraphsItem").forEach(i=>{i.classList.remove("active")}),e.classList.add("active"),M=o},C=()=>{z(),$(),k(),window.addEventListener("resize",()=>{S(M),X=window.matchMedia("(min-width: 576px)").matches?16:9,L=window.matchMedia("(min-width: 576px)").matches?14:8})},$=()=>{Y.addEventListener("wheel",o=>{E(Y.scrollTop+o.deltaY)})},k=()=>{const o=new H(Y,{mouseSupport:!1});let t,e=0;o.on("panmove",s=>{E(Y.scrollTop-o.velocityY),e=o.velocityY,t&&clearInterval(t)}),o.on("panend",()=>{t=setInterval(()=>{if(Math.abs(e)<.01){clearInterval(t);return}E(Y.scrollTop-e),e*=.85},16)})},E=o=>{Y.scrollTo({top:o}),W.scrollTo({top:o}),window.currentY=Y.scrollTop+window.innerHeight/2},z=()=>{const o=document.querySelector(".js-paragraphsItem.active");if(N(),o&&window.currentY!==0){const t=o.offsetTop+X,e=o.offsetTop+o.offsetHeight-L;if(Math.round(window.currentY)>e){const s=M<window.pLength-1?M+1:0;S(s,"start")}else if(Math.round(window.currentY)<t){const s=M>0?M-1:window.pLength-1;S(s,"end")}}requestAnimationFrame(z)},B=()=>{const o=[],t=document.querySelectorAll(".js-paragraphsItem"),e=Array.from(t).filter(i=>i.offsetTop>window.innerHeight/2+X&&i.offsetTop+i.offsetHeight<document.querySelector(".js-paragraphs").offsetHeight-window.innerHeight/2-L),s=window.pLength;for(let i=0;i<s;i++){const n=e.filter(p=>p.dataset.index==i),r=n[Math.floor(Math.random()*n.length)];o.push(r)}window.paragraphsList=o},N=()=>{if(window.paragraphsList.length===0)return;const o=window.paragraphsList.reduce((s,i)=>s+i.offsetHeight-L,0)-X;let t=window.paragraphsList.slice(0,M).reduce((s,i)=>s+i.offsetHeight-L,0)+window.currentY-window.paragraphsList[M].offsetTop-X;t<0&&(t=0),t>o&&(t=o);const e=t/o*100;document.querySelector(".js-progress").innerHTML=`${Math.round(e)}%`},F=async()=>{window.pLength=parseInt(document.querySelector(".js-paragraphs").dataset.length),K(),R(),setTimeout(()=>{S(0),document.body.classList.add("loaded"),setTimeout(()=>{C()},100)},100)},K=()=>{const o=new ResizeObserver(t=>{for(const e of t){const s=e.borderBoxSize[0].blockSize;document.querySelector(".js-scrollMirror > div").style.height=`${s}px`}});document.querySelectorAll(".js-paragraphs").forEach(t=>{o.observe(t)})},R=()=>{document.querySelector(".js-progress").addEventListener("click",o=>{S(0)})},G=()=>{J(),Q(),U()},J=()=>{const o="ontouchstart"in window||navigator.msMaxTouchPoints>0,t=window.navigator.userAgent,e=!!t.match(/iP(ad|hone)/i),s=!!t.match(/WebKit/i),i=e&&s&&!t.match(/CriOS/i),n=o?"touch":"no-touch",r=i?"ios":"no-ios";document.documentElement.classList.remove("touch","no-touch","ios","no-ios"),document.documentElement.classList.add(n,r)},Q=()=>{document.querySelectorAll("a").forEach(t=>{t.target||(t.host!==window.location.host?(t.target="_blank",t.rel="noopener"):t.target="_self")})},U=()=>{const o=window.innerHeight*.01;document.documentElement.style.setProperty("--vh",`${o}px`),window.addEventListener("resize",()=>{const t=window.innerHeight*.01;document.documentElement.style.setProperty("--vh",`${t}px`)})};document.addEventListener("DOMContentLoaded",()=>{G(),F()});
+/* Touch gesture helper (minified Touchy library) */
+class TouchGesture {
+  constructor(element, options) {
+    this.element = element;
+    this.touch1 = null;
+    this.touch2 = null;
+    this.touchStartX = null;
+    this.touchStartY = null;
+    this.touchEndX = null;
+    this.touchEndY = null;
+    this.touchMove1 = null;
+    this.touchMove2 = null;
+    this.touchMoveX = null;
+    this.touchMoveY = null;
+    this.velocityX = null;
+    this.velocityY = null;
+    this.longPressTimer = null;
+    this.doubleTapTimer = null;
+    this.doubleTapWaiting = false;
+    this.thresholdX = 0;
+    this.thresholdY = 0;
+    this.disregardVelocityThresholdX = 0;
+    this.disregardVelocityThresholdY = 0;
+    this.swipingHorizontal = false;
+    this.swipingVertical = false;
+    this.swipingDirection = null;
+    this.swipedHorizontal = false;
+    this.swipedVertical = false;
+    this.originalDistance = null;
+    this.newDistance = null;
+    this.scale = null;
+    this.originalAngle = null;
+    this.newAngle = null;
+    this.rotation = null;
+    this.handlers = {
+      panstart: [],
+      panmove: [],
+      panend: [],
+      swipeleft: [],
+      swiperight: [],
+      swipeup: [],
+      swipedown: [],
+      tap: [],
+      doubletap: [],
+      longpress: [],
+      pinch: [],
+      pinchend: [],
+      rotate: [],
+      rotateend: [],
+    };
+    this._onTouchStart = this.onTouchStart.bind(this);
+    this._onTouchMove = this.onTouchMove.bind(this);
+    this._onTouchEnd = this.onTouchEnd.bind(this);
+    this.opts = Object.assign({}, TouchGesture.defaults, options);
+    this.element.addEventListener("touchstart", this._onTouchStart, passiveOption);
+    this.element.addEventListener("touchmove", this._onTouchMove, passiveOption);
+    this.element.addEventListener("touchend", this._onTouchEnd, passiveOption);
+    if (this.opts.mouseSupport && !("ontouchstart" in window)) {
+      this.element.addEventListener("mousedown", this._onTouchStart, passiveOption);
+      document.addEventListener("mousemove", this._onTouchMove, passiveOption);
+      document.addEventListener("mouseup", this._onTouchEnd, passiveOption);
+    }
+  }
+
+  destroy() {
+    this.element.removeEventListener("touchstart", this._onTouchStart);
+    this.element.removeEventListener("touchmove", this._onTouchMove);
+    this.element.removeEventListener("touchend", this._onTouchEnd);
+    this.element.removeEventListener("mousedown", this._onTouchStart);
+    document.removeEventListener("mousemove", this._onTouchMove);
+    document.removeEventListener("mouseup", this._onTouchEnd);
+    clearTimeout(this.longPressTimer ?? undefined);
+    clearTimeout(this.doubleTapTimer ?? undefined);
+  }
+
+  on(type, fn) {
+    if (!this.handlers[type]) return;
+    this.handlers[type].push(fn);
+    return { type, fn, cancel: () => this.off(type, fn) };
+  }
+
+  off(type, fn) {
+    if (!this.handlers[type]) return;
+    const index = this.handlers[type].indexOf(fn);
+    if (index !== -1) this.handlers[type].splice(index, 1);
+  }
+
+  fire(type, event) {
+    for (const handler of this.handlers[type]) handler(event);
+  }
+
+  onTouchStart(event) {
+    let isFirstTouch = false;
+    if (event.type !== "mousedown") {
+      if (!this.touch1) {
+        this.touch1 = event.changedTouches[0];
+        isFirstTouch = true;
+      }
+      if ((isFirstTouch && event.changedTouches.length > 1) || !isFirstTouch) {
+        if (!this.touch2) {
+          this.touch2 =
+            [...event.changedTouches].find(
+              (touch) => touch.identifier !== this.touch1?.identifier,
+            ) || null;
+          return;
+        }
+      }
+      if (!isFirstTouch) return;
+    }
+
+    if (isFirstTouch || event.type === "mousedown") {
+      this.thresholdX = this.opts.threshold("x", this);
+      this.thresholdY = this.opts.threshold("y", this);
+      this.disregardVelocityThresholdX = this.opts.disregardVelocityThreshold("x", this);
+      this.disregardVelocityThresholdY = this.opts.disregardVelocityThreshold("y", this);
+      this.touchStartX =
+        event.type === "mousedown" ? event.screenX : this.touch1?.screenX || 0;
+      this.touchStartY =
+        event.type === "mousedown" ? event.screenY : this.touch1?.screenY || 0;
+      this.touchMoveX = null;
+      this.touchMoveY = null;
+      this.touchEndX = null;
+      this.touchEndY = null;
+      this.swipingDirection = null;
+      this.longPressTimer = setTimeout(
+        () => this.fire("longpress", event),
+        this.opts.longPressTime,
+      );
+      this.scale = 1;
+      this.rotation = 0;
+      this.fire("panstart", event);
+    }
+  }
+
+  onTouchMove(event) {
+    if (event.type === "mousemove" && (!this.touchStartX || this.touchEndX !== null)) {
+      return;
+    }
+
+    let primaryTouch;
+    if (event.type !== "mousedown") {
+      primaryTouch =
+        [...event.changedTouches].find(
+          (touch) => touch.identifier === this.touch1?.identifier,
+        ) || this.touchMove1;
+      this.touchMove1 = primaryTouch || this.touchMove1;
+      const secondaryTouch =
+        [...event.changedTouches].find(
+          (touch) => touch.identifier === this.touch2?.identifier,
+        ) || this.touchMove2;
+      this.touchMove2 = secondaryTouch || this.touchMove2;
+    }
+
+    if (event.type === "mousemove" || primaryTouch) {
+      const deltaX =
+        (event.type === "mousemove" ? event.screenX : primaryTouch?.screenX || 0) -
+        (this.touchStartX || 0);
+      this.velocityX = deltaX - (this.touchMoveX || 0);
+      this.touchMoveX = deltaX;
+
+      const deltaY =
+        (event.type === "mousemove" ? event.screenY : primaryTouch?.screenY || 0) -
+        (this.touchStartY || 0);
+      this.velocityY = deltaY - (this.touchMoveY || 0);
+      this.touchMoveY = deltaY;
+
+      if (Math.max(Math.abs(this.touchMoveX), Math.abs(this.touchMoveY)) > this.opts.pressThreshold) {
+        clearTimeout(this.longPressTimer ?? undefined);
+      }
+      this.fire("panmove", event);
+    }
+  }
+
+  onTouchEnd(event) {
+    let primaryTouch;
+    if (event.type !== "mouseup") {
+      primaryTouch = [...event.changedTouches].find(
+        (touch) => touch.identifier === this.touch1?.identifier,
+      );
+      if (![...event.touches].find((touch) => touch.identifier === this.touch1?.identifier)) {
+        this.touch1 = null;
+        this.touchMove1 = null;
+      }
+      if (![...event.touches].find((touch) => touch.identifier === this.touch2?.identifier)) {
+        this.touch2 = null;
+        this.touchMove2 = null;
+      }
+    }
+
+    if (event.type === "mouseup" && (!this.touchStartX || this.touchEndX !== null)) return;
+
+    if (event.type === "mouseup" || primaryTouch) {
+      this.touchEndX =
+        event.type === "mouseup" ? event.screenX : primaryTouch?.screenX || 0;
+      this.touchEndY =
+        event.type === "mouseup" ? event.screenY : primaryTouch?.screenY || 0;
+      this.fire("panend", event);
+      clearTimeout(this.longPressTimer ?? undefined);
+
+      const deltaX = this.touchEndX - (this.touchStartX || 0);
+      const deltaY = this.touchEndY - (this.touchStartY || 0);
+      const absX = Math.abs(deltaX);
+      const absY = Math.abs(deltaY);
+
+      if (absX < this.opts.pressThreshold && absY < this.opts.pressThreshold) {
+        if (this.doubleTapWaiting) {
+          this.doubleTapWaiting = false;
+          clearTimeout(this.doubleTapTimer ?? undefined);
+          this.fire("doubletap", event);
+        } else {
+          this.doubleTapWaiting = true;
+          this.doubleTapTimer = setTimeout(() => {
+            this.doubleTapWaiting = false;
+          }, this.opts.doubleTapTime);
+          this.fire("tap", event);
+        }
+      }
+    }
+
+    if (!this.touch1 && !this.touch2) {
+      this.fire("pinchend", event);
+      this.fire("rotateend", event);
+    }
+  }
+}
+
+TouchGesture.defaults = {
+  threshold: (axis, instance) =>
+    Math.max(
+      25,
+      Math.floor(
+        0.15 *
+          (axis === "x"
+            ? window.innerWidth || document.body.clientWidth
+            : window.innerHeight || document.body.clientHeight),
+      ),
+    ),
+  velocityThreshold: 10,
+  disregardVelocityThreshold: (axis, instance) =>
+    Math.floor(
+      0.5 *
+        (axis === "x" ? instance.element.clientWidth : instance.element.clientHeight),
+    ),
+  pressThreshold: 8,
+  diagonalSwipes: false,
+  diagonalLimit: 15,
+  longPressTime: 500,
+  doubleTapTime: 300,
+  mouseSupport: true,
+};
+
+let passiveOption = false;
+try {
+  window.addEventListener(
+    "test",
+    null,
+    Object.defineProperty({}, "passive", {
+      get() {
+        passiveOption = { passive: true };
+      },
+    }),
+  );
+} catch {
+  // ignore
+}
+
+const scrollContainer = document.querySelector(".js-scrollContainer");
+const scrollMirror = document.querySelector(".js-scrollMirror");
+const paragraphsRoot = document.querySelector(".js-paragraphs");
+
+let currentIndex = null;
+let topOffset = window.matchMedia("(min-width: 576px)").matches ? 16 : 9;
+let bottomOffset = window.matchMedia("(min-width: 576px)").matches ? 14 : 8;
+let paragraphsTemplate = null;
+
+window.currentY = 0;
+window.paragraphsList = [];
+
+function createSpacer() {
+  const spacer = document.createElement("div");
+  spacer.className = "paragraphs__spacer";
+  spacer.textContent = " ";
+  return spacer;
+}
+
+function captureParagraphsTemplate() {
+  if (!paragraphsTemplate) {
+    paragraphsTemplate = paragraphsRoot.innerHTML.replace(/\n/g, "");
+  }
+}
+
+function restoreParagraphsTemplate() {
+  captureParagraphsTemplate();
+  paragraphsRoot.innerHTML = paragraphsTemplate;
+}
+
+function reorderParagraphsDom(list) {
+  const fragment = document.createDocumentFragment();
+
+  list.forEach((item, index) => {
+    if (index > 0) fragment.appendChild(createSpacer());
+    fragment.appendChild(item);
+  });
+
+  paragraphsRoot.replaceChildren(fragment);
+}
+
+function buildParagraphsList() {
+  restoreParagraphsTemplate();
+
+  const allItems = [...paragraphsRoot.querySelectorAll(".js-paragraphsItem")];
+  const middleTop = window.innerHeight / 2 + topOffset;
+  const middleBottom = paragraphsRoot.offsetHeight - window.innerHeight / 2 - bottomOffset;
+
+  const middleZone = allItems.filter(
+    (item) =>
+      item.offsetTop > middleTop && item.offsetTop + item.offsetHeight < middleBottom,
+  );
+
+  const list = [];
+  for (let index = 0; index < window.pLength; index += 1) {
+    const matches = middleZone.filter((item) => item.dataset.index == String(index));
+    if (!matches.length) continue;
+    list.push(matches[Math.floor(Math.random() * matches.length)]);
+  }
+
+  window.paragraphsList = list;
+  reorderParagraphsDom(list);
+}
+
+function snapToParagraph(index = 0, position = "start") {
+  if (index === 0 || index === window.pLength - 1) buildParagraphsList();
+
+  const target = window.paragraphsList[index];
+  if (!target) return;
+
+  const scrollTop =
+    position === "start"
+      ? target.offsetTop - window.innerHeight / 2 + topOffset
+      : target.offsetTop + target.offsetHeight - window.innerHeight / 2 - bottomOffset;
+
+  scrollToPosition(scrollTop);
+
+  document.querySelectorAll(".js-paragraphsItem").forEach((item) => {
+    item.classList.remove("active");
+  });
+  target.classList.add("active");
+  currentIndex = index;
+  window.M = index;
+}
+
+function scrollToPosition(scrollTop) {
+  scrollContainer.scrollTo({ top: scrollTop });
+  scrollMirror.scrollTo({ top: scrollTop });
+  window.currentY = scrollContainer.scrollTop + window.innerHeight / 2;
+}
+
+function updateProgress() {
+  if (!window.paragraphsList.length) return;
+
+  const totalHeight =
+    window.paragraphsList.reduce((sum, item) => sum + item.offsetHeight - bottomOffset, 0) -
+    topOffset;
+
+  let progressOffset =
+    window.paragraphsList
+      .slice(0, currentIndex)
+      .reduce((sum, item) => sum + item.offsetHeight - bottomOffset, 0) +
+    window.currentY -
+    window.paragraphsList[currentIndex].offsetTop -
+    topOffset;
+
+  progressOffset = Math.max(0, Math.min(progressOffset, totalHeight));
+  const percent = totalHeight > 0 ? (progressOffset / totalHeight) * 100 : 0;
+  document.querySelector(".js-progress").textContent = `${Math.round(percent)}%`;
+}
+
+function watchScrollPosition() {
+  const active = document.querySelector(".js-paragraphsItem.active");
+  updateProgress();
+
+  if (active && window.currentY !== 0) {
+    const start = active.offsetTop + topOffset;
+    const end = active.offsetTop + active.offsetHeight - bottomOffset;
+
+    if (Math.round(window.currentY) > end) {
+      const nextIndex = currentIndex < window.pLength - 1 ? currentIndex + 1 : 0;
+      snapToParagraph(nextIndex, "start");
+    } else if (Math.round(window.currentY) < start) {
+      const previousIndex = currentIndex > 0 ? currentIndex - 1 : window.pLength - 1;
+      snapToParagraph(previousIndex, "end");
+    }
+  }
+
+  requestAnimationFrame(watchScrollPosition);
+}
+
+function bindWheelScroll() {
+  scrollContainer.addEventListener("wheel", (event) => {
+    scrollToPosition(scrollContainer.scrollTop + event.deltaY);
+  });
+}
+
+function bindTouchScroll() {
+  const gesture = new TouchGesture(scrollContainer, { mouseSupport: false });
+  let inertiaTimer;
+  let velocity = 0;
+
+  gesture.on("panmove", () => {
+    scrollToPosition(scrollContainer.scrollTop - gesture.velocityY);
+    velocity = gesture.velocityY;
+    if (inertiaTimer) clearInterval(inertiaTimer);
+  });
+
+  gesture.on("panend", () => {
+    inertiaTimer = setInterval(() => {
+      if (Math.abs(velocity) < 0.01) {
+        clearInterval(inertiaTimer);
+        return;
+      }
+      scrollToPosition(scrollContainer.scrollTop - velocity);
+      velocity *= 0.85;
+    }, 16);
+  });
+}
+
+function bindResize() {
+  window.addEventListener("resize", () => {
+    snapToParagraph(currentIndex);
+    topOffset = window.matchMedia("(min-width: 576px)").matches ? 16 : 9;
+    bottomOffset = window.matchMedia("(min-width: 576px)").matches ? 14 : 8;
+  });
+}
+
+function bindMirrorResize() {
+  const observer = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const height = entry.borderBoxSize[0].blockSize;
+      document.querySelector(".js-scrollMirror > div").style.height = `${height}px`;
+    }
+  });
+  observer.observe(paragraphsRoot);
+}
+
+function bindProgressReset() {
+  document.querySelector(".js-progress").addEventListener("click", () => {
+    snapToParagraph(0);
+  });
+}
+
+function configureLinks() {
+  document.querySelectorAll("a").forEach((link) => {
+    if (link.target) return;
+    if (link.host !== window.location.host) {
+      link.target = "_blank";
+      link.rel = "noopener";
+    } else {
+      link.target = "_self";
+    }
+  });
+}
+
+function configureViewportUnit() {
+  const setViewportUnit = () => {
+    const unit = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${unit}px`);
+  };
+  setViewportUnit();
+  window.addEventListener("resize", setViewportUnit);
+}
+
+function configureDocumentClasses() {
+  const isTouch = "ontouchstart" in window || navigator.msMaxTouchPoints > 0;
+  const userAgent = window.navigator.userAgent;
+  const isIOS = !!userAgent.match(/iP(ad|hone)/i);
+  const isWebKit = !!userAgent.match(/WebKit/i);
+  const isIOSWebKit = isIOS && isWebKit && !userAgent.match(/CriOS/i);
+
+  document.documentElement.classList.remove("touch", "no-touch", "ios", "no-ios");
+  document.documentElement.classList.add(isTouch ? "touch" : "no-touch");
+  document.documentElement.classList.add(isIOSWebKit ? "ios" : "no-ios");
+}
+
+function startScrollLoop() {
+  watchScrollPosition();
+  bindWheelScroll();
+  bindTouchScroll();
+  bindResize();
+}
+
+async function init() {
+  window.pLength = Number.parseInt(paragraphsRoot.dataset.length, 10);
+
+  const template = document.getElementById("navigation-cues-template");
+  if (template?.content?.firstChild) {
+    paragraphsRoot.appendChild(template.content.cloneNode(true));
+  } else if (template?.innerHTML) {
+    paragraphsRoot.innerHTML = template.innerHTML.replace(/\n/g, "");
+  }
+
+  captureParagraphsTemplate();
+  bindMirrorResize();
+  bindProgressReset();
+
+  setTimeout(() => {
+    buildParagraphsList();
+    snapToParagraph(0);
+    document.body.classList.add("loaded");
+    setTimeout(startScrollLoop, 100);
+  }, 100);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  configureDocumentClasses();
+  configureLinks();
+  configureViewportUnit();
+  init();
+});

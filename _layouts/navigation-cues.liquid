@@ -11,9 +11,8 @@
   <body>
     <div class="container js-scrollContainer">
       <main class="main">
-        <div class="paragraphs js-paragraphs" data-length="41">
-          {% include navigation-cues/paragraphs.html %}
-        </div>
+        <div class="paragraphs js-paragraphs" data-length="41"></div>
+        <template id="navigation-cues-template">{% capture nav_cues_paragraphs %}{% include navigation-cues/paragraphs.html %}{% endcapture %}{{ nav_cues_paragraphs | strip_newlines }}</template>
       </main>
       <div class="counter js-progress">0%</div>
     </div>
