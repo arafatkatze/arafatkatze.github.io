@@ -268,7 +268,13 @@ sass:
 
 jekyll-minifier:
   compress_javascript: false # set to false since we are using terser as the js minifier
-  exclude: ["robots.txt", "assets/js/search/*.js"]
+  # cssminify2 (used by jekyll-minifier) corrupts navigation-cues.css in
+  # production: its leading `/*! … */` important comment plus the heavy
+  # calc()/var() usage trips a YUI-compressor bug that truncates the file to a
+  # broken `___YUICSSMIN_PRESERVE_CANDIDATE_COMMENT_1___` stub, leaving the page
+  # completely unstyled. The file is already hand-compacted, so skip minifying
+  # it (and any other navigation-cues CSS) entirely.
+  exclude: ["robots.txt", "assets/js/search/*.js", "assets/navigation-cues/css/*.css"]
 
 # -----------------------------------------------------------------------------
 # Terser
