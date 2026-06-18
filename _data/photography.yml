@@ -63,6 +63,18 @@ projects:
       - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780547686/2023-11-04_18-40-26_122_shlw8m.jpg
       - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1780547685/2023-12-07_17-39-08_530_ceumuy.jpg
 
+  - slug: india
+    title: "India"
+    description: ""
+    images:
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781802701/2023-12-27_10-53-34_069_pxpaah.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781802702/2024-01-06_21-44-58_569_jytod1.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781802701/2024-01-06_21-51-12_234_dejbfp.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781802701/2024-01-11_00-03-17_764_truc03.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781802701/2024-01-17_04-22-51_123_vnswhz.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781802701/2024-01-17_04-51-00_356_wyedkz.jpg
+      - https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1600/v1781802701/2025-11-14_18-06-55_713_dfnyc7.jpg
+
   - slug: peru
     title: "Peru"
     description: ""
