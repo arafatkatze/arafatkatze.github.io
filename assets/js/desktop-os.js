@@ -1,5 +1,5 @@
 /* ───────────────────────────────────────────────────────────────────────────
- * araOS: a tiny desktop operating system for the browser.
+ * arOS: a tiny desktop operating system for the browser.
  * Inspired by zvava.org. Vanilla JS, no dependencies.
  *
  * Handles: opening/closing windows, minimize/maximize, focus + z-order,
@@ -253,18 +253,18 @@
         return "available commands: <b>help, about, ls, open &lt;app&gt;, whoami, date, clear, neofetch</b>";
       },
       about() {
-        return "araOS: Ara Khan's website as a desktop. inspired by zvava.org. built with vanilla JS.";
+        return "arOS: Ara Khan's website as a desktop. inspired by zvava.org. built with vanilla JS.";
       },
-      whoami() { return "guest@araOS"; },
+      whoami() { return "guest@arOS"; },
       date() { return new Date().toString(); },
       ls() {
         return "about  projects  writing  reading  gallery  contact  terminal  read.me";
       },
       neofetch() {
         return [
-          "        ◈◈◈        guest@araOS",
-          "      ◈     ◈      -----------",
-          "     ◈  ara  ◈     os:      araOS 1.0 (web)",
+          "        ◈◈◈        guest@arOS",
+          "      ◈     ◈      ----------",
+          "     ◈  ara  ◈     os:      arOS 1.0 (web)",
           "      ◈     ◈      shell:   vanilla-js",
           "        ◈◈◈        uptime:  just now",
           "                   theme:   purple dream",
@@ -284,14 +284,14 @@
       clear() { out.innerHTML = ""; return ""; },
     };
 
-    print("araOS terminal: type <b>help</b> to get started.");
+    print("arOS terminal: type <b>help</b> to get started.");
 
     input.addEventListener("keydown", (e) => {
       if (e.key !== "Enter") return;
       const raw = input.value.trim();
       input.value = "";
       if (!raw) return;
-      print('<span style="color:#8affc1">ara@araOS:~$</span> ' + escapeHtml(raw));
+      print('<span style="color:#8affc1">ara@arOS:~$</span> ' + escapeHtml(raw));
       const [cmd, ...rest] = raw.split(/\s+/);
       const fn = commands[cmd.toLowerCase()];
       if (fn) {
