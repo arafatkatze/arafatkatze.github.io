@@ -336,6 +336,11 @@
     if (writingList) {
       populateList(writingList, [{ label: "Blog", items: posts, icon: "📝" }], "no posts yet.");
     }
+
+    const projectsList = root.querySelector("#os-projects");
+    if (projectsList) {
+      populateList(projectsList, [{ label: "Projects", items: projects, icon: "🗂️" }], "no projects yet.");
+    }
   }
 
   // Render grouped, clickable file rows into a container; each opens in a window.
@@ -359,14 +364,27 @@
         group.appendChild(head);
       }
       g.items.forEach((it) => {
-        const btn = document.createElement("button");
-        btn.className = "os-file";
-        btn.innerHTML =
+        const inner =
           '<span class="os-file-ico">' + g.icon + "</span>" +
           '<span class="os-file-name">' + escapeHtml(it.title || "untitled") + "</span>" +
           '<span class="os-file-date">' + escapeHtml(it.date || "") + "</span>";
-        btn.addEventListener("click", () => openDoc(it, g.icon));
-        group.appendChild(btn);
+
+        // Redirecting entries (e.g. interactive pages like the night sky, or the
+        // OS itself) can't be injected as static article HTML, so they open as a
+        // full page. Everything else opens in-OS via openDoc.
+        if (it.redirect) {
+          const a = document.createElement("a");
+          a.className = "os-file";
+          a.href = it.redirect;
+          a.innerHTML = inner;
+          group.appendChild(a);
+        } else {
+          const btn = document.createElement("button");
+          btn.className = "os-file";
+          btn.innerHTML = inner;
+          btn.addEventListener("click", () => openDoc(it, g.icon));
+          group.appendChild(btn);
+        }
       });
       container.appendChild(group);
     });
