@@ -34,9 +34,9 @@ bento_tiles:
   - title: arOS
     label: Play · Desktop
     link: /desktop/
-    type: text
+    image: assets/img/aros-tile.png
+    type: card
     excerpt: "This whole site, reimagined as a tiny desktop operating system. Click to boot it up."
-    bg: warm
 
   # Row 2: art + book + math of love (wide)
   - title: Art
