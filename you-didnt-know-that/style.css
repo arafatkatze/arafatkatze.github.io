@@ -85,7 +85,7 @@ body {
   z-index: 3;
   margin: 0 0 clamp(24px, 3.6vh, 52px);
   font-size: clamp(1.6rem, 3.4vw, 2.8rem);
-  font-weight: 700;
+  font-weight: 400;
   font-style: normal;
   letter-spacing: 0.01em;
   color: var(--ink);
