@@ -4,6 +4,45 @@
 // rest of the site. The sky is dark in both light and dark site themes.
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ── Full-page cosmic background ───────────────────────────────────────────
+// When the night-sky page is on screen, paint a deep nebula gradient with a
+// tiling starfield (the star tile is sourced from kokorobot.ca) across the
+// whole viewport — behind the navbar, content, and footer. Scoped with :has()
+// so it never leaks to the rest of the site; browsers without :has() simply
+// fall back to the normal site theme.
+body:has(.nightsky-page) {
+  // Re-theme the whole chrome (navbar, footer, headings) so text stays
+  // readable on the dark sky regardless of the active light/dark site theme.
+  --global-bg-color: transparent;
+  --global-text-color: #e6e9ff;
+  --global-text-color-light: #b6bcdb;
+  --global-divider-color: rgba(255, 255, 255, 0.14);
+  --global-card-bg-color: rgba(20, 24, 46, 0.55);
+  --global-footer-bg-color: transparent;
+  --global-footer-text-color: #b6bcdb;
+  --global-footer-link-color: #e6e9ff;
+
+  background-color: #04050b;
+
+  // Fixed full-viewport layer that stays put while the page scrolls.
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: #04050b;
+    background-image:
+      radial-gradient(ellipse at 18% 16%, rgba(120, 80, 200, 0.28) 0%, transparent 55%),
+      radial-gradient(ellipse at 84% 84%, rgba(40, 110, 200, 0.26) 0%, transparent 60%),
+      url("../img/nightsky/starfield.png"),
+      radial-gradient(ellipse at top, #1c1f3d 0%, #0a0d1f 55%, #04050b 100%);
+    background-repeat: no-repeat, no-repeat, repeat, no-repeat;
+    background-size: auto, auto, 200px 200px, cover;
+    background-position: center, center, center, center;
+  }
+}
+
 .nightsky-page {
   --ns-bg-top:    #1c1f3d;
   --ns-bg-mid:    #0a0d1f;
