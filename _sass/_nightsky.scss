@@ -25,6 +25,10 @@ html:has(.nightsky-page) {
   --global-footer-link-color: #e6e9ff;
 
   background-color: #04050b;
+  // The full-bleed star board spans 100vw; clip the x-axis so that never
+  // introduces a horizontal scrollbar. (clip, not hidden, so it doesn't
+  // turn <html> into a scroll container or affect the fixed navbar.)
+  overflow-x: clip;
   // Gradients stay anchored to the viewport for a steady nebula glow, while
   // the star tile repeats down the full length of the page.
   background-image:
@@ -92,18 +96,44 @@ html:has(.nightsky-page) {
   }
 }
 
+// The "← back to the written post" line under the intro.
+.nightsky-sub-link {
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+
+  a {
+    color: var(--ns-text);
+    text-decoration: underline;
+    text-decoration-color: rgba(230, 233, 255, 0.4);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      color: #ffffff;
+      text-decoration-color: rgba(230, 233, 255, 0.9);
+    }
+  }
+}
+
 // ── Stage (the sky itself) ───────────────────────────────────────────────
 .nightsky-stage {
   position: relative;
-  width: 100%;
-  // 5:3 matches the SVG viewBox (1000×600) so no letterboxing on desktop.
-  aspect-ratio: 5 / 3;
-  border-radius: 18px;
+  // Full-bleed: break out of the centered ~980px content column to span the
+  // whole viewport. The page root clips overflow-x, so 100vw is safe.
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  // A wide cinematic band. The JS measures this exact box and locks the SVG
+  // viewBox to it 1:1, so the 24 stars always spread across the full width
+  // and circles stay round at any size — no aspect-ratio juggling needed.
+  height: clamp(480px, 74vh, 880px);
+  border-radius: 0;
   overflow: hidden;
   cursor: crosshair;
   box-shadow:
-    0 40px 100px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.04);
+    0 24px 80px rgba(0, 0, 0, 0.6),
+    inset 0  1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
   // Layered cosmic background:
   //   1. Faint Milky Way band (diagonal, blue-violet-warm)
   //   2. A purple nebula bloom (top-left)
@@ -122,13 +152,10 @@ html:has(.nightsky-page) {
     radial-gradient(ellipse at 84% 78%, rgba(40, 110, 200, 0.20) 0%, transparent 60%),
     radial-gradient(ellipse at top,    var(--ns-bg-top) 0%, var(--ns-bg-mid) 55%, var(--ns-bg-bottom) 100%);
 
-  // Phones get a slightly squarer 4:3 — small letterbox top/bottom, but
-  // every named star stays visible (the SVG uses preserveAspectRatio="meet"
-  // and the JS positions tooltips via getScreenCTM, so letterboxing is
-  // handled correctly).
+  // Phones get a taller board so all 24 stars have room to spread out
+  // vertically instead of crowding into a short wide strip.
   @media (max-width: 600px) {
-    aspect-ratio: 4 / 3;
-    border-radius: 12px;
+    height: clamp(520px, 82vh, 720px);
   }
 
   // Soft vignette around the edges so the sky feels like a porthole.
@@ -213,9 +240,13 @@ html:has(.nightsky-page) {
 }
 
 // ── Named stars ──────────────────────────────────────────────────────────
-@keyframes ns-pulse {
-  0%, 100% { transform: scale(1);    opacity: 0.85; }
-  50%      { transform: scale(1.06); opacity: 1;    }
+// At rest a named star looks like any other point of light in the field —
+// no big halo, no spikes — so you can't tell which 24 hold a message. Hover
+// (or focus) blooms the tinted halo wide, fans out the diffraction spikes
+// and reveals the name: the surprise.
+@keyframes ns-named-twinkle {
+  0%, 100% { opacity: 1;    }
+  50%      { opacity: 0.55; }
 }
 
 .ns-named {
@@ -225,17 +256,28 @@ html:has(.nightsky-page) {
   .ns-halo {
     transform-origin: center;
     transform-box: fill-box;
-    animation: ns-pulse 4.5s ease-in-out infinite;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    // Shrunk right down so it reads as a small field-star glow until hover.
+    transform: scale(0.17);
+    opacity: 0.5;
+    transition: opacity 0.4s ease,
+                transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     pointer-events: none;
   }
 
   .ns-core {
     fill: #ffffff;
     pointer-events: none;
+    transform-origin: center;
+    transform-box: fill-box;
+    transition: transform 0.4s ease;
+    animation: ns-named-twinkle 5s ease-in-out infinite;
   }
 
-  .ns-spike { transition: opacity 0.3s ease; }
+  // Spikes are invisible until hover — part of the reveal.
+  .ns-spike {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
 
   .ns-hit {
     fill: transparent;
@@ -257,12 +299,16 @@ html:has(.nightsky-page) {
   &.is-active,
   &:focus-within {
     .ns-halo {
-      animation-play-state: paused;
-      transform: scale(1.35);
+      transform: scale(1.4);
       opacity: 1;
     }
-    .ns-spike  { opacity: 1; }
-    .ns-label  { opacity: 1; }
+    .ns-core {
+      transform: scale(1.25);
+      opacity: 1;
+      animation-play-state: paused;
+    }
+    .ns-spike { opacity: 1; }
+    .ns-label { opacity: 1; }
   }
 }
 
