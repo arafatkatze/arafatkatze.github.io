@@ -552,6 +552,13 @@ html[data-theme="dark"] {
   .contact-note {
     font-size: 0.8rem;
   }
+
+  .view-counter {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: var(--global-text-color-light);
+    letter-spacing: 0.02em;
+  }
 }
 
 .wechat-modal {
@@ -1440,6 +1447,24 @@ html[data-theme="dark"] {
     border-color: rgba(255, 255, 255, 0.15);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   }
+}
+
+// Project category sections
+.project-category-section {
+  margin-bottom: 2.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.project-category-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--global-text-color);
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
 }
 
 // Project card grid

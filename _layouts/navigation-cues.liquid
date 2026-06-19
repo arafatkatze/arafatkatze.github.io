@@ -1,0 +1,22 @@
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page.title | default: "Navigation queues | Navigation cues" }}</title>
+    <meta name="description" content="{{ page.description | default: 'A scroll-driven web essay replica.' | xml_escape }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" href="{{ '/assets/navigation-cues/css/navigation-cues.css' | relative_url }}">
+  </head>
+  <body>
+    <div class="container js-scrollContainer">
+      <main class="main">
+        <div class="paragraphs js-paragraphs" data-length="{{ site.data.navigation-cues.paragraphs.size | plus: 1 }}" data-copies="{{ site.data.navigation-cues.copies | default: 3 }}"></div>
+        <template id="navigation-cues-template">{% capture nav_cues_paragraphs %}{% include navigation-cues/paragraphs.liquid %}{% endcapture %}{{ nav_cues_paragraphs | strip_newlines }}</template>
+      </main>
+      <div class="counter js-progress">0%</div>
+    </div>
+    <div class="scroll js-scrollMirror"><div></div></div>
+    <script src="{{ '/assets/navigation-cues/js/navigation-cues.js' | relative_url }}?v=7" defer></script>
+  </body>
+</html>

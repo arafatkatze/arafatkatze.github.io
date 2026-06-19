@@ -1,0 +1,130 @@
+:root {
+  --ink: #4a3b22;
+  --ink-soft: rgba(74, 59, 34, 0.62);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  height: 100dvh;
+  width: 100dvw;
+  overflow: hidden;
+  background: #efe6cf;
+  color: var(--ink);
+  font-family: "Tinos", "Times New Roman", Times, serif;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- scanned paper, swapped frame-by-frame for the boil ---- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url(img/paper-1.png);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* moving film grain on top of the paper */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation: grain 0.7s steps(4) infinite;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(120% 120% at 50% 45%, transparent 55%, rgba(60, 45, 20, 0.16) 100%);
+}
+
+@keyframes grain {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-3%, 2%); }
+  50%  { transform: translate(2%, -2%); }
+  75%  { transform: translate(-2%, -3%); }
+  100% { transform: translate(3%, 2%); }
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* ---- type ---- */
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8vh 6vw;
+  text-align: center;
+}
+
+.corner {
+  z-index: 3;
+  margin: 0 0 clamp(24px, 3.6vh, 52px);
+  font-size: clamp(1.6rem, 3.4vw, 2.8rem);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  /* static print fringe so the anchor never jitters or clips */
+  text-shadow: 0.5px 0 rgba(150, 40, 40, 0.16), -0.5px 0 rgba(40, 70, 150, 0.16);
+}
+
+.frame {
+  border: 2px solid var(--ink-soft);
+  border-radius: 999px / 60px;
+  padding: clamp(26px, 4.5vh, 48px) clamp(34px, 6vw, 76px);
+  max-width: min(78vw, 980px);
+  background: rgba(255, 252, 240, 0.16);
+  box-shadow: inset 0 0 24px rgba(255, 250, 235, 0.25);
+}
+
+.line {
+  margin: 0;
+  font-size: clamp(1.35rem, 3.1vw, 2.6rem);
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.line span {
+  /* faint analog chromatic-print fringing */
+  text-shadow: 0.6px 0 rgba(150, 40, 40, 0.18), -0.6px 0 rgba(40, 70, 150, 0.18);
+  text-decoration: none;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.18em;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+/* underline the words ONLY while hovering the frame */
+.frame:hover .line span {
+  color: #3a2c12;
+  text-decoration: underline;
+  text-shadow: 1px 0 rgba(150, 40, 40, 0.3), -1px 0 rgba(40, 70, 150, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain { animation: none; }
+}

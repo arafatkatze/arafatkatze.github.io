@@ -100,6 +100,10 @@ zotero_username: # your zotero username
 contact_note: >
   The best way to reach to me is my email arafat.da.khan@gmail.com
 
+enable_view_counter: true
+view_counter_initial: 11235
+view_counter_url: "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/viewcounter"
+
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
 # -----------------------------------------------------------------------------
@@ -264,10 +268,23 @@ sass:
 
 jekyll-minifier:
   compress_javascript: false # set to false since we are using terser as the js minifier
-  # The standalone scroll-inside demo is served as-is; the CSS minifier mangles
-  # its custom properties (var(--scroll) -> var( - - scroll)), so skip it.
+  # cssminify2 (used by jekyll-minifier) corrupts navigation-cues.css in
+  # production: its leading `/*! … */` important comment plus the heavy
+  # calc()/var() usage trips a YUI-compressor bug that truncates the file to a
+  # broken `___YUICSSMIN_PRESERVE_CANDIDATE_COMMENT_1___` stub, leaving the page
+  # completely unstyled. The file is already hand-compacted, so skip minifying
+  # it (and any other navigation-cues CSS) entirely.
+  #
+  # The standalone scroll-inside demo is likewise served as-is; the CSS minifier
+  # mangles its custom properties (var(--scroll) -> var( - - scroll)), so skip it.
   exclude:
-    ["robots.txt", "assets/js/search/*.js", "html-review-replica/index.html", "html-review-replica/assets/styles.css"]
+    [
+      "robots.txt",
+      "assets/js/search/*.js",
+      "assets/navigation-cues/css/*.css",
+      "html-review-replica/index.html",
+      "html-review-replica/assets/styles.css",
+    ]
 
 # -----------------------------------------------------------------------------
 # Terser

@@ -1,0 +1,88 @@
+# Edit this file to change the scroll essay.
+# - title: main heading (use a newline for a second line)
+# - byline: small text under the title
+# - paragraphs: one scroll step per item
+#   * plain string = prose paragraph
+#   * quote/cite/url object = quoted passage with attribution
+# - copies: duplicate each paragraph in a shuffled stream (default 3, like the original)
+
+title: 'Navigation queues
+
+  Navigation cues'
+byline: A web-essay written by Domitille Debret, designed and developed by F451 for The HTML Review Issue 04, Spring 2025.
+copies: 3
+paragraphs:
+- Drawing from my work as a web designer and the all-too-familiar experience of late-night doomscrolling, I’ve come to recognise a quiet, persistent fear. A fear that unsettles those trying to sway what users see and those trying to protect their own attention from being wholly consumed. The fear of scrolling.
+- Clients and collaborators are often uneasy about letting information live beyond the first visible viewport. They worry users won’t scroll, that key details will go unnoticed and that attention will vanish when an image, a button or a title slips out of view. In contrast, as we trawl mindlessly through endless streams of content, the fear shifts. It’s no longer about missing information, it’s about being lost.
+- Despite its simplicity and ubiquity, scrolling carries unease, whether we’re trying to control what others see or protect ourselves from being pulled in too deep. Somehow, it brings a tension between control, attention, and the unknown.
+- I never really noticed when the scrollbar started fading away, but during my lifetime, I watched it grow thinner, begin to fade when inactive, and finally only appear with a cursory movement. Eventually, this behaviour became the default, an interface element that exists only on demand, no longer a fixed part of the screen.
+- This change crept in so subtly that it blurred the edges of my memory (and my web browser), much like a well-worn path slowly overgrown. The scroll bar faded away, almost like a ghost of its former self, replaced by an emphasis on continuous motion instead of clear indicators.
+- As there is not really a firm marker of the shift, I tried to find evidence via tech forum posts or user complaints. Tracking the first comments to around 2012, I realised auto-hiding scroll bars have been the default for almost half my life.
+- Based on this anecdotal evidence, It seems the shift began in the early to mid-2010s, with the arrival of OS X Lion (2011) auto-hiding scrollbars began to be introduced. They steadily became the default option in various operating systems and applications and became more and more prevalent in web browsers.
+- So why am I only noticing I miss something now?
+- 'Trying to reconcile my fear, I’ve spent considerable time delving into the rabbit holes of Reddit threads and Mac user forums from that time. The discussions spanned years, sometimes heated and sometimes poetic, centring on accessibility, frustration, nostalgia, and possibly fear too:'
+- quote: “Is this a legitimate concern, or will Lion users know that if something appears to be cut off, it indicates that scrolling might be available?”
+  cite: neezer, Jul 25, 2011 at 03:27 PM, Mac OS X Lion, scrollbars, and website usability on Stack Overflow
+  url: https://stackoverflow.com/questions/6818466/mac-os-x-lion-scrollbars-and-website-usability
+- quote: “you DO NOT want to scroll scroll scroll scroll”
+  cite: Wiikend, Dec 20, 2019 at 10:24 AM, Is anyone else annoyed with the trend for minimal/hidden scroll bars lately? on Reddit
+  url: https://www.reddit.com/r/webdev/comments/ed1zu3/comment/fbg4f5k/
+- quote: “Multiple times daily I get angry because of no arrows”
+  cite: macgirl_k, Apr 25, 2013 at 3:56 PM, About the little scrollbar arrows… on Apple Support Community
+  url: https://discussions.apple.com/thread/3252617?sortBy=rank
+- quote: “Anyone know how or if there’s a possibility of getting the arrows back?”
+  cite: Gulldo, Aug 10, 2011 2:14 AM, About the little scrollbar arrows… on Apple Support Community
+  url: https://discussions.apple.com/thread/3252617?sortBy=rank
+- quote: “Give us back our arrows!!”
+  cite: Martins Silins, Aug 15, 2011 at 11:06 PM, About the little scrollbar arrows… on Apple Support Community
+  url: https://discussions.apple.com/thread/3252617?sortBy=rank
+- quote: “I neeeeeeeeed the arrows.”
+  cite: Community User, Oct 18, 2011 at 08:03 AM, About the little scrollbar arrows… on Apple Support Community
+  url: https://discussions.apple.com/thread/3252617?sortBy=rank
+- quote: “Where are my damn scrollbars!”
+  cite: Cody Gray, Jul 25, 2011 at 03:54 AM Mac OS X Lion, scrollbars, and website usability on Stack Overflow
+  url: https://stackoverflow.com/questions/6818466/mac-os-x-lion-scrollbars-and-website-usability
+- quote: “Sorry to post here without a helpful solution, but I suppose I’m adding some sympathy […] There is perhaps faint hope from the fact that Google Chrome sometimes leaves ‘artefacts’, or broken bits of scrollbar where the arrows ought to be. Sometimes I find blank white space there […] some part of the system is still calling for them”
+  cite: kierant@cogs, Aug 10, 2011 at 11:01 AM, About the little scrollbar arrows… on Apple Support Community
+  url: https://discussions.apple.com/thread/3252617?sortBy=rank
+- quote: “People said not to worry - you’ll get used to the new way of doing things. But the ‘New Way’ so far has not revealed itself.”
+  cite: davewiner, Feb 15, 2013 at 08:56 AM, Mac scrollbar woes on Scripting News
+  url: http://threads2.scripting.com/2013/february/macScrollbarArrows
+- quote: “I’ve gone through the ‘downgrade’ process […] and now I’m so much happier.”
+  cite: kierant@cogs, Aug 19, 2011 at 06:00 AM About the little scrollbar arrows… on Apple Support Community
+  url: https://discussions.apple.com/thread/3252617?sortBy=rank
+- 'As a result, a recurring theme throughout these threads was tutorials on downgrading to previous OS versions. Within these forums, threads on this topic sometimes lasted over 7 years. Through time, the topic seemed to lose its relevance and based on the comments, it seems to have been partly resolved by hardware evolutions:'
+- quote: “I am now presumably going to have to replace a perfectly good optical mouse, which is in fine working order and has served me well, with a new one with a wheel.”
+  cite: Gahlen, Nov 1, 2011 at 12:59 AM, About the little scrollbar arrows… on Apple Support Community
+  url: https://discussions.apple.com/thread/3252617?sortBy=rank
+- Trackpads, mousewheels, touchscreen, tablets and phones became more prevalent and partly resolved the navigation part of the issue. Yet, this shift meant that scrolling became more about the gesture than about addressing essential features.
+- 'It may seem trivial to restate, but the height of the scrollbar relative to the window mirrors the height of visible content compared to the full content. In that sense, the scrollbar is one of the best data visualisation tools. The problem with the scrollbar’s now cameo-like appearance is that the sense of scope and orientation, once provided by a quick glance at it, is lost:'
+- quote: “The scrollbar is so faint it is extremely difficult to see to tell where on the page I am.”
+  cite: Chuck Risher, Aug 19, 2011 at 03:57 AM, About the little scrollbar arrows… on Apple Support Community
+  url: https://discussions.apple.com/thread/3252617?sortBy=rank
+- quote: “This is kinda thrown out the window with Mac OS X Lion, which (as a default) hides the scroll bars unless you’re actively scrolling. […] I think there are very strong visual clues that you&nbsp;can&nbsp;scroll to see more content.”
+  cite: neezer, Jul 25, 2011 at 03:27 PM, Mac OS X Lion, scrollbars, and website usability on Stack Overflow
+  url: https://stackoverflow.com/questions/6818466/mac-os-x-lion-scrollbars-and-website-usability
+- This gradual disappearance paralleled the fading away of the concept of limits, both for the page and the content itself. While I can’t pinpoint a direct correlation between infinite scrolling and the vanishing scrollbar, I feel that they are intrinsically linked.
+- With interfaces stretching indefinitely, users stop looking for boundaries. The fading scrollbars most likely obscure the issue with infinite scrolling. No longer tied to the size of the document, the scrollbar loses its meaning, making navigation feel absurd. Without an endpoint, how do we find ourselves?
+- If you take the time to look at the behaviour of the scrollbar on a website running infinite scroll, you will see that as you traverse the visible, the invisible loads dynamically, and the scrollbar shrinks accordingly. It is no longer telling me where I am, but somehow, it’s also lying to me about how far I can go.
+- quote: just
+  cite: ''
+- quote: something
+  cite: ''
+- Infinite scrolling has since become a cautionary tale. Aza Raskin, who invented infinite scrolling, has spoken publicly about regretting its negative impact and now actively campaigns against its use. Without cues to halt, users continue endlessly consuming content without awareness of why.
+- Opening up about my personal fear of scrolling, my friend -Lola- recently told me that she often catches herself scrolling the Maps app on her phone, not searching for anything, just moving. Like a nervous tic, a mindless motion with no real destination. It struck me as the perfect mirror of the kind of motion infinite scrolling quietly trains us in.
+- 'Scrollbars are a strange element in web development. Coding guidelines often advise leaving them untouched:'
+- quote: “Scrollbars are part of the area of the browser that is outside your scope of concern. Some may argue with this and claim that being allowed to style them with CSS means that it is fair game. However, I think there are some accessibility considerations that were not taken into account before this capability was given to us by the platform.”
+  cite: ericwbailey, May 3, 2023, Don’t use custom CSS scrollbars
+  url: https://ericwbailey.website/published/dont-use-custom-css-scrollbars/
+- quote: “I’m to some extent against implementing all the pseudo-elements of scrollbar. I guess implementing a small subset of them might be fine, but providing the whole power of touching every details of the scrollbar is probably not.”
+  cite: Xidorn Quan, Apr 10, 2018 at 01:55 PM, Support -webkit-scrollbar styles for webcompat on Bugzilla
+  url: https://bugzilla.mozilla.org/show_bug.cgi?id=1432935#c2
+- quote: '“To all you designers out there: Please leave the scrollbar alone!“'
+  cite: horsht, Jan 28, 2019 at 12:41 AM, Why do developers feel the need to reinvent and replace perfectly fine basic functionalities like scrolling/scrollbars? on Reddit
+  url: https://www.reddit.com/r/web_design/comments/akmnq5/why_do_developers_feel_the_need_to_reinvent_and/
+- Scrollbars are one of the few UI elements controlled by both browsers and designers, a kind of shared custody agreement over how users navigate. Tweaking them feels like a hack, a workaround rather than a real solution.
+- 'Over time, modifying scrollbars became frowned upon, mostly (and rightfully) for accessibility reasons. But it’s a strange trade-off: it’s something so fundamental to how we interact with digital space, yet we have almost no control over it. Designing a scrollbar is actively discouraged today, reinforcing the idea that control over navigation is slipping further from the hands of both users and web creators.'
+- 'Long before infinite scrolling or pull-to-refresh, the scrollbar solved the web’s first scaling problem: how to situate yourself within content that stretched beyond the visible screen. Somewhere along the way, the usage changed and became a fuel for motion. A motion I can’t really control and a motion I can’t really resist.'
+- Getting lost is a rational fear. I will miss knowing where I am. I will miss the sense that I am tethered to something, that I am not just scrolling but moving with intention.

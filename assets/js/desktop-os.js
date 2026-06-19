@@ -507,6 +507,42 @@
     return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   }
 
+  // ── Gallery lightbox: click a photo to view it large, inside the OS ───────────
+  setupGallery();
+  function setupGallery() {
+    const box = root.querySelector("#os-lightbox");
+    const img = root.querySelector("#os-lightbox-img");
+    const closeBtn = root.querySelector("#os-lightbox-close");
+    if (!box || !img) return;
+
+    const open = (src) => {
+      img.src = src;
+      box.classList.add("is-open");
+      box.setAttribute("aria-hidden", "false");
+    };
+    const close = () => {
+      box.classList.remove("is-open");
+      box.setAttribute("aria-hidden", "true");
+      img.src = "";
+    };
+
+    // delegate clicks from any gallery photo (also covers future windows)
+    root.addEventListener("click", (e) => {
+      const photo = e.target.closest(".os-gallery-photo");
+      if (!photo) return;
+      e.preventDefault();
+      open(photo.dataset.full || photo.querySelector("img").src);
+    });
+
+    box.addEventListener("click", (e) => {
+      if (e.target === box) close();
+    });
+    if (closeBtn) closeBtn.addEventListener("click", close);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && box.classList.contains("is-open")) close();
+    });
+  }
+
   // ── boot: open just the read.me so first impression is calm ───────────────────
   openWindow("win-readme");
 })();
