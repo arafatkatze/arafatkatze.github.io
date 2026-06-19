@@ -33,24 +33,34 @@
   </svg>
 
   <main class="stage">
-    <p class="prompt boil">If we could just</p>
+    <div class="box" id="intro">
+      <div class="line">
+        <p class="prompt boil">If we could just</p>
 
-    <div class="select-wrap jitter">
-      <div class="select" id="select">
-        <button class="select-box" id="selectBox" type="button" aria-haspopup="listbox" aria-expanded="false">
-          <span id="selectValue">Be friends</span>
-          <span class="chevron" aria-hidden="true">&#9662;</span>
-        </button>
-        <ul class="menu" id="menu" role="listbox" hidden>
-          <li role="option" data-value="Be lovers">Be lovers</li>
-          <li role="option" data-value="Be friends">Be friends</li>
-          <li role="option" data-value="Stop talking">Stop talking</li>
-        </ul>
+        <div class="select jitter" id="select">
+          <button class="select-box" id="selectBox" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectValue">&hellip;</span>
+            <span class="chevron" aria-hidden="true">&#9662;</span>
+          </button>
+          <!-- options are generated from sequences.txt -->
+          <ul class="menu" id="menu" role="listbox" hidden></ul>
+        </div>
       </div>
 
       <button class="next" id="next" type="button" aria-label="next">&rarr;</button>
     </div>
   </main>
+
+  <!-- the per-phrase sequence: text closing in behind accreting square frames -->
+  <section class="seq" id="seq" hidden aria-hidden="true">
+    <div class="seq-bg" id="seqBg"></div>
+    <div class="seq-grain" aria-hidden="true"></div>
+    <div class="rings" id="rings"></div>
+    <p class="seq-line boil" id="seqLine"></p>
+  </section>
+
+  <!-- the "love you" finale: every click splits a panel in two, forever -->
+  <section class="finale" id="finale" hidden aria-hidden="true"></section>
 
   <script src="script.js"></script>
 </body>
