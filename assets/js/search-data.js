@@ -58,7 +58,29 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/pixels/";
           },
-        },{id: "post-the-gift-of-an-agonizing-limerance",
+        },{id: "post-skiing",
+        
+          title: "Skiing",
+        
+        description: "How learning to ski taught me to love the discomfort of learning anything.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/philosophy/2026/06/19/skiing.html";
+          
+        },
+      },{id: "post-art",
+        
+          title: "Art",
+        
+        description: "On graffiti, paintings, and why art might be our best defense against cynicism.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/philosophy/2026/06/19/art.html";
+          
+        },
+      },{id: "post-the-gift-of-an-agonizing-limerance",
         
           title: "The gift of an agonizing limerance",
         
@@ -253,11 +275,6 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/AgenticAi/";
-            },},{id: "projects-art",
-          title: 'Art',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/Art/";
             },},{id: "projects-cline-39-s-analog-art",
           title: 'Cline&amp;#39;s Analog Art',
           description: "On loneliness, soulfulness, and making beautiful things with your hands while building the future",
@@ -268,11 +285,6 @@ ninja.data = [{
           description: "Iterative improvement for AI coding agents",
           section: "Projects",handler: () => {
               window.location.href = "/projects/HillClimbing/";
-            },},{id: "projects-skiing",
-          title: 'Skiing',
-          description: "",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/Skiing/";
             },},{id: "projects-aros",
           title: 'arOS',
           description: "my whole website, reimagined as a tiny desktop operating system. drag the windows around.",
