@@ -28,7 +28,12 @@ function render() {
 }
 
 function advance() {
-  const next = (currentIndex() + 1) % LINES.length; // loops back to the first
+  // After the last line, move on to the "if we could just" page.
+  if (currentIndex() === LINES.length - 1) {
+    location.href = "../if-we-could-just/";
+    return;
+  }
+  const next = currentIndex() + 1;
   location.hash = "#" + (next + 1);
 }
 
