@@ -9,6 +9,8 @@ tags: philosophy relationships personal
 
 These are messages to people I've known, loved, disappointed, or been shaped by. Names are omitted intentionally, because perhaps you've known these people too.
 
+> ✨ **There's an interactive version of this.** Read these as [Stories from my night sky]({{ '/nightsky/' | relative_url }}) — every message becomes a real star, one of twenty-four. Hover a star to glimpse its message; click to read the whole thing.
+
 1. You are a good dude and I see so much potential in you, please prove me right by doing something really cool and awesome with your life.
 2. You changed my life upside down for the better but my own shame got in between us, I am so sorry for disappointing you in all the ways that I did and hopefully someday you will be able to forgive me.
 

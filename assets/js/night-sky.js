@@ -4,28 +4,44 @@
 //
 // Reads people + (optional) constellations from the JSON island in
 // nightsky.md. Paints a layered sky:
-//   • ~520 faint dust stars       (tier 1)
-//   • ~120 mid-bright field stars (tier 2)
-//   • ~22 bright field stars      (tier 3, with halos and spikes)
+//   • faint dust stars        (tier 1)
+//   • mid-bright field stars  (tier 2)
+//   • bright field stars      (tier 3, with halos and spikes)
 //   • Density biased along a diagonal "Milky Way" band.
 //   • Occasional shooting stars.
 //   • The named "people" stars on top, with bigger halos, diffraction
 //     spikes, and bloom.
 // Hover/focus shows a tooltip; click/Enter opens a modal with the full
 // story. ESC, ✕, and overlay click close the modal.
+//
+// The board is full-bleed and can be any shape. Rather than a fixed
+// viewBox we measure the stage's pixel size and set the viewBox to match
+// it 1:1 — so circles stay round, stars spread to the full width, and
+// nothing letterboxes whatever the aspect ratio. On resize we re-measure
+// and rebuild.
 // ─────────────────────────────────────────────────────────────────────────────
 
 (function () {
   "use strict";
 
   const SVG_NS = "http://www.w3.org/2000/svg";
-  const VB_W = 1000;
-  const VB_H = 600;
 
-  // Star counts (tuned for a dense but not noisy sky).
-  const T1_COUNT = 520; // dust
-  const T2_COUNT = 120; // field
-  const T3_COUNT =  22; // bright field with spikes
+  // Sky dimensions, measured from the stage at runtime (see measure()).
+  // Defaults are only used until the first measurement.
+  let VB_W = 1600;
+  let VB_H = 640;
+
+  // Star counts scale with the sky's area so a wide full-bleed board stays
+  // dense and a small mobile board doesn't get noisy. Tuned per ~960k px².
+  function tierCounts() {
+    const area = VB_W * VB_H;
+    const scale = area / (1600 * 640);
+    return {
+      t1: Math.round(640 * scale), // dust
+      t2: Math.round(150 * scale), // field
+      t3: Math.max(10, Math.round(28 * scale)), // bright field with spikes
+    };
+  }
 
   const AMBIENT_MIN_DIST_FROM_NAMED = 26;
   const NAMED_PROXIMITY_WARN = 60;
@@ -123,95 +139,64 @@
     const modalCard = document.getElementById("nightsky-modal-card");
     if (!stage || !svg) return;
 
-    // Resolve each person's SVG-space center once.
-    const enriched = people.map(function (p) {
-      const x = clamp(toNum(p.x, 50), 0, 100);
-      const y = clamp(toNum(p.y, 50), 0, 100);
-      return Object.assign({}, p, {
-        cx: x * (VB_W / 100),
-        cy: y * (VB_H / 100),
-        magnitude: clamp(toNum(p.magnitude, 0.85), 0.3, 1.2),
-        color: p.color || COLOR_WARM,
-      });
-    });
-
-    for (let i = 0; i < enriched.length; i++) {
-      for (let j = i + 1; j < enriched.length; j++) {
-        const dx = enriched[i].cx - enriched[j].cx;
-        const dy = enriched[i].cy - enriched[j].cy;
-        if (Math.hypot(dx, dy) < NAMED_PROXIMITY_WARN) {
-          console.warn(
-            "[nightsky] Stars '" + enriched[i].id + "' and '" + enriched[j].id +
-            "' are very close — consider spacing them apart in _data/nightsky.yml"
-          );
-        }
-      }
-    }
-
-    // ── Layer groups (z-order matters) ─────────────────────────────────
-    const defs           = svgEl("defs");
-    const ambientT1      = svgEl("g", { class: "ns-ambient-layer ns-tier-1" });
-    const ambientT2      = svgEl("g", { class: "ns-ambient-layer ns-tier-2" });
-    const ambientT3      = svgEl("g", { class: "ns-ambient-layer ns-tier-3" });
-    const constellationG = svgEl("g", { class: "ns-constellation-layer" });
-    const shootingG      = svgEl("g", { class: "ns-shooting-layer" });
-    const namedGroup     = svgEl("g", { class: "ns-named-layer" });
-
-    svg.appendChild(defs);
-    svg.appendChild(ambientT1);
-    svg.appendChild(ambientT2);
-    svg.appendChild(ambientT3);
-    svg.appendChild(constellationG);
-    svg.appendChild(shootingG);
-    svg.appendChild(namedGroup);
-
-    // ── Reusable defs ───────────────────────────────────────────────────
-    // Named-star bloom filter
-    {
-      const f = svgEl("filter", { id: "ns-bloom", x: "-50%", y: "-50%", width: "200%", height: "200%" });
-      f.appendChild(svgEl("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "2.6", result: "blur" }));
-      const merge = svgEl("feMerge");
-      merge.appendChild(svgEl("feMergeNode", { in: "blur" }));
-      merge.appendChild(svgEl("feMergeNode", { in: "SourceGraphic" }));
-      f.appendChild(merge);
-      defs.appendChild(f);
-    }
-
-    // Generic horizontal & vertical spike gradients (white → transparent ends)
-    function spikeGrad(id, x1, y1, x2, y2) {
-      const g = svgEl("linearGradient", { id: id, x1: x1, y1: y1, x2: x2, y2: y2, gradientUnits: "objectBoundingBox" });
-      g.appendChild(svgEl("stop", { offset: "0%",   "stop-color": "#ffffff", "stop-opacity": "0"   }));
-      g.appendChild(svgEl("stop", { offset: "50%",  "stop-color": "#ffffff", "stop-opacity": "0.95"}));
-      g.appendChild(svgEl("stop", { offset: "100%", "stop-color": "#ffffff", "stop-opacity": "0"   }));
-      return g;
-    }
-    defs.appendChild(spikeGrad("ns-spike-h", "0%", "50%", "100%", "50%"));
-    defs.appendChild(spikeGrad("ns-spike-v", "50%", "0%", "50%", "100%"));
-
-    // Generic small-star halo gradient (white → transparent)
-    {
-      const g = svgEl("radialGradient", { id: "ns-field-glow", cx: "50%", cy: "50%", r: "50%" });
-      g.appendChild(svgEl("stop", { offset: "0%",   "stop-color": "#ffffff", "stop-opacity": "0.85" }));
-      g.appendChild(svgEl("stop", { offset: "60%",  "stop-color": "#ffffff", "stop-opacity": "0.18" }));
-      g.appendChild(svgEl("stop", { offset: "100%", "stop-color": "#ffffff", "stop-opacity": "0"    }));
-      defs.appendChild(g);
-    }
-
-    // Per-named-star tinted halos
-    enriched.forEach(function (p) {
-      const grad = svgEl("radialGradient", {
-        id: "ns-glow-" + safeId(p.id),
-        cx: "50%", cy: "50%", r: "50%",
-      });
-      grad.appendChild(svgEl("stop", { offset: "0%",   "stop-color": "#ffffff", "stop-opacity": "0.95" }));
-      grad.appendChild(svgEl("stop", { offset: "30%",  "stop-color": p.color,    "stop-opacity": "0.55" }));
-      grad.appendChild(svgEl("stop", { offset: "70%",  "stop-color": p.color,    "stop-opacity": "0.18" }));
-      grad.appendChild(svgEl("stop", { offset: "100%", "stop-color": p.color,    "stop-opacity": "0" }));
-      defs.appendChild(grad);
-    });
-
-    // ── Render ambient stars (seeded) ───────────────────────────────────
     let seed = 1138;
+    let enriched = [];
+    let scatter = null; // [{fx, fy}] organic blue-noise positions, computed once
+
+    // Layer groups (recreated by buildSky, kept here so renderAmbient /
+    // shooting stars can reach the current ones after a rebuild).
+    let defs, ambientT1, ambientT2, ambientT3, constellationG, shootingG, namedGroup;
+
+    // ── Measure the stage and lock the viewBox to its pixel size 1:1 ─────
+    function measure() {
+      const rect = stage.getBoundingClientRect();
+      VB_W = Math.max(320, Math.round(rect.width));
+      VB_H = Math.max(320, Math.round(rect.height));
+      svg.setAttribute("viewBox", "0 0 " + VB_W + " " + VB_H);
+    }
+
+    // ── Organic, non-grid placement (blue-noise / Poisson-disk) ─────────
+    // The named stars must NOT read as a grid and should hide among the
+    // ambient field. We reject candidates that land too close to an
+    // already-placed star, which yields an even-but-irregular scatter.
+    // Computed once (fixed seed) and stored as fractions so the layout is
+    // stable across resizes and unaffected by the reshuffle button.
+    function computeScatter() {
+      const rand = mulberry32(0x5EED5);
+      const n = people.length;
+      const margX = 0.045, margY = 0.09;
+      const usableW = VB_W * (1 - 2 * margX);
+      const usableH = VB_H * (1 - 2 * margY);
+      let minD = 0.46 * Math.sqrt((usableW * usableH) / n);
+      const pts = [];
+      let guard = 0;
+      while (pts.length < n && guard < n * 600) {
+        guard++;
+        if (guard % (n * 30) === 0) minD *= 0.9; // relax if it can't all fit
+        const cx = VB_W * margX + rand() * usableW;
+        const cy = VB_H * margY + rand() * usableH;
+        let ok = true;
+        for (let k = 0; k < pts.length; k++) {
+          if (Math.hypot(cx - pts[k][0], cy - pts[k][1]) < minD) { ok = false; break; }
+        }
+        if (ok) pts.push([cx, cy]);
+      }
+      scatter = pts.map(function (p) { return { fx: p[0] / VB_W, fy: p[1] / VB_H }; });
+    }
+
+    // ── Resolve each person's SVG-space center for the current size ──────
+    function computeEnriched() {
+      if (!scatter) computeScatter();
+      enriched = people.map(function (p, i) {
+        const pos = scatter[i] || { fx: 0.5, fy: 0.5 };
+        return Object.assign({}, p, {
+          cx: pos.fx * VB_W,
+          cy: pos.fy * VB_H,
+          magnitude: clamp(toNum(p.magnitude, 0.85), 0.3, 1.2),
+          color: p.color || COLOR_WARM,
+        });
+      });
+    }
 
     function farFromNamed(cx, cy) {
       for (let j = 0; j < enriched.length; j++) {
@@ -230,17 +215,20 @@
       return COLOR_AMBER;
     }
 
+    // ── Render ambient stars (seeded; reshuffled by the reset button) ───
     function renderAmbient() {
+      if (!ambientT1) return;
       [ambientT1, ambientT2, ambientT3].forEach(function (layer) {
         while (layer.firstChild) layer.removeChild(layer.firstChild);
       });
 
+      const counts = tierCounts();
       const rand = mulberry32(seed);
 
       // ── Tier 1: dust (band-biased, plain dots) ────────────────────────
-      const T1_BAND_HALF = 220;
+      const T1_BAND_HALF = Math.max(180, VB_H * 0.36);
       let placed = 0, attempts = 0;
-      while (placed < T1_COUNT && attempts < T1_COUNT * 4) {
+      while (placed < counts.t1 && attempts < counts.t1 * 4) {
         attempts++;
         const cx = rand() * VB_W;
         const cy = rand() * VB_H;
@@ -264,9 +252,9 @@
       }
 
       // ── Tier 2: field stars (mid brightness, slight twinkle) ──────────
-      const T2_BAND_HALF = 260;
+      const T2_BAND_HALF = Math.max(210, VB_H * 0.42);
       placed = 0; attempts = 0;
-      while (placed < T2_COUNT && attempts < T2_COUNT * 4) {
+      while (placed < counts.t2 && attempts < counts.t2 * 4) {
         attempts++;
         const cx = rand() * VB_W;
         const cy = rand() * VB_H;
@@ -292,7 +280,7 @@
       // ── Tier 3: bright field stars (halo + diffraction spike) ─────────
       placed = 0; attempts = 0;
       const placedT3 = [];
-      while (placed < T3_COUNT && attempts < T3_COUNT * 8) {
+      while (placed < counts.t3 && attempts < counts.t3 * 8) {
         attempts++;
         const cx = rand() * VB_W;
         const cy = rand() * VB_H;
@@ -345,110 +333,185 @@
         placed++;
       }
     }
-    renderAmbient();
 
-    // ── Constellations (only if explicitly opted in) ───────────────────
-    if (showConstellations) {
-      const byId = {};
-      enriched.forEach(function (p) { byId[p.id] = p; });
-      constellations.forEach(function (group) {
-        if (!Array.isArray(group) || group.length < 2) return;
-        const pts = [];
-        for (let i = 0; i < group.length; i++) {
-          const p = byId[group[i]];
-          if (p) pts.push(p.cx.toFixed(1) + "," + p.cy.toFixed(1));
-        }
-        if (pts.length < 2) return;
-        constellationG.appendChild(svgEl("polyline", {
-          class: "ns-constellation",
-          points: pts.join(" "),
+    // ── (Re)build the whole sky for the current size ────────────────────
+    function buildSky() {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+      defs           = svgEl("defs");
+      ambientT1      = svgEl("g", { class: "ns-ambient-layer ns-tier-1" });
+      ambientT2      = svgEl("g", { class: "ns-ambient-layer ns-tier-2" });
+      ambientT3      = svgEl("g", { class: "ns-ambient-layer ns-tier-3" });
+      constellationG = svgEl("g", { class: "ns-constellation-layer" });
+      shootingG      = svgEl("g", { class: "ns-shooting-layer" });
+      namedGroup     = svgEl("g", { class: "ns-named-layer" });
+
+      svg.appendChild(defs);
+      svg.appendChild(ambientT1);
+      svg.appendChild(ambientT2);
+      svg.appendChild(ambientT3);
+      svg.appendChild(constellationG);
+      svg.appendChild(shootingG);
+      svg.appendChild(namedGroup);
+
+      // ── Reusable defs ─────────────────────────────────────────────────
+      // Named-star bloom filter
+      {
+        const f = svgEl("filter", { id: "ns-bloom", x: "-50%", y: "-50%", width: "200%", height: "200%" });
+        f.appendChild(svgEl("feGaussianBlur", { in: "SourceGraphic", stdDeviation: "2.6", result: "blur" }));
+        const merge = svgEl("feMerge");
+        merge.appendChild(svgEl("feMergeNode", { in: "blur" }));
+        merge.appendChild(svgEl("feMergeNode", { in: "SourceGraphic" }));
+        f.appendChild(merge);
+        defs.appendChild(f);
+      }
+
+      // Generic horizontal & vertical spike gradients (white → transparent ends)
+      function spikeGrad(id, x1, y1, x2, y2) {
+        const g = svgEl("linearGradient", { id: id, x1: x1, y1: y1, x2: x2, y2: y2, gradientUnits: "objectBoundingBox" });
+        g.appendChild(svgEl("stop", { offset: "0%",   "stop-color": "#ffffff", "stop-opacity": "0"   }));
+        g.appendChild(svgEl("stop", { offset: "50%",  "stop-color": "#ffffff", "stop-opacity": "0.95"}));
+        g.appendChild(svgEl("stop", { offset: "100%", "stop-color": "#ffffff", "stop-opacity": "0"   }));
+        return g;
+      }
+      defs.appendChild(spikeGrad("ns-spike-h", "0%", "50%", "100%", "50%"));
+      defs.appendChild(spikeGrad("ns-spike-v", "50%", "0%", "50%", "100%"));
+
+      // Generic small-star halo gradient (white → transparent)
+      {
+        const g = svgEl("radialGradient", { id: "ns-field-glow", cx: "50%", cy: "50%", r: "50%" });
+        g.appendChild(svgEl("stop", { offset: "0%",   "stop-color": "#ffffff", "stop-opacity": "0.85" }));
+        g.appendChild(svgEl("stop", { offset: "60%",  "stop-color": "#ffffff", "stop-opacity": "0.18" }));
+        g.appendChild(svgEl("stop", { offset: "100%", "stop-color": "#ffffff", "stop-opacity": "0"    }));
+        defs.appendChild(g);
+      }
+
+      // Per-named-star tinted halos
+      enriched.forEach(function (p) {
+        const grad = svgEl("radialGradient", {
+          id: "ns-glow-" + safeId(p.id),
+          cx: "50%", cy: "50%", r: "50%",
+        });
+        grad.appendChild(svgEl("stop", { offset: "0%",   "stop-color": "#ffffff", "stop-opacity": "0.95" }));
+        grad.appendChild(svgEl("stop", { offset: "30%",  "stop-color": p.color,    "stop-opacity": "0.55" }));
+        grad.appendChild(svgEl("stop", { offset: "70%",  "stop-color": p.color,    "stop-opacity": "0.18" }));
+        grad.appendChild(svgEl("stop", { offset: "100%", "stop-color": p.color,    "stop-opacity": "0" }));
+        defs.appendChild(grad);
+      });
+
+      renderAmbient();
+
+      // ── Constellations (only if explicitly opted in) ─────────────────
+      if (showConstellations) {
+        const byId = {};
+        enriched.forEach(function (p) { byId[p.id] = p; });
+        constellations.forEach(function (group) {
+          if (!Array.isArray(group) || group.length < 2) return;
+          const pts = [];
+          for (let i = 0; i < group.length; i++) {
+            const p = byId[group[i]];
+            if (p) pts.push(p.cx.toFixed(1) + "," + p.cy.toFixed(1));
+          }
+          if (pts.length < 2) return;
+          constellationG.appendChild(svgEl("polyline", {
+            class: "ns-constellation",
+            points: pts.join(" "),
+          }));
+        });
+      }
+
+      // ── Named stars ───────────────────────────────────────────────────
+      // At rest they render as modest points of light (small core, the big
+      // tinted halo shrunk down by CSS) so they blend into the field. The
+      // halo blooms, spikes extend and the label appears only on hover.
+      const namedRand = mulberry32(0x1357);
+      enriched.forEach(function (p) {
+        const haloR  = 22 + p.magnitude * 18;
+        const coreR  = 1.5 + p.magnitude * 1.6;
+        const spikeLen = 32 + p.magnitude * 22;
+
+        const g = svgEl("g", { class: "ns-named", "data-id": p.id });
+
+        const halo = svgEl("circle", {
+          class: "ns-halo",
+          cx: p.cx, cy: p.cy, r: haloR,
+          fill: "url(#ns-glow-" + safeId(p.id) + ")",
+          filter: "url(#ns-bloom)",
+        });
+
+        const spike = svgEl("g", { class: "ns-spike",
+          transform: "translate(" + p.cx + "," + p.cy + ")" });
+        spike.appendChild(svgEl("line", {
+          class: "ns-spike-line",
+          x1: -spikeLen.toFixed(1), y1: 0, x2: spikeLen.toFixed(1), y2: 0,
+          stroke: "url(#ns-spike-h)", "stroke-width": "0.9",
         }));
+        spike.appendChild(svgEl("line", {
+          class: "ns-spike-line",
+          x1: 0, y1: -spikeLen.toFixed(1), x2: 0, y2: spikeLen.toFixed(1),
+          stroke: "url(#ns-spike-v)", "stroke-width": "0.9",
+        }));
+
+        const core = svgEl("circle", {
+          class: "ns-core",
+          cx: p.cx, cy: p.cy, r: coreR,
+        });
+        // Vary each star's twinkle so they don't pulse in unison.
+        const tdur = 4 + namedRand() * 4;
+        core.style.animationDuration = tdur.toFixed(2) + "s";
+        core.style.animationDelay    = (-namedRand() * tdur).toFixed(2) + "s";
+
+        const labelOnLeft = p.cx > VB_W * 0.62;
+        const label = svgEl("text", {
+          class: "ns-label",
+          x: p.cx + (labelOnLeft ? -(haloR + 8) : (haloR + 8)),
+          y: p.cy + 4,
+          "text-anchor": labelOnLeft ? "end" : "start",
+        });
+        label.textContent = p.name || p.id;
+
+        const hit = svgEl("circle", {
+          class: "ns-hit",
+          cx: p.cx, cy: p.cy, r: 26,
+          tabindex: "0",
+          role: "button",
+          "aria-label": "Read story of " + (p.name || p.id),
+        });
+
+        g.appendChild(halo);
+        g.appendChild(spike);
+        g.appendChild(core);
+        g.appendChild(label);
+        g.appendChild(hit);
+        namedGroup.appendChild(g);
+
+        function activate() {
+          document.querySelectorAll(".ns-named.is-active").forEach(function (n) {
+            if (n !== g) n.classList.remove("is-active");
+          });
+          g.classList.add("is-active");
+          stage.classList.add("ns-stage-hover");
+          showTooltip(p);
+        }
+        function deactivate() {
+          g.classList.remove("is-active");
+          stage.classList.remove("ns-stage-hover");
+          hideTooltip();
+        }
+
+        hit.addEventListener("mouseenter", activate);
+        hit.addEventListener("mouseleave", deactivate);
+        hit.addEventListener("focus", activate);
+        hit.addEventListener("blur",  deactivate);
+        hit.addEventListener("click", function () { openModal(p); });
+        hit.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openModal(p);
+          }
+        });
       });
     }
-
-    // ── Named stars ────────────────────────────────────────────────────
-    enriched.forEach(function (p) {
-      const haloR  = 22 + p.magnitude * 18;
-      const coreR  = 2.0 + p.magnitude * 2.6;
-      const spikeLen = 32 + p.magnitude * 22;
-
-      const g = svgEl("g", { class: "ns-named", "data-id": p.id });
-
-      const halo = svgEl("circle", {
-        class: "ns-halo",
-        cx: p.cx, cy: p.cy, r: haloR,
-        fill: "url(#ns-glow-" + safeId(p.id) + ")",
-        filter: "url(#ns-bloom)",
-      });
-
-      const spike = svgEl("g", { class: "ns-spike",
-        transform: "translate(" + p.cx + "," + p.cy + ")" });
-      spike.appendChild(svgEl("line", {
-        class: "ns-spike-line",
-        x1: -spikeLen.toFixed(1), y1: 0, x2: spikeLen.toFixed(1), y2: 0,
-        stroke: "url(#ns-spike-h)", "stroke-width": "0.9",
-      }));
-      spike.appendChild(svgEl("line", {
-        class: "ns-spike-line",
-        x1: 0, y1: -spikeLen.toFixed(1), x2: 0, y2: spikeLen.toFixed(1),
-        stroke: "url(#ns-spike-v)", "stroke-width": "0.9",
-      }));
-
-      const core = svgEl("circle", {
-        class: "ns-core",
-        cx: p.cx, cy: p.cy, r: coreR,
-      });
-
-      const labelOnLeft = p.cx > VB_W * 0.62;
-      const label = svgEl("text", {
-        class: "ns-label",
-        x: p.cx + (labelOnLeft ? -(haloR + 8) : (haloR + 8)),
-        y: p.cy + 4,
-        "text-anchor": labelOnLeft ? "end" : "start",
-      });
-      label.textContent = p.name || p.id;
-
-      const hit = svgEl("circle", {
-        class: "ns-hit",
-        cx: p.cx, cy: p.cy, r: 26,
-        tabindex: "0",
-        role: "button",
-        "aria-label": "Read story of " + (p.name || p.id),
-      });
-
-      g.appendChild(halo);
-      g.appendChild(spike);
-      g.appendChild(core);
-      g.appendChild(label);
-      g.appendChild(hit);
-      namedGroup.appendChild(g);
-
-      function activate() {
-        document.querySelectorAll(".ns-named.is-active").forEach(function (n) {
-          if (n !== g) n.classList.remove("is-active");
-        });
-        g.classList.add("is-active");
-        stage.classList.add("ns-stage-hover");
-        showTooltip(p);
-      }
-      function deactivate() {
-        g.classList.remove("is-active");
-        stage.classList.remove("ns-stage-hover");
-        hideTooltip();
-      }
-
-      hit.addEventListener("mouseenter", activate);
-      hit.addEventListener("mouseleave", deactivate);
-      hit.addEventListener("focus", activate);
-      hit.addEventListener("blur",  deactivate);
-      hit.addEventListener("click", function () { openModal(p); });
-      hit.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          openModal(p);
-        }
-      });
-    });
 
     // ── Shooting stars ─────────────────────────────────────────────────
     let shootingTimer = null;
@@ -461,6 +524,7 @@
     }
 
     function spawnShootingStar() {
+      if (!shootingG) return;
       // Bias the streaks roughly along the milky-way direction (115° feel),
       // so they feel like they belong to the scene.
       const angle = (-25 + (Math.random() * 50)) * (Math.PI / 180); // ~ -25° to +25° from horizontal
@@ -477,7 +541,8 @@
         x1: startX.toFixed(1), y1: startY.toFixed(1),
         x2: startX.toFixed(1), y2: startY.toFixed(1),
       });
-      shootingG.appendChild(line);
+      const layer = shootingG;
+      layer.appendChild(line);
 
       const start = performance.now();
       const dur = 800 + Math.random() * 400; // ms
@@ -500,14 +565,11 @@
         line.setAttribute("stroke", "rgba(255,255,255," + Math.max(0, alpha).toFixed(2) + ")");
         if (t < 1) {
           requestAnimationFrame(step);
-        } else {
-          shootingG.removeChild(line);
+        } else if (line.parentNode) {
+          line.parentNode.removeChild(line);
         }
       }
       requestAnimationFrame(step);
-    }
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      scheduleShootingStar();
     }
 
     // ── Tooltip ────────────────────────────────────────────────────────
@@ -602,6 +664,7 @@
       }));
       if (p.role)  heading.appendChild(el("p", { class: "ns-modal-role", text: p.role }));
       const metaBits = [];
+      if (p.star_meaning) metaBits.push(p.star_meaning);
       if (p.since) metaBits.push("since " + p.since);
       if (metaBits.length) heading.appendChild(el("p", { class: "ns-modal-meta", text: metaBits.join(" · ") }));
       head.appendChild(heading);
@@ -652,8 +715,30 @@
       });
     }
 
+    // ── First paint ─────────────────────────────────────────────────────
+    measure();
+    computeEnriched();
+    buildSky();
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      scheduleShootingStar();
+    }
+
+    // ── Resize: re-measure and rebuild only when the size really changed ─
+    let resizeTimer = null;
+    window.addEventListener("resize", function () {
+      hideTooltip();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        const prevW = VB_W, prevH = VB_H;
+        measure();
+        if (Math.abs(VB_W - prevW) > 2 || Math.abs(VB_H - prevH) > 2) {
+          computeEnriched();
+          buildSky();
+        }
+      }, 180);
+    });
+
     window.addEventListener("scroll", hideTooltip, { passive: true });
-    window.addEventListener("resize", hideTooltip);
   });
 
   // ── Helpers ─────────────────────────────────────────────────────────
