@@ -224,7 +224,6 @@ exclude:
   - readme_preview/
   - sdk-wip-main/
   - vendor
-  - html-review-replica/
 keep_files:
   - CNAME
   - .nojekyll
@@ -265,7 +264,10 @@ sass:
 
 jekyll-minifier:
   compress_javascript: false # set to false since we are using terser as the js minifier
-  exclude: ["robots.txt", "assets/js/search/*.js"]
+  # The standalone scroll-inside demo is served as-is; the CSS minifier mangles
+  # its custom properties (var(--scroll) -> var( - - scroll)), so skip it.
+  exclude:
+    ["robots.txt", "assets/js/search/*.js", "html-review-replica/index.html", "html-review-replica/assets/styles.css"]
 
 # -----------------------------------------------------------------------------
 # Terser
