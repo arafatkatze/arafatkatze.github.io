@@ -4,6 +4,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const SYNC_URL =
     "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/pixelboard";
   var syncTimeout = null;
+  var syncInFlight = false;
+  var hasUnsyncedChanges = false;
+  var localUpdatedAt = 0;
+  var pollTimer = null;
+  const POLL_INTERVAL_MS = 4000;
 
   const COLORS = [
     { hex: "#E8A6A6", name: "blush" },
@@ -42,6 +47,55 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  function hasGridContent(board) {
+    if (!board || board.length !== GRID_SIZE) {
+      return false;
+    }
+    for (var y = 0; y < GRID_SIZE; y++) {
+      for (var x = 0; x < GRID_SIZE; x++) {
+        if (board[y][x]) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function stateRevision(data) {
+    if (!data) {
+      return 0;
+    }
+    if (data.updatedAt) {
+      return data.updatedAt;
+    }
+    return data.pixelCount > 0 || hasGridContent(data.grid) ? 1 : 0;
+  }
+
+  function createStatePayload() {
+    return {
+      grid: grid,
+      pixelCount: pixelCount,
+      updatedAt: localUpdatedAt,
+    };
+  }
+
+  function persistLocal() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(createStatePayload()));
+  }
+
+  function applyState(data) {
+    if (!data || !data.grid || data.grid.length !== GRID_SIZE) {
+      return false;
+    }
+    grid = data.grid;
+    pixelCount = data.pixelCount || 0;
+    localUpdatedAt = data.updatedAt || stateRevision(data);
+    updateCount();
+    drawGrid();
+    persistLocal();
+    return true;
+  }
+
   function loadLocal() {
     var saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -49,57 +103,164 @@ document.addEventListener("DOMContentLoaded", function () {
         var parsed = JSON.parse(saved);
         grid = parsed.grid || [];
         pixelCount = parsed.pixelCount || 0;
+        localUpdatedAt = parsed.updatedAt || 0;
       } catch (e) {
         grid = [];
         pixelCount = 0;
+        localUpdatedAt = 0;
       }
     }
     if (!grid.length || grid.length !== GRID_SIZE) {
       grid = emptyGrid();
       pixelCount = 0;
+      localUpdatedAt = 0;
+    } else if (!localUpdatedAt && (pixelCount > 0 || hasGridContent(grid))) {
+      localUpdatedAt = Date.now();
     }
+  }
+
+  function syncToRemote(immediate) {
+    if (!SYNC_URL) {
+      return;
+    }
+
+    clearTimeout(syncTimeout);
+
+    function sendSync() {
+      if (syncInFlight) {
+        return;
+      }
+
+      var payload = JSON.stringify(createStatePayload());
+      var syncAt = localUpdatedAt;
+      syncInFlight = true;
+
+      fetch(SYNC_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: payload,
+      })
+        .then(function (response) {
+          if (response.ok && syncAt === localUpdatedAt) {
+            hasUnsyncedChanges = false;
+          }
+        })
+        .catch(function () {})
+        .finally(function () {
+          syncInFlight = false;
+        });
+    }
+
+    if (immediate) {
+      sendSync();
+    } else {
+      syncTimeout = setTimeout(sendSync, 500);
+    }
+  }
+
+  function flushSync() {
+    if (!hasUnsyncedChanges || !SYNC_URL) {
+      return;
+    }
+
+    clearTimeout(syncTimeout);
+    var payload = JSON.stringify(createStatePayload());
+
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon(
+        SYNC_URL,
+        new Blob([payload], { type: "application/json" })
+      );
+      return;
+    }
+
+    fetch(SYNC_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload,
+      keepalive: true,
+    }).catch(function () {});
   }
 
   function initGrid() {
     loadLocal();
     updateCount();
 
-    if (SYNC_URL) {
-      fetch(SYNC_URL, { headers: { Accept: "application/json" } })
-        .then(function (r) {
-          return r.json();
-        })
-        .then(function (data) {
-          if (data && data.grid && data.grid.length === GRID_SIZE) {
-            grid = data.grid;
-            pixelCount = data.pixelCount || 0;
-            updateCount();
-            drawGrid();
-            localStorage.setItem(
-              STORAGE_KEY,
-              JSON.stringify({ grid: grid, pixelCount: pixelCount })
-            );
-          }
-        })
-        .catch(function () {});
+    if (!SYNC_URL) {
+      return;
     }
+
+    var localRevision = localUpdatedAt;
+
+    fetch(SYNC_URL, { headers: { Accept: "application/json" } })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (data) {
+        if (!data || !data.grid || data.grid.length !== GRID_SIZE) {
+          if (localUpdatedAt > localRevision) {
+            syncToRemote(true);
+          }
+          return;
+        }
+
+        var remoteRevision = stateRevision(data);
+
+        if (remoteRevision > localUpdatedAt) {
+          applyState(data);
+          hasUnsyncedChanges = false;
+        } else if (localUpdatedAt > remoteRevision) {
+          syncToRemote(true);
+        }
+      })
+      .catch(function () {
+        if (localUpdatedAt > localRevision) {
+          syncToRemote(true);
+        }
+      });
   }
 
   function saveGrid() {
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify({ grid: grid, pixelCount: pixelCount })
-    );
-    if (SYNC_URL) {
-      clearTimeout(syncTimeout);
-      syncTimeout = setTimeout(function () {
-        fetch(SYNC_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ grid: grid, pixelCount: pixelCount }),
-        }).catch(function () {});
-      }, 500);
+    localUpdatedAt = Date.now();
+    hasUnsyncedChanges = true;
+    persistLocal();
+    syncToRemote(false);
+  }
+
+  // Pull the shared board from the remote and adopt it when it is newer than
+  // our own last edit. This is what keeps two open tabs in consensus — without
+  // it, the remote is only ever read once at page load.
+  function pullRemote() {
+    if (!SYNC_URL || isDrawing) {
+      return;
     }
+
+    fetch(SYNC_URL, { headers: { Accept: "application/json" } })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (data) {
+        if (!data || !data.grid || data.grid.length !== GRID_SIZE) {
+          return;
+        }
+        if (stateRevision(data) > localUpdatedAt) {
+          applyState(data);
+          hasUnsyncedChanges = false;
+        }
+      })
+      .catch(function () {});
+  }
+
+  function startPolling() {
+    if (pollTimer || !SYNC_URL) {
+      return;
+    }
+    pollTimer = setInterval(pullRemote, POLL_INTERVAL_MS);
+  }
+
+  function stopPolling() {
+    clearInterval(pollTimer);
+    pollTimer = null;
   }
 
   function sizeCanvas() {
@@ -450,9 +611,21 @@ document.addEventListener("DOMContentLoaded", function () {
   sizeCanvas();
   drawGrid();
   createParticles();
+  startPolling();
 
   window.addEventListener("resize", function () {
     sizeCanvas();
     drawGrid();
+  });
+
+  window.addEventListener("pagehide", flushSync);
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") {
+      flushSync();
+      stopPolling();
+    } else {
+      pullRemote();
+      startPolling();
+    }
   });
 });

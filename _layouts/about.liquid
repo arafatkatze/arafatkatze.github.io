@@ -76,6 +76,12 @@ layout: default
         <div class="contact-icons">{% include social.liquid %}</div>
 
         <div class="contact-note">{{ site.contact_note }}</div>
+
+        {% if site.enable_view_counter %}
+          <div class="view-counter" aria-live="polite">
+            <span id="site-view-counter">{{ site.view_counter_initial | default: 0 }}</span> views
+          </div>
+        {% endif %}
       </div>
     {% endif %}
 
