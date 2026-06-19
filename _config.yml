@@ -274,7 +274,17 @@ jekyll-minifier:
   # broken `___YUICSSMIN_PRESERVE_CANDIDATE_COMMENT_1___` stub, leaving the page
   # completely unstyled. The file is already hand-compacted, so skip minifying
   # it (and any other navigation-cues CSS) entirely.
-  exclude: ["robots.txt", "assets/js/search/*.js", "assets/navigation-cues/css/*.css"]
+  #
+  # The standalone scroll-inside demo is likewise served as-is; the CSS minifier
+  # mangles its custom properties (var(--scroll) -> var( - - scroll)), so skip it.
+  exclude:
+    [
+      "robots.txt",
+      "assets/js/search/*.js",
+      "assets/navigation-cues/css/*.css",
+      "html-review-replica/index.html",
+      "html-review-replica/assets/styles.css",
+    ]
 
 # -----------------------------------------------------------------------------
 # Terser
