@@ -15,11 +15,17 @@ nav: false
       Hover over any star to read about them. 
       <span class="nightsky-hint-mobile">Tap a star on mobile.</span>
     </p>
+    <p class="nightsky-sub nightsky-sub-link">
+      Each of the twenty-four stars carries one of the messages from
+      <a href="{% post_url 2025-01-05-messages-to-24-people %}">Messages to 24 People I Know</a>.
+    </p>
   </header>
 
   <div class="nightsky-stage" id="nightsky-stage" aria-label="Interactive night sky">
+    <!-- viewBox is set by night-sky.js to match the stage's measured pixel
+         size (1:1), so this default only matters before the script runs. -->
     <svg class="nightsky-svg" id="nightsky-svg"
-         viewBox="0 0 1000 600"
+         viewBox="0 0 1600 640"
          preserveAspectRatio="xMidYMid meet"
          role="img"
          aria-hidden="true"></svg>
