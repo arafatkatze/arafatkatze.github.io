@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var syncInFlight = false;
   var hasUnsyncedChanges = false;
   var localUpdatedAt = 0;
+  var pollTimer = null;
+  const POLL_INTERVAL_MS = 4000;
 
   const COLORS = [
     { hex: "#E8A6A6", name: "blush" },
@@ -223,6 +225,42 @@ document.addEventListener("DOMContentLoaded", function () {
     hasUnsyncedChanges = true;
     persistLocal();
     syncToRemote(false);
+  }
+
+  // Pull the shared board from the remote and adopt it when it is newer than
+  // our own last edit. This is what keeps two open tabs in consensus — without
+  // it, the remote is only ever read once at page load.
+  function pullRemote() {
+    if (!SYNC_URL || isDrawing) {
+      return;
+    }
+
+    fetch(SYNC_URL, { headers: { Accept: "application/json" } })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (data) {
+        if (!data || !data.grid || data.grid.length !== GRID_SIZE) {
+          return;
+        }
+        if (stateRevision(data) > localUpdatedAt) {
+          applyState(data);
+          hasUnsyncedChanges = false;
+        }
+      })
+      .catch(function () {});
+  }
+
+  function startPolling() {
+    if (pollTimer || !SYNC_URL) {
+      return;
+    }
+    pollTimer = setInterval(pullRemote, POLL_INTERVAL_MS);
+  }
+
+  function stopPolling() {
+    clearInterval(pollTimer);
+    pollTimer = null;
   }
 
   function sizeCanvas() {
@@ -573,6 +611,7 @@ document.addEventListener("DOMContentLoaded", function () {
   sizeCanvas();
   drawGrid();
   createParticles();
+  startPolling();
 
   window.addEventListener("resize", function () {
     sizeCanvas();
@@ -583,6 +622,10 @@ document.addEventListener("DOMContentLoaded", function () {
   document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "hidden") {
       flushSync();
+      stopPolling();
+    } else {
+      pullRemote();
+      startPolling();
     }
   });
 });
