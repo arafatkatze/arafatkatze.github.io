@@ -1449,6 +1449,24 @@ html[data-theme="dark"] {
   }
 }
 
+// Project category sections
+.project-category-section {
+  margin-bottom: 2.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.project-category-title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--global-text-color);
+  margin: 0 0 0.25rem 0;
+  line-height: 1.2;
+}
+
 // Project card grid
 .project-card-grid {
   display: grid;
