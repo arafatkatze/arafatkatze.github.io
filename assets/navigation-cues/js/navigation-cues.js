@@ -286,14 +286,6 @@ function createSpacer() {
   return spacer;
 }
 
-function shuffleArray(items) {
-  for (let index = items.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(Math.random() * (index + 1));
-    [items[index], items[swapIndex]] = [items[swapIndex], items[index]];
-  }
-  return items;
-}
-
 function captureParagraphsTemplate() {
   if (!paragraphsTemplate) {
     paragraphsTemplate = paragraphsRoot.innerHTML.replace(/\n/g, "");
@@ -305,19 +297,21 @@ function restoreParagraphsTemplate() {
   paragraphsRoot.innerHTML = paragraphsTemplate;
 }
 
-function expandAndShuffleParagraphs(copies) {
+function expandParagraphs(copies) {
   restoreParagraphsTemplate();
 
   const canonicalItems = Array.from(paragraphsRoot.querySelectorAll(".js-paragraphsItem"));
   const expandedItems = [];
 
-  for (const item of canonicalItems) {
-    for (let copy = 0; copy < copies; copy += 1) {
+  // Lay the essay out in reading order, repeated `copies` times:
+  // [0,1,…,N, 0,1,…,N, …]. Keeping every pass in sequence means the text that
+  // follows any paragraph on the page is the next paragraph of the essay, so
+  // the greyed continuation around the highlight always reads correctly.
+  for (let copy = 0; copy < copies; copy += 1) {
+    for (const item of canonicalItems) {
       expandedItems.push(item.cloneNode(true));
     }
   }
-
-  shuffleArray(expandedItems);
 
   const fragment = document.createDocumentFragment();
   for (const item of expandedItems) {
@@ -330,21 +324,28 @@ function expandAndShuffleParagraphs(copies) {
 
 function buildParagraphsList() {
   const allItems = Array.from(document.querySelectorAll(".js-paragraphsItem"));
-  const middleZone = allItems.filter(
-    (item) =>
-      item.offsetTop > window.innerHeight / 2 + topOffset &&
-      item.offsetTop + item.offsetHeight <
-        paragraphsRoot.offsetHeight - window.innerHeight / 2 - bottomOffset,
-  );
+  const perBlock = window.pLength;
+
+  if (!perBlock || allItems.length < perBlock) {
+    window.paragraphsList = allItems.slice(0, perBlock || allItems.length);
+    return;
+  }
+
+  // Walk one full, contiguous pass of the essay. Because the page is laid out
+  // as repeated in-order passes, the items at positions [start … start+N] have
+  // data-index 0…N in order AND are physical neighbours. That makes step i and
+  // step i+1 adjacent on the page, so the highlight moves straight down the
+  // greyed text in sequence instead of jumping to a random copy elsewhere.
+  // Pick a middle pass so there is a full pass of runway above and below it to
+  // centre the first/last paragraphs.
+  const blockCount = Math.floor(allItems.length / perBlock);
+  const startBlock = Math.floor((blockCount - 1) / 2);
+  const start = startBlock * perBlock;
 
   const list = [];
-  for (let index = 0; index < window.pLength; index += 1) {
-    const middleMatches = middleZone.filter((item) => item.dataset.index == index);
-    const pool = middleMatches.length
-      ? middleMatches
-      : allItems.filter((item) => item.dataset.index == index);
-    const picked = pool[Math.floor(Math.random() * pool.length)];
-    if (picked) list.push(picked);
+  for (let index = 0; index < perBlock; index += 1) {
+    const item = allItems[start + index];
+    if (item) list.push(item);
   }
 
   window.paragraphsList = list;
@@ -480,7 +481,7 @@ function bindMirrorResize() {
 
 function bindProgressReset() {
   document.querySelector(".js-progress").addEventListener("click", () => {
-    expandAndShuffleParagraphs(totalCopies);
+    expandParagraphs(totalCopies);
     buildParagraphsList();
     snapToParagraph(0);
   });
@@ -538,7 +539,7 @@ async function init() {
   }
 
   captureParagraphsTemplate();
-  expandAndShuffleParagraphs(totalCopies);
+  expandParagraphs(totalCopies);
   buildParagraphsList();
   bindMirrorResize();
   bindProgressReset();
