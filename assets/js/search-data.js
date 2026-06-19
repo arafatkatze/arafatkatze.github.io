@@ -288,6 +288,11 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/homelessness/";
+            },},{id: "projects-if-we-could-just",
+          title: 'If we could just',
+          description: "An interactive boil-text experience. It opens with the &quot;you didn&#39;t know that&quot; confessions, then asks if we could just — pick a path (be lovers, be friends, stop talking) and watch it unravel phrase by phrase behind accreting frames, ending in a screen that keeps splitting into &quot;love you&quot;.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/ifWeCouldJust/";
             },},{id: "projects-the-math-of-llm-inference",
           title: 'The Math of LLM Inference',
           description: "How to save millions by self-hosting LLMs — the math of inference and the real dollars, grounded in production traffic.",
