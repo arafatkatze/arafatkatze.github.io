@@ -1,0 +1,61 @@
+# -----------------------------------------------------------------
+#  "if we could just" — sequences
+#
+#  Edit this file to change the choices and what each one says.
+#
+#  HOW TO EDIT:
+#   * Each choice starts with its name in [square brackets]   ->  [Be friends]
+#   * Put a *  before the name to make it the default choice   ->  [*Be friends]
+#   * Every line under a heading is ONE phrase (shown one click at a time).
+#   * Blank lines and lines beginning with #  are ignored.
+#   * Add a choice  -> add a new [Name] block (it appears in the dropdown).
+#   * Remove a choice -> delete its whole block.
+#   * Reorder choices -> move the blocks up/down (dropdown follows this order).
+#   * The trailing "love you" lines automatically start the splitting finale.
+# -----------------------------------------------------------------
+
+[Be lovers]
+I would be happy
+You would be happy
+It would be the best time
+The time of our lives
+But then it will crack
+Because you are who you are
+And I am who I am
+And one of us would call it quits
+I think it will be you
+Because I am too much of a pussy
+It will tear me apart
+And possibly you too
+I will always always always
+Love you
+Love you
+Love you
+
+[*Be friends]
+You would be happy
+I would be angsty
+I won't stop hitting on you
+Until I would stop
+Then you would hit on me
+Except it's too late now
+It will tear me apart to say no
+And possibly you too
+I will always always always
+Love you
+Love you
+Love you
+
+[Stop talking]
+We just can't stop talking
+We will text every 3 days instead of daily
+and then it will be every 7
+and then once every couple weeks
+and then it will be birthdays
+until we run into each other at a party
+and we both get teary eyed but try to play it cool
+Just know that
+I will always
+love you
+love you
+love you
