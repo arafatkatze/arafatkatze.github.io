@@ -325,6 +325,11 @@ ninja.data = [{
           description: "a small constellation of the people who shaped me — hover any star, read their story.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/nightsky/";
+            },},{id: "projects-scroll-inside-effect",
+          title: 'Scroll-Inside Effect',
+          description: "A cross-device homage to the html review 04 &quot;scroll to fly through&quot; 3D tunnel — rebuilt to run on phones too.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/scroll-inside-replica/";
             },},{id: "projects-but-you-are-just-a-quot-content-creator-quot",
           title: 'But you are just a &amp;quot;content creator&amp;quot;',
           description: "",
