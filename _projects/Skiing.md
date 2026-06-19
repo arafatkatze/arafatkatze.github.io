@@ -4,7 +4,7 @@ title: Skiing
 description:
 img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
 importance: 2
-category: fun
+category: art
 ---
 
 Many moons ago I was doomscrolling on youtube when I came across this video
