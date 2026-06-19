@@ -22,15 +22,12 @@ pagination:
   <h1>writing.</h1>
   <p>I have a blog that doesn't really adhere to any fixed themes. From philosophy essays to travel stories to love letters, it really is the wild west.</p>
 
-  <div class="subscribe-bar">
-    <a class="subscribe-rss" href="{{ '/feed.xml' | relative_url }}" title="Subscribe via RSS">
-      <i class="fa-solid fa-square-rss"></i> RSS feed
-    </a>
-    {% if site.newsletter.enabled %}
-      <span class="subscribe-or">or get new essays by email</span>
+  {% if site.newsletter.enabled %}
+    <div class="subscribe-bar">
+      <span class="subscribe-label">Get new essays by email:</span>
       {% include newsletter.liquid left=true %}
-    {% endif %}
-  </div>
+    </div>
+  {% endif %}
 </div>
 
 {% if page.pagination.enabled %}
