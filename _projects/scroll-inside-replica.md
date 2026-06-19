@@ -4,7 +4,7 @@ title: Scroll-Inside Effect
 description: A cross-device homage to the html review 04 "scroll to fly through" 3D tunnel — rebuilt to run on phones too.
 img: assets/img/scroll_inside_replica.webp
 importance: 1
-category: fun
+category: art
 redirect: /html-review-replica/
 ---
 
