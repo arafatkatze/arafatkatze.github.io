@@ -1336,7 +1336,7 @@ html[data-theme="dark"] {
   }
 }
 
-// Subscribe bar (RSS button + email newsletter) on the writing page
+// Subscribe by email bar on the writing page
 .subscribe-bar {
   display: flex;
   flex-wrap: wrap;
@@ -1344,41 +1344,13 @@ html[data-theme="dark"] {
   gap: 0.75rem 1rem;
   margin-top: 1.5rem;
 
-  .subscribe-rss {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 8px 16px;
-    height: 38px;
-    border: 1px solid var(--global-theme-color);
-    border-radius: 6px;
-    color: var(--global-theme-color);
-    font-weight: 500;
-    line-height: 1;
-    white-space: nowrap;
-    text-decoration: none;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
-
-    i {
-      font-size: 1.05rem;
-    }
-
-    &:hover {
-      background-color: var(--global-theme-color);
-      color: var(--global-bg-color);
-      text-decoration: none;
-    }
-  }
-
-  .subscribe-or {
+  .subscribe-label {
     color: var(--global-text-color-light);
     font-size: 0.95rem;
   }
 
   // the newsletter include adds its own bottom margin; neutralize it here so
-  // the form lines up with the RSS button on the same row
+  // the form lines up with the label on the same row
   .newsletter-form-container {
     margin-bottom: 0;
     flex: 1 1 320px;
