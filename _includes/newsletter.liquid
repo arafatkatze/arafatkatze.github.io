@@ -1,68 +1,44 @@
+{% assign bd_username = site.newsletter.username %}
+{% if include.left %}
+  {% assign bd_justify = "flex-start" %}
+{% elsif include.right %}
+  {% assign bd_justify = "flex-end" %}
+{% else %}
+  {% assign bd_justify = "center" %}
+{% endif %}
+
 <div
   class="newsletter-form-container"
   {% if include.center %}
     style="margin: 20px"
   {% endif %}
 >
+  {% comment %}
+    Posts directly to Buttondown's public embed endpoint (no API key, no
+    backend). The popup target keeps this page in place and shows Buttondown's
+    confirmation in a small window. See https://docs.buttondown.com.
+  {% endcomment %}
   <form
     class="newsletter-form"
-    action="https://app.loops.so/api/newsletter-form/{{ site.newsletter.endpoint }}"
-    method="POST"
-    style="justify-content: {% if include.left %}flex-start{% elsif include.right %}flex-end{% else %}center{% endif %}"
+    action="https://buttondown.com/api/emails/embed-subscribe/{{ bd_username }}"
+    method="post"
+    target="popupwindow"
+    onsubmit="window.open('https://buttondown.com/{{ bd_username }}', 'popupwindow')"
+    style="justify-content: {{ bd_justify }}"
   >
     <input
       class="newsletter-form-input"
-      name="newsletter-form-input"
+      name="email"
       type="email"
       placeholder="user@example.com"
+      autocomplete="email"
       required=""
     >
 
-    <button
-      type="submit"
-      class="newsletter-form-button"
-      style="justify-content: {% if include.left %}flex-start{% elsif include.right %}flex-end{% else %}center{% endif %}"
-    >
+    <input type="hidden" name="embed" value="1">
+
+    <button type="submit" class="newsletter-form-button" style="justify-content: {{ bd_justify }}">
       subscribe
     </button>
-
-    <button
-      type="button"
-      class="newsletter-loading-button"
-      style="justify-content: {% if include.left %}flex-start{% elsif include.right %}flex-end{% else %}center{% endif %}"
-    >
-      Please wait...
-    </button>
   </form>
-
-  <div
-    class="newsletter-success"
-    style="justify-content: {% if include.left %}flex-start{% elsif include.right %}flex-end{% else %}center{% endif %}"
-  >
-    <p class="newsletter-success-message">You're subscribed!</p>
-  </div>
-
-  <div
-    class="newsletter-error"
-    style="justify-content: {% if include.left %}flex-start{% elsif include.right %}flex-end{% else %}center{% endif %}"
-  >
-    <p class="newsletter-error-message">Oops! Something went wrong, please try again</p>
-  </div>
-
-  <button
-    class="newsletter-back-button"
-    type="button"
-    onmouseout='this.style.textDecoration="none"'
-    onmouseover='this.style.textDecoration="underline"'
-  >
-    &larr; Back
-  </button>
 </div>
-
-<noscript>
-  <style>
-    .newsletter-form-container {
-      display: none;
-    }
-  </style>
-</noscript>
