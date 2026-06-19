@@ -40,8 +40,8 @@ bento_tiles:
 
   # Row 2: art + book + math of love (wide)
   - title: Art
-    label: Projects · Art
-    link: /projects/Art/
+    label: Writing · Philosophy
+    link: /philosophy/2026/06/19/art
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417818/site/art/7.jpg
     type: image
 
@@ -82,8 +82,8 @@ bento_tiles:
     type: image
 
   - title: Skiing
-    label: Projects · Fun
-    link: /projects/Skiing/
+    label: Writing · Philosophy
+    link: /philosophy/2026/06/19/skiing
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
     type: image
 
