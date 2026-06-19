@@ -9,21 +9,20 @@
 
 <div
   class="newsletter-form-container"
+  data-newsletter-fallback="https://buttondown.com/{{ bd_username }}"
   {% if include.center %}
     style="margin: 20px"
   {% endif %}
 >
   {% comment %}
-    Posts directly to Buttondown's public embed endpoint (no API key, no
-    backend). The popup target keeps this page in place and shows Buttondown's
-    confirmation in a small window. See https://docs.buttondown.com.
+    Submits in the background (fetch) to Buttondown's public embed endpoint so
+    the visitor stays on the page and sees an inline confirmation — no redirect.
+    Endpoint is public (no API key). See assets/js/newsletter.js.
   {% endcomment %}
   <form
     class="newsletter-form"
     action="https://buttondown.com/api/emails/embed-subscribe/{{ bd_username }}"
     method="post"
-    target="popupwindow"
-    onsubmit="window.open('https://buttondown.com/{{ bd_username }}', 'popupwindow')"
     style="justify-content: {{ bd_justify }}"
   >
     <input
@@ -40,5 +39,38 @@
     <button type="submit" class="newsletter-form-button" style="justify-content: {{ bd_justify }}">
       subscribe
     </button>
+
+    <button
+      type="button"
+      class="newsletter-loading-button"
+      style="justify-content: {{ bd_justify }}"
+    >
+      Please wait...
+    </button>
   </form>
+
+  <div class="newsletter-success" style="justify-content: {{ bd_justify }}">
+    <p class="newsletter-success-message">You're subscribed! Check your inbox to confirm.</p>
+  </div>
+
+  <div class="newsletter-error" style="justify-content: {{ bd_justify }}">
+    <p class="newsletter-error-message">Oops! Something went wrong, please try again.</p>
+  </div>
+
+  <button
+    class="newsletter-back-button"
+    type="button"
+    onmouseout='this.style.textDecoration="none"'
+    onmouseover='this.style.textDecoration="underline"'
+  >
+    &larr; Back
+  </button>
 </div>
+
+<noscript>
+  <style>
+    .newsletter-loading-button {
+      display: none;
+    }
+  </style>
+</noscript>
