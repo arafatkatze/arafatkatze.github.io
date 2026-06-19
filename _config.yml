@@ -44,6 +44,20 @@ repo_trophies:
 rss_icon: false
 
 # -----------------------------------------------------------------------------
+# Email newsletter (subscribe by email)
+# -----------------------------------------------------------------------------
+# Uses Loops.so (free tier, no backend required). To turn it on:
+#   1. Create a free account at https://loops.so
+#   2. Go to Forms -> create a "Newsletter signup" form
+#   3. Copy the form ID from the end of its URL (the part after .../forms/)
+#   4. Paste that ID into `endpoint` below
+# The email box appears on the Writing page, at the end of each post, and on
+# the About page. Leave `enabled: false` to hide it everywhere.
+newsletter:
+  enabled: true
+  endpoint: # <-- paste your Loops.so newsletter form ID here
+
+# -----------------------------------------------------------------------------
 # Layout
 # -----------------------------------------------------------------------------
 
