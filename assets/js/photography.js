@@ -109,6 +109,7 @@
     function setActiveProject(slug, opts) {
       var project = bySlug[slug];
       if (!project) return;
+      var initial = !!(opts && opts.initial);
       activeSlug = slug;
       activeImages = project.images || [];
 
@@ -136,7 +137,7 @@
 
       document.title = project.title + " · Photography";
 
-      scrollActivePillIntoView(slug);
+      scrollActivePillIntoView(slug, initial);
       updatePillOverflow();
 
       // Reset scroll to the top of the gallery section on switch (but not
@@ -144,7 +145,7 @@
       if (opts && opts.scrollTo) {
         var top = document.querySelector(".photo-gallery");
         if (top && typeof top.scrollIntoView === "function") {
-          top.scrollIntoView({ behavior: "smooth", block: "start" });
+          top.scrollIntoView({ block: "start" });
         }
       }
     }
@@ -231,7 +232,7 @@
 
     function nudgeBy(delta) {
       if (!pillsContainer) return;
-      pillsContainer.scrollBy({ left: delta, behavior: "smooth" });
+      pillsContainer.scrollBy({ left: delta });
     }
 
     if (nudgePrev) {
@@ -248,7 +249,7 @@
     pillsContainer.addEventListener("scroll", updatePillOverflow, { passive: true });
     window.addEventListener("resize", updatePillOverflow);
 
-    function scrollActivePillIntoView(slug) {
+    function scrollActivePillIntoView(slug, smooth) {
       if (!pillsContainer) return;
       var pill = pillsContainer.querySelector('[data-project-slug="' + slug + '"]');
       if (!pill) return;
@@ -256,7 +257,10 @@
       var contRect = pillsContainer.getBoundingClientRect();
       if (pillRect.left < contRect.left + 12 || pillRect.right > contRect.right - 12) {
         var offset = pill.offsetLeft - (pillsContainer.clientWidth - pill.offsetWidth) / 2;
-        pillsContainer.scrollTo({ left: Math.max(0, offset), behavior: "smooth" });
+        pillsContainer.scrollTo({
+          left: Math.max(0, offset),
+          behavior: smooth ? "smooth" : "auto"
+        });
       }
     }
 
@@ -301,7 +305,9 @@
 
     /* ---------- Boot ---------- */
 
-    setActiveProject(readSlugFromUrl(), { updateUrl: false });
+    // Pass initial: true so this single first-load scroll is the only
+    // animated one -- every subsequent pill-bar scroll is instant.
+    setActiveProject(readSlugFromUrl(), { updateUrl: false, initial: true });
 
     // Pill widths depend on font + layout; recheck overflow once layout
     // settles and again after webfonts (if any) finish loading.
