@@ -52,18 +52,31 @@
   ];
   const WAVE_SEQ = [0, 1, 2, 1];
 
-  // Blinking cat.
+  // Cat: tail wags every frame, blinks now and then.
   const CAT = [
     String.raw`
  /\_/\
 ( o.o )
- > ^ <`,
+ > ^ <
+   \__,`,
+    String.raw`
+ /\_/\
+( o.o )
+ > ^ <
+   ,__/`,
     String.raw`
  /\_/\
 ( -.- )
- > ^ <`,
+ > ^ <
+   \__,`,
+    String.raw`
+ /\_/\
+( -.- )
+ > ^ <
+   ,__/`,
   ];
-  const CAT_SEQ = [0, 0, 0, 0, 0, 1];
+  // tail swings left/right continuously, with an occasional blink
+  const CAT_SEQ = [0, 1, 0, 1, 2, 3, 0, 1];
 
   const SETS = {
     face: { frames: FACE, seq: FACE_SEQ, fps: 3 },
