@@ -8,7 +8,7 @@
 (function () {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Cute anime-ish face: blinks, occasionally smiles.
+  // Cute anime-ish face: eyes keep moving (open, wink, blink, grin).
   const FACE = [
     String.raw`
    .-"""""-.
@@ -27,13 +27,20 @@
     String.raw`
    .-"""""-.
   /         \
+ |  O     -  |
+ |     >     |
+  \   \_/   /
+   '-.....-'`,
+    String.raw`
+   .-"""""-.
+  /         \
  |  ^     ^  |
  |     >     |
   \  \___/  /
    '-.....-'`,
   ];
-  // open, open, open, blink, open, smile, smile  (blink + grin rhythm)
-  const FACE_SEQ = [0, 0, 0, 1, 0, 2, 2];
+  // open, wink, open, blink, grin, wink ... eyes change every frame
+  const FACE_SEQ = [0, 2, 0, 1, 3, 2, 0, 1];
 
   // Little character waving / dancing.
   const WAVE = [
