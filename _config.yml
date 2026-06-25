@@ -44,6 +44,20 @@ repo_trophies:
 rss_icon: false
 
 # -----------------------------------------------------------------------------
+# Email newsletter (subscribe by email)
+# -----------------------------------------------------------------------------
+# Uses Buttondown (https://buttondown.com) — no backend or custom domain
+# required. The signup box posts straight to Buttondown's public embed endpoint;
+# subscribers and sending all live in your Buttondown account.
+# To use your own: create a free Buttondown account, then set `username` to your
+# Buttondown handle (your public page is https://buttondown.com/<username>).
+# The email box appears on the Writing page, at the end of each post, and on
+# the About page. Leave `enabled: false` to hide it everywhere.
+newsletter:
+  enabled: true
+  username: arafatkatze # Buttondown username (https://buttondown.com/arafatkatze)
+
+# -----------------------------------------------------------------------------
 # Layout
 # -----------------------------------------------------------------------------
 
