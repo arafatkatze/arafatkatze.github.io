@@ -56,7 +56,7 @@ nav: false
         </div>
       </header>
       <div class="os-window-body">
-        <h3>welcome to arOS 🌸</h3>
+        <h3>welcome to arOS</h3>
         <p>
           this is my whole website pretending to be a tiny desktop operating system,
           inspired by the lovely <a href="https://zvava.org/" target="_blank" rel="noopener">zvava.org</a>.
@@ -65,8 +65,8 @@ nav: false
         <ul>
           <li>every app is a <em>window</em>, drag it by its title bar.</li>
           <li>the three dots resize it: <span class="os-dot os-dot-y"></span> minimize, <span class="os-dot os-dot-g"></span> maximize, <span class="os-dot os-dot-r"></span> close.</li>
-          <li>open apps from the <strong>desktop icons</strong>, the <strong>◈ start</strong> menu, or the <strong>taskbar</strong>.</li>
-          <li>try the <strong>⌨️ Terminal</strong>, type <code>help</code>.</li>
+          <li>open apps from the <strong>desktop icons</strong>, the <strong>start</strong> menu, or the <strong>taskbar</strong>.</li>
+          <li>try the <strong>Terminal</strong>, type <code>help</code>.</li>
         </ul>
         <p class="os-muted">all of this is plain HTML, CSS and vanilla JS, copy it into any site.</p>
       </div>
