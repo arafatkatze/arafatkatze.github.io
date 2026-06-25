@@ -3,10 +3,42 @@
   Tiles are defined in page.bento_tiles front matter.
 {% endcomment %}
 
+{% comment %}
+  Each tile pops in a direction determined by its category — the first word of
+  its `label` — so every tile in a category animates the same way:
+    Reading  → slide left   (a book sliding off the shelf)
+    Writing  → lift up
+    Blog     → drop down
+    Projects → zoom
+    Explore  → slide right
+    Pixels   → tilt
+  A tile can still override its direction with `pop:` in front matter.
+{% endcomment %}
 <div class="bento-grid">
   {% for tile in page.bento_tiles %}
+    {% if tile.pop %}
+      {% assign pop_class = tile.pop %}
+    {% else %}
+      {% assign category = tile.label | split: " " | first | downcase %}
+      {% case category %}
+        {% when "reading" %}
+          {% assign pop_class = "pop-left" %}
+        {% when "writing" %}
+          {% assign pop_class = "pop-up" %}
+        {% when "blog" %}
+          {% assign pop_class = "pop-down" %}
+        {% when "projects" %}
+          {% assign pop_class = "pop-zoom" %}
+        {% when "explore" %}
+          {% assign pop_class = "pop-right" %}
+        {% when "pixels" %}
+          {% assign pop_class = "pop-tilt" %}
+        {% else %}
+          {% assign pop_class = "pop-up" %}
+      {% endcase %}
+    {% endif %}
     <a
-      class="bento-tile {{ tile.type | default: 'image' }} {% if tile.span %}span-{{ tile.span }}{% endif %} {% if tile.bg %}bg-{{ tile.bg }}{% endif %}"
+      class="bento-tile {{ tile.type | default: 'image' }} {{ pop_class }} {% if tile.span %}span-{{ tile.span }}{% endif %} {% if tile.bg %}bg-{{ tile.bg }}{% endif %}"
       href="{{ tile.link | relative_url }}"
       {% if tile.style %}style="{{ tile.style }}"{% endif %}
     >
