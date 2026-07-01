@@ -1336,6 +1336,47 @@ html[data-theme="dark"] {
   }
 }
 
+// Subscribe-by-email block on the writing page
+.subscribe-bar {
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  max-width: 460px;
+
+  .subscribe-label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--global-text-color-light);
+    font-size: 0.95rem;
+  }
+
+  .newsletter-form-container {
+    margin-bottom: 0;
+  }
+
+  // form, success and error states all align to the left edge and share the
+  // same row height so swapping between them doesn't shift the layout
+  .newsletter-form,
+  .newsletter-success,
+  .newsletter-error {
+    justify-content: flex-start !important;
+    align-items: center;
+    min-height: 38px;
+    width: 100%;
+  }
+
+  .newsletter-success-message,
+  .newsletter-error-message {
+    margin: 0;
+  }
+
+  // the global rule centers this with auto margins; keep it inline on the left
+  .newsletter-back-button {
+    margin: 0.5rem 0 0 !important;
+    padding: 0;
+    text-align: left !important;
+  }
+}
+
 // Blog card grid
 .blog-card-grid {
   display: grid;

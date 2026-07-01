@@ -1,105 +1,93 @@
-function submitHandler(event) {
-  event.preventDefault();
-  var container = event.target.parentNode;
-  var form = container.querySelector(".newsletter-form");
-  var formInput = container.querySelector(".newsletter-form-input");
-  var success = container.querySelector(".newsletter-success");
-  var errorContainer = container.querySelector(".newsletter-error");
-  var errorMessage = container.querySelector(".newsletter-error-message");
-  var backButton = container.querySelector(".newsletter-back-button");
-  var submitButton = container.querySelector(".newsletter-form-button");
-  var loadingButton = container.querySelector(".newsletter-loading-button");
+// Inline (no-redirect) newsletter signup for Buttondown.
+//
+// Happy path: POST the email to Buttondown's public embed endpoint in the
+// background (fetch) and swap the form for an inline confirmation — the visitor
+// never leaves the page.
+//
+// Fallback: Buttondown's firewall can decide a given signup needs a CAPTCHA
+// ("Verify Your Subscription"), which cannot be solved from a background fetch.
+// In that case we re-submit the same form into a small popup window so the
+// visitor can complete verification without the blog page navigating away.
+(function () {
+  function setup(container) {
+    var form = container.querySelector(".newsletter-form");
+    if (!form || container.dataset.newsletterReady === "1") return;
+    container.dataset.newsletterReady = "1";
 
-  const rateLimit = () => {
-    errorContainer.style.display = "flex";
-    errorMessage.innerText = "Too many signups, please try again in a little while";
-    submitButton.style.display = "none";
-    formInput.style.display = "none";
-    backButton.style.display = "block";
-  };
+    var input = container.querySelector(".newsletter-form-input");
+    var success = container.querySelector(".newsletter-success");
+    var errorBox = container.querySelector(".newsletter-error");
+    var backBtn = container.querySelector(".newsletter-back-button");
+    var submitBtn = container.querySelector(".newsletter-form-button");
+    var loadingBtn = container.querySelector(".newsletter-loading-button");
 
-  // Compare current time with time of previous sign up
-  var time = new Date();
-  var timestamp = time.valueOf();
-  var previousTimestamp = localStorage.getItem("loops-form-timestamp");
+    function show(el, mode) {
+      if (el) el.style.display = mode;
+    }
 
-  // If last sign up was less than a minute ago
-  // display error
-  if (previousTimestamp && Number(previousTimestamp) + 60000 > timestamp) {
-    rateLimit();
-    return;
-  }
-  localStorage.setItem("loops-form-timestamp", timestamp);
+    function reset() {
+      show(success, "none");
+      show(errorBox, "none");
+      show(backBtn, "none");
+      show(loadingBtn, "none");
+      show(input, "");
+      show(submitBtn, "");
+    }
 
-  submitButton.style.display = "none";
-  loadingButton.style.display = "flex";
+    function showSuccess() {
+      show(loadingBtn, "none");
+      show(success, "flex");
+      show(backBtn, "block");
+      form.reset();
+    }
 
-  var formBody = "userGroup=&email=" + encodeURIComponent(formInput.value);
-  fetch(event.target.action, {
-    method: "POST",
-    body: formBody,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  })
-    .then((res) => [res.ok, res.json(), res])
-    .then(([ok, dataPromise, res]) => {
-      if (ok) {
-        // If response successful
-        // display success
-        success.style.display = "flex";
-        form.reset();
-      } else {
-        // If response unsuccessful
-        // display error message or response status
-        dataPromise.then((data) => {
-          errorContainer.style.display = "flex";
-          errorMessage.innerText = data.message ? data.message : res.statusText;
-        });
-      }
-    })
-    .catch((error) => {
-      // check for cloudflare error
-      if (error.message === "Failed to fetch") {
-        rateLimit();
+    // Re-submit the (still-populated) form into a popup so Buttondown can show
+    // its verification page there. Keeps the blog page exactly where it is.
+    function verifyInPopup() {
+      var popup = window.open("", "bd_subscribe", "width=480,height=700,scrollbars=yes,resizable=yes");
+      if (!popup) {
+        // Popup blocked: last resort is a normal submit so signup still works.
+        form.submit();
         return;
       }
-      // If error caught
-      // display error message if available
-      errorContainer.style.display = "flex";
-      if (error.message) errorMessage.innerText = error.message;
-      localStorage.setItem("loops-form-timestamp", "");
-    })
-    .finally(() => {
-      formInput.style.display = "none";
-      loadingButton.style.display = "none";
-      backButton.style.display = "block";
+      var prevTarget = form.target;
+      form.target = "bd_subscribe";
+      form.submit();
+      form.target = prevTarget;
+      reset();
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      var email = input.value.trim();
+      if (!email) return;
+
+      show(submitBtn, "none");
+      show(input, "none");
+      show(loadingBtn, "flex");
+
+      fetch(form.action, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "email=" + encodeURIComponent(email) + "&embed=1",
+      })
+        .then(function (res) {
+          if (res.ok) {
+            showSuccess();
+          } else {
+            // Firewall/CAPTCHA challenge — finish in a popup.
+            verifyInPopup();
+          }
+        })
+        .catch(function () {
+          // Network/CORS failure — finish in a popup.
+          verifyInPopup();
+        });
     });
-}
-function resetFormHandler(event) {
-  var container = event.target.parentNode;
-  var formInput = container.querySelector(".newsletter-form-input");
-  var success = container.querySelector(".newsletter-success");
-  var errorContainer = container.querySelector(".newsletter-error");
-  var errorMessage = container.querySelector(".newsletter-error-message");
-  var backButton = container.querySelector(".newsletter-back-button");
-  var submitButton = container.querySelector(".newsletter-form-button");
 
-  success.style.display = "none";
-  errorContainer.style.display = "none";
-  errorMessage.innerText = "Oops! Something went wrong, please try again";
-  backButton.style.display = "none";
-  formInput.style.display = "flex";
-  submitButton.style.display = "flex";
-}
+    if (backBtn) backBtn.addEventListener("click", reset);
+  }
 
-var formContainers = document.getElementsByClassName("newsletter-form-container");
-
-for (var i = 0; i < formContainers.length; i++) {
-  var formContainer = formContainers[i];
-  var handlersAdded = formContainer.classList.contains("newsletter-handlers-added");
-  if (handlersAdded) continue;
-  formContainer.querySelector(".newsletter-form").addEventListener("submit", submitHandler);
-  formContainer.querySelector(".newsletter-back-button").addEventListener("click", resetFormHandler);
-  formContainer.classList.add("newsletter-handlers-added");
-}
+  var containers = document.getElementsByClassName("newsletter-form-container");
+  for (var i = 0; i < containers.length; i++) setup(containers[i]);
+})();

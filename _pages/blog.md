@@ -21,6 +21,13 @@ pagination:
 <div class="blog-hero">
   <h1>writing.</h1>
   <p>I have a blog that doesn't really adhere to any fixed themes. From philosophy essays to travel stories to love letters, it really is the wild west.</p>
+
+  {% if site.newsletter.enabled %}
+    <div class="subscribe-bar">
+      <span class="subscribe-label">Get new essays by email:</span>
+      {% include newsletter.liquid left=true %}
+    </div>
+  {% endif %}
 </div>
 
 {% if page.pagination.enabled %}
