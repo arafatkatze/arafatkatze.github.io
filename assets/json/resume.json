@@ -26,7 +26,7 @@
       "summary": "",
       "highlights": [
         "Founding engineer on Cline, the open-source AI coding agent used by 4M+ developers.",
-        "Spoke at the AI Engineer World's Fair on 'Evals Are Broken, Use Them Anyway' -> https://www.youtube.com/watch?v=QuuIywMG4s8"
+        "Spoke at two AI Engineer conference talks: 'Evals Are Broken, Use Them Anyway' -> https://www.youtube.com/watch?v=QuuIywMG4s8 and 'Don't Build Slop (4 Levels of AI Agent Maturity)' -> https://www.youtube.com/watch?v=yUmS-F9IX90"
       ]
     },
     {
@@ -121,13 +121,14 @@
       "name": "Public Speaking",
       "icon": "fa fa-microphone",
       "keywords": [
-        "AI Engineer World's Fair: Evals Are Broken, Use Them Anyway (2026) — <a href=\"https://www.youtube.com/watch?v=QuuIywMG4s8\" target=\"_blank\" rel=\"noopener noreferrer\">watch</a>",
-        "DevOpsDays Recife: Digital nomading in tech (2022) — <a href=\"https://devopsdays.org/events/2022-recife/program/arafat-khan/\" target=\"_blank\" rel=\"noopener noreferrer\">talk</a>",
-        "GopherCon India: Algo visualizations in Go (2019) — <a href=\"https://gopherconindia.org/2019/\" target=\"_blank\" rel=\"noopener noreferrer\">conference</a>, <a href=\"https://github.com/Arafatk/DataViz\" target=\"_blank\" rel=\"noopener noreferrer\">project</a>",
-        "Google Developers Windsor: Tensorflow Ruby (2019) — <a href=\"https://gdg.community.dev/events/details/google-gdg-windsor-presents-the-windsor-essex-devfest-sold-out/\" target=\"_blank\" rel=\"noopener noreferrer\">event</a>",
-        "GoWayFest Belarus: Visualizations in Go (2018) — <a href=\"https://github.com/Arafatk/DataViz\" target=\"_blank\" rel=\"noopener noreferrer\">project</a>",
-        "Ruby on Ice, Germany: ML workshop (2018) — <a href=\"http://2018.rubyonice.com/speakers/arafat_khan\" target=\"_blank\" rel=\"noopener noreferrer\">talk</a>",
-        "EuRuKo Ruby Conf: Introducing Tensorflow Ruby (2017) — <a href=\"https://www.rubyevents.org/talks/introducing-tensorflow-ruby-api\" target=\"_blank\" rel=\"noopener noreferrer\">video</a>"
+        "AI Engineer World's Fair: Evals Are Broken, Use Them Anyway (2026): <a href=\"https://www.youtube.com/watch?v=QuuIywMG4s8\" target=\"_blank\" rel=\"noopener noreferrer\">watch</a>",
+        "AI Engineer (Europe): Don't Build Slop, 4 Levels of AI Agent Maturity (2026): <a href=\"https://www.youtube.com/watch?v=yUmS-F9IX90\" target=\"_blank\" rel=\"noopener noreferrer\">watch</a>",
+        "DevOpsDays Recife: Digital nomading in tech (2022): <a href=\"https://devopsdays.org/events/2022-recife/program/arafat-khan/\" target=\"_blank\" rel=\"noopener noreferrer\">talk</a>",
+        "GopherCon India: Algo visualizations in Go (2019): <a href=\"https://gopherconindia.org/2019/\" target=\"_blank\" rel=\"noopener noreferrer\">conference</a>, <a href=\"https://github.com/Arafatk/DataViz\" target=\"_blank\" rel=\"noopener noreferrer\">project</a>",
+        "Google Developers Windsor: Tensorflow Ruby (2019): <a href=\"https://gdg.community.dev/events/details/google-gdg-windsor-presents-the-windsor-essex-devfest-sold-out/\" target=\"_blank\" rel=\"noopener noreferrer\">event</a>",
+        "GoWayFest Belarus: Visualizations in Go (2018): <a href=\"https://github.com/Arafatk/DataViz\" target=\"_blank\" rel=\"noopener noreferrer\">project</a>",
+        "Ruby on Ice, Germany: ML workshop (2018): <a href=\"http://2018.rubyonice.com/speakers/arafat_khan\" target=\"_blank\" rel=\"noopener noreferrer\">talk</a>",
+        "EuRuKo Ruby Conf: Introducing Tensorflow Ruby (2017): <a href=\"https://www.rubyevents.org/talks/introducing-tensorflow-ruby-api\" target=\"_blank\" rel=\"noopener noreferrer\">video</a>"
       ]
     }
   ],
