@@ -389,7 +389,7 @@
 
   /* -------------------------------------------------------- scrubbing */
 
-  function scrub(ds) {
+  function scrub(ds, bounded) {
     touch();
     if (mode === "fly") return;
     if (mode === "free") {
@@ -399,6 +399,7 @@
     }
     if (ds) scrubDir = ds > 0 ? 1 : -1;
     sTarget = clamp(sTarget + ds, 0, S_TOTAL);
+    if (bounded) sTarget = clamp(sTarget, gestLo, gestHi);
   }
 
   /* ------------------------------------------------------- free zoom */
@@ -549,6 +550,8 @@
   var pinch0 = 0;
   var pinchW0 = 0;
   var moved = 0;
+  var gestLo = -Infinity;  // one touch gesture may travel at most one
+  var gestHi = Infinity;   // stop in either direction
 
   function findPtr(id) {
     for (var i = 0; i < pointers.length; i++) {
@@ -563,6 +566,13 @@
     pointers.push({ id: e.pointerId, x: e.clientX, y: e.clientY });
     moved = 0;
     document.body.classList.add("is-dragging");
+    if (pointers.length === 1 && mode === "tour") {
+      // packed stops make legs short in s — cap this swipe at one stop
+      // each way so a single flick never skips pages
+      var k0 = nearestStopS(sTarget);
+      gestLo = cum[Math.max(k0 - 1, 0)];
+      gestHi = cum[Math.min(k0 + 1, cum.length - 1)];
+    }
     if (pointers.length === 2) {
       pinch0 = pinchDist();
       pinchW0 = (mode === "free" && freeCam ? freeCam.w : cam.w);
@@ -607,7 +617,7 @@
     } else {
       // tour: dragging scrubs the flight, dominant axis wins
       var d = Math.abs(dy) >= Math.abs(dx) ? dy : dx;
-      scrub(-d * SCRUB_TOUCH);
+      scrub(-d * SCRUB_TOUCH, true);
     }
   });
 
