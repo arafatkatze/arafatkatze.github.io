@@ -457,6 +457,7 @@ body.is-dragging {
   font: 600 12px/1 var(--mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--ink);
   background: transparent;
   border: none;
@@ -574,8 +575,19 @@ body.is-dragging {
 
   .stopnav button { padding: 8px 10px; font-size: 11px; }
 
-  .zoomui { right: 10px; bottom: calc(120px + env(safe-area-inset-bottom, 0px)); }
-  .zoomui button { width: 40px; height: 40px; font-size: 20px; }
+  /* tuck the zoom buttons into the bottom corner so they stay off the
+     frame's reading column, and let taps land through their gap */
+  .zoomui {
+    flex-direction: row;
+    right: 12px;
+    bottom: calc(108px + env(safe-area-inset-bottom, 0px));
+  }
+  .zoomui button {
+    width: 38px;
+    height: 38px;
+    font-size: 19px;
+    background: rgba(255, 255, 255, 0.72);
+  }
 
   .hud-bottom { padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
   .flyhint { font-size: 11px; }
