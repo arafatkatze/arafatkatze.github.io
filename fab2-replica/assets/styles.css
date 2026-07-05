@@ -816,7 +816,8 @@ body.is-dragging {
 
   .hud-bottom { padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
   .flyhint { font-size: 11px; }
-  .readout { font-size: 10px; left: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+  /* the flight readout crowds the nav pill on small screens */
+  .readout { display: none; }
 }
 
 /* portrait wafer: body gets .m from the engine when the frames swap to
