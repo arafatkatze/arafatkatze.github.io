@@ -63,9 +63,9 @@
 
     var perspective = parseFloat(getComputedStyle(scene).perspective) || 1200;
     // far enough out to see the whole ring; close enough that the front
-    // card almost fills the view without crossing the viewer plane
+    // card reads ~2.6x its rest size without crossing the viewer plane
     zoomMin = -(radius * 2.35);
-    zoomMax = perspective - radius - cardW * 0.55;
+    zoomMax = Math.max(perspective - radius - perspective / 2.6, 0);
 
     if (zoomTarget === 0 && zoom === 0) {
       // opening shot: pulled back so the whole ring reads at once

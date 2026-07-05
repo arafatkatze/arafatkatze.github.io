@@ -23,14 +23,14 @@ sitemap: true
 
   <div class="orbit-scene" id="orbit-scene" aria-label="3D orbital gallery of projects">
     <div class="orbit-camera" id="orbit-camera">
-      <div class="orbit-ring" id="orbit-ring">
-        <div class="orbit-core" id="orbit-core" aria-hidden="true">
-          <div class="orbit-core-glow"></div>
-          <div class="orbit-core-text">
-            <span class="orbit-core-name">ara&rsquo;s</span>
-            <span class="orbit-core-word">orbit</span>
-          </div>
+      <div class="orbit-core" id="orbit-core" aria-hidden="true">
+        <div class="orbit-core-glow"></div>
+        <div class="orbit-core-text">
+          <span class="orbit-core-name">ara&rsquo;s</span>
+          <span class="orbit-core-word">orbit</span>
         </div>
+      </div>
+      <div class="orbit-ring" id="orbit-ring">
         {% assign orbit_projects = site.projects | where_exp: "p", "p.category == 'art' or p.category == 'work'" | where_exp: "p", "p.orbit_hidden != true" | sort: "importance" %}
         {% for p in orbit_projects %}
         <a class="orbit-card"
@@ -72,7 +72,7 @@ sitemap: true
   </div>
 
   <p class="orbit-hint" id="orbit-hint" aria-hidden="true">
-    <span class="orbit-hint-desktop">drag to spin &middot; scroll to fly &middot; &plus;/&minus; to zoom</span>
+    <span class="orbit-hint-desktop">drag to spin &middot; scroll to fly &middot; +/&#8722; to zoom</span>
     <span class="orbit-hint-touch">swipe to spin &middot; pinch to zoom</span>
   </p>
 
@@ -80,7 +80,7 @@ sitemap: true
     <span class="orbit-dock-cat" id="orbit-dock-cat"></span>
     <span class="orbit-dock-title" id="orbit-dock-title"></span>
     <span class="orbit-dock-desc" id="orbit-dock-desc"></span>
-    <span class="orbit-dock-open">tap the front card to open &nearr;</span>
+    <span class="orbit-dock-open">tap the front card to open &#8599;</span>
   </footer>
 
   <script src="{{ '/assets/js/orbit.js' | relative_url }}" defer></script>

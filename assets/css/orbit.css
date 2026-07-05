@@ -317,7 +317,7 @@ body.orbit-body {
 .orbit-hint {
   position: fixed;
   left: 50%;
-  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(126px + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
   z-index: 3;
   font-size: 11px;
@@ -425,7 +425,7 @@ body.orbit-body {
 
   .orbit-zoom button { width: 36px; height: 36px; font-size: 18px; }
 
-  .orbit-hint { bottom: calc(88px + env(safe-area-inset-bottom, 0px)); font-size: 9px; }
+  .orbit-hint { bottom: calc(112px + env(safe-area-inset-bottom, 0px)); font-size: 9px; }
 
   .orbit-dock-title { font-size: 15px; }
   .orbit-dock-desc { font-size: 11px; -webkit-line-clamp: 1; }
