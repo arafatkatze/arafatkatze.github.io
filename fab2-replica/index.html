@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<!--
+  A cross-device homage / replica of the fab2.com "scroll to fly" camera.
+  The interaction grammar is rebuilt from scratch: sections live at fixed
+  spots (and gentle rotations) on one big flat "wafer", and the camera
+  flies between them in phases — a half lift out, twist, glide, dive in.
+  All code here is original, and the words are placeholder copy
+  (not fab2's), meant to be swapped for real content later.
+-->
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>scroll-to-fly replica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Fragment+Mono&family=Baloo+2:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script src="assets/engine.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ================= the wafer: one big plane, sections pinned on it.
+         data-x / data-y   world coordinates of the frame's CENTER
+         data-w / data-h   the world rectangle it occupies
+         data-rot          rotation about its center, degrees (kept gentle
+                           so nothing ever lands upside-down)
+         data-stop="id"    makes the frame a camera stop; tour order =
+                           document order ================================ -->
+    <div class="world" id="world" aria-label="Flying-camera tour surface">
+
+        <!-- the tables: every page sits on the round main table; the little
+             dies get their own side table you discover when you zoom out -->
+        <div class="table table-main" aria-hidden="true"></div>
+        <div class="table table-side" aria-hidden="true"></div>
+
+        <section class="frame stop" data-stop="home" data-label="home"
+                 data-x="4330" data-y="4620" data-w="1600" data-h="1050" data-rot="-2"
+                 data-m-w="700" data-m-h="1150">
+            <div class="home-inner">
+                <div class="prints" aria-hidden="true">
+                    <p><span>wafer2 prints</span> <em class="k1">frames</em></p>
+                    <p><span>wafer2 prints</span> <em class="k2">essays</em></p>
+                    <p><span>wafer2 prints</span> <em class="k3">demos</em></p>
+                    <p><span>wafer2 prints</span> <em class="k4">photos</em></p>
+                    <p><span>wafer2 prints</span> <em class="k5">ideas</em></p>
+                    <p><span>wafer2 prints</span> <em class="k6">stops</em></p>
+                </div>
+                <div class="home-lines">
+                    <p><b>wafer2</b> makes every frame on this wafer</p>
+                    <p><b>wafer2</b> flies one camera to reach any view</p>
+                    <p><b>wafer2</b> is placeholder copy &mdash; swap it later</p>
+                </div>
+                <button class="pill" type="button" data-fly="ends">
+                    <span class="pill-label">loose ends</span><span class="pill-orb" aria-hidden="true"></span>
+                </button>
+            </div>
+        </section>
+
+        <section class="frame stop" data-stop="about" data-label="about"
+                 data-x="5820" data-y="4020" data-w="1150" data-h="800" data-rot="22"
+                 data-m-w="660" data-m-h="1120">
+            <div class="frame-tag">02 &middot; about</div>
+            <div class="about-inner">
+                <h2>the camera is four numbers</h2>
+                <p>where it looks (x, y), how wide it sees (w), and how its head is
+                   tilted (r). nothing on this page ever moves &mdash; the sections are
+                   glued to the wafer. only those four numbers change.</p>
+                <h2>every move is four phases</h2>
+                <p><strong class="hl1">lift</strong> until the whole table is in view,
+                   <strong class="hl2">twist</strong> to the next page&rsquo;s bearing,
+                   <strong class="hl3">glide</strong> across the tabletop,
+                   <strong class="hl4">dive</strong> back down. that&rsquo;s why scrolling never feels
+                   like a circle &mdash; each leg has its own direction.</p>
+                <p class="about-credit">an homage to <a href="https://fab2.com/" data-ui>fab2.com</a> &mdash;
+                   rebuilt from scratch, phones included.</p>
+            </div>
+        </section>
+
+        <section class="frame stop" data-stop="grid" data-label="grid"
+                 data-x="5950" data-y="5700" data-w="1500" data-h="980" data-rot="-24"
+                 data-m-w="680" data-m-h="1240">
+            <div class="frame-tag">03 &middot; grid</div>
+            <div class="grid-inner">
+                <h2>we have<br />tables in:</h2>
+                <div class="grid-sites">
+                    <div class="site site-pink">
+                        <span class="site-abbr">mt</span>
+                        <span class="site-name">main table</span>
+                        <span class="site-meta">4 pages &middot; 1 camera</span>
+                    </div>
+                    <div class="site site-blue">
+                        <span class="site-abbr">st</span>
+                        <span class="site-name">side table</span>
+                        <span class="site-meta">8 pastel dies</span>
+                    </div>
+                    <div class="site site-green">
+                        <span class="site-abbr">far</span>
+                        <span class="site-name">the far view</span>
+                        <span class="site-meta">both tables at once</span>
+                    </div>
+                </div>
+                <p class="grid-note">every flight pauses over the whole table &mdash; and if you
+                   slide the zoom all the way out, the side table is waiting.</p>
+            </div>
+        </section>
+
+        <section class="frame stop" data-stop="ends" data-label="loose ends"
+                 data-x="4100" data-y="5900" data-w="1100" data-h="820" data-rot="14"
+                 data-m-w="640" data-m-h="1060">
+            <div class="frame-tag">04 &middot; loose ends</div>
+            <div class="ends-inner">
+                <h2>loose ends</h2>
+                <p class="ends-sub">placeholder openings &mdash; swap these for real ones.</p>
+                <ul class="ends-list">
+                    <li><span class="ends-role">write a guest essay</span><span class="ends-loc">words</span><span class="ends-go" data-ui>open &rarr;</span></li>
+                    <li><span class="ends-role">pair on a weird demo</span><span class="ends-loc">code</span><span class="ends-go" data-ui>open &rarr;</span></li>
+                    <li><span class="ends-role">swap book notes</span><span class="ends-loc">reading</span><span class="ends-go" data-ui>open &rarr;</span></li>
+                    <li><span class="ends-role">send a photo of your sky</span><span class="ends-loc">night</span><span class="ends-go" data-ui>open &rarr;</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- decorative dies: not stops — they live packed on the side table -->
+        <div class="frame die die-1" data-x="8150" data-y="6900" data-w="420" data-h="300" data-rot="10">
+            <pre>+---+---+---+
+| . | : | . |
++---+---+---+
+| : | # | : |
++---+---+---+</pre>
+        </div>
+        <div class="frame die die-2" data-x="8950" data-y="6950" data-w="360" data-h="260" data-rot="-8">
+            <pre> ~~\/\/\/~~
+ --[    ]--
+ ~~/\/\/\~~</pre>
+        </div>
+        <div class="frame die die-3" data-x="8500" data-y="7280" data-w="330" data-h="240" data-rot="24">
+            <pre>o--o--o--o
+|  |  |  |
+o--o--o--o</pre>
+        </div>
+        <div class="frame die die-4" data-x="9120" data-y="7500" data-w="400" data-h="280" data-rot="28">
+            <pre>[=][=][=]
+[=][##][=]
+[=][=][=]</pre>
+        </div>
+        <div class="frame die die-5" data-x="8130" data-y="7480" data-w="340" data-h="250" data-rot="-18">
+            <pre>  /\  /\
+ /  \/  \
+/________\</pre>
+        </div>
+        <div class="frame die die-6" data-x="8850" data-y="7920" data-w="380" data-h="270" data-rot="16">
+            <pre>|| |||| |
+| ||| |||
+||| || ||</pre>
+        </div>
+        <div class="frame die die-1" data-x="8300" data-y="7960" data-w="360" data-h="260" data-rot="-26">
+            <pre>.  *  .  *
+*  .  *  .
+.  *  .  *</pre>
+        </div>
+        <div class="frame die die-2" data-x="8620" data-y="7620" data-w="330" data-h="240" data-rot="20">
+            <pre>(( o ))
+ (( o ))
+  (( o ))</pre>
+        </div>
+
+    </div>
+
+    <!-- ================= HUD: pinned to the glass, never flies ========== -->
+    <header class="hud hud-top">
+        <a class="wordmark" href="/" data-ui>wafer<span>2</span> <em>&mdash; a fab2.com homage</em></a>
+        <nav class="stopnav" id="stopnav" aria-label="Fly to a stop"></nav>
+    </header>
+
+    <!-- the control deck: pan puck, zoom slider, roll dial ============== -->
+    <div class="deck" role="group" aria-label="Camera controls">
+        <div class="deck-pad" data-ui>
+            <button type="button" class="pad-arrow pad-up" data-pan="up" data-ui aria-label="Pan up">&#9650;</button>
+            <button type="button" class="pad-arrow pad-down" data-pan="down" data-ui aria-label="Pan down">&#9660;</button>
+            <button type="button" class="pad-arrow pad-left" data-pan="left" data-ui aria-label="Pan left">&#9664;</button>
+            <button type="button" class="pad-arrow pad-right" data-pan="right" data-ui aria-label="Pan right">&#9654;</button>
+            <button type="button" class="pad-orb" id="pad-orb" data-ui aria-label="Fly back to the nearest stop"></button>
+        </div>
+
+        <div class="deck-slider" data-ui>
+            <button type="button" id="zoom-in" data-ui aria-label="Zoom in">+</button>
+            <div class="slider-track" id="zoom-track" data-ui>
+                <div class="slider-rail" aria-hidden="true"></div>
+                <div class="slider-thumb" id="zoom-thumb" aria-hidden="true"></div>
+            </div>
+            <button type="button" id="zoom-out" data-ui aria-label="Zoom out">&minus;</button>
+        </div>
+
+        <button type="button" class="deck-dial" id="dial" data-ui aria-label="Level the camera roll">
+            <i class="dial-needle" id="dial-needle"></i>
+        </button>
+    </div>
+
+    <p class="readout" id="readout" aria-hidden="true"></p>
+
+    <footer class="hud hud-bottom">
+        <div class="dots" id="dots" aria-hidden="true"></div>
+        <p class="flyhint" id="flyhint">scroll to fly <span class="flyhint-arrow">&rarr;</span></p>
+        <p class="flyhint flyhint-touch" id="flyhint-touch">swipe to fly &middot; pinch to zoom</p>
+    </footer>
+
+</body>
+</html>
