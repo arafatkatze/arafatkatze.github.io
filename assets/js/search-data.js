@@ -325,6 +325,11 @@ ninja.data = [{
           description: "a small constellation of the people who shaped me — hover any star, read their story.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/nightsky/";
+            },},{id: "projects-public-speaking",
+          title: 'Public Speaking',
+          description: "Talks and conference videos on AI agents, evals, and machine learning",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/publicSpeaking/";
             },},{id: "projects-scroll-inside-effect",
           title: 'Scroll-Inside Effect',
           description: "A cross-device homage to the html review 04 &quot;scroll to fly through&quot; 3D tunnel — rebuilt to run on phones too.",
