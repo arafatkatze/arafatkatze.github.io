@@ -89,20 +89,34 @@ body.is-dragging {
   background-size: 250px 250px, 250px 250px, 1250px 1250px, 1250px 1250px;
 }
 
-/* the wafer itself: a big soft sun-disc under everything */
-.world::after {
-  content: "";
+/* the tables: soft sun-discs the pages sit on. The main one hugs the four
+   stops so the whole site reads as sheets on one round table; the side
+   table holds the little dies out in the distance */
+.table {
   position: absolute;
-  left: 950px;
-  top: 950px;
-  width: 8100px;
-  height: 8100px;
   border-radius: 50%;
   background:
-    radial-gradient(circle at 42% 36%, rgba(255, 245, 200, 0.9) 0%, rgba(255, 228, 150, 0.55) 45%, rgba(255, 205, 160, 0.25) 72%, rgba(255, 205, 160, 0) 100%);
-  border: 3px solid rgba(224, 168, 0, 0.18);
+    radial-gradient(circle at 42% 36%, rgba(255, 248, 214, 0.95) 0%, rgba(255, 230, 158, 0.6) 48%, rgba(255, 206, 165, 0.3) 74%, rgba(255, 206, 165, 0) 100%);
+  border: 3px solid rgba(224, 168, 0, 0.16);
+  box-shadow: 0 120px 240px rgba(214, 150, 90, 0.18);
   pointer-events: none;
-  z-index: -1;
+}
+
+.table-main {
+  left: 2800px;
+  top: 2580px;
+  width: 4700px;
+  height: 4700px;
+}
+
+.table-side {
+  left: 7480px;
+  top: 6280px;
+  width: 2160px;
+  height: 2160px;
+  background:
+    radial-gradient(circle at 42% 36%, rgba(255, 236, 240, 0.95) 0%, rgba(255, 212, 226, 0.6) 48%, rgba(255, 198, 190, 0.3) 74%, rgba(255, 198, 190, 0) 100%);
+  border-color: rgba(239, 127, 163, 0.2);
 }
 
 /* ---------------------------------------------------------------- frames */
@@ -689,6 +703,21 @@ body.is-dragging {
 
 /* ------------------------------------------------------------ hud bottom */
 
+/* the little flight-computer readout, fab2 style: field · roll · zoom */
+.readout {
+  position: fixed;
+  left: 16px;
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  z-index: 10;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
 .hud-bottom {
   bottom: 0;
   flex-direction: column;
@@ -787,6 +816,7 @@ body.is-dragging {
 
   .hud-bottom { padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
   .flyhint { font-size: 11px; }
+  .readout { font-size: 10px; left: 12px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* portrait wafer: body gets .m from the engine when the frames swap to

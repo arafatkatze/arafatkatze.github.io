@@ -32,10 +32,12 @@
 
   var ZOOM_RHO = 2.4;   // perceptual distance per e-fold of view width
   var PAN_GAIN = 2.6;   // stretches the glide so it reads, not teleports
+  var GLIDE_MIN = 0.55; // even short hops hold the table view for a beat
   var TWIST_W = 0.8;    // s-length of a 90 degree twist
   var FIT_PAD = 1.12;   // landing view = stop rect * this much air
+  var TABLE_W = 5300;   // view width where the WHOLE main table is visible
   var W_MIN = 220;      // closest the camera may dive
-  var W_MAX = 14000;    // farthest it may lift (whole wafer + air)
+  var W_MAX = 11000;    // farthest it may lift (both tables + air)
   var SCRUB_WHEEL = 0.0030; // s per wheel px
   var SCRUB_TOUCH = 0.0060; // s per swipe px
   var LIFT_OFF = 0.10;      // leg fraction after which the magnet carries you on
@@ -118,9 +120,10 @@
     var dy = b.cy - a.cy;
     var d = Math.hypot(dx, dy);
     var dr = shortAngle((b.r || 0) - (a.r || 0));
-    // HALF lift: rise only ~60% of the gap, so the move stays low and
-    // smooth instead of pulling all the way out over both stops
-    var peak = clamp(Math.max(a.w, b.w, d * 0.6) * 1.12, Math.max(a.w, b.w), W_MAX);
+    // every move lifts until the WHOLE table is in view — the pages are
+    // packed close, so at the top of the lift the entire site reads at
+    // once, sheets on one round table — then it dives into the next page
+    var peak = clamp(Math.max(a.w, b.w, d * 0.6, TABLE_W), Math.max(a.w, b.w), W_MAX);
 
     var lnUp = Math.log(peak / a.w);        // >= 0
     var lnDn = Math.log(b.w / peak);        // <= 0
@@ -136,7 +139,7 @@
     /* 2 TWIST */ add(Math.abs(dr) / 90 * TWIST_W, function (f) {
       return { cx: a.cx, cy: a.cy, w: peak, r: a.r + dr * f };
     });
-    /* 3 GLIDE */ add(d / peak * PAN_GAIN, function (f) {
+    /* 3 GLIDE */ add(Math.max(d / peak * PAN_GAIN, d > 1 ? GLIDE_MIN : 0), function (f) {
       return { cx: a.cx + dx * f, cy: a.cy + dy * f, w: peak, r: a.r + dr };
     });
     /* 4 DIVE  */ add(-lnDn / ZOOM_RHO, function (f) {
@@ -434,13 +437,15 @@
   var thumbEl = document.getElementById("zoom-thumb");
   var trackEl = document.getElementById("zoom-track");
   var needleEl = document.getElementById("dial-needle");
+  var readoutEl = document.getElementById("readout");
   var lnMin = Math.log(W_MIN);
   var lnMax = Math.log(W_MAX);
   var lastThumbTop = -1;
   var lastNeedleR = 1e9;
+  var lastReadout = "";
 
-  // the slider thumb and dial needle mirror the LIVE camera every frame,
-  // even when a tour flight or scrub is doing the zooming
+  // the slider thumb, dial needle and flight readout mirror the LIVE
+  // camera every frame, even when a tour flight is doing the zooming
   function syncDeck(c) {
     if (thumbEl && trackEl) {
       var frac = (Math.log(c.w) - lnMin) / (lnMax - lnMin); // 0 close, 1 far
@@ -454,6 +459,16 @@
     if (needleEl && Math.abs(c.r - lastNeedleR) > 0.05) {
       lastNeedleR = c.r;
       needleEl.style.transform = "rotate(" + (-c.r).toFixed(2) + "deg)";
+    }
+    if (readoutEl) {
+      var line =
+        "field " + Math.round(c.w) +
+        " \u00b7 r " + (c.r >= 0 ? "+" : "\u2212") + Math.abs(c.r).toFixed(1) +
+        " \u00b7 " + (vpW / c.w).toFixed(3) + "\u00d7";
+      if (line !== lastReadout) {
+        lastReadout = line;
+        readoutEl.textContent = line;
+      }
     }
   }
 
@@ -685,8 +700,8 @@
   measure();
   rebuildPath();
 
-  // opening shot: hang over the whole wafer, then dive into home
-  cam = { cx: 5000, cy: 5100, w: Math.min(11000, W_MAX), r: 0 };
+  // opening shot: hang over the whole table, then dive into home
+  cam = { cx: 5150, cy: 4950, w: Math.min(8200, W_MAX), r: 0 };
   render(cam);
   markStop(0);
   rafId = requestAnimationFrame(frame);
