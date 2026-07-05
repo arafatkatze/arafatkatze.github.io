@@ -118,8 +118,9 @@
     var dy = b.cy - a.cy;
     var d = Math.hypot(dx, dy);
     var dr = shortAngle((b.r || 0) - (a.r || 0));
-    // lift until both endpoints comfortably fit under the camera
-    var peak = clamp(Math.max(a.w, b.w, d * 1.15) * 1.25, a.w, W_MAX);
+    // HALF lift: rise only ~60% of the gap, so the move stays low and
+    // smooth instead of pulling all the way out over both stops
+    var peak = clamp(Math.max(a.w, b.w, d * 0.6) * 1.12, Math.max(a.w, b.w), W_MAX);
 
     var lnUp = Math.log(peak / a.w);        // >= 0
     var lnDn = Math.log(b.w / peak);        // <= 0
@@ -227,6 +228,8 @@
   var lastScrub = 0;
   var scrubDir = 0;      // +1 flying forward, -1 backward
   var interacted = false;
+  var padPan = { x: 0, y: 0 };  // held pan-puck direction
+  var levelRoll = false;        // dial pressed: ease roll back to 0
 
   /* ------------------------------------------------------------ render */
 
@@ -238,6 +241,7 @@
       "rotate(" + (-c.r).toFixed(4) + "deg) " +
       "scale(" + scale.toFixed(6) + ") " +
       "translate(" + (-c.cx).toFixed(3) + "px," + (-c.cy).toFixed(3) + "px)";
+    syncDeck(c);
   }
 
   function screenToWorld(px, py) {
@@ -297,7 +301,22 @@
       return;
     }
 
+    if ((padPan.x || padPan.y) && mode !== "fly" && enterFree()) {
+      // held pan-puck arrow: drift in screen direction, rotated by roll
+      touch();
+      var step = freeCam.w * 0.012;
+      var prad = freeCam.r * Math.PI / 180;
+      var pcos = Math.cos(prad);
+      var psin = Math.sin(prad);
+      freeCam.cx += (padPan.x * pcos - padPan.y * psin) * step;
+      freeCam.cy += (padPan.x * psin + padPan.y * pcos) * step;
+    }
+
     if (mode === "free" && freeCam) {
+      if (levelRoll) {
+        freeCam.r += (0 - freeCam.r) * 0.12;
+        if (Math.abs(freeCam.r) < 0.05) { freeCam.r = 0; levelRoll = false; }
+      }
       render(freeCam);
       return;
     }
@@ -408,6 +427,92 @@
   });
   if (zoomOutBtn) zoomOutBtn.addEventListener("click", function () {
     freeZoomAt(vpW / 2, vpH / 2, 1 / 1.45);
+  });
+
+  /* ------------------------------------------------- the control deck */
+
+  var thumbEl = document.getElementById("zoom-thumb");
+  var trackEl = document.getElementById("zoom-track");
+  var needleEl = document.getElementById("dial-needle");
+  var lnMin = Math.log(W_MIN);
+  var lnMax = Math.log(W_MAX);
+  var lastThumbTop = -1;
+  var lastNeedleR = 1e9;
+
+  // the slider thumb and dial needle mirror the LIVE camera every frame,
+  // even when a tour flight or scrub is doing the zooming
+  function syncDeck(c) {
+    if (thumbEl && trackEl) {
+      var frac = (Math.log(c.w) - lnMin) / (lnMax - lnMin); // 0 close, 1 far
+      var h = trackEl.clientHeight;
+      var top = 10 + frac * (h - 20 - 20);
+      if (Math.abs(top - lastThumbTop) > 0.25) {
+        lastThumbTop = top;
+        thumbEl.style.top = top.toFixed(1) + "px";
+      }
+    }
+    if (needleEl && Math.abs(c.r - lastNeedleR) > 0.05) {
+      lastNeedleR = c.r;
+      needleEl.style.transform = "rotate(" + (-c.r).toFixed(2) + "deg)";
+    }
+  }
+
+  // dragging the slider scrubs the zoom directly (free view)
+  if (trackEl) {
+    var sliding = false;
+
+    function sliderSet(clientY) {
+      if (!enterFree()) return;
+      touch();
+      var rect = trackEl.getBoundingClientRect();
+      var frac = clamp01((clientY - rect.top - 20) / Math.max(rect.height - 40, 1));
+      var before = screenToWorld(vpW / 2, vpH / 2);
+      freeCam.w = Math.exp(lnMin + frac * (lnMax - lnMin));
+      render(freeCam);
+      var after = screenToWorld(vpW / 2, vpH / 2);
+      freeCam.cx += before.x - after.x;
+      freeCam.cy += before.y - after.y;
+    }
+
+    trackEl.addEventListener("pointerdown", function (e) {
+      sliding = true;
+      trackEl.setPointerCapture(e.pointerId);
+      sliderSet(e.clientY);
+      e.preventDefault();
+    });
+    trackEl.addEventListener("pointermove", function (e) {
+      if (sliding) sliderSet(e.clientY);
+    });
+    trackEl.addEventListener("pointerup", function () { sliding = false; });
+    trackEl.addEventListener("pointercancel", function () { sliding = false; });
+  }
+
+  // pan puck: hold an arrow to drift, tap the orb to fly back to a stop
+  document.querySelectorAll(".pad-arrow").forEach(function (btn) {
+    var dir = btn.getAttribute("data-pan");
+    function start(e) {
+      padPan.x = dir === "left" ? -1 : dir === "right" ? 1 : 0;
+      padPan.y = dir === "up" ? -1 : dir === "down" ? 1 : 0;
+      btn.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    }
+    function stop() { padPan.x = 0; padPan.y = 0; }
+    btn.addEventListener("pointerdown", start);
+    btn.addEventListener("pointerup", stop);
+    btn.addEventListener("pointercancel", stop);
+  });
+
+  var orbBtn = document.getElementById("pad-orb");
+  if (orbBtn) orbBtn.addEventListener("click", function () {
+    touch();
+    flyToStop(mode === "free" && freeCam ? nearestStopWorld(freeCam) : nearestStopS(sTarget));
+  });
+
+  // roll dial: tap to level the camera's head back to 0
+  var dialBtn = document.getElementById("dial");
+  if (dialBtn) dialBtn.addEventListener("click", function () {
+    touch();
+    if (enterFree()) levelRoll = true;
   });
 
   /* ------------------------------------------------------------ wheel */
