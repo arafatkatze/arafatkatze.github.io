@@ -284,7 +284,8 @@ jekyll-minifier:
       "assets/navigation-cues/css/*.css",
       "html-review-replica/index.html",
       "html-review-replica/assets/styles.css",
-      "assets/css/orbit.css",
+      "fab2-replica/index.html",
+      "fab2-replica/assets/styles.css",
     ]
 
 # -----------------------------------------------------------------------------
