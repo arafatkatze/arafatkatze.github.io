@@ -33,8 +33,13 @@
                            document order ================================ -->
     <div class="world" id="world" aria-label="Flying-camera tour surface">
 
+        <!-- the tables: every page sits on the round main table; the little
+             dies get their own side table you discover when you zoom out -->
+        <div class="table table-main" aria-hidden="true"></div>
+        <div class="table table-side" aria-hidden="true"></div>
+
         <section class="frame stop" data-stop="home" data-label="home"
-                 data-x="5000" data-y="5000" data-w="1600" data-h="1050" data-rot="0"
+                 data-x="4330" data-y="4620" data-w="1600" data-h="1050" data-rot="-2"
                  data-m-w="700" data-m-h="1150">
             <div class="home-inner">
                 <div class="prints" aria-hidden="true">
@@ -57,7 +62,7 @@
         </section>
 
         <section class="frame stop" data-stop="about" data-label="about"
-                 data-x="7650" data-y="3750" data-w="1150" data-h="800" data-rot="22"
+                 data-x="5820" data-y="4020" data-w="1150" data-h="800" data-rot="22"
                  data-m-w="660" data-m-h="1120">
             <div class="frame-tag">02 &middot; about</div>
             <div class="about-inner">
@@ -66,9 +71,9 @@
                    tilted (r). nothing on this page ever moves &mdash; the sections are
                    glued to the wafer. only those four numbers change.</p>
                 <h2>every move is four phases</h2>
-                <p><strong class="hl1">lift</strong> halfway out,
-                   <strong class="hl2">twist</strong> to the next stop&rsquo;s bearing,
-                   <strong class="hl3">glide</strong> across the surface,
+                <p><strong class="hl1">lift</strong> until the whole table is in view,
+                   <strong class="hl2">twist</strong> to the next page&rsquo;s bearing,
+                   <strong class="hl3">glide</strong> across the tabletop,
                    <strong class="hl4">dive</strong> back down. that&rsquo;s why scrolling never feels
                    like a circle &mdash; each leg has its own direction.</p>
                 <p class="about-credit">an homage to <a href="https://fab2.com/" data-ui>fab2.com</a> &mdash;
@@ -77,35 +82,35 @@
         </section>
 
         <section class="frame stop" data-stop="grid" data-label="grid"
-                 data-x="6700" data-y="7500" data-w="1500" data-h="980" data-rot="-24"
+                 data-x="5950" data-y="5700" data-w="1500" data-h="980" data-rot="-24"
                  data-m-w="680" data-m-h="1240">
             <div class="frame-tag">03 &middot; grid</div>
             <div class="grid-inner">
-                <h2>we have<br />frames in:</h2>
+                <h2>we have<br />tables in:</h2>
                 <div class="grid-sites">
                     <div class="site site-pink">
-                        <span class="site-abbr">nw</span>
-                        <span class="site-name">north-west field</span>
-                        <span class="site-meta">3 small dies</span>
+                        <span class="site-abbr">mt</span>
+                        <span class="site-name">main table</span>
+                        <span class="site-meta">4 pages &middot; 1 camera</span>
                     </div>
                     <div class="site site-blue">
-                        <span class="site-abbr">ct</span>
-                        <span class="site-name">center die</span>
-                        <span class="site-meta">1600 &times; 1050 units</span>
+                        <span class="site-abbr">st</span>
+                        <span class="site-name">side table</span>
+                        <span class="site-meta">8 pastel dies</span>
                     </div>
                     <div class="site site-green">
-                        <span class="site-abbr">se</span>
-                        <span class="site-name">south-east field</span>
-                        <span class="site-meta">3 small dies</span>
+                        <span class="site-abbr">far</span>
+                        <span class="site-name">the far view</span>
+                        <span class="site-meta">both tables at once</span>
                     </div>
                 </div>
-                <p class="grid-note">slide the zoom (or pinch out) and the whole wafer is
-                   there &mdash; the little dies are decoration now, projects later.</p>
+                <p class="grid-note">every flight pauses over the whole table &mdash; and if you
+                   slide the zoom all the way out, the side table is waiting.</p>
             </div>
         </section>
 
         <section class="frame stop" data-stop="ends" data-label="loose ends"
-                 data-x="3100" data-y="6800" data-w="1100" data-h="820" data-rot="14"
+                 data-x="4100" data-y="5900" data-w="1100" data-h="820" data-rot="14"
                  data-m-w="640" data-m-h="1060">
             <div class="frame-tag">04 &middot; loose ends</div>
             <div class="ends-inner">
@@ -120,45 +125,45 @@
             </div>
         </section>
 
-        <!-- decorative dies: not stops, just pastel scenery you fly over -->
-        <div class="frame die die-1" data-x="3550" data-y="3450" data-w="420" data-h="300" data-rot="10">
+        <!-- decorative dies: not stops — they live packed on the side table -->
+        <div class="frame die die-1" data-x="8150" data-y="6900" data-w="420" data-h="300" data-rot="10">
             <pre>+---+---+---+
 | . | : | . |
 +---+---+---+
 | : | # | : |
 +---+---+---+</pre>
         </div>
-        <div class="frame die die-2" data-x="2650" data-y="4700" data-w="360" data-h="260" data-rot="-8">
+        <div class="frame die die-2" data-x="8950" data-y="6950" data-w="360" data-h="260" data-rot="-8">
             <pre> ~~\/\/\/~~
  --[    ]--
  ~~/\/\/\~~</pre>
         </div>
-        <div class="frame die die-3" data-x="4350" data-y="2700" data-w="330" data-h="240" data-rot="24">
+        <div class="frame die die-3" data-x="8500" data-y="7280" data-w="330" data-h="240" data-rot="24">
             <pre>o--o--o--o
 |  |  |  |
 o--o--o--o</pre>
         </div>
-        <div class="frame die die-4" data-x="8350" data-y="6350" data-w="400" data-h="280" data-rot="28">
+        <div class="frame die die-4" data-x="9120" data-y="7500" data-w="400" data-h="280" data-rot="28">
             <pre>[=][=][=]
 [=][##][=]
 [=][=][=]</pre>
         </div>
-        <div class="frame die die-5" data-x="7900" data-y="8600" data-w="340" data-h="250" data-rot="-18">
+        <div class="frame die die-5" data-x="8130" data-y="7480" data-w="340" data-h="250" data-rot="-18">
             <pre>  /\  /\
  /  \/  \
 /________\</pre>
         </div>
-        <div class="frame die die-6" data-x="5650" data-y="8300" data-w="380" data-h="270" data-rot="16">
+        <div class="frame die die-6" data-x="8850" data-y="7920" data-w="380" data-h="270" data-rot="16">
             <pre>|| |||| |
 | ||| |||
 ||| || ||</pre>
         </div>
-        <div class="frame die die-1" data-x="2250" data-y="7900" data-w="360" data-h="260" data-rot="-26">
+        <div class="frame die die-1" data-x="8300" data-y="7960" data-w="360" data-h="260" data-rot="-26">
             <pre>.  *  .  *
 *  .  *  .
 .  *  .  *</pre>
         </div>
-        <div class="frame die die-2" data-x="4150" data-y="8850" data-w="330" data-h="240" data-rot="20">
+        <div class="frame die die-2" data-x="8620" data-y="7620" data-w="330" data-h="240" data-rot="20">
             <pre>(( o ))
  (( o ))
   (( o ))</pre>
@@ -195,6 +200,8 @@ o--o--o--o</pre>
             <i class="dial-needle" id="dial-needle"></i>
         </button>
     </div>
+
+    <p class="readout" id="readout" aria-hidden="true"></p>
 
     <footer class="hud hud-bottom">
         <div class="dots" id="dots" aria-hidden="true"></div>
