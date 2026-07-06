@@ -286,6 +286,7 @@ jekyll-minifier:
       "html-review-replica/assets/styles.css",
       "fab2-replica/index.html",
       "fab2-replica/assets/styles.css",
+      "computer-use-field-notes/index.html",
     ]
 
 # -----------------------------------------------------------------------------
