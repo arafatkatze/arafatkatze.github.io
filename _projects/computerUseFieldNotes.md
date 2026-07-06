@@ -5,5 +5,5 @@ description: Eval runs to improve computer-use UX — OSWorld experiments on sma
 img: assets/img/computer_use_field_notes.webp
 importance: 1
 category: work
-redirect: https://computer-use-field-notes.netlify.app/
+redirect: /computer-use-field-notes/
 ---
