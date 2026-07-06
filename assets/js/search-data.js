@@ -295,6 +295,11 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/communalArt/";
+            },},{id: "projects-computer-use-field-notes",
+          title: 'Computer Use Field Notes',
+          description: "Eval runs to improve computer-use UX — OSWorld experiments on smaller screenshots, running task notes, and batched GUI actions, with every trace public.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/computerUseFieldNotes/";
             },},{id: "projects-scroll-to-fly-effect",
           title: 'Scroll-to-Fly Effect',
           description: "An homage to fab2.com&#39;s flying camera — scroll and the page lifts off, twists, glides, and dives to the next stop. Rebuilt from scratch, phones included; content is placeholder for now.",
