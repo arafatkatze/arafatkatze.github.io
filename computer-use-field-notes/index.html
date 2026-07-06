@@ -904,6 +904,7 @@
         <a href="#resize">Screenshot size</a>
         <a href="#focuschain">Running notes</a>
         <a href="#batching">Action batching</a>
+        <a href="#summary">Summary</a>
       </nav>
     </div>
   </header>
@@ -1301,6 +1302,57 @@
                 <span>S3 · calls, cost, score CIs</span>
               </a>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="summary">
+      <div class="shell chapter">
+        <aside class="chapter-label">
+          <div class="num">Summary</div>
+          <h2>A good exploration so far.</h2>
+          <p>Three cheap, reversible A/B runs already nudged the cost and reliability of computer use in a real direction — and, more usefully, each result pointed clearly at the next question worth asking.</p>
+        </aside>
+
+        <div>
+          <div class="mini-grid" aria-label="What the three experiments showed">
+            <div class="mini-card"><strong>Cheaper</strong><span>960×540 screenshots cut input tokens 31.3% and cost, with the 70-task pass rate holding at 29/70.</span></div>
+            <div class="mini-card"><strong>Less lost</strong><span>A running task note cut long-task loops, then exposed visual verification as the real bottleneck.</span></div>
+            <div class="mini-card"><strong>No free lunch</strong><span>Action batching did 2.3× more per call, but retries and prompt caching erased the expected savings.</span></div>
+          </div>
+
+          <div class="panel">
+            <h3>What this exploration proved</h3>
+            <p>The eval loop works: small, single-variable changes on the same 70-task pack produce signal you can act on, and every claim here is backed by a public trace. The biggest lesson is that once the agent stops looping, the ceiling becomes visual — the model marking work done that the screen never proved. That reframes the next runs from "prompt and note formatting" to "does the agent actually see what it thinks it sees."</p>
+          </div>
+
+          <div class="panel algorithm-panel">
+            <h3>Ideas worth trying next</h3>
+            <p>Each of these is a single-variable run on the same task pack, so it stays cheap and directly comparable to the experiments above.</p>
+            <div class="algorithm-sequence" aria-label="Future experiment ideas">
+              <div>
+                <b>01</b>
+                <span>Screen-grounded finish gate: before completing, force the agent to cite on-screen evidence for each "done" item and re-check when it cannot.</span>
+              </div>
+              <div>
+                <b>02</b>
+                <span>Adaptive screenshot size: default to 960×540, but escalate resolution only on steps where the agent reports low confidence or a read fails.</span>
+              </div>
+              <div>
+                <b>03</b>
+                <span>Small action groups: instead of full batching, cap actions per call and require a fresh screenshot between groups to keep feedback tight.</span>
+              </div>
+              <div>
+                <b>04</b>
+                <span>Failure-replay pack: mine the traces where batched steps ran blind, turn them into a targeted mini-pack, and iterate against that hard subset.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Where this goes</h3>
+            <p>None of these need a new model — they are harness and tool-contract changes, measurable with the same paired-eval setup. The through-line for the next round is verification: make the agent look again before it commits, and spend resolution and model calls where the screen is actually uncertain.</p>
           </div>
         </div>
       </div>
