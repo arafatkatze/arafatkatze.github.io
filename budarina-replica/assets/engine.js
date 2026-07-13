@@ -78,6 +78,10 @@
     const CONSTRAINT_ITERS = 3;
     const WIND_GAIN = 0.11;   // how strongly scroll velocity yanks strands
     const IDLE_WIND = 0.035;  // ambient breeze amplitude (subtle at rest)
+    const MOUSE_PUSH = 22;    // how hard the cursor shoves nearby glyphs aside
+
+    /* Cursor position (CSS px) used to part the curtain on hover. */
+    let mx = -9999, my = -9999, mouseActive = false;
 
     /* Each destination owns a curtain (array of strands, each a node list). */
     const curtains = DESTS.map(() => null);
@@ -180,6 +184,10 @@
     function stepCurtain(cur, centerX, wind, t) {
         const startX = centerX - cur.curtainW / 2;
         const breeze = Math.sin(t * 0.0011) * IDLE_WIND;
+        // cursor parts the sheet: radius scales a little with glyph size
+        const useMouse = mouseActive && !mobile;
+        const mr = cur.charSize * 9;      // interaction radius
+        const mr2 = mr * mr;
         for (let c = 0; c < cur.cols; c++) {
             const nodes = cur.strands[c];
             const ax = startX + c * cur.spacing;
@@ -198,6 +206,20 @@
                 n.py = n.y;
                 n.x += vx + (wind + breeze * colPhase) * depth;
                 n.y += vy + GRAV;
+                // push glyphs out of the cursor's way (imparts velocity because
+                // px/py are left untouched, so the sheet springs back after)
+                if (useMouse) {
+                    const dx = n.x - mx;
+                    const dy = n.y - my;
+                    const d2 = dx * dx + dy * dy;
+                    if (d2 < mr2) {
+                        const d = Math.sqrt(d2) || 0.001;
+                        const f = (1 - d / mr);
+                        const push = f * f * MOUSE_PUSH;
+                        n.x += (dx / d) * push;
+                        n.y += (dy / d) * push * 0.45;
+                    }
+                }
             }
             // constraints
             for (let k = 0; k < CONSTRAINT_ITERS; k++) {
@@ -444,11 +466,19 @@
     prevBadge.addEventListener("click", () => goTo(focus - 1));
     nextBadge.addEventListener("click", () => goTo(focus + 1));
 
-    // custom cursor
+    // custom cursor + curtain interaction position
     const cursorEl = document.getElementById("cursor");
     window.addEventListener("mousemove", (e) => {
         cursorEl.style.transform = "translate(" + e.clientX + "px," + e.clientY + "px)";
+        mx = e.clientX;
+        my = e.clientY;
+        mouseActive = true;
     });
+    window.addEventListener("mouseout", (e) => {
+        if (!e.relatedTarget && !e.toElement) mouseActive = false;
+    });
+    // a real touch shouldn't leave a phantom "cursor" parting the sheet
+    stage.addEventListener("touchstart", () => { mouseActive = false; }, { passive: true });
 
     window.addEventListener("resize", resize);
 
