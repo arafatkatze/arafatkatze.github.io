@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<!--
+  Budarina — a self-contained replica of Marina Budarina's (@marina_uiux)
+  "Destinations" design experiment: architectural roofs with a hanging curtain
+  of native characters that sway and cascade with real rope physics as you
+  scroll horizontally between destinations.
+
+  Original design by Marina Budarina. This rebuild is an homage: the roof
+  imagery is traced from her WIP clip, the physics/curtain/typography are an
+  original reconstruction, and it runs on phones (touch-drag) as well as desktop.
+-->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Budarina — Destinations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/styles.css?v=1.2" />
+</head>
+
+<body>
+    <div id="stage" aria-label="Budarina destinations">
+        <canvas id="scene"></canvas>
+
+        <!-- Top chrome -->
+        <header class="chrome">
+            <div class="brand">
+                <span class="wordmark">Budarina</span>
+                <nav class="mainnav">
+                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link is-active">Destinations</a>
+                    <a href="#" class="nav-link">Community</a>
+                </nav>
+            </div>
+            <button type="button" class="configure">Configure</button>
+        </header>
+
+        <!-- Prev / next destination badges -->
+        <button type="button" class="side-badge side-prev" data-dir="-1">
+            <span class="badge-frame"><img alt="" /></span>
+            <span class="badge-label"></span>
+        </button>
+        <button type="button" class="side-badge side-next" data-dir="1">
+            <span class="badge-frame"><img alt="" /></span>
+            <span class="badge-label"></span>
+        </button>
+
+        <!-- Bottom chrome -->
+        <footer class="readout">
+            <div class="readout-left">
+                <p class="caption" id="caption"></p>
+                <h1 class="headline" id="headline"></h1>
+            </div>
+            <p class="blurb" id="blurb"></p>
+        </footer>
+
+        <!-- Progress -->
+        <div class="progress" id="progress">
+            <span class="progress-index" id="progressIndex"></span>
+            <span class="dots" id="dots"></span>
+        </div>
+
+        <p class="hint" id="hint">scroll / drag&nbsp;&rarr;</p>
+    </div>
+
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+    <script src="assets/engine.js?v=1.2"></script>
+</body>
+</html>
