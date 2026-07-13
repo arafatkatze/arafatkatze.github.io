@@ -162,7 +162,15 @@
         for (let i = 0; i < DESTS.length; i++) curtains[i] = buildCurtain(i);
         target = focus * W;
         scrollPx = target;
-        seeded = false;
+        // seed immediately when art is ready so a resize doesn't flash a jump
+        if (loaded >= DESTS.length) {
+            for (let i = 0; i < DESTS.length; i++) {
+                seedCurtainPositions(curtains[i], i * W - scrollPx + W / 2);
+            }
+            seeded = true;
+        } else {
+            seeded = false;
+        }
     }
 
     /* ------------------------------------------------------------- helpers */
@@ -408,9 +416,14 @@
     function onUp() {
         if (!dragging) return;
         dragging = false;
-        target -= touchVel * 6;   // fling momentum
-        clampTarget();
-        markInput();
+        // Snap by a single destination based on drag distance + fling velocity,
+        // so even a short swipe reliably advances instead of rubber-banding.
+        const startIdx = clamp(Math.round(dragStartScroll / W), 0, DESTS.length - 1);
+        const dragged = target - dragStartScroll;   // >0 => moved toward next
+        let idx = startIdx;
+        if (dragged > W * 0.16 || touchVel < -5) idx = startIdx + 1;
+        else if (dragged < -W * 0.16 || touchVel > 5) idx = startIdx - 1;
+        goTo(idx);
     }
 
     stage.addEventListener("touchstart", (e) => onDown(e.touches[0].clientX), { passive: true });
