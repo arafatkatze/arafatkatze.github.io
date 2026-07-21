@@ -195,16 +195,18 @@
     $("flashFlipBtn").addEventListener("click", flashFlip);
     $("flashShuffle").addEventListener("click", flashShuffle);
 
-    // touch: swipe left/right to move, tap to flip (phones)
-    const fcv = document.querySelector(".flash-card-viewport");
+    // touch: swipe left/right to move, tap to flip (phones). Listen on the
+    // whole stage (not just the card) so swipes that begin over the overlaid
+    // arrows still register.
+    const fstage = document.querySelector(".flash-stage");
     let tsx = 0, tsy = 0;
-    fcv.addEventListener("touchstart", (e) => {
+    fstage.addEventListener("touchstart", (e) => {
       const t = e.changedTouches[0]; tsx = t.clientX; tsy = t.clientY;
     }, { passive: true });
-    fcv.addEventListener("touchend", (e) => {
+    fstage.addEventListener("touchend", (e) => {
       const t = e.changedTouches[0];
       const dx = t.clientX - tsx, dy = t.clientY - tsy;
-      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
         swipeJustHappened = true;
         flashStep(dx < 0 ? 1 : -1);
         setTimeout(() => { swipeJustHappened = false; }, 400);
