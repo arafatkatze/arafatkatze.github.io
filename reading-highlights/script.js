@@ -43,13 +43,50 @@
   const COLORS = ["", "yellow", "orange", "blue"];
 
   // ------- Load -------
-  fetch("highlights.json")
-    .then((r) => r.json())
+  showSkeleton();
+  loadData()
     .then((d) => { DATA = d; init(); })
     .catch((err) => {
       resultCount.textContent = "Could not load the library.";
+      masonry.innerHTML = "";
       console.error(err);
     });
+
+  // Prefer the pre-gzipped payload (small, fast, host-independent) and
+  // decompress it in the browser; fall back to plain JSON on older browsers.
+  async function loadData() {
+    if (typeof DecompressionStream !== "undefined") {
+      try {
+        const res = await fetch("highlights.json.gz");
+        if (res.ok && res.body) {
+          const stream = res.body.pipeThrough(new DecompressionStream("gzip"));
+          const text = await new Response(stream).text();
+          return JSON.parse(text);
+        }
+      } catch (e) { /* fall through to plain JSON */ }
+    }
+    const res = await fetch("highlights.json");
+    return res.json();
+  }
+
+  // Lightweight shimmer placeholders so the page never looks blocked while the
+  // library streams in. The hero renders instantly from static HTML.
+  function showSkeleton() {
+    const cols = columnCount();
+    masonry.innerHTML = "";
+    const heights = [128, 190, 96, 160, 116, 150, 88, 140, 172];
+    for (let c = 0; c < cols; c++) {
+      const col = document.createElement("div");
+      col.className = "mcol";
+      for (let i = 0; i < 4; i++) {
+        const sk = document.createElement("div");
+        sk.className = "card-skeleton";
+        sk.style.height = heights[(c * 4 + i) % heights.length] + "px";
+        col.appendChild(sk);
+      }
+      masonry.appendChild(col);
+    }
+  }
 
   function init() {
     // precompute search strings
@@ -154,9 +191,25 @@
     $("flashClose").addEventListener("click", closeFlash);
     $("flashPrev").addEventListener("click", () => flashStep(-1));
     $("flashNext").addEventListener("click", () => flashStep(1));
-    $("flashCard").addEventListener("click", flashFlip);
+    $("flashCard").addEventListener("click", () => { if (!swipeJustHappened) flashFlip(); });
     $("flashFlipBtn").addEventListener("click", flashFlip);
     $("flashShuffle").addEventListener("click", flashShuffle);
+
+    // touch: swipe left/right to move, tap to flip (phones)
+    const fcv = document.querySelector(".flash-card-viewport");
+    let tsx = 0, tsy = 0;
+    fcv.addEventListener("touchstart", (e) => {
+      const t = e.changedTouches[0]; tsx = t.clientX; tsy = t.clientY;
+    }, { passive: true });
+    fcv.addEventListener("touchend", (e) => {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - tsx, dy = t.clientY - tsy;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        swipeJustHappened = true;
+        flashStep(dx < 0 ? 1 : -1);
+        setTimeout(() => { swipeJustHappened = false; }, 400);
+      }
+    }, { passive: true });
 
     document.addEventListener("keydown", onKey);
   }
@@ -354,6 +407,7 @@
   let flashHist = [];
   let flashPos = 0;
   let flashSeen = new Set();
+  let swipeJustHappened = false;
 
   function openFlash() {
     flashPool = filtered.length ? filtered.slice() : DATA.highlights.map((_, i) => i);
