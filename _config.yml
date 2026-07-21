@@ -287,6 +287,10 @@ jekyll-minifier:
       "fab2-replica/index.html",
       "fab2-replica/assets/styles.css",
       "computer-use-field-notes/index.html",
+      "reading-highlights/index.html",
+      "reading-highlights/style.css",
+      "reading-highlights/app.js",
+      "reading-highlights/data.json",
     ]
 
 # -----------------------------------------------------------------------------
