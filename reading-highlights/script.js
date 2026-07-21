@@ -195,23 +195,25 @@
     $("flashFlipBtn").addEventListener("click", flashFlip);
     $("flashShuffle").addEventListener("click", flashShuffle);
 
-    // touch: swipe left/right to move, tap to flip (phones). Listen on the
-    // whole stage (not just the card) so swipes that begin over the overlaid
-    // arrows still register.
+    // Swipe left/right to move, tap to flip. Pointer Events unify touch, mouse
+    // and pen and fire reliably even when the gesture begins over the overlaid
+    // nav arrows — so swipe works in both directions on phones and desktop.
     const fstage = document.querySelector(".flash-stage");
-    let tsx = 0, tsy = 0;
-    fstage.addEventListener("touchstart", (e) => {
-      const t = e.changedTouches[0]; tsx = t.clientX; tsy = t.clientY;
-    }, { passive: true });
-    fstage.addEventListener("touchend", (e) => {
-      const t = e.changedTouches[0];
-      const dx = t.clientX - tsx, dy = t.clientY - tsy;
+    let psx = 0, psy = 0, pdown = false;
+    fstage.addEventListener("pointerdown", (e) => {
+      psx = e.clientX; psy = e.clientY; pdown = true;
+    });
+    fstage.addEventListener("pointerup", (e) => {
+      if (!pdown) return;
+      pdown = false;
+      const dx = e.clientX - psx, dy = e.clientY - psy;
       if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
         swipeJustHappened = true;
         flashStep(dx < 0 ? 1 : -1);
         setTimeout(() => { swipeJustHappened = false; }, 400);
       }
-    }, { passive: true });
+    });
+    fstage.addEventListener("pointercancel", () => { pdown = false; });
 
     document.addEventListener("keydown", onKey);
   }
