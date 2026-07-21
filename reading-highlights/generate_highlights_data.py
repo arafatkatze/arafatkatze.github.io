@@ -16,6 +16,7 @@ The output is a compact structure with de-duplicated lookup tables to keep the
 payload small enough to ship to the browser as a single static file.
 """
 import csv
+import gzip
 import json
 import os
 import re
@@ -244,9 +245,19 @@ def main():
         "books": book_list,
         "highlights": highlights,
     }
+    payload = json.dumps(out, ensure_ascii=False, separators=(",", ":"))
     with open(OUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
+        f.write(payload)
+    # Pre-compressed copy for fast, controllable page loads (decompressed in the
+    # browser via DecompressionStream). Guarantees a small transfer regardless
+    # of the host's on-the-fly gzip.
+    gz_path = OUT_PATH + ".gz"
+    with gzip.open(gz_path, "wb", compresslevel=9) as gf:
+        gf.write(payload.encode("utf-8"))
 
+    raw_kb = len(payload.encode("utf-8")) / 1024
+    gz_kb = os.path.getsize(gz_path) / 1024
+    print(f"wrote {OUT_PATH} ({raw_kb:.0f} KB) and {gz_path} ({gz_kb:.0f} KB)")
     print(f"highlights: {len(highlights)} (skipped {skipped})")
     print(f"books: {len(book_list)}  authors: {len(author_list)}  categories: {len(cat_list)}")
     print("category breakdown:")
