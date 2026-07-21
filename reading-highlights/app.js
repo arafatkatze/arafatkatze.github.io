@@ -249,7 +249,7 @@ function renderFlash() {
   els.flashCard.classList.remove("is-flipped");
 }
 
-function setMode(mode) {
+function setMode(mode, { scroll = false } = {}) {
   state.mode = mode;
   els.modeBtns.forEach((btn) => {
     const active = btn.dataset.mode === mode;
@@ -272,14 +272,23 @@ function setMode(mode) {
     buildDeck(true);
     renderFlash();
   }
+
+  if (scroll) {
+    const target =
+      mode === "focus"
+        ? els.focusCard
+        : mode === "flashcards"
+          ? els.flashCard
+          : document.getElementById("toolbar");
+    target?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 }
 
 function goRandom() {
   if (!state.filtered.length) return;
   const idx = Math.floor(Math.random() * state.filtered.length);
   state.focusIndex = idx;
-  setMode("focus");
-  document.getElementById("library").scrollIntoView({ behavior: "smooth", block: "start" });
+  setMode("focus", { scroll: true });
 }
 
 function clearFilters() {
@@ -330,7 +339,7 @@ function wireEvents() {
   els.loadMoreBtn.addEventListener("click", () => renderBrowse(false));
 
   els.modeBtns.forEach((btn) => {
-    btn.addEventListener("click", () => setMode(btn.dataset.mode));
+    btn.addEventListener("click", () => setMode(btn.dataset.mode, { scroll: true }));
   });
 
   els.focusPrev.addEventListener("click", () => {
@@ -364,8 +373,7 @@ function wireEvents() {
   });
 
   els.heroFlashcards.addEventListener("click", () => {
-    setMode("flashcards");
-    document.getElementById("library").scrollIntoView({ behavior: "smooth", block: "start" });
+    setMode("flashcards", { scroll: true });
   });
 
   els.heroRandom.addEventListener("click", goRandom);

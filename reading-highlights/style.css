@@ -74,6 +74,12 @@ a {
   border: 0;
 }
 
+/* Author display rules must not win over the hidden attribute */
+[hidden],
+.is-hidden {
+  display: none !important;
+}
+
 .grain {
   pointer-events: none;
   position: fixed;
@@ -654,6 +660,11 @@ a {
   box-shadow: var(--shadow);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  transform: rotateY(0deg);
+}
+
+.flash-front {
+  transform: rotateY(0deg);
 }
 
 .flash-back {
