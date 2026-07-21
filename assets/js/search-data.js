@@ -340,6 +340,11 @@ ninja.data = [{
           description: "Talks and conference videos on AI agents, evals, and machine learning",
           section: "Projects",handler: () => {
               window.location.href = "/projects/publicSpeaking/";
+            },},{id: "projects-the-reading-room",
+          title: 'The Reading Room',
+          description: "A hand-built library of every reading highlight worth keeping — 13,000+ passages from ~2,000 books and essays. Search it, filter by book or category, spin a random passage, or study it all in a shuffled flashcards mode. A slow, beautiful way to wander through years of marginalia.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/readingHighlights/";
             },},{id: "projects-scroll-inside-effect",
           title: 'Scroll-Inside Effect',
           description: "A cross-device homage to the html review 04 &quot;scroll to fly through&quot; 3D tunnel — rebuilt to run on phones too.",
