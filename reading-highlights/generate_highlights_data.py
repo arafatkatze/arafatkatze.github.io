@@ -1,19 +1,38 @@
 #!/usr/bin/env python3
 """Generate compact JSON for the reading-highlights library from the Readwise CSV export.
 
-Usage: python3 generate_highlights_data.py /path/to/highlights.csv highlights.json
+Usage:
+    # from inside the reading-highlights/ folder, just run:
+    python3 generate_highlights_data.py
+
+    # or pass explicit paths:
+    python3 generate_highlights_data.py highlights.csv highlights.json
+
+To update the live library: drop a fresh Readwise export in this folder as
+`highlights.csv`, re-run this script, and commit the regenerated
+`highlights.json`.
 
 The output is a compact structure with de-duplicated lookup tables to keep the
 payload small enough to ship to the browser as a single static file.
 """
 import csv
 import json
+import os
 import re
 import sys
 import collections
 
-CSV_PATH = sys.argv[1] if len(sys.argv) > 1 else "/tmp/highlights.csv"
-OUT_PATH = sys.argv[2] if len(sys.argv) > 2 else "highlights.json"
+_HERE = os.path.dirname(os.path.abspath(__file__))
+CSV_PATH = sys.argv[1] if len(sys.argv) > 1 else os.path.join(_HERE, "highlights.csv")
+OUT_PATH = sys.argv[2] if len(sys.argv) > 2 else os.path.join(_HERE, "highlights.json")
+
+# Kindle inserts a "clipping limit" notice when you highlight too much; it is
+# noise that should never appear in the library. Some rows are *entirely* this
+# marker, others append it to a real highlight — strip it either way.
+CLIPPING_RE = re.compile(
+    r"\s*<?\s*you have reached the clipping limit(?: for this item)?\.?\s*>?\s*",
+    re.IGNORECASE,
+)
 
 # --- Category classification -------------------------------------------------
 # Topical buckets scored by keyword hits against title (+author fallback).
@@ -174,6 +193,9 @@ def main():
     skipped = 0
     for r in rows:
         text = (r.get("Highlight") or "").strip()
+        # remove Kindle "clipping limit" noise; drop the row if nothing remains
+        text = CLIPPING_RE.sub(" ", text).strip()
+        text = re.sub(r"\s+\n", "\n", text).strip()
         if not text:
             skipped += 1
             continue
