@@ -487,20 +487,23 @@ mark.hit { background: color-mix(in srgb, var(--hl-yellow) 70%, transparent); co
   .flash-stage { padding: 10px; gap: 0; }
   .flash-nav {
     position: absolute; top: 50%; transform: translateY(-50%);
-    z-index: 5; width: 42px; height: 42px; font-size: 22px;
-    background: color-mix(in srgb, var(--card) 82%, transparent);
+    z-index: 5; width: 48px; height: 48px; font-size: 26px;
+    background: color-mix(in srgb, var(--card) 86%, transparent);
     backdrop-filter: blur(4px);
+    box-shadow: var(--shadow-sm);
   }
   .flash-nav:hover { transform: translateY(-50%); }
-  .flash-prev { left: 4px; }
-  .flash-next { right: 4px; }
+  .flash-prev { left: 6px; }
+  .flash-next { right: 6px; }
+  .flash-close { width: 44px; height: 44px; }
   .flash-card-viewport { width: 94vw; height: 62vh; }
   .flash-face { padding: 30px 26px; border-radius: 20px; }
   .flash-flip-hint { bottom: 12px; }
-  .flash-controls { padding: 14px 16px 22px; justify-content: center; text-align: center; }
+  .flash-controls { padding: 14px 16px 24px; justify-content: center; text-align: center; gap: 14px; }
   .flash-hint { display: none; }
-  .flash-progress { order: 2; }
+  .flash-progress { order: 2; font-size: 20px; }
   .flash-btns { order: 1; }
+  .flash-btns .btn { padding: 12px 18px; font-size: 14.5px; }
 }
 @media (max-width: 460px) {
   .hero { padding-top: 60px; }
