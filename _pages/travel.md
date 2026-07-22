@@ -512,72 +512,78 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // Same Globe()(...el) pattern as the previous working travel page
-  globe = Globe()
-    .globeImageUrl(solidTexture(t.surface))
-    .backgroundColor(t.background)
-    .showAtmosphere(true)
-    .atmosphereColor(t.atmosphere)
-    .atmosphereAltitude(0.12)
-    .pointsData(destinations)
-    .pointLat('lat')
-    .pointLng('lng')
-    .pointAltitude(0.06)
-    .pointRadius(0.35)
-    .pointColor(function() { return t.point; })
-    .pointLabel(function(d) {
-      return '<div class="globe-tooltip">' +
-        '<strong>' + d.name + '</strong><br>' +
-        '<span class="tt-country">' + d.country + '</span>' +
-        (d.note ? '<div class="tt-note">' + d.note + '</div>' : '') +
-        '</div>';
-    })
-    .arcsData(arcsData)
-    .arcColor(function() { return [t.arc, t.arc]; })
-    .arcAltitudeAutoScale(0.3)
-    .arcStroke(0.4)
-    .arcDashLength(0.4)
-    .arcDashGap(0.2)
-    .arcDashAnimateTime(2000)
-    .width(containerEl.offsetWidth)
-    .height(containerEl.offsetHeight)
-    (containerEl);
-
-  globe.controls().autoRotate = true;
-  globe.controls().autoRotateSpeed = 0.4;
-  globe.controls().enableDamping = true;
-  globe.controls().dampingFactor = 0.1;
-  globe.pointOfView({ lat: 20, lng: 20, altitude: 2.0 });
-  globe.onPointClick(function(point) { flyToPoint(point); });
-  containerEl.addEventListener('pointerdown', hideHint);
-  statusEl.textContent = destinations.length + ' pins';
-
-  // Schematic overlays: graticule + land outlines (after base globe mounts)
-  globe
-    .pathPointLng(function(p) { return p[0]; })
-    .pathPointLat(function(p) { return p[1]; })
-    .pathPointAlt(0)
-    .pathColor(function() { return t.grid; })
-    .pathStroke(0.4)
-    .pathsData(graticule);
-
-  if (typeof topojson !== 'undefined') {
-    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
-      .then(function(res) { return res.json(); })
-      .then(function(world) {
-        var land = topojson.feature(world, world.objects.land);
-        landFeatures = land.type === 'FeatureCollection' ? land.features : [land];
-        globe
-          .polygonsData(landFeatures)
-          .polygonCapColor(function() { return t.landFill; })
-          .polygonSideColor(function() { return 'rgba(0,0,0,0)'; })
-          .polygonStrokeColor(function() { return t.landStroke; })
-          .polygonAltitude(0.005)
-          .polygonsTransitionDuration(0);
+  try {
+    // Same Globe()(...el) pattern as the previous working travel page
+    globe = Globe()
+      .globeImageUrl(solidTexture(t.surface))
+      .backgroundColor(t.background)
+      .showAtmosphere(true)
+      .atmosphereColor(t.atmosphere)
+      .atmosphereAltitude(0.12)
+      .pointsData(destinations)
+      .pointLat('lat')
+      .pointLng('lng')
+      .pointAltitude(0.06)
+      .pointRadius(0.35)
+      .pointColor(function() { return t.point; })
+      .pointLabel(function(d) {
+        return '<div class="globe-tooltip">' +
+          '<strong>' + d.name + '</strong><br>' +
+          '<span class="tt-country">' + d.country + '</span>' +
+          (d.note ? '<div class="tt-note">' + d.note + '</div>' : '') +
+          '</div>';
       })
-      .catch(function(err) {
-        console.warn('Land outlines failed to load', err);
-      });
+      .arcsData(arcsData)
+      .arcColor(function() { return [t.arc, t.arc]; })
+      .arcAltitudeAutoScale(0.3)
+      .arcStroke(0.4)
+      .arcDashLength(0.4)
+      .arcDashGap(0.2)
+      .arcDashAnimateTime(2000)
+      .width(containerEl.offsetWidth)
+      .height(containerEl.offsetHeight)
+      (containerEl);
+
+    globe.controls().autoRotate = true;
+    globe.controls().autoRotateSpeed = 0.4;
+    globe.controls().enableDamping = true;
+    globe.controls().dampingFactor = 0.1;
+    globe.pointOfView({ lat: 20, lng: 20, altitude: 2.0 });
+    globe.onPointClick(function(point) { flyToPoint(point); });
+    containerEl.addEventListener('pointerdown', hideHint);
+    statusEl.textContent = destinations.length + ' pins';
+
+    // Schematic overlays: graticule + land outlines (after base globe mounts)
+    globe
+      .pathPointLng(function(p) { return p[0]; })
+      .pathPointLat(function(p) { return p[1]; })
+      .pathPointAlt(0)
+      .pathColor(function() { return t.grid; })
+      .pathStroke(0.4)
+      .pathsData(graticule);
+
+    if (typeof topojson !== 'undefined') {
+      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
+        .then(function(res) { return res.json(); })
+        .then(function(world) {
+          var land = topojson.feature(world, world.objects.land);
+          landFeatures = land.type === 'FeatureCollection' ? land.features : [land];
+          globe
+            .polygonsData(landFeatures)
+            .polygonCapColor(function() { return t.landFill; })
+            .polygonSideColor(function() { return 'rgba(0,0,0,0)'; })
+            .polygonStrokeColor(function() { return t.landStroke; })
+            .polygonAltitude(0.005)
+            .polygonsTransitionDuration(0);
+        })
+        .catch(function(err) {
+          console.warn('Land outlines failed to load', err);
+        });
+    }
+  } catch (err) {
+    console.error('Travel globe failed to initialize', err);
+    statusEl.textContent = 'globe unavailable';
+    globe = null;
   }
 
   function applyTheme(theme) {
