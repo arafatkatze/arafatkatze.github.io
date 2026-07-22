@@ -437,35 +437,65 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Build destination list first so the page stays useful even if WebGL fails
+  var listEl = document.getElementById('travel-dest-list');
+  var globe = null;
+
+  function hideHint() {
+    if (hintEl) hintEl.classList.add('is-hidden');
+  }
+
+  function flyToPoint(d) {
+    hideHint();
+    if (!globe) return;
+    globe.controls().autoRotate = false;
+    globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.45 }, 1100);
+    setTimeout(function() {
+      if (!globe) return;
+      globe.controls().autoRotate = true;
+      globe.controls().autoRotateSpeed = 0.2;
+    }, 4000);
+  }
+
+  destinations.forEach(function(d) {
+    var li = document.createElement('li');
+    li.className = 'travel-dest-item';
+    li.innerHTML =
+      '<span class="travel-dest-marker"></span>' +
+      '<span class="travel-dest-name">' + d.name + '</span>' +
+      '<span class="travel-dest-country">' + d.country + '</span>';
+    li.addEventListener('click', function() { flyToPoint(d); });
+    listEl.appendChild(li);
+  });
+
+  // Graticule as arrays of [lng, lat] (GeoJSON order)
   function createGraticule(stepDeg) {
     var step = stepDeg || 20;
-    var features = [];
+    var paths = [];
     var lat, lng, coords;
 
     for (lng = -180; lng <= 180; lng += step) {
       coords = [];
-      for (lat = -90; lat <= 90; lat += 2) coords.push([lng, lat]);
-      features.push({
-        type: 'Feature',
-        properties: { kind: 'meridian' },
-        geometry: { type: 'LineString', coordinates: coords }
-      });
+      for (lat = -90; lat <= 90; lat += 5) coords.push([lng, lat]);
+      paths.push(coords);
     }
-
     for (lat = -80; lat <= 80; lat += step) {
       coords = [];
-      for (lng = -180; lng <= 180; lng += 2) coords.push([lng, lat]);
-      features.push({
-        type: 'Feature',
-        properties: { kind: 'parallel' },
-        geometry: { type: 'LineString', coordinates: coords }
-      });
+      for (lng = -180; lng <= 180; lng += 5) coords.push([lng, lat]);
+      paths.push(coords);
     }
-
-    return features;
+    return paths;
   }
 
-  var graticule = createGraticule(20);
+  function solidTexture(hex) {
+    var c = document.createElement('canvas');
+    c.width = 8;
+    c.height = 8;
+    var ctx = c.getContext('2d');
+    ctx.fillStyle = hex;
+    ctx.fillRect(0, 0, 8, 8);
+    return c.toDataURL('image/png');
+  }
 
   function getTheme() {
     return document.documentElement.getAttribute('data-theme') || 'dark';
@@ -476,99 +506,91 @@ document.addEventListener("DOMContentLoaded", function () {
       return {
         background: '#f4f4f1',
         surface: '#ffffff',
-        landStroke: 'rgba(30, 30, 30, 0.88)',
-        landFill: 'rgba(0, 0, 0, 0.02)',
-        grid: 'rgba(0, 0, 0, 0.12)',
+        landStroke: 'rgba(20, 20, 20, 0.9)',
+        landFill: 'rgba(0, 0, 0, 0.03)',
+        grid: 'rgba(0, 0, 0, 0.14)',
         point: '#c45c26',
-        arc: 'rgba(184, 115, 51, 0.28)',
-        atmosphere: 'rgba(180, 180, 180, 0.35)'
+        arc: ['rgba(184, 115, 51, 0.35)', 'rgba(184, 115, 51, 0.15)'],
+        atmosphere: '#c8c8c8'
       };
     }
     return {
       background: '#111116',
-      surface: '#1a1a22',
-      landStroke: 'rgba(232, 166, 166, 0.7)',
-      landFill: 'rgba(232, 166, 166, 0.04)',
-      grid: 'rgba(232, 166, 166, 0.14)',
+      surface: '#1c1c24',
+      landStroke: 'rgba(232, 166, 166, 0.75)',
+      landFill: 'rgba(232, 166, 166, 0.05)',
+      grid: 'rgba(232, 166, 166, 0.16)',
       point: '#e8a6a6',
-      arc: 'rgba(232, 166, 166, 0.28)',
-      atmosphere: 'rgba(232, 166, 166, 0.18)'
+      arc: ['rgba(232, 166, 166, 0.35)', 'rgba(232, 166, 166, 0.12)'],
+      atmosphere: '#5a4048'
     };
   }
 
   var currentTheme = getTheme();
   var t = themeColors(currentTheme);
+  var landFeatures = null;
+  var graticule = createGraticule(20);
 
-  var globe = Globe()
-    .backgroundColor(t.background)
-    .showGlobe(true)
-    .showAtmosphere(true)
-    .atmosphereColor(t.atmosphere)
-    .atmosphereAltitude(0.12)
-    .pointsData(destinations)
-    .pointLat('lat')
-    .pointLng('lng')
-    .pointAltitude(0.012)
-    .pointRadius(0.28)
-    .pointColor(function() { return t.point; })
-    .pointLabel(function(d) {
-      return '<div class="globe-tooltip">' +
-        '<strong>' + d.name + '</strong><br>' +
-        '<span class="tt-country">' + d.country + '</span>' +
-        (d.note ? '<div class="tt-note">' + d.note + '</div>' : '') +
-        '</div>';
-    })
-    .arcsData(arcsData)
-    .arcColor(function() { return [t.arc, t.arc]; })
-    .arcAltitudeAutoScale(0.25)
-    .arcStroke(0.35)
-    .arcDashLength(0.5)
-    .arcDashGap(0.25)
-    .arcDashAnimateTime(2800)
-    .pathsData(graticule)
-    .pathPoints(function(f) { return f.geometry.coordinates; })
-    .pathPointLng(function(p) { return p[0]; })
-    .pathPointLat(function(p) { return p[1]; })
-    .pathColor(function() { return t.grid; })
-    .pathStroke(0.35)
-    .pathAltitude(0.001)
-    .width(containerEl.offsetWidth)
-    .height(containerEl.offsetHeight)
-    (containerEl);
-
-  // Blank schematic sphere instead of photo Earth texture
-  globe.globeImageUrl(null);
   try {
-    var mat = globe.globeMaterial();
-    mat.color.setStyle(t.surface);
-    mat.transparent = false;
-    mat.opacity = 1;
-  } catch (e) { /* ignore */ }
+    globe = Globe()
+      .globeImageUrl(solidTexture(t.surface))
+      .backgroundColor(t.background)
+      .showGlobe(true)
+      .showAtmosphere(true)
+      .atmosphereColor(t.atmosphere)
+      .atmosphereAltitude(0.1)
+      .pointsData(destinations)
+      .pointLat('lat')
+      .pointLng('lng')
+      .pointAltitude(0.01)
+      .pointRadius(0.3)
+      .pointColor(function() { return t.point; })
+      .pointLabel(function(d) {
+        return '<div class="globe-tooltip">' +
+          '<strong>' + d.name + '</strong><br>' +
+          '<span class="tt-country">' + d.country + '</span>' +
+          (d.note ? '<div class="tt-note">' + d.note + '</div>' : '') +
+          '</div>';
+      })
+      .arcsData(arcsData)
+      .arcColor(function() { return t.arc; })
+      .arcAltitudeAutoScale(0.25)
+      .arcStroke(0.35)
+      .arcDashLength(0.5)
+      .arcDashGap(0.25)
+      .arcDashAnimateTime(2800)
+      .pathsData(graticule)
+      .pathPointLng(function(p) { return p[0]; })
+      .pathPointLat(function(p) { return p[1]; })
+      .pathColor(function() { return t.grid; })
+      .pathStroke(0.4)
+      .pathAltitude(0.002)
+      .width(containerEl.offsetWidth)
+      .height(containerEl.offsetHeight)
+      (containerEl);
 
-  globe.controls().autoRotate = true;
-  globe.controls().autoRotateSpeed = 0.35;
-  globe.controls().enableDamping = true;
-  globe.controls().dampingFactor = 0.08;
-  globe.controls().minDistance = 120;
-  globe.controls().maxDistance = 400;
-
-  globe.pointOfView({ lat: 20, lng: 20, altitude: 2.0 });
-
-  function applySurfaceColor(color) {
-    try {
-      globe.globeMaterial().color.set(color);
-    } catch (e) { /* ignore */ }
+    globe.controls().autoRotate = true;
+    globe.controls().autoRotateSpeed = 0.35;
+    globe.controls().enableDamping = true;
+    globe.controls().dampingFactor = 0.08;
+    globe.pointOfView({ lat: 20, lng: 20, altitude: 2.0 });
+    globe.onPointClick(function(point) { flyToPoint(point); });
+    containerEl.addEventListener('pointerdown', hideHint);
+    statusEl.textContent = destinations.length + ' pins';
+  } catch (err) {
+    console.error('Travel globe failed to initialize', err);
+    statusEl.textContent = 'globe unavailable';
   }
-  applySurfaceColor(t.surface);
 
   function applyTheme(theme) {
+    if (!globe) return;
     t = themeColors(theme);
-    applySurfaceColor(t.surface);
     globe
+      .globeImageUrl(solidTexture(t.surface))
       .backgroundColor(t.background)
       .atmosphereColor(t.atmosphere)
       .pointColor(function() { return t.point; })
-      .arcColor(function() { return [t.arc, t.arc]; })
+      .arcColor(function() { return t.arc; })
       .pathColor(function() { return t.grid; });
 
     if (landFeatures) {
@@ -579,25 +601,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  var landFeatures = null;
-
-  fetch('//cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
-    .then(function(res) { return res.json(); })
-    .then(function(world) {
-      var land = topojson.feature(world, world.objects.land);
-      landFeatures = land.type === 'FeatureCollection' ? land.features : [land];
-      globe
-        .polygonsData(landFeatures)
-        .polygonCapColor(function() { return t.landFill; })
-        .polygonSideColor(function() { return 'rgba(0,0,0,0)'; })
-        .polygonStrokeColor(function() { return t.landStroke; })
-        .polygonAltitude(0.003)
-        .polygonsTransitionDuration(0);
-      statusEl.textContent = destinations.length + ' pins';
-    })
-    .catch(function() {
-      statusEl.textContent = destinations.length + ' pins';
-    });
+  if (globe && typeof topojson !== 'undefined') {
+    fetch('//cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
+      .then(function(res) { return res.json(); })
+      .then(function(world) {
+        var land = topojson.feature(world, world.objects.land);
+        landFeatures = land.type === 'FeatureCollection' ? land.features : [land];
+        globe
+          .polygonsData(landFeatures)
+          .polygonCapColor(function() { return t.landFill; })
+          .polygonSideColor(function() { return 'rgba(0,0,0,0)'; })
+          .polygonStrokeColor(function() { return t.landStroke; })
+          .polygonAltitude(0.004)
+          .polygonsTransitionDuration(0);
+      })
+      .catch(function(err) {
+        console.warn('Land outlines failed to load', err);
+      });
+  }
 
   var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(m) {
@@ -613,41 +634,9 @@ document.addEventListener("DOMContentLoaded", function () {
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
   window.addEventListener('resize', function() {
+    if (!globe) return;
     globe.width(containerEl.offsetWidth);
     globe.height(containerEl.offsetHeight);
   });
-
-  var hintHidden = false;
-  function hideHint() {
-    if (hintHidden) return;
-    hintHidden = true;
-    hintEl.classList.add('is-hidden');
-  }
-
-  containerEl.addEventListener('pointerdown', hideHint);
-
-  function flyToPoint(d) {
-    hideHint();
-    globe.controls().autoRotate = false;
-    globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.45 }, 1100);
-    setTimeout(function() {
-      globe.controls().autoRotate = true;
-      globe.controls().autoRotateSpeed = 0.2;
-    }, 4000);
-  }
-
-  var listEl = document.getElementById('travel-dest-list');
-  destinations.forEach(function(d) {
-    var li = document.createElement('li');
-    li.className = 'travel-dest-item';
-    li.innerHTML =
-      '<span class="travel-dest-marker"></span>' +
-      '<span class="travel-dest-name">' + d.name + '</span>' +
-      '<span class="travel-dest-country">' + d.country + '</span>';
-    li.addEventListener('click', function() { flyToPoint(d); });
-    listEl.appendChild(li);
-  });
-
-  globe.onPointClick(function(point) { flyToPoint(point); });
 });
 </script>
