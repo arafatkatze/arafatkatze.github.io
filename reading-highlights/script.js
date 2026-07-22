@@ -191,13 +191,12 @@
     $("flashClose").addEventListener("click", closeFlash);
     $("flashPrev").addEventListener("click", () => flashStep(-1));
     $("flashNext").addEventListener("click", () => flashStep(1));
-    $("flashCard").addEventListener("click", () => { if (!swipeJustHappened) flashFlip(); });
-    $("flashFlipBtn").addEventListener("click", flashFlip);
+    $("flashCard").addEventListener("click", () => { if (!swipeJustHappened) flashStep(1); });
     $("flashShuffle").addEventListener("click", flashShuffle);
 
-    // Swipe left/right to move, tap to flip. Pointer Events unify touch, mouse
-    // and pen and fire reliably even when the gesture begins over the overlaid
-    // nav arrows — so swipe works in both directions on phones and desktop.
+    // Swipe left/right to move, click/tap to advance. Pointer Events unify
+    // touch, mouse and pen and fire reliably even when the gesture begins over
+    // the overlaid nav arrows — so swipe works in both directions.
     const fstage = document.querySelector(".flash-stage");
     let psx = 0, psy = 0, pdown = false;
     fstage.addEventListener("pointerdown", (e) => {
@@ -436,17 +435,9 @@
     return (parts.length ? parts.join(" · ") : "whole library") + ` · ${flashPool.length} cards · shuffled`;
   }
   function showFlash() {
-    const card = $("flashCard");
-    card.classList.remove("flipped");
     const hid = flashHist[flashPos];
     const h = DATA.highlights[hid];
-    const b = DATA.books[h[1]];
     $("flashText").textContent = h[0];
-    $("flashBook").textContent = b[0];
-    $("flashAuthor").textContent = DATA.authors[b[1]] || "";
-    $("flashCat").textContent = DATA.categories[b[2]];
-    const note = $("flashNote");
-    note.textContent = h[4] ? "“" + h[4] + "”" : "";
     $("flashPos").textContent = Math.min(flashPos + 1, flashPool.length);
   }
   function flashStep(dir) {
@@ -465,7 +456,6 @@
     }
     showFlash();
   }
-  function flashFlip() { $("flashCard").classList.toggle("flipped"); }
   function flashShuffle() {
     reseed();
     flashSeen = new Set();
@@ -488,7 +478,7 @@
     if (flashOpen) {
       if (e.key === "ArrowRight") { e.preventDefault(); flashStep(1); }
       else if (e.key === "ArrowLeft") { e.preventDefault(); flashStep(-1); }
-      else if (e.key === " ") { e.preventDefault(); flashFlip(); }
+      else if (e.key === " ") { e.preventDefault(); flashStep(1); }
       else if (e.key === "s" || e.key === "S") { flashShuffle(); }
       else if (e.key === "Escape") { closeFlash(); }
       return;
