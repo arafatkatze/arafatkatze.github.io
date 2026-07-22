@@ -433,29 +433,23 @@ mark.hit { background: color-mix(in srgb, var(--hl-yellow) 70%, transparent); co
 
 .flash-card-viewport { perspective: 1800px; width: min(680px, 92vw); height: min(440px, 60vh); touch-action: pan-y; }
 .flash-stage { touch-action: pan-y; }
-.flash-card { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(.2,.8,.3,1); cursor: pointer; }
-.flash-card.flipped { transform: rotateY(180deg); }
+.flash-card { position: relative; width: 100%; height: 100%; cursor: pointer; }
 .flash-face {
   position: absolute; inset: 0;
-  backface-visibility: hidden; -webkit-backface-visibility: hidden;
   background: var(--card);
   border: 1px solid var(--line);
+  border-top: 4px solid var(--gold-soft);
   border-radius: 22px;
   box-shadow: var(--shadow);
   padding: 44px 46px;
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
   overflow: auto;
+  transition: transform 0.18s ease;
 }
-.flash-front { border-top: 4px solid var(--gold-soft); }
+.flash-card:active .flash-face { transform: scale(0.985); }
 .flash-quote-mark { font-family: var(--display); font-size: 60px; color: var(--gold-soft); opacity: 0.45; line-height: 0.5; margin-bottom: 12px; }
 .flash-text { font-family: var(--serif); font-size: clamp(18px, 2.8vw, 27px); line-height: 1.5; color: var(--ink); margin: 0; white-space: pre-line; }
 .flash-flip-hint { position: absolute; bottom: 18px; font-family: var(--sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
-.flash-back { transform: rotateY(180deg); background: var(--ink); border-color: var(--ink); }
-.flash-back p { margin: 0; color: var(--paper); }
-.flash-back-book { font-family: var(--display); font-size: clamp(20px, 3vw, 30px); font-weight: 600; margin-bottom: 10px !important; }
-.flash-back-author { font-family: var(--serif); font-style: italic; font-size: 18px; color: color-mix(in srgb, var(--paper) 80%, transparent) !important; }
-.flash-back-cat { font-family: var(--sans); font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--gold-soft) !important; margin-top: 18px !important; }
-.flash-back-note { font-family: var(--sans); font-size: 13.5px; color: color-mix(in srgb, var(--paper) 72%, transparent) !important; margin-top: 20px !important; max-width: 440px; }
 
 .flash-controls { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 18px 30px 26px; gap: 16px; flex-wrap: wrap; }
 .flash-progress { font-family: var(--display); font-size: 18px; color: var(--ink); }
