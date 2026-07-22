@@ -43,13 +43,50 @@
   const COLORS = ["", "yellow", "orange", "blue"];
 
   // ------- Load -------
-  fetch("highlights.json")
-    .then((r) => r.json())
+  showSkeleton();
+  loadData()
     .then((d) => { DATA = d; init(); })
     .catch((err) => {
       resultCount.textContent = "Could not load the library.";
+      masonry.innerHTML = "";
       console.error(err);
     });
+
+  // Prefer the pre-gzipped payload (small, fast, host-independent) and
+  // decompress it in the browser; fall back to plain JSON on older browsers.
+  async function loadData() {
+    if (typeof DecompressionStream !== "undefined") {
+      try {
+        const res = await fetch("highlights.json.gz");
+        if (res.ok && res.body) {
+          const stream = res.body.pipeThrough(new DecompressionStream("gzip"));
+          const text = await new Response(stream).text();
+          return JSON.parse(text);
+        }
+      } catch (e) { /* fall through to plain JSON */ }
+    }
+    const res = await fetch("highlights.json");
+    return res.json();
+  }
+
+  // Lightweight shimmer placeholders so the page never looks blocked while the
+  // library streams in. The hero renders instantly from static HTML.
+  function showSkeleton() {
+    const cols = columnCount();
+    masonry.innerHTML = "";
+    const heights = [128, 190, 96, 160, 116, 150, 88, 140, 172];
+    for (let c = 0; c < cols; c++) {
+      const col = document.createElement("div");
+      col.className = "mcol";
+      for (let i = 0; i < 4; i++) {
+        const sk = document.createElement("div");
+        sk.className = "card-skeleton";
+        sk.style.height = heights[(c * 4 + i) % heights.length] + "px";
+        col.appendChild(sk);
+      }
+      masonry.appendChild(col);
+    }
+  }
 
   function init() {
     // precompute search strings
@@ -154,9 +191,29 @@
     $("flashClose").addEventListener("click", closeFlash);
     $("flashPrev").addEventListener("click", () => flashStep(-1));
     $("flashNext").addEventListener("click", () => flashStep(1));
-    $("flashCard").addEventListener("click", flashFlip);
+    $("flashCard").addEventListener("click", () => { if (!swipeJustHappened) flashFlip(); });
     $("flashFlipBtn").addEventListener("click", flashFlip);
     $("flashShuffle").addEventListener("click", flashShuffle);
+
+    // Swipe left/right to move, tap to flip. Pointer Events unify touch, mouse
+    // and pen and fire reliably even when the gesture begins over the overlaid
+    // nav arrows — so swipe works in both directions on phones and desktop.
+    const fstage = document.querySelector(".flash-stage");
+    let psx = 0, psy = 0, pdown = false;
+    fstage.addEventListener("pointerdown", (e) => {
+      psx = e.clientX; psy = e.clientY; pdown = true;
+    });
+    fstage.addEventListener("pointerup", (e) => {
+      if (!pdown) return;
+      pdown = false;
+      const dx = e.clientX - psx, dy = e.clientY - psy;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+        swipeJustHappened = true;
+        flashStep(dx < 0 ? 1 : -1);
+        setTimeout(() => { swipeJustHappened = false; }, 400);
+      }
+    });
+    fstage.addEventListener("pointercancel", () => { pdown = false; });
 
     document.addEventListener("keydown", onKey);
   }
@@ -325,9 +382,12 @@
     $("spotlight").hidden = false;
     document.body.style.overflow = "hidden";
   }
+  let lastSpotHid = null;
   function showRandom() {
+    reseed();
     const pool = filtered.length ? filtered : DATA.highlights.map((_, i) => i);
-    const hid = pool[Math.floor(Math.random() * pool.length)];
+    const hid = pickDifferent(pool, lastSpotHid, null);
+    lastSpotHid = hid;
     openSpotlight(hid);
   }
   function closeSpotlight() {
@@ -342,14 +402,26 @@
     });
   }
 
-  // ------- Flashcards -------
-  let deck = [];
-  let deckPos = 0;
+  // ------- Flashcards (truly random, never the same book twice in a row) -------
+  // Instead of walking a fixed pre-shuffled deck, every "next" draws a fresh
+  // time-seeded random card that avoids the current book (and cards already
+  // seen this session, until the pool is exhausted). Prev walks back through
+  // the history of what you've actually seen.
+  let flashPool = [];
+  let flashHist = [];
+  let flashPos = 0;
+  let flashSeen = new Set();
+  let swipeJustHappened = false;
+
   function openFlash() {
-    const pool = filtered.length ? filtered.slice() : DATA.highlights.map((_, i) => i);
-    deck = shuffle(pool.slice());
-    deckPos = 0;
-    $("flashTotal").textContent = deck.length;
+    flashPool = filtered.length ? filtered.slice() : DATA.highlights.map((_, i) => i);
+    reseed();
+    flashSeen = new Set();
+    const first = pickDifferent(flashPool, null, flashSeen);
+    flashHist = [first];
+    flashSeen.add(first);
+    flashPos = 0;
+    $("flashTotal").textContent = flashPool.length;
     $("flashScope").textContent = flashScopeLabel();
     $("flash").hidden = false;
     document.body.style.overflow = "hidden";
@@ -361,12 +433,12 @@
     if (state.cats.size) parts.push(catNames());
     if (state.book !== "") parts.push(truncate(DATA.books[parseInt(state.book, 10)][0], 26));
     if (state.favOnly) parts.push("favourites");
-    return (parts.length ? parts.join(" · ") : "whole library") + ` · ${deck.length} cards`;
+    return (parts.length ? parts.join(" · ") : "whole library") + ` · ${flashPool.length} cards · shuffled`;
   }
   function showFlash() {
     const card = $("flashCard");
     card.classList.remove("flipped");
-    const hid = deck[deckPos];
+    const hid = flashHist[flashPos];
     const h = DATA.highlights[hid];
     const b = DATA.books[h[1]];
     $("flashText").textContent = h[0];
@@ -375,16 +447,32 @@
     $("flashCat").textContent = DATA.categories[b[2]];
     const note = $("flashNote");
     note.textContent = h[4] ? "“" + h[4] + "”" : "";
-    $("flashPos").textContent = deckPos + 1;
+    $("flashPos").textContent = Math.min(flashPos + 1, flashPool.length);
   }
   function flashStep(dir) {
-    deckPos = (deckPos + dir + deck.length) % deck.length;
+    if (dir > 0) {
+      if (flashPos < flashHist.length - 1) {
+        flashPos++;
+      } else {
+        const next = pickDifferent(flashPool, flashHist[flashPos], flashSeen);
+        flashHist.push(next);
+        flashSeen.add(next);
+        if (flashSeen.size >= flashPool.length) flashSeen = new Set([next]);
+        flashPos++;
+      }
+    } else if (flashPos > 0) {
+      flashPos--;
+    }
     showFlash();
   }
   function flashFlip() { $("flashCard").classList.toggle("flipped"); }
   function flashShuffle() {
-    deck = shuffle(deck);
-    deckPos = 0;
+    reseed();
+    flashSeen = new Set();
+    const start = pickDifferent(flashPool, flashHist[flashPos], flashSeen);
+    flashHist = [start];
+    flashSeen.add(start);
+    flashPos = 0;
     $("flashScope").textContent = flashScopeLabel();
     showFlash();
   }
@@ -459,9 +547,45 @@
     return res;
   }
   function truncate(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
-  function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-    return a;
+
+  // Time-seeded RNG (mulberry32). Reseeded from the clock on every shuffle /
+  // random draw so the sequence is genuinely different each time.
+  let rng = makeRng(seedNow());
+  function seedNow() {
+    const perf = (typeof performance !== "undefined" && performance.now) ? performance.now() : 0;
+    return (((Date.now() >>> 0) ^ (Math.floor(perf * 1000) >>> 0) ^ ((Math.random() * 0xffffffff) >>> 0)) >>> 0);
+  }
+  function reseed() { rng = makeRng(seedNow()); }
+  function makeRng(seed) {
+    let a = seed >>> 0;
+    return function () {
+      a = (a + 0x6d2b79f5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  // Draw a random highlight id from `pool` that is NOT `avoidHid` and, whenever
+  // possible, is from a different book — and (if a `seen` set is given) one not
+  // shown yet this session. Guarantees no back-to-back highlights from the
+  // same book unless the pool leaves no other choice.
+  function pickDifferent(pool, avoidHid, seen) {
+    if (pool.length <= 1) return pool[0];
+    const avoidBook = avoidHid == null ? -1 : DATA.highlights[avoidHid][1];
+    let diffUnseen = null, diffBook = null, anyDiff = null;
+    for (let i = 0; i < 64; i++) {
+      const hid = pool[(rng() * pool.length) | 0];
+      if (hid === avoidHid) continue;
+      if (anyDiff === null) anyDiff = hid;
+      if (DATA.highlights[hid][1] !== avoidBook) {
+        if (diffBook === null) diffBook = hid;
+        if (!seen || !seen.has(hid)) { diffUnseen = hid; break; }
+      }
+    }
+    if (diffUnseen != null) return diffUnseen;
+    if (diffBook != null) return diffBook;
+    if (anyDiff != null) return anyDiff;
+    return pool[(rng() * pool.length) | 0];
   }
   function animateNum(el, target) {
     const dur = 900, start = performance.now();

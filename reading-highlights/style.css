@@ -357,6 +357,23 @@ select:focus { outline: none; border-color: var(--gold-soft); }
 }
 mark.hit { background: color-mix(in srgb, var(--hl-yellow) 70%, transparent); color: inherit; padding: 0 1px; border-radius: 2px; }
 
+.card-skeleton {
+  background: var(--card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  position: relative;
+  overflow: hidden;
+  opacity: 0.7;
+}
+.card-skeleton::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%, color-mix(in srgb, var(--gold) 10%, transparent) 50%, transparent 80%);
+  transform: translateX(-100%);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer { to { transform: translateX(100%); } }
+
 .empty-state { text-align: center; padding: 80px 20px; color: var(--ink-faint); }
 .empty-mark { font-size: 42px; color: var(--gold-soft); margin-bottom: 12px; }
 .empty-state p { font-style: italic; font-size: 19px; margin: 0 0 20px; }
@@ -401,7 +418,7 @@ mark.hit { background: color-mix(in srgb, var(--hl-yellow) 70%, transparent); co
 .spotlight-actions { display: flex; gap: 9px; justify-content: flex-end; margin-top: 22px; flex-wrap: wrap; }
 
 /* ========================= FLASHCARDS ========================= */
-.flash { position: fixed; inset: 0; z-index: 80; background: var(--paper); display: flex; flex-direction: column; animation: fade 0.35s ease; }
+.flash { position: fixed; inset: 0; z-index: 80; background: var(--paper); display: flex; flex-direction: column; animation: fade 0.35s ease; overscroll-behavior: contain; }
 .flash[hidden] { display: none; }
 .flash::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 90% 60% at 50% 0%, rgba(203,169,95,0.14), transparent 60%); pointer-events: none; }
 .flash-topbar { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 20px 26px; border-bottom: 1px solid var(--line); }
@@ -414,7 +431,8 @@ mark.hit { background: color-mix(in srgb, var(--hl-yellow) 70%, transparent); co
 .flash-nav { width: 54px; height: 54px; flex-shrink: 0; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 26px; line-height: 1; cursor: pointer; transition: 0.2s; }
 .flash-nav:hover { background: var(--ink); color: var(--paper); transform: scale(1.06); }
 
-.flash-card-viewport { perspective: 1800px; width: min(680px, 92vw); height: min(440px, 60vh); }
+.flash-card-viewport { perspective: 1800px; width: min(680px, 92vw); height: min(440px, 60vh); touch-action: pan-y; }
+.flash-stage { touch-action: pan-y; }
 .flash-card { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(.2,.8,.3,1); cursor: pointer; }
 .flash-card.flipped { transform: rotateY(180deg); }
 .flash-face {
@@ -448,18 +466,52 @@ mark.hit { background: color-mix(in srgb, var(--hl-yellow) 70%, transparent); co
 /* ========================= RESPONSIVE ========================= */
 @media (max-width: 720px) {
   body { font-size: 17px; }
+  .controls { padding: 12px 14px 10px; }
   .control-buttons { margin-left: 0; width: 100%; }
-  .control-buttons .btn { flex: 1; justify-content: center; }
+  .control-buttons .btn { flex: 1; justify-content: center; padding: 12px 10px; }
   .control-selects { width: 100%; }
   .control-selects select { flex: 1; max-width: none; }
   .select-wrap { flex: 1; }
+  .chips { gap: 7px; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: 0 0 auto; }
+  .stage { padding: 18px 14px 40px; }
+  .spotlight { padding: 16px; }
+  .spotlight-card { padding: 38px 22px 22px; border-radius: 16px; }
+  .spotlight-mark { font-size: 66px; left: 18px; }
+  .spotlight-actions .btn { flex: 1; justify-content: center; }
+
+  /* Flashcards: arrows overlay the card edges so the card can use full width */
+  .flash-topbar { padding: 14px 16px; }
+  .flash-title { font-size: 17px; }
+  .flash-stage { padding: 10px; gap: 0; }
+  .flash-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    z-index: 5; width: 48px; height: 48px; font-size: 26px;
+    background: color-mix(in srgb, var(--card) 86%, transparent);
+    backdrop-filter: blur(4px);
+    box-shadow: var(--shadow-sm);
+  }
+  .flash-nav:hover { transform: translateY(-50%); }
+  .flash-prev { left: 6px; }
+  .flash-next { right: 6px; }
+  .flash-close { width: 44px; height: 44px; }
+  .flash-card-viewport { width: 94vw; height: 62vh; }
+  .flash-face { padding: 30px 26px; border-radius: 20px; }
+  .flash-flip-hint { bottom: 12px; }
+  .flash-controls { padding: 14px 16px 24px; justify-content: center; text-align: center; gap: 14px; }
   .flash-hint { display: none; }
-  .flash-nav { width: 44px; height: 44px; font-size: 22px; }
-  .spotlight-card { padding: 40px 26px 24px; }
+  .flash-progress { order: 2; font-size: 20px; }
+  .flash-btns { order: 1; }
+  .flash-btns .btn { padding: 12px 18px; font-size: 14.5px; }
 }
 @media (max-width: 460px) {
+  .hero { padding-top: 60px; }
   .hero-stats { gap: 12px; padding: 10px 16px; }
   .stat-num { font-size: 21px; }
+  .theme-toggle { top: 14px; right: 14px; width: 40px; height: 40px; }
+  .flash-card-viewport { height: 64vh; }
+  .flash-text { font-size: 19px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
