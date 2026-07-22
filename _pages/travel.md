@@ -17,10 +17,7 @@ nav_order: 6
     --tw-card-accent-hover: rgba(232, 166, 166, 0.05);
     --tw-card-accent-glow: rgba(232, 166, 166, 0.4);
     --tw-card-text: #d4d4d4;
-    --tw-globe-bg: #111116;
-    --tw-globe-surface: #1a1a22;
-    --tw-globe-land: rgba(232, 166, 166, 0.55);
-    --tw-globe-grid: rgba(232, 166, 166, 0.12);
+    --tw-globe-bg: #0e0e14;
     --tw-globe-hint: rgba(232, 166, 166, 0.45);
   }
 
@@ -33,10 +30,7 @@ nav_order: 6
     --tw-card-accent-hover: rgba(184, 115, 51, 0.06);
     --tw-card-accent-glow: rgba(184, 115, 51, 0.3);
     --tw-card-text: #3a3a3a;
-    --tw-globe-bg: #f4f4f1;
-    --tw-globe-surface: #ffffff;
-    --tw-globe-land: rgba(30, 30, 30, 0.85);
-    --tw-globe-grid: rgba(0, 0, 0, 0.12);
+    --tw-globe-bg: #f3f3f0;
     --tw-globe-hint: rgba(0, 0, 0, 0.4);
   }
 
@@ -63,19 +57,10 @@ nav_order: 6
     align-items: flex-start;
   }
 
-  .travel-hud-left,
-  .travel-hud-right {
-    background: transparent;
-    padding: 0;
-    border: none;
-  }
-
   .travel-hud-title {
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: 1.35rem;
-    letter-spacing: 0;
     color: var(--tw-card-text);
-    text-transform: none;
     margin: 0;
     font-weight: 600;
     transition: color 0.5s ease;
@@ -148,8 +133,6 @@ nav_order: 6
       font-size: 1.1rem;
     }
   }
-
-  /* --- Stats & destinations (theme-responsive) --- */
 
   .travel-dest-panel {
     background: var(--tw-card-bg);
@@ -255,8 +238,6 @@ nav_order: 6
 
   .globe-tooltip {
     background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(0, 0, 0, 0.12) !important;
     border-radius: 4px !important;
     padding: 8px 12px !important;
@@ -295,7 +276,6 @@ nav_order: 6
     font-size: 0.72rem;
     margin-top: 3px;
   }
-
 </style>
 
 *Drag the globe to spin it — click a destination to fly there.*
@@ -328,8 +308,8 @@ I [used to travel](https://arafatkatze.github.io/philosophy/2026/01/05/travellin
 
 </div>
 
-<script src="//unpkg.com/globe.gl@2.41.4/dist/globe.gl.min.js"></script>
-<script src="//unpkg.com/topojson-client@3/dist/topojson-client.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/globe.gl@2.41.4/dist/globe.gl.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   var destinations = [
@@ -426,6 +406,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var containerEl = document.getElementById('globe-container');
   var hintEl = document.getElementById('travel-globe-hint');
   var statusEl = document.getElementById('travel-status');
+  var listEl = document.getElementById('travel-dest-list');
 
   var arcsData = [];
   for (var i = 0; i < destinations.length - 1; i++) {
@@ -437,8 +418,66 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Build destination list first so the page stays useful even if WebGL fails
-  var listEl = document.getElementById('travel-dest-list');
+  function createGraticule(stepDeg) {
+    var step = stepDeg || 20;
+    var paths = [];
+    var lat, lng, coords;
+    for (lng = -180; lng <= 180; lng += step) {
+      coords = [];
+      for (lat = -90; lat <= 90; lat += 5) coords.push([lng, lat]);
+      paths.push(coords);
+    }
+    for (lat = -80; lat <= 80; lat += step) {
+      coords = [];
+      for (lng = -180; lng <= 180; lng += 5) coords.push([lng, lat]);
+      paths.push(coords);
+    }
+    return paths;
+  }
+
+  function solidTexture(hex) {
+    var c = document.createElement('canvas');
+    c.width = 4;
+    c.height = 4;
+    var ctx = c.getContext('2d');
+    ctx.fillStyle = hex;
+    ctx.fillRect(0, 0, 4, 4);
+    return c.toDataURL('image/png');
+  }
+
+  function getTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'dark';
+  }
+
+  function themeColors(theme) {
+    if (theme === 'light') {
+      return {
+        background: '#f3f3f0',
+        surface: '#fafafa',
+        landStroke: 'rgba(20,20,20,0.9)',
+        landFill: 'rgba(0,0,0,0.03)',
+        grid: 'rgba(0,0,0,0.14)',
+        point: '#d35400',
+        arc: 'rgba(184,115,51,0.3)',
+        atmosphere: '#bdbdbd'
+      };
+    }
+    return {
+      background: '#0e0e14',
+      surface: '#18181f',
+      landStroke: 'rgba(232,166,166,0.8)',
+      landFill: 'rgba(232,166,166,0.05)',
+      grid: 'rgba(232,166,166,0.16)',
+      point: '#e8a6a6',
+      arc: 'rgba(232,166,166,0.3)',
+      atmosphere: '#4a353c'
+    };
+  }
+
+  var currentTheme = getTheme();
+  var t = themeColors(currentTheme);
+  var landFeatures = null;
+  var graticule = createGraticule(20);
   var globe = null;
 
   function hideHint() {
@@ -449,7 +488,7 @@ document.addEventListener("DOMContentLoaded", function () {
     hideHint();
     if (!globe) return;
     globe.controls().autoRotate = false;
-    globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.45 }, 1100);
+    globe.pointOfView({ lat: d.lat, lng: d.lng, altitude: 1.5 }, 1200);
     setTimeout(function() {
       if (!globe) return;
       globe.controls().autoRotate = true;
@@ -468,145 +507,62 @@ document.addEventListener("DOMContentLoaded", function () {
     listEl.appendChild(li);
   });
 
-  // Graticule as arrays of [lng, lat] (GeoJSON order)
-  function createGraticule(stepDeg) {
-    var step = stepDeg || 20;
-    var paths = [];
-    var lat, lng, coords;
-
-    for (lng = -180; lng <= 180; lng += step) {
-      coords = [];
-      for (lat = -90; lat <= 90; lat += 5) coords.push([lng, lat]);
-      paths.push(coords);
-    }
-    for (lat = -80; lat <= 80; lat += step) {
-      coords = [];
-      for (lng = -180; lng <= 180; lng += 5) coords.push([lng, lat]);
-      paths.push(coords);
-    }
-    return paths;
-  }
-
-  function solidTexture(hex) {
-    var c = document.createElement('canvas');
-    c.width = 8;
-    c.height = 8;
-    var ctx = c.getContext('2d');
-    ctx.fillStyle = hex;
-    ctx.fillRect(0, 0, 8, 8);
-    return c.toDataURL('image/png');
-  }
-
-  function getTheme() {
-    return document.documentElement.getAttribute('data-theme') || 'dark';
-  }
-
-  function themeColors(theme) {
-    if (theme === 'light') {
-      return {
-        background: '#f3f3f0',
-        surface: '#fafafa',
-        landStroke: 'rgba(15, 15, 15, 0.92)',
-        landFill: 'rgba(0, 0, 0, 0.025)',
-        grid: 'rgba(0, 0, 0, 0.16)',
-        point: '#d35400',
-        arc: ['rgba(180, 90, 40, 0.4)', 'rgba(180, 90, 40, 0.12)'],
-        atmosphere: '#bdbdbd'
-      };
-    }
-    return {
-      background: '#0e0e14',
-      surface: '#18181f',
-      landStroke: 'rgba(232, 166, 166, 0.85)',
-      landFill: 'rgba(232, 166, 166, 0.06)',
-      grid: 'rgba(232, 166, 166, 0.18)',
-      point: '#e8a6a6',
-      arc: ['rgba(232, 166, 166, 0.4)', 'rgba(232, 166, 166, 0.12)'],
-      atmosphere: '#4a353c'
-    };
-  }
-
-  var currentTheme = getTheme();
-  var t = themeColors(currentTheme);
-  var landFeatures = null;
-  var graticule = createGraticule(20);
-
-  try {
-    globe = new Globe(containerEl)
-      .globeImageUrl(solidTexture(t.surface))
-      .backgroundColor(t.background)
-      .showGlobe(true)
-      .showAtmosphere(true)
-      .atmosphereColor(t.atmosphere)
-      .atmosphereAltitude(0.08)
-      .pointsData(destinations)
-      .pointLat('lat')
-      .pointLng('lng')
-      .pointAltitude(0.015)
-      .pointRadius(0.32)
-      .pointColor(function() { return t.point; })
-      .pointLabel(function(d) {
-        return '<div class="globe-tooltip">' +
-          '<strong>' + d.name + '</strong><br>' +
-          '<span class="tt-country">' + d.country + '</span>' +
-          (d.note ? '<div class="tt-note">' + d.note + '</div>' : '') +
-          '</div>';
-      })
-      .arcsData(arcsData)
-      .arcColor(function() { return t.arc; })
-      .arcAltitudeAutoScale(0.22)
-      .arcStroke(0.3)
-      .arcDashLength(0.45)
-      .arcDashGap(0.3)
-      .arcDashAnimateTime(3000)
-      .pathPointLng(function(p) { return p[0]; })
-      .pathPointLat(function(p) { return p[1]; })
-      .pathPointAlt(function() { return 0; })
-      .pathColor(function() { return t.grid; })
-      .pathStroke(0.45)
-      .pathAltitude(0.001)
-      .pathsData(graticule)
-      .width(containerEl.offsetWidth)
-      .height(containerEl.offsetHeight);
-
-    globe.controls().autoRotate = true;
-    globe.controls().autoRotateSpeed = 0.35;
-    globe.controls().enableDamping = true;
-    globe.controls().dampingFactor = 0.08;
-    globe.pointOfView({ lat: 20, lng: 20, altitude: 2.0 });
-    globe.onPointClick(function(point) { flyToPoint(point); });
-    containerEl.addEventListener('pointerdown', hideHint);
-    statusEl.textContent = destinations.length + ' pins';
-  } catch (err) {
-    console.error('Travel globe failed to initialize', err);
+  if (typeof Globe !== 'function') {
     statusEl.textContent = 'globe unavailable';
+    return;
   }
 
-  function applyTheme(theme) {
-    if (!globe) return;
-    t = themeColors(theme);
-    try {
-      globe
-        .globeImageUrl(solidTexture(t.surface))
-        .backgroundColor(t.background)
-        .atmosphereColor(t.atmosphere)
-        .pointColor(function() { return t.point; })
-        .arcColor(function() { return t.arc; })
-        .pathColor(function() { return t.grid; });
+  // Same Globe()(...el) pattern as the previous working travel page
+  globe = Globe()
+    .globeImageUrl(solidTexture(t.surface))
+    .backgroundColor(t.background)
+    .showAtmosphere(true)
+    .atmosphereColor(t.atmosphere)
+    .atmosphereAltitude(0.12)
+    .pointsData(destinations)
+    .pointLat('lat')
+    .pointLng('lng')
+    .pointAltitude(0.06)
+    .pointRadius(0.35)
+    .pointColor(function() { return t.point; })
+    .pointLabel(function(d) {
+      return '<div class="globe-tooltip">' +
+        '<strong>' + d.name + '</strong><br>' +
+        '<span class="tt-country">' + d.country + '</span>' +
+        (d.note ? '<div class="tt-note">' + d.note + '</div>' : '') +
+        '</div>';
+    })
+    .arcsData(arcsData)
+    .arcColor(function() { return [t.arc, t.arc]; })
+    .arcAltitudeAutoScale(0.3)
+    .arcStroke(0.4)
+    .arcDashLength(0.4)
+    .arcDashGap(0.2)
+    .arcDashAnimateTime(2000)
+    .width(containerEl.offsetWidth)
+    .height(containerEl.offsetHeight)
+    (containerEl);
 
-      if (landFeatures) {
-        globe
-          .polygonCapColor(function() { return t.landFill; })
-          .polygonSideColor(function() { return 'rgba(0,0,0,0)'; })
-          .polygonStrokeColor(function() { return t.landStroke; });
-      }
-    } catch (err) {
-      console.warn('Travel globe theme update failed', err);
-    }
-  }
+  globe.controls().autoRotate = true;
+  globe.controls().autoRotateSpeed = 0.4;
+  globe.controls().enableDamping = true;
+  globe.controls().dampingFactor = 0.1;
+  globe.pointOfView({ lat: 20, lng: 20, altitude: 2.0 });
+  globe.onPointClick(function(point) { flyToPoint(point); });
+  containerEl.addEventListener('pointerdown', hideHint);
+  statusEl.textContent = destinations.length + ' pins';
 
-  if (globe && typeof topojson !== 'undefined') {
-    fetch('//cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
+  // Schematic overlays: graticule + land outlines (after base globe mounts)
+  globe
+    .pathPointLng(function(p) { return p[0]; })
+    .pathPointLat(function(p) { return p[1]; })
+    .pathPointAlt(0)
+    .pathColor(function() { return t.grid; })
+    .pathStroke(0.4)
+    .pathsData(graticule);
+
+  if (typeof topojson !== 'undefined') {
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json')
       .then(function(res) { return res.json(); })
       .then(function(world) {
         var land = topojson.feature(world, world.objects.land);
@@ -616,13 +572,29 @@ document.addEventListener("DOMContentLoaded", function () {
           .polygonCapColor(function() { return t.landFill; })
           .polygonSideColor(function() { return 'rgba(0,0,0,0)'; })
           .polygonStrokeColor(function() { return t.landStroke; })
-          .polygonAltitude(0.006)
-          .polygonStrokeWidth(0.4)
+          .polygonAltitude(0.005)
           .polygonsTransitionDuration(0);
       })
       .catch(function(err) {
         console.warn('Land outlines failed to load', err);
       });
+  }
+
+  function applyTheme(theme) {
+    if (!globe) return;
+    t = themeColors(theme);
+    globe
+      .globeImageUrl(solidTexture(t.surface))
+      .backgroundColor(t.background)
+      .atmosphereColor(t.atmosphere)
+      .pointColor(function() { return t.point; })
+      .arcColor(function() { return [t.arc, t.arc]; })
+      .pathColor(function() { return t.grid; });
+    if (landFeatures) {
+      globe
+        .polygonCapColor(function() { return t.landFill; })
+        .polygonStrokeColor(function() { return t.landStroke; });
+    }
   }
 
   var observer = new MutationObserver(function(mutations) {
