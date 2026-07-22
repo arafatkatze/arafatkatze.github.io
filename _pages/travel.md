@@ -532,7 +532,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var graticule = createGraticule(20);
 
   try {
-    globe = Globe()
+    globe = new Globe(containerEl)
       .globeImageUrl(solidTexture(t.surface))
       .backgroundColor(t.background)
       .showGlobe(true)
@@ -566,8 +566,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .pathStroke(0.4)
       .pathAltitude(0.002)
       .width(containerEl.offsetWidth)
-      .height(containerEl.offsetHeight)
-      (containerEl);
+      .height(containerEl.offsetHeight);
 
     globe.controls().autoRotate = true;
     globe.controls().autoRotateSpeed = 0.35;
