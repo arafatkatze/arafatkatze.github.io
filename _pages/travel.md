@@ -504,25 +504,25 @@ document.addEventListener("DOMContentLoaded", function () {
   function themeColors(theme) {
     if (theme === 'light') {
       return {
-        background: '#f4f4f1',
-        surface: '#ffffff',
-        landStroke: 'rgba(20, 20, 20, 0.9)',
-        landFill: 'rgba(0, 0, 0, 0.03)',
-        grid: 'rgba(0, 0, 0, 0.14)',
-        point: '#c45c26',
-        arc: ['rgba(184, 115, 51, 0.35)', 'rgba(184, 115, 51, 0.15)'],
-        atmosphere: '#c8c8c8'
+        background: '#f3f3f0',
+        surface: '#fafafa',
+        landStroke: 'rgba(15, 15, 15, 0.92)',
+        landFill: 'rgba(0, 0, 0, 0.025)',
+        grid: 'rgba(0, 0, 0, 0.16)',
+        point: '#d35400',
+        arc: ['rgba(180, 90, 40, 0.4)', 'rgba(180, 90, 40, 0.12)'],
+        atmosphere: '#bdbdbd'
       };
     }
     return {
-      background: '#111116',
-      surface: '#1c1c24',
-      landStroke: 'rgba(232, 166, 166, 0.75)',
-      landFill: 'rgba(232, 166, 166, 0.05)',
-      grid: 'rgba(232, 166, 166, 0.16)',
+      background: '#0e0e14',
+      surface: '#18181f',
+      landStroke: 'rgba(232, 166, 166, 0.85)',
+      landFill: 'rgba(232, 166, 166, 0.06)',
+      grid: 'rgba(232, 166, 166, 0.18)',
       point: '#e8a6a6',
-      arc: ['rgba(232, 166, 166, 0.35)', 'rgba(232, 166, 166, 0.12)'],
-      atmosphere: '#5a4048'
+      arc: ['rgba(232, 166, 166, 0.4)', 'rgba(232, 166, 166, 0.12)'],
+      atmosphere: '#4a353c'
     };
   }
 
@@ -538,12 +538,12 @@ document.addEventListener("DOMContentLoaded", function () {
       .showGlobe(true)
       .showAtmosphere(true)
       .atmosphereColor(t.atmosphere)
-      .atmosphereAltitude(0.1)
+      .atmosphereAltitude(0.08)
       .pointsData(destinations)
       .pointLat('lat')
       .pointLng('lng')
-      .pointAltitude(0.01)
-      .pointRadius(0.3)
+      .pointAltitude(0.015)
+      .pointRadius(0.32)
       .pointColor(function() { return t.point; })
       .pointLabel(function(d) {
         return '<div class="globe-tooltip">' +
@@ -554,17 +554,18 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .arcsData(arcsData)
       .arcColor(function() { return t.arc; })
-      .arcAltitudeAutoScale(0.25)
-      .arcStroke(0.35)
-      .arcDashLength(0.5)
-      .arcDashGap(0.25)
-      .arcDashAnimateTime(2800)
-      .pathsData(graticule)
+      .arcAltitudeAutoScale(0.22)
+      .arcStroke(0.3)
+      .arcDashLength(0.45)
+      .arcDashGap(0.3)
+      .arcDashAnimateTime(3000)
       .pathPointLng(function(p) { return p[0]; })
       .pathPointLat(function(p) { return p[1]; })
+      .pathPointAlt(function() { return 0; })
       .pathColor(function() { return t.grid; })
-      .pathStroke(0.4)
-      .pathAltitude(0.002)
+      .pathStroke(0.45)
+      .pathAltitude(0.001)
+      .pathsData(graticule)
       .width(containerEl.offsetWidth)
       .height(containerEl.offsetHeight);
 
@@ -584,19 +585,23 @@ document.addEventListener("DOMContentLoaded", function () {
   function applyTheme(theme) {
     if (!globe) return;
     t = themeColors(theme);
-    globe
-      .globeImageUrl(solidTexture(t.surface))
-      .backgroundColor(t.background)
-      .atmosphereColor(t.atmosphere)
-      .pointColor(function() { return t.point; })
-      .arcColor(function() { return t.arc; })
-      .pathColor(function() { return t.grid; });
-
-    if (landFeatures) {
+    try {
       globe
-        .polygonCapColor(function() { return t.landFill; })
-        .polygonSideColor(function() { return 'rgba(0,0,0,0)'; })
-        .polygonStrokeColor(function() { return t.landStroke; });
+        .globeImageUrl(solidTexture(t.surface))
+        .backgroundColor(t.background)
+        .atmosphereColor(t.atmosphere)
+        .pointColor(function() { return t.point; })
+        .arcColor(function() { return t.arc; })
+        .pathColor(function() { return t.grid; });
+
+      if (landFeatures) {
+        globe
+          .polygonCapColor(function() { return t.landFill; })
+          .polygonSideColor(function() { return 'rgba(0,0,0,0)'; })
+          .polygonStrokeColor(function() { return t.landStroke; });
+      }
+    } catch (err) {
+      console.warn('Travel globe theme update failed', err);
     }
   }
 
@@ -611,7 +616,8 @@ document.addEventListener("DOMContentLoaded", function () {
           .polygonCapColor(function() { return t.landFill; })
           .polygonSideColor(function() { return 'rgba(0,0,0,0)'; })
           .polygonStrokeColor(function() { return t.landStroke; })
-          .polygonAltitude(0.004)
+          .polygonAltitude(0.006)
+          .polygonStrokeWidth(0.4)
           .polygonsTransitionDuration(0);
       })
       .catch(function(err) {
