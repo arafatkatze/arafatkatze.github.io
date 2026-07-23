@@ -2,8 +2,8 @@
    The Reading Map — a galaxy of highlights
    ============================================================ */
 :root {
-  --bg: #0f1320;
-  --bg-2: #141a2b;
+  --bg: #0a0a12;
+  --bg-2: #17203c;
   --ink: #eef2ff;
   --ink-soft: #b7c0dc;
   --ink-faint: #7e88a8;
@@ -18,8 +18,8 @@
   --sans: "Inter", system-ui, sans-serif;
 }
 body[data-theme="day"] {
-  --bg: #f6f0e2;
-  --bg-2: #efe6d3;
+  --bg: #ece0c8;
+  --bg-2: #f8f2e6;
   --ink: #23201a;
   --ink-soft: #4a4438;
   --ink-faint: #8a8271;
@@ -34,11 +34,12 @@ body[data-theme="day"] {
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; overflow: hidden; }
 body {
-  background: var(--bg);
+  /* two-tone backdrop: a lit corner fading into a deep opposite corner */
+  background: linear-gradient(155deg, var(--bg-2) 0%, var(--bg) 62%);
   color: var(--ink);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
-  transition: background 0.5s ease, color 0.5s ease;
+  transition: color 0.5s ease;
   overscroll-behavior: none;
 }
 
