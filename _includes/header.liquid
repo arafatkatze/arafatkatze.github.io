@@ -21,13 +21,13 @@
         <div class="pill-nav-row">
           <div class="pill-nav-wrapper">
             {% for page_item in site.pages %}
-              {% if page_item.permalink == '/' %}
+              {% if page_item.permalink == '/about/' %}
                 {% assign about_title = page_item.title %}
               {% endif %}
             {% endfor %}
 
-            <!-- About / Home -->
-            <a class="pill-nav-link {% if page.permalink == '/' %}active{% endif %}" href="{{ '/' | relative_url }}">
+            <!-- About -->
+            <a class="pill-nav-link {% if page.permalink == '/about/' %}active{% endif %}" href="{{ '/about/' | relative_url }}">
               {{- about_title -}}
             </a>
 

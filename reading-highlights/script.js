@@ -102,6 +102,12 @@
     buildBookSelect();
     bindEvents();
     apply();
+
+    // deep link: /reading-highlights/#flashcards opens flashcards directly
+    if (location.hash === "#flashcards") openFlash();
+    window.addEventListener("hashchange", () => {
+      if (location.hash === "#flashcards" && $("flash").hidden) openFlash();
+    });
   }
 
   // ------- Category chips (sorted by highlight count desc) -------
@@ -437,7 +443,10 @@
   function showFlash() {
     const hid = flashHist[flashPos];
     const h = DATA.highlights[hid];
+    const b = DATA.books[h[1]];
+    const author = DATA.authors[b[1]] || "";
     $("flashText").textContent = h[0];
+    $("flashBook").textContent = b[0] + (author ? " — " + author : "");
     $("flashPos").textContent = Math.min(flashPos + 1, flashPool.length);
   }
   function flashStep(dir) {
