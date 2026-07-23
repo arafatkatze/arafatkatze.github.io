@@ -3,8 +3,8 @@ const ninja = document.querySelector('ninja-keys');
 
 // add the home and posts menu items
 ninja.data = [{
-    id: "nav-about",
-    title: "About",
+    id: "nav-",
+    title: "",
     section: "Navigation",
     handler: () => {
       window.location.href = "/";
@@ -345,6 +345,11 @@ ninja.data = [{
           description: "A hand-built library of every reading highlight worth keeping — 13,000+ passages from ~2,000 books and essays. Search it, filter by book or category, spin a random passage, or study it all in a shuffled flashcards mode. A slow, beautiful way to wander through years of marginalia.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/readingHighlights/";
+            },},{id: "projects-the-reading-map",
+          title: 'The Reading Map',
+          description: "An interactive galaxy of 10,000+ reading highlights, placed by meaning (sentence embeddings → UMAP) and clustered into themes like love, money, fear, and writing. Hover a point to read the quote and where it&#39;s from; zoom, pan, and isolate a theme. Fast, self-contained, and mobile-friendly — with a banner back to the full quotes list and flashcards.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/readingMap/";
             },},{id: "projects-scroll-inside-effect",
           title: 'Scroll-Inside Effect',
           description: "A cross-device homage to the html review 04 &quot;scroll to fly through&quot; 3D tunnel — rebuilt to run on phones too.",

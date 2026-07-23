@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The Reading Map — a galaxy of highlights</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="description" content="An interactive map of thousands of reading highlights, laid out by meaning and clustered into themes — hover to read, zoom to explore." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="night">
+  <!-- ====================== BANNER ====================== -->
+  <header class="banner" id="banner">
+    <div class="banner-left">
+      <span class="banner-kicker">The Reading Room</span>
+      <h1 class="banner-title">The Reading Map</h1>
+      <p class="banner-sub"><span id="countLabel">…</span> highlights, placed by meaning &amp; clustered into themes.</p>
+    </div>
+    <div class="banner-actions">
+      <span class="banner-hint">Prefer to read?</span>
+      <a class="pill" href="/reading-highlights/">📖 Browse all quotes</a>
+      <a class="pill" href="/reading-highlights/#flashcards">▤ Flashcards</a>
+      <button class="pill pill-icon" id="themeToggle" title="Toggle light / dark" aria-label="Toggle theme">☀</button>
+    </div>
+  </header>
+
+  <!-- ====================== MAP ====================== -->
+  <main class="stage" id="stage">
+    <canvas id="map"></canvas>
+
+    <!-- loading -->
+    <div class="loading" id="loading">
+      <div class="loading-orbit"><span></span><span></span><span></span></div>
+      <p>charting the constellations…</p>
+    </div>
+
+    <!-- hover / tap tooltip -->
+    <figure class="tip" id="tip" hidden>
+      <blockquote class="tip-quote" id="tipQuote"></blockquote>
+      <figcaption class="tip-meta">
+        <span class="tip-book" id="tipBook"></span>
+        <span class="tip-byline"><span id="tipAuthor"></span><span class="tip-theme" id="tipTheme"></span></span>
+      </figcaption>
+    </figure>
+
+    <!-- legend -->
+    <aside class="legend" id="legend" aria-label="Theme legend">
+      <div class="legend-head">
+        <span>Themes</span>
+        <button class="legend-toggle" id="legendToggle" aria-label="Collapse legend">–</button>
+      </div>
+      <div class="legend-body" id="legendBody"></div>
+    </aside>
+
+    <!-- controls -->
+    <div class="controls">
+      <button class="ctl" id="zoomIn" aria-label="Zoom in">+</button>
+      <button class="ctl" id="zoomOut" aria-label="Zoom out">−</button>
+      <button class="ctl ctl-reset" id="reset" aria-label="Reset view" title="Reset view">⤢</button>
+    </div>
+
+    <div class="stage-hint" id="stageHint">drag to pan · scroll to zoom · hover a point to read</div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
