@@ -2,7 +2,7 @@
 """Generate compact JSON for the reading-highlights library from the Readwise CSV export.
 
 Usage:
-    # from inside the reading-highlights/ folder, just run:
+    # from inside the reading-quotes/ folder, just run:
     python3 generate_highlights_data.py
 
     # or pass explicit paths:
