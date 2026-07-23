@@ -85,8 +85,8 @@
   function fitView() {
     const b = dataBounds();
     const spanX = Math.max(1, b.maxX - b.minX), spanY = Math.max(1, b.maxY - b.minY);
-    const pad = 70;
-    fitScale = Math.min((W - pad * 2) / spanX, (H - pad * 2 - 60) / spanY);
+    const pad = 46;
+    fitScale = Math.min((W - pad * 2) / spanX, (H - pad * 2 - 70) / spanY);
     scale = fitScale;
     const cx = (b.minX + b.maxX) / 2, cy = (b.minY + b.maxY) / 2;
     tx = W / 2 - cx * scale;
@@ -147,9 +147,10 @@
       p.arc(sx, sy, r, 0, 6.2832);
     }
     const eff = focusCluster >= 0 ? focusCluster : focusPreview;
+    const baseAlpha = document.body.dataset.theme === "day" ? 0.9 : 0.82;
     for (let k = 0; k < paths.length; k++) {
       const dim = eff >= 0 && eff !== k;
-      ctx.globalAlpha = dim ? 0.06 : 0.82;
+      ctx.globalAlpha = dim ? 0.06 : baseAlpha;
       ctx.fillStyle = colorOf[k];
       ctx.fill(paths[k]);
     }
@@ -165,16 +166,30 @@
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     const night = document.body.dataset.theme !== "day";
-    for (let k = 0; k < MAP.clusters.length; k++) {
+    // biggest themes first; skip labels that would collide with a placed one,
+    // so the view stays legible and more labels reveal themselves on zoom-in.
+    const order = MAP.clusters.map((c, k) => k).sort((a, b) => MAP.clusters[b].count - MAP.clusters[a].count);
+    const placed = [];
+    for (const k of order) {
       if (eff >= 0 && eff !== k) continue;
       const cl = MAP.clusters[k];
       const sx = cl.cx * scale + tx, sy = cl.cy * scale + ty;
       if (sx < -60 || sx > W + 60 || sy < -30 || sy > H + 30) continue;
-      const size = Math.max(12, Math.min(20, 12 + Math.log2(cl.count) - 6 + (scale / fitScale - 1) * 2));
+      const size = Math.max(13, Math.min(22, 13 + Math.log2(cl.count) - 6 + (scale / fitScale - 1) * 2.2));
       ctx.font = `600 ${size}px "Fraunces", Georgia, serif`;
       const txt = labelOf[k];
+      const w = ctx.measureText(txt).width + 12, h = size + 8;
+      const box = { x: sx - w / 2, y: sy - h / 2, w, h };
+      let clash = false;
+      if (eff < 0) {
+        for (const p of placed) {
+          if (box.x < p.x + p.w && box.x + box.w > p.x && box.y < p.y + p.h && box.y + box.h > p.y) { clash = true; break; }
+        }
+      }
+      if (clash) continue;
+      placed.push(box);
       ctx.lineWidth = 3.5;
-      ctx.strokeStyle = night ? "rgba(8,10,18,0.85)" : "rgba(246,240,226,0.9)";
+      ctx.strokeStyle = night ? "rgba(8,10,18,0.9)" : "rgba(246,240,226,0.92)";
       ctx.strokeText(txt, sx, sy);
       ctx.fillStyle = colorOf[k];
       ctx.fillText(txt, sx, sy);
