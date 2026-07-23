@@ -5,7 +5,7 @@ description: A hand-built library of every reading highlight worth keeping — 1
 img: assets/img/reading_room.webp
 importance: 1
 category: art
-redirect: /reading-highlights/
+redirect: /reading-quotes/
 ---
 
 A self-contained reading library built from years of Readwise highlights.
@@ -16,4 +16,4 @@ category or by book, toggle favourites, search full text, spin up a random
 passage, or drop into a shuffled **flashcards mode** to study the highlights
 one card at a time.
 
-Open the live library: [/reading-highlights/](/reading-highlights/)
+Open the live library: [/reading-quotes/](/reading-quotes/)
