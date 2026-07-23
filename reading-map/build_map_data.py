@@ -23,7 +23,8 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__))
 HL = os.path.join(HERE, "..", "reading-highlights", "highlights.json")
 OUT = os.path.join(HERE, "map.json")
-K = int(os.environ.get("MAP_K", "15"))
+K = int(os.environ.get("MAP_K", "7"))
+EXPAND = float(os.environ.get("MAP_EXPAND", "1.9"))  # push clusters apart
 
 # Warm, distinct categorical palette (looks vivid on a dark background).
 PALETTE = [
@@ -86,13 +87,34 @@ def layout(emb):
     print("UMAP -> 2D ...", flush=True)
     reducer = umap.UMAP(n_neighbors=25, min_dist=0.25, metric="cosine",
                         random_state=42, n_components=2)
-    xy = reducer.fit_transform(emb)
-    # normalize to [0, 1000] preserving aspect
+    return reducer.fit_transform(emb).astype(np.float32)
+
+
+def expand_clusters(xy, labels, k, factor):
+    """Push whole clusters away from the global centroid to open gaps between
+    themes, while preserving each cluster's internal shape."""
+    g = xy.mean(0)
+    out = xy.copy()
+    for c in range(k):
+        idx = np.where(labels == c)[0]
+        if len(idx) == 0:
+            continue
+        cen = xy[idx].mean(0)
+        out[idx] = xy[idx] + (cen - g) * (factor - 1.0)
+    return out
+
+
+def normalize(xy):
     xy = xy - xy.min(0)
     span = xy.max(0)
     scale = 1000.0 / max(span[0], span[1])
-    xy = xy * scale
-    return xy.astype(np.float32)
+    return (xy * scale).astype(np.float32)
+
+
+def one_word(w):
+    """Reduce a term to a single clean capitalized word (drop hyphen/space tails)."""
+    w = re.split(r"[^a-zA-Z]", w, 1)[0]
+    return w[:1].upper() + w[1:].lower() if w else w
 
 
 def cluster(emb, k):
@@ -113,24 +135,45 @@ def label_clusters(texts, labels, cats, k):
             docs[c][w] += 1
             dfreq[w] += 1
     total = len(texts)
-    names = []
+    top_terms, top_scores, doms = [], [], []
     for c in range(k):
         n = max(1, sum(1 for l in labels if l == c))
         scores = {}
         for w, cnt in docs[c].items():
-            if cnt < 3:
+            if cnt < 3 or len(w) < 3:
                 continue
             inside = cnt / n
             outside = (dfreq[w] - cnt) / max(1, total - n)
             scores[w] = inside / (outside + 0.02)
-        top = sorted(scores.items(), key=lambda kv: -kv[1])[:3]
-        terms = [w for w, _ in top]
-        # dominant existing category for this cluster
+        srt = sorted(scores.items(), key=lambda kv: -kv[1])
+        top_terms.append([w for w, _ in srt[:6]])
+        top_scores.append(srt[0][1] if srt else 0)
         cc = Counter(cat for cat, l in zip(cats, labels) if l == c).most_common(1)
-        dom = cc[0][0] if cc else ""
-        label = " · ".join(terms[:2]) if terms else dom
-        names.append({"terms": terms, "category": dom, "label": label})
-    return names
+        doms.append(cc[0][0] if cc else "")
+
+    # the least-distinctive cluster becomes the "Random" catch-all
+    import numpy as _np
+    random_c = int(_np.argmin(top_scores))
+
+    used = set()
+    label_by_c = {}
+    # assign the strongest clusters first so they claim their best word
+    for c in sorted(range(k), key=lambda c: -top_scores[c]):
+        if c == random_c:
+            label_by_c[c] = "Random"
+            continue
+        bad = {"random", "other", "others", "thing", "things", "stuff", "etc",
+               "kind", "sort", "someone", "everyone", "everything"}
+        chosen = None
+        for w in top_terms[c]:
+            ww = one_word(w)
+            if len(ww) >= 3 and ww.lower() not in used and ww.lower() not in bad:
+                chosen = ww; used.add(ww.lower()); break
+        if not chosen:
+            chosen = "Theme"
+        label_by_c[c] = chosen
+
+    return [{"terms": top_terms[c], "category": doms[c], "label": label_by_c[c]} for c in range(k)]
 
 
 def main():
@@ -138,8 +181,10 @@ def main():
     n = len(texts)
     print(f"{n} highlights", flush=True)
     emb, method = embed(texts)
-    xy = layout(emb)
     labels = cluster(emb, K)
+    xy = layout(emb)
+    xy = expand_clusters(xy, labels, K, EXPAND)
+    xy = normalize(xy)
     names = label_clusters(texts, labels, cats, K)
 
     clusters = []
