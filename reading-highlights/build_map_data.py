@@ -21,7 +21,7 @@ import sys
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-HL = os.path.join(HERE, "..", "reading-highlights", "highlights.json")
+HL = os.path.join(HERE, "..", "reading-quotes", "highlights.json")
 OUT = os.path.join(HERE, "map.json")
 K = int(os.environ.get("MAP_K", "7"))
 EXPAND = float(os.environ.get("MAP_EXPAND", "1.9"))  # push clusters apart
