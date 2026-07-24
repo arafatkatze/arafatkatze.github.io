@@ -11,7 +11,7 @@ plus its data.
 3. Regenerate the data payload:
 
    ```sh
-   cd reading-highlights
+   cd reading-quotes
    python3 generate_highlights_data.py
    ```
 

@@ -5,7 +5,7 @@ description: An interactive galaxy of 10,000+ reading highlights, placed by mean
 img: assets/img/reading_map.webp
 importance: 1
 category: art
-redirect: /reading-map/
+redirect: /reading-highlights/
 ---
 
 A fast, self-contained embedding map of years of reading highlights.
@@ -17,6 +17,6 @@ almost instantly, then renders on a plain Canvas — hover (or tap) any point to
 read the quote and the book it came from, zoom and pan the galaxy, or click a
 theme to isolate it.
 
-A banner links back to [the full, searchable quotes list and flashcards](/reading-highlights/).
+A banner links back to [the full, searchable quotes list and flashcards](/reading-quotes/).
 
-Open the live map: [/reading-map/](/reading-map/)
+Open the live map: [/reading-highlights/](/reading-highlights/)
