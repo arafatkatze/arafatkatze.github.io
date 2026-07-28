@@ -48,3 +48,16 @@ Site is then accessible at `http://localhost:8080/`.
 
 - The `_config.yml` must exclude `sdk-wip-main/` to prevent Jekyll from scanning node_modules (causes `InvalidYAMLFrontMatterError` on `.astro` files).
 - `bundle install` uses `vendor/bundle` path (configured via `.bundle/config`). The `vendor` directory is already excluded from Jekyll builds.
+
+### Computer use / visual QA (resource hygiene)
+
+Several interactive pages (`fab2-replica/`, travel globe, scroll replicas) keep a GPU/compositor hot while Chrome is open. Past agents exhausted CPU/GPU by stacking `computerUse` sessions with headless Chrome/Puppeteer against those pages.
+
+Rules for agents working in this repo:
+
+- Prefer screenshots via one `computerUse` session (or a single headed browser) over launching many short `computerUse` Tasks.
+- Do **not** invent a prep → “Screen recording is active” → retake protocol across separate `computerUse` children. Those children do **not** share a live Chrome window or recorder; saying “recording is still active” in the next Task prompt is false and causes Chrome pile-ups.
+- Cap visual QA: at most a couple of `computerUse` passes per iteration (one desktop, one mobile if needed). Do not retake demos in a loop for polish unless the user asked for a walkthrough video.
+- Never stack `computerUse` with extra `google-chrome --headless` / Puppeteer launches against the same page. If the GUI browser is already open, reuse it or kill leftovers (`pkill`) before starting another.
+- Always close DevTools and quit leftover Chrome when a visual check finishes. GPU-heavy pages + orphan Chromium processes is what produces `ERR_INSUFFICIENT_RESOURCES` and high host CPU/memory.
+- If you only need DOM/layout confirmation, prefer `curl`/static checks or one screenshot — not a recorded walkthrough.

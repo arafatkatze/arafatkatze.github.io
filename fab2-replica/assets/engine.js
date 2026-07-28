@@ -279,6 +279,7 @@
       toStop: k
     };
     mode = "fly";
+    kick();
   }
 
   function arrive(k) {
@@ -292,57 +293,75 @@
 
   /* --------------------------------------------------------- main loop */
 
+  // Only schedule frames while the camera is moving. Leaving a perpetual
+  // requestAnimationFrame running (even at a parked stop) pegs a core and
+  // makes Chrome + computer-use demos look like a memory leak.
   var rafId = null;
 
+  function kick() {
+    if (document.hidden) return;
+    if (rafId === null) rafId = requestAnimationFrame(frame);
+  }
+
   function frame(now) {
-    rafId = requestAnimationFrame(frame);
+    var busy = false;
 
     if (mode === "fly" && flight) {
       var t = flight.dur ? clamp01((now - flight.t0) / flight.dur) : 1;
       render(flight.leg.eval(flight.leg.S * t));
       if (t >= 1) arrive(flight.toStop);
-      return;
-    }
-
-    if ((padPan.x || padPan.y) && mode !== "fly" && enterFree()) {
-      // held pan-puck arrow: drift in screen direction, rotated by roll
-      touch();
-      var step = freeCam.w * 0.012;
-      var prad = freeCam.r * Math.PI / 180;
-      var pcos = Math.cos(prad);
-      var psin = Math.sin(prad);
-      freeCam.cx += (padPan.x * pcos - padPan.y * psin) * step;
-      freeCam.cy += (padPan.x * psin + padPan.y * pcos) * step;
-    }
-
-    if (mode === "free" && freeCam) {
-      if (levelRoll) {
-        freeCam.r += (0 - freeCam.r) * 0.12;
-        if (Math.abs(freeCam.r) < 0.05) { freeCam.r = 0; levelRoll = false; }
+      else busy = true;
+    } else {
+      if ((padPan.x || padPan.y) && mode !== "fly" && enterFree()) {
+        // held pan-puck arrow: drift in screen direction, rotated by roll
+        touch();
+        var step = freeCam.w * 0.012;
+        var prad = freeCam.r * Math.PI / 180;
+        var pcos = Math.cos(prad);
+        var psin = Math.sin(prad);
+        freeCam.cx += (padPan.x * pcos - padPan.y * psin) * step;
+        freeCam.cy += (padPan.x * psin + padPan.y * pcos) * step;
+        busy = true;
       }
-      render(freeCam);
-      return;
+
+      if (mode === "free" && freeCam) {
+        if (levelRoll) {
+          freeCam.r += (0 - freeCam.r) * 0.12;
+          if (Math.abs(freeCam.r) < 0.05) { freeCam.r = 0; levelRoll = false; }
+          else busy = true;
+        }
+        render(freeCam);
+      } else {
+        // tour: chase the scrub target, then magnet onto a stop. The magnet is
+        // DIRECTIONAL: once you have lifted off a stop, it carries you on to
+        // the next one instead of snapping back — one wheel burst, one leg.
+        if (now - lastScrub > 260) {
+          var k = magnetStop();
+          sTarget += (cum[k] - sTarget) * 0.075;
+          if (Math.abs(cum[k] - sTarget) < 0.002) { sTarget = cum[k]; scrubDir = 0; }
+          else busy = true;
+        } else {
+          busy = true;
+        }
+        var prevS = s;
+        s += (sTarget - s) * (reducedMotion ? 1 : 0.11);
+        if (Math.abs(sTarget - s) < 0.002) s = sTarget;
+        else busy = true;
+        if (s !== prevS || busy) render(evalPath(s));
+        markStop(nearestStopS(s));
+      }
     }
 
-    // tour: chase the scrub target, then magnet onto a stop. The magnet is
-    // DIRECTIONAL: once you have lifted off a stop, it carries you on to
-    // the next one instead of snapping back — one wheel burst, one leg.
-    if (now - lastScrub > 260) {
-      var k = magnetStop();
-      sTarget += (cum[k] - sTarget) * 0.075;
-      if (Math.abs(cum[k] - sTarget) < 0.002) { sTarget = cum[k]; scrubDir = 0; }
-    }
-    s += (sTarget - s) * (reducedMotion ? 1 : 0.11);
-    render(evalPath(s));
-    markStop(nearestStopS(s));
+    if (busy) rafId = requestAnimationFrame(frame);
+    else rafId = null;
   }
 
   document.addEventListener("visibilitychange", function () {
     if (document.hidden) {
       if (rafId !== null) cancelAnimationFrame(rafId);
       rafId = null;
-    } else if (rafId === null) {
-      rafId = requestAnimationFrame(frame);
+    } else {
+      kick();
     }
   });
 
@@ -378,6 +397,7 @@
 
   function touch() {
     lastScrub = performance.now();
+    kick();
     if (!interacted) {
       interacted = true;
       setTimeout(function () {
@@ -510,6 +530,7 @@
       padPan.x = dir === "left" ? -1 : dir === "right" ? 1 : 0;
       padPan.y = dir === "up" ? -1 : dir === "down" ? 1 : 0;
       btn.setPointerCapture(e.pointerId);
+      kick();
       e.preventDefault();
     }
     function stop() { padPan.x = 0; padPan.y = 0; }
@@ -702,6 +723,7 @@
       } else {
         arrive(k);
       }
+      kick();
     }, 120);
   });
 
@@ -714,6 +736,6 @@
   cam = { cx: 5150, cy: 4950, w: Math.min(8200, W_MAX), r: 0 };
   render(cam);
   markStop(0);
-  rafId = requestAnimationFrame(frame);
+  kick();
   setTimeout(function () { flyToStop(0); }, reducedMotion ? 0 : 450);
 })();
