@@ -9,9 +9,9 @@ nav_order: 1
 <p> I love to read and my favorite author is Simone Weil, I will happily buy you a dinner if you want to talk about her books. </p>
 
 <p class="reading-room-cta">
-  Want to wander through everything I've ever underlined? Step into
-  <a href="{{ '/reading-quotes/' | relative_url }}"><strong>The Reading Room</strong></a>
-  — 13,000+ highlights from ~2,000 books you can search, filter, shuffle at random, or study as flashcards.
+  Want to wander through everything I've ever underlined? Explore
+  <a href="{{ '/reading-highlights/' | relative_url }}"><strong>The Reading Map</strong></a>.
+  It places 13,000+ highlights from nearly 2,000 books into an interactive map organized by meaning.
 </p>
 
 <style>

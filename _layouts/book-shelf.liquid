@@ -1,53 +1,109 @@
 ---
 layout: page
 ---
-{{ content }}
+<link rel="stylesheet" href="{{ '/assets/css/bookshelf.css' | relative_url | bust_file_cache }}">
 
-{% if page.collection and page.collection.size > 0 %}
-  {% assign collection = site[page.collection] %}
-  {% if collection and collection.size > 0 %}
-    {% for item in collection reversed %}
-      {% assign current_year = item.date | date: '%Y' %}
-      {% if current_year != year %}
-        {% unless forloop.first %}
-          </ul>
-        {% endunless %}
-        <h1 id="y{{item.date | date: "%Y"}}">
-          <a href="{{ current_year | prepend: '/books/' | relative_url }}">{{ current_year }}</a>
-        </h1>
-        <ul>
-          {% assign year = current_year %}
-      {% endif %}
+{% assign collection = site[page.collection] %}
+<section class="bookshelf-page" data-bookshelf>
+  <header class="bookshelf-intro">
+    <p class="bookshelf-kicker">Ara's library · {{ collection.size }} volumes</p>
+    <h1>Bookshelf</h1>
+    <div class="bookshelf-copy">{{ content }}</div>
+  </header>
 
-      <figure class="cover">
-        <a class="cover-link" href="{{ item.url | relative_url }}">
+  <div
+    class="bookshelf-experience"
+    role="region"
+    aria-label="Interactive three-dimensional bookshelf"
+    data-shelf-viewport
+  >
+    <div class="bookshelf-toolbar">
+      <p data-shelf-status aria-live="polite">Drag or scroll the shelf. Choose a book to pick it up.</p>
+      <div class="bookshelf-actions" aria-label="Bookshelf controls">
+        <button type="button" data-shelf-previous aria-label="Previous book">←</button>
+        <button type="button" data-shelf-next aria-label="Next book">→</button>
+      </div>
+    </div>
+
+    <div class="bookshelf-scene">
+      <div class="bookshelf-track" data-shelf-track>
+        {% for item in collection reversed %}
+          {% assign tone_index = forloop.index0 | modulo: 7 %}
+          {% assign height_index = forloop.index0 | modulo: 5 %}
+          {% assign width_index = forloop.index0 | modulo: 4 %}
           {% if item.cover %}
             {% if item.cover contains '://' %}
-            <img alt="{{ item.title }} cover" src="{{ item.cover }}" style="height:200px">
+              {% assign cover_url = item.cover %}
             {% else %}
-            <img alt="{{ item.title }} cover" src="{{ item.cover | prepend: page.covers | relative_url }}" style="height:200px">
+              {% assign cover_url = item.cover | relative_url %}
             {% endif %}
           {% elsif item.olid %}
-            <img alt="{{ item.title }} cover" src="http://covers.openlibrary.org/b/olid/{{ item.olid }}-L.jpg?default=false" style="height:200px">
+            {% capture cover_url %}https://covers.openlibrary.org/b/olid/{{ item.olid }}-L.jpg?default=false{% endcapture %}
           {% elsif item.isbn %}
-            <img alt="{{ item.title }} cover" src="http://covers.openlibrary.org/b/isbn/{{ item.isbn }}-L.jpg?default=false" style="height:200px">
+            {% capture cover_url %}https://covers.openlibrary.org/b/isbn/{{ item.isbn }}-L.jpg?default=false{% endcapture %}
           {% endif %}
-          {% if item.status %}
-            {% assign statuses = 'abandoned,finished,interested,paused,queued,reading,reread' | split: ',' %}
-            {% assign status = item.status | downcase | strip %}
-            {% if statuses contains status %}
-              <figcaption class="{{ status | downcase }}">{{ status | upcase }}</figcaption>
-            {% else %}
-              <figcaption class="uncategorized">UNCATEGORIZED</figcaption>
-            {% endif %}
-          {% else %}
-            <figcaption class="uncategorized">UNCATEGORIZED</figcaption>
-          {% endif %}
-        </a>
-      </figure>
-      {% if forloop.last %}
-        </ul>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-{% endif %}
+          <button
+            class="shelf-book tone-{{ tone_index }} height-{{ height_index }} width-{{ width_index }}"
+            type="button"
+            data-shelf-book
+            data-title="{{ item.title | escape }}"
+            data-author="{{ item.author | escape }}"
+            data-cover="{{ cover_url }}"
+            data-status="{{ item.status | default: 'Read' | escape }}"
+            data-link="{{ item.buy_link | default: item.url | relative_url }}"
+            aria-label="Pick up {{ item.title }} by {{ item.author }}"
+          >
+            <span class="shelf-book__face shelf-book__spine">
+              <span class="shelf-book__title">{{ item.title }}</span>
+              <span class="shelf-book__author">{{ item.author }}</span>
+            </span>
+            <span class="shelf-book__face shelf-book__front">
+              <img src="{{ cover_url }}" alt="" loading="lazy">
+            </span>
+            <span class="shelf-book__face shelf-book__back"></span>
+            <span class="shelf-book__face shelf-book__pages"></span>
+            <span class="shelf-book__face shelf-book__top"></span>
+          </button>
+        {% endfor %}
+      </div>
+      <div class="bookshelf-plank" aria-hidden="true"></div>
+      <div class="bookshelf-shadow" aria-hidden="true"></div>
+    </div>
+
+    <nav class="bookshelf-index" aria-label="Jump to a book">
+      {% for item in collection reversed %}
+        <button type="button" data-shelf-jump="{{ forloop.index0 }}" aria-label="Show {{ item.title }}">
+          <span></span>
+        </button>
+      {% endfor %}
+    </nav>
+  </div>
+
+  <dialog class="book-inspector" data-book-inspector aria-labelledby="inspector-title">
+    <button class="book-inspector__close" type="button" data-inspector-close aria-label="Return book to shelf">×</button>
+    <div class="book-inspector__stage" data-inspector-stage>
+      <div class="inspect-book" data-inspect-book>
+        <div class="inspect-book__front"><img data-inspector-cover alt=""></div>
+        <div class="inspect-book__back"></div>
+        <div class="inspect-book__spine"></div>
+        <div class="inspect-book__pages"></div>
+        <div class="inspect-book__top"></div>
+        <div class="inspect-book__bottom"></div>
+      </div>
+    </div>
+    <div class="book-inspector__details">
+      <p class="book-inspector__eyebrow" data-inspector-status></p>
+      <h2 id="inspector-title" data-inspector-title></h2>
+      <p data-inspector-author></p>
+      <p class="book-inspector__hint">Drag to spin · scroll to zoom · double-click to reset</p>
+      <a data-inspector-link target="_blank" rel="noreferrer">View on Goodreads ↗</a>
+    </div>
+  </dialog>
+
+  <p class="bookshelf-credit">
+    Interaction inspired by
+    <a href="https://github.com/mintdotgg/mint-playground/tree/main/experiences/complete-shelf">Mint's complete-shelf</a>.
+  </p>
+</section>
+
+<script defer src="{{ '/assets/js/bookshelf.js' | relative_url | bust_file_cache }}"></script>
