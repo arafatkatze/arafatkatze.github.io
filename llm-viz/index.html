@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<!--
+  LLM Visualization — a from-scratch 3D walkthrough of a GPT.
+
+  The model on screen is a real 85,728-parameter GPT trained here on the
+  six-letter sorting task; the forward pass runs in the browser and every cell
+  you see is one of its numbers. Inspired by Brendan Bycroft's llm-viz
+  (bbycroft.net/llm); all code, geometry, prose and weights are original.
+-->
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>LLM Visualization — a GPT you can walk through</title>
+  <meta name="description"
+    content="An interactive 3D visualization of a GPT language model: every parameter, every activation, and a guided walkthrough from tokens to output probabilities." />
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b1019'/%3E%3Crect x='6' y='6' width='8' height='8' fill='%236ea8ff'/%3E%3Crect x='18' y='6' width='8' height='8' fill='%23ffa657'/%3E%3Crect x='6' y='18' width='8' height='8' fill='%23ffa657'/%3E%3Crect x='18' y='18' width='8' height='8' fill='%236ea8ff'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+
+<body>
+  <div id="app">
+    <canvas id="gl"></canvas>
+    <div id="labels" aria-hidden="true"></div>
+
+    <header id="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">LLM Visualization</span>
+      </div>
+      <div id="modeltabs" class="modeltabs" role="tablist" aria-label="Model"></div>
+      <div class="topbar-actions">
+        <button id="btn-labels" class="chip" title="Toggle labels (L)">Labels</button>
+        <button id="btn-reset" class="chip" title="Reset the view (R)">Reset view</button>
+        <button id="btn-help" class="chip" title="Controls and credits">?</button>
+        <a class="chip chip-link" href="/projects/">&larr; projects</a>
+      </div>
+    </header>
+
+    <aside id="toc" aria-label="Table of contents">
+      <div class="toc-head">
+        <span>Walkthrough</span>
+        <button id="toc-collapse" class="icon-btn" title="Hide">&#9664;</button>
+      </div>
+      <div id="toc-list"></div>
+      <div class="toc-foot">
+        <div class="legend">
+          <div class="legend-row"><span class="sw sw-act"></span>activations &mdash; recomputed per input</div>
+          <div class="legend-row"><span class="sw sw-param"></span>parameters &mdash; fixed after training</div>
+          <div class="legend-row"><span class="sw sw-scale"></span>negative &middot; zero &middot; positive</div>
+        </div>
+      </div>
+    </aside>
+    <button id="toc-show" class="icon-btn floating" title="Show walkthrough">&#9776;</button>
+
+    <section id="narrative" aria-live="polite">
+      <div class="nar-head">
+        <div>
+          <div class="nar-kicker" id="nar-kicker">Intro</div>
+          <h2 class="nar-title" id="nar-title">Introduction</h2>
+        </div>
+        <button id="nar-collapse" class="icon-btn" title="Hide">&#9654;</button>
+      </div>
+      <div class="nar-body" id="nar-body"></div>
+      <div class="nar-controls">
+        <button id="btn-prev" class="ctrl" title="Previous (&larr;)">&#9664;&#9664;</button>
+        <button id="btn-play" class="ctrl ctrl-play" title="Play / pause (space)">&#9654;</button>
+        <button id="btn-next" class="ctrl" title="Next (&rarr;)">&#9654;&#9654;</button>
+        <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="beat-count" id="beat-count"></div>
+      </div>
+    </section>
+    <button id="nar-show" class="icon-btn floating right" title="Show walkthrough text">&#9776;</button>
+
+    <div id="promptbar">
+      <div class="prompt-label">Input</div>
+      <div class="prompt-chips" id="prompt-chips"></div>
+      <button id="btn-shuffle" class="chip" title="Random input">shuffle</button>
+      <div class="prompt-arrow">&rarr;</div>
+      <div class="prompt-label">Model output</div>
+      <div class="prompt-answer" id="prompt-answer"></div>
+      <div class="prompt-note" id="prompt-note"></div>
+    </div>
+
+    <div id="modelcard"></div>
+    <div id="hovercard"></div>
+
+    <div id="welcome" class="overlay">
+      <div class="overlay-card">
+        <h1>A GPT, drawn at full resolution</h1>
+        <p>
+          Every square in this scene is a single number inside a working language model &mdash;
+          all 85,728 of its parameters plus every intermediate value it computes. The model
+          really runs: it reads six letters and sorts them, right here in your browser.
+        </p>
+        <div class="overlay-grid">
+          <div><b>Drag</b><span>orbit</span></div>
+          <div><b>Scroll</b><span>zoom</span></div>
+          <div><b>Shift-drag</b><span>pan</span></div>
+          <div><b>Hover</b><span>inspect a cell</span></div>
+          <div><b>Click</b><span>pin a cell</span></div>
+          <div><b>Space</b><span>play / pause</span></div>
+        </div>
+        <div class="overlay-actions">
+          <button id="btn-start" class="primary">Start the walkthrough</button>
+          <button id="btn-explore" class="ghost">Just let me look around</button>
+        </div>
+        <p class="overlay-credit">
+          Inspired by <a href="https://bbycroft.net/llm" target="_blank" rel="noopener noreferrer">Brendan
+            Bycroft's llm-viz</a>. Rebuilt from scratch: original renderer, layout, walkthrough and
+          weights.
+        </p>
+      </div>
+    </div>
+
+    <div id="loading" class="overlay">
+      <div class="loading-inner">
+        <div class="spinner"></div>
+        <div id="loading-text">loading the model&hellip;</div>
+      </div>
+    </div>
+
+    <div id="fatal" class="overlay hidden">
+      <div class="overlay-card">
+        <h1>This needs WebGL2</h1>
+        <p id="fatal-msg">Your browser could not start a WebGL2 context.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/core.js"></script>
+  <script src="assets/model.js"></script>
+  <script src="assets/layout.js"></script>
+  <script src="assets/render.js"></script>
+  <script src="assets/probe.js"></script>
+  <script src="assets/app.js"></script>
+  <script src="assets/walkthrough.js"></script>
+  <script src="assets/main.js"></script>
+</body>
+
+</html>
