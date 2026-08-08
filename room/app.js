@@ -240,7 +240,9 @@ const ceilPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 0);  // set below
 let scanMat = null;
 new PLYLoader().load('./data/scan_mesh.ply', geo => {
   geo.computeVertexNormals();
-  scanMat = new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide });
+  // FrontSide only: wall faces point into the room, so camera-facing walls
+  // vanish automatically and you always look INTO the room, never at its shell
+  scanMat = new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.FrontSide });
   const mesh = new THREE.Mesh(geo, scanMat);
   scanGroup.add(mesh);
   applyCeilingRef.fn($('tCeiling').checked);   // apply current ceiling state
