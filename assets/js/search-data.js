@@ -320,6 +320,11 @@ ninja.data = [{
           description: "How to save millions by self-hosting LLMs — the math of inference and the real dollars, grounded in production traffic.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/inferenceMath/";
+            },},{id: "projects-llm-visualization",
+          title: 'LLM Visualization',
+          description: "A GPT drawn at full resolution — all 85,728 parameters, every activation, and a guided walkthrough from tokens to output probabilities. Runs the model live in your browser.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/llmVisualization/";
             },},{id: "projects-mathematics-of-love",
           title: 'Mathematics of Love',
           description: "",
