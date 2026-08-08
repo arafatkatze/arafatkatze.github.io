@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ara's Room — LiteReality-style 3D Scan</title>
+<meta name="description" content="My bedroom, scanned with an iPhone LiDAR and rebuilt three ways: photoreal fused mesh, graphics-ready dollhouse with photo-projected materials, and the raw point cloud. Inspired by the LiteReality paper.">
+<meta property="og:title" content="Ara's Room — LiteReality-style 3D Scan">
+<meta property="og:description" content="iPhone LiDAR scan → interactive photoreal room. Drag to orbit, fly the scan path.">
+<meta property="og:image" content="https://arafatkatze.com/room/media/dollhouse_a_tex.jpg">
+<meta property="og:url" content="https://arafatkatze.com/room/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg0: #0a0e16;
+    --bg1: #04060a;
+    --ink: #e8ecf4;
+    --ink-dim: #8b94a7;
+    --accent: #6ee7d8;
+    --panel: rgba(13, 17, 27, 0.72);
+    --line: rgba(255, 255, 255, 0.09);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    background: radial-gradient(120% 100% at 50% 20%, var(--bg0) 0%, var(--bg1) 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, "Segoe UI", sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  #app { position: fixed; inset: 0; }
+  canvas { display: block; }
+
+  /* vignette */
+  #vignette {
+    position: fixed; inset: 0; pointer-events: none;
+    background: radial-gradient(90% 90% at 50% 45%, transparent 55%, rgba(0,0,0,0.42) 100%);
+  }
+
+  .panel {
+    position: fixed; top: 20px; left: 20px; z-index: 10;
+    width: 262px;
+    background: var(--panel);
+    backdrop-filter: blur(18px) saturate(1.3);
+    -webkit-backdrop-filter: blur(18px) saturate(1.3);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px 18px 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+  }
+  .panel h1 { font-size: 17px; font-weight: 650; letter-spacing: 0.01em; }
+  .panel .sub {
+    font-size: 11.5px; color: var(--ink-dim); margin-top: 4px; line-height: 1.5;
+  }
+  .panel .sub b { color: var(--accent); font-weight: 600; }
+  .divider { height: 1px; background: var(--line); margin: 13px -18px; }
+
+  .row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 4.5px 0; font-size: 12.5px; color: var(--ink);
+  }
+  .row label { cursor: pointer; user-select: none; display: flex; align-items: center; gap: 8px; }
+
+  /* toggle switch */
+  .tgl { position: relative; width: 30px; height: 17px; appearance: none; -webkit-appearance: none;
+    background: rgba(255,255,255,0.14); border-radius: 20px; cursor: pointer; transition: background .18s; flex: none; }
+  .tgl:checked { background: var(--accent); }
+  .tgl::after { content: ""; position: absolute; top: 2px; left: 2px; width: 13px; height: 13px;
+    border-radius: 50%; background: #fff; transition: transform .18s; }
+  .tgl:checked::after { transform: translateX(13px); }
+
+  .seg { display: flex; background: rgba(255,255,255,0.07); border-radius: 9px; padding: 2.5px; gap: 2px; }
+  .seg button {
+    flex: 1; border: 0; background: transparent; color: var(--ink-dim);
+    font: 600 11px/1 -apple-system, sans-serif; padding: 6px 0; border-radius: 7px; cursor: pointer;
+    transition: all .15s;
+  }
+  .seg button.on { background: rgba(255,255,255,0.14); color: var(--ink); }
+
+  input[type="range"] {
+    -webkit-appearance: none; width: 108px; height: 3px; border-radius: 2px;
+    background: rgba(255,255,255,0.18); outline: 0; cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--ink); box-shadow: 0 1px 4px rgba(0,0,0,.5);
+  }
+
+  #flyBtn {
+    width: 100%; margin-top: 12px; padding: 9px 0;
+    border: 1px solid rgba(110, 231, 216, 0.35); border-radius: 10px;
+    background: rgba(110, 231, 216, 0.10); color: var(--accent);
+    font: 650 12.5px/1 -apple-system, sans-serif; cursor: pointer; transition: all .15s;
+  }
+  #flyBtn:hover { background: rgba(110, 231, 216, 0.2); }
+  #flyBtn.stop { border-color: rgba(255,138,120,.4); background: rgba(255,138,120,.12); color: #ff9c88; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 5px 10px; margin-top: 2px; }
+  .legend span { display: flex; align-items: center; gap: 5px; font-size: 10.5px; color: var(--ink-dim); }
+  .legend i { width: 8px; height: 8px; border-radius: 2.5px; display: inline-block; }
+
+  #hint {
+    position: fixed; bottom: 18px; right: 22px; z-index: 10;
+    font-size: 11px; color: var(--ink-dim); letter-spacing: .02em;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
+    padding: 7px 14px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  }
+  #frameHud {
+    position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 10;
+    font: 600 12px/1 "SF Mono", ui-monospace, monospace; color: var(--accent);
+    background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
+    padding: 8px 16px; display: none; backdrop-filter: blur(12px);
+  }
+
+  #loader {
+    position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 18px;
+    background: radial-gradient(120% 100% at 50% 20%, var(--bg0) 0%, var(--bg1) 100%);
+    transition: opacity .6s;
+  }
+  #loader.done { opacity: 0; pointer-events: none; }
+  #loader .logo { font-size: 20px; font-weight: 700; letter-spacing: .02em; }
+  #loader .logo em { color: var(--accent); font-style: normal; }
+  #loader .bar { width: 220px; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.1); overflow: hidden; }
+  #loader .bar i { display: block; height: 100%; width: 0%; background: var(--accent); border-radius: 2px; transition: width .2s; }
+  #loader .msg { font-size: 11.5px; color: var(--ink-dim); }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="vignette"></div>
+
+<div class="panel">
+  <h1>Ara's Room</h1>
+  <div class="sub" id="stats">LiteReality LiDAR scan</div>
+  <div class="divider"></div>
+  <div class="row"><label><input type="checkbox" class="tgl" id="tScan" checked> Real scan</label></div>
+  <div class="row"><label><input type="checkbox" class="tgl" id="tMesh"> 3D room</label></div>
+  <div class="row"><label><input type="checkbox" class="tgl" id="tPoints"> Point cloud</label>
+    <input type="range" id="ptSize" min="0.6" max="5" step="0.1" value="2.1"></div>
+  <div class="row"><label><input type="checkbox" class="tgl" id="tCeiling"> Ceiling</label></div>
+  <div class="row"><label><input type="checkbox" class="tgl" id="tLayout" checked> Room layout</label></div>
+  <div class="row"><label><input type="checkbox" class="tgl" id="tLabels" checked> Labels</label></div>
+  <div class="row"><label><input type="checkbox" class="tgl" id="tTraj" checked> Camera path</label></div>
+  <div class="divider"></div>
+  <div class="row" style="gap:10px">
+    <span style="font-size:12.5px">Color</span>
+    <div class="seg" style="flex:1">
+      <button id="mRGB" class="on">RGB</button>
+      <button id="mHeight">Height</button>
+      <button id="mX-ray">X-ray</button>
+    </div>
+  </div>
+  <button id="flyBtn">▶&nbsp; Fly through scan</button>
+  <div class="divider"></div>
+  <div class="legend" id="legend"></div>
+</div>
+
+<div id="hint">drag&thinsp;·&thinsp;orbit&emsp;scroll&thinsp;·&thinsp;zoom&emsp;⌥drag&thinsp;·&thinsp;pan</div>
+<div id="credit" style="position:fixed;bottom:18px;left:22px;z-index:10;font-size:11px;color:var(--ink-dim);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 14px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)">
+  scanned on iPhone · pipeline after <a href="https://litereality.github.io/" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">LiteReality</a> · <a href="https://arafatkatze.com" style="color:var(--accent);text-decoration:none">arafatkatze.com</a>
+</div>
+<div id="frameHud">frame 000 / 000</div>
+
+<div id="loader">
+  <div class="logo">Ara's Room <em>· LiteReality scan</em></div>
+  <div class="bar"><i id="loadBar"></i></div>
+  <div class="msg" id="loadMsg">loading point cloud…</div>
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "./lib/three.module.js", "three/addons/controls/OrbitControls.js": "./lib/OrbitControls.js", "three/addons/loaders/GLTFLoader.js": "./lib/GLTFLoader.js", "three/addons/loaders/PLYLoader.js": "./lib/PLYLoader.js" } }
+</script>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
