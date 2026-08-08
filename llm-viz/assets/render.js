@@ -26,6 +26,7 @@ layout(location=5) in vec4 i3;   // color.rgb, dim
 layout(location=6) in vec4 i4;   // highlight A: kind, lo, hi, strength
 layout(location=7) in vec4 i5;   // highlight B
 layout(location=8) in vec4 i6;   // emphasis, hiMode, flags, seed
+layout(location=9) in vec4 i7;   // divider strides: x major, x minor, y major, y minor
 
 uniform mat4 uViewProj;
 uniform vec3 uEye;
@@ -40,6 +41,7 @@ flat out vec4 vI3;
 flat out vec4 vI4;
 flat out vec4 vI5;
 flat out vec4 vI6;
+flat out vec4 vI7;
 
 void main() {
   vec3 world = i0.xyz + aCorner * i1.xyz;
@@ -47,7 +49,7 @@ void main() {
   vLocal = aCorner;
   vNormal = aNormal;
   vWorld = world;
-  vI0 = i0; vI1 = i1; vI2 = i2; vI3 = i3; vI4 = i4; vI5 = i5; vI6 = i6;
+  vI0 = i0; vI1 = i1; vI2 = i2; vI3 = i3; vI4 = i4; vI5 = i5; vI6 = i6; vI7 = i7;
 }`;
 
   var BLOCK_FS = `#version 300 es
@@ -64,6 +66,7 @@ flat in vec4 vI3;
 flat in vec4 vI4;
 flat in vec4 vI5;
 flat in vec4 vI6;
+flat in vec4 vI7;
 
 uniform sampler2D uValues;
 uniform int uTexW;
@@ -89,6 +92,19 @@ vec3 palette(float t) {
   vec3 c = base + (t >= 0.0 ? cPos : cNeg) * a;
   c = mix(c, vec3(1.0, 0.96, 0.9), smoothstep(0.72, 1.0, a) * 0.45);
   return c;
+}
+
+/**
+ * A rule every stride cells, used to show where one logical group of
+ * columns ends and the next begins (Q | K | V, and the heads inside them).
+ * Returns 0 when the boundaries are too close together to mean anything.
+ */
+float divider(float coord, float stride, float fw) {
+  if (stride <= 0.5) return 0.0;
+  float m = mod(coord, stride);
+  float d = min(m, stride - m) / max(fw, 1e-6);
+  float visible = smoothstep(3.0, 9.0, stride / max(fw, 1e-6));
+  return (1.0 - smoothstep(0.0, 1.1, d)) * visible;
 }
 
 float rangeHit(vec4 hi, vec3 cell) {
@@ -163,6 +179,21 @@ void main() {
   float lambert = 0.70 + 0.34 * max(dot(nrm, normalize(vec3(0.30, 0.92, 0.26))), 0.0);
   if (nrm.y < -0.5) lambert *= 0.62;
   col *= lambert;
+
+  // group boundaries: Q|K|V splits and the per-head bands inside them
+  if (vI7.x > 0.5 || vI7.y > 0.5 || vI7.z > 0.5 || vI7.w > 0.5) {
+    float major = 0.0;
+    float minor = 0.0;
+    if (n.y > 0.5) {                       // top/bottom: u is X, v is Z
+      major = divider(uv.x * cnt.x, vI7.x, fw.x);
+      minor = divider(uv.x * cnt.x, vI7.y, fw.x);
+    } else if (n.x <= 0.5) {               // front/back: u is X, v is Y
+      major = max(divider(uv.x * cnt.x, vI7.x, fw.x), divider(uv.y * cnt.y, vI7.z, fw.y));
+      minor = max(divider(uv.x * cnt.x, vI7.y, fw.x), divider(uv.y * cnt.y, vI7.w, fw.y));
+    }
+    col = mix(col, vec3(0.42, 0.52, 0.70), minor * 0.55);
+    col = mix(col, vec3(0.95, 0.86, 0.62), major * 0.85);
+  }
 
   // the block's own outline, tinted with its category colour
   vec2 edge = min(uv, 1.0 - uv) * cnt;
@@ -341,7 +372,7 @@ void main() {
     };
   }
 
-  var FLOATS_PER_BLOCK = 28;
+  var FLOATS_PER_BLOCK = 32;
   var FLOATS_PER_BEAM = 12;
 
   function Renderer(canvas) {
@@ -382,7 +413,7 @@ void main() {
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, cube.idx, gl.STATIC_DRAW);
     this.blockInstBuf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.blockInstBuf);
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 8; i++) {
       var loc = 2 + i;
       gl.enableVertexAttribArray(loc);
       gl.vertexAttribPointer(loc, 4, gl.FLOAT, false, FLOATS_PER_BLOCK * 4, i * 16);
