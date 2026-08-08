@@ -89,6 +89,16 @@
       <div class="prompt-note" id="prompt-note"></div>
     </div>
 
+    <div id="depth" aria-label="Camera controls">
+      <button id="zoom-in" class="zoom-btn" title="Zoom in (+)" aria-label="Zoom in">+</button>
+      <div class="depth-cap">in</div>
+      <div class="depth-track" id="depth-track">
+        <div class="depth-thumb" id="depth-thumb"></div>
+      </div>
+      <div class="depth-cap">out</div>
+      <button id="zoom-out" class="zoom-btn" title="Zoom out (&minus;)" aria-label="Zoom out">&minus;</button>
+    </div>
+
     <div id="modelcard"></div>
     <div id="hovercard"></div>
 
@@ -101,9 +111,9 @@
           really runs: it reads six letters and sorts them, right here in your browser.
         </p>
         <div class="overlay-grid">
+          <div><b>Scroll</b><span>travel down the model</span></div>
           <div><b>Drag</b><span>orbit</span></div>
-          <div><b>Scroll</b><span>zoom</span></div>
-          <div><b>Shift-drag</b><span>pan</span></div>
+          <div><b>+ / &minus;</b><span>zoom</span></div>
           <div><b>Hover</b><span>inspect a cell</span></div>
           <div><b>Click</b><span>pin a cell</span></div>
           <div><b>Space</b><span>play / pause</span></div>
