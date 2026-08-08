@@ -1152,9 +1152,11 @@
         merged.beams.push(bm);
       });
       var counts = LV.paramCount(m);
+      // each label rides the top of its own tower, which spreads them out
+      // vertically by exactly the amount the models differ in size
       merged.label(m.name + "  \u00b7  " + LV.formatCount(counts.total) + " parameters", [
         cursor + w / 2,
-        dy + Math.max(w * 0.4, 40),
+        dy + Math.max(w * 0.35, 30),
         0,
       ], { tier: 0, cls: "big" });
       placements.push({
