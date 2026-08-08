@@ -1,0 +1,298 @@
+/*****************************
+ * CV shared styles
+ *****************************/
+
+.cv-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.25rem 0 1.75rem;
+}
+
+.cv-cta-row > a.cv-pdf-cta {
+  flex: 1 1 280px;
+  margin: 0;
+}
+
+a.cv-pdf-cta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin: 1.25rem 0 1.75rem;
+  padding: 1.1rem 1.5rem;
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0.75rem;
+  background-color: var(--global-card-bg-color, var(--global-bg-color));
+  color: var(--global-text-color) !important;
+  text-decoration: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+a.cv-pdf-cta:hover,
+a.cv-pdf-cta:focus {
+  transform: translateY(-1px);
+  border-color: var(--global-theme-color);
+  color: var(--global-theme-color) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  text-decoration: none !important;
+}
+
+.cv-pdf-cta__icon {
+  font-size: 1.85rem;
+  color: var(--global-theme-color);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cv-pdf-cta__text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  line-height: 1.25;
+}
+
+.cv-pdf-cta__title {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.cv-pdf-cta__subtitle {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  margin-top: 0.15rem;
+}
+
+.cv-pdf-cta__arrow {
+  font-size: 0.95rem;
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+a.cv-pdf-cta:hover .cv-pdf-cta__arrow {
+  opacity: 1;
+}
+
+div.container-link-button {
+  margin-right: 0.5rem;
+}
+
+table.table-cv {
+  background-color: transparent !important;
+
+  td,
+  th {
+    padding: 1px;
+  }
+}
+
+a.btncv {
+  color: var(--global-text-color) !important;
+  border: 1px solid var(--global-text-color) !important;
+  border-radius: 0.125rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.7rem;
+  text-align: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+a.btncv:hover {
+  color: var(--global-theme-color) !important;
+  border-color: var(--global-theme-color) !important;
+  text-decoration: none !important;
+}
+
+/*****************************
+ * CV TIME_TABLE styles
+ *****************************/
+
+p.location {
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+i.iconlocation {
+  color: var(--global-theme-color);
+  font-size: 0.8rem;
+}
+
+i.iconinstitution {
+  color: var(--global-theme-color);
+  font-size: 0.95rem;
+  margin-right: 0.3rem;
+}
+
+i.icondepartment {
+  color: var(--global-theme-color);
+  font-size: 0.8rem;
+  margin-right: 0.3rem;
+}
+
+table.institution {
+  margin-bottom: 1rem;
+}
+
+td.department {
+  font-size: 0.8rem;
+}
+
+div.container-links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/*****************************
+ * CV MAP styles
+ *****************************/
+
+div.container-pdf {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/*****************************
+ * CV LIST_GROUPS styles
+ *****************************/
+
+div.list-groups {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  flex-direction: row;
+  align-content: center;
+}
+
+div.list-group {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+td.list-group-category {
+  color: var(--global-theme-color);
+  margin-bottom: 0.5rem;
+}
+
+td.list-group-category-icon {
+  font-size: 0.8rem;
+  color: var(--global-theme-color);
+  width: 1.4rem;
+  padding-right: 0.4rem;
+}
+
+td.list-group-name {
+  font-size: 0.8rem;
+}
+
+td.list-group-level {
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
+}
+
+td.list-group-school {
+  font-size: 0.7rem;
+  padding-left: 0.5rem;
+  text-align: center;
+}
+
+p.list-group-time {
+  font-size: 0.7rem;
+  padding-left: 0.5rem;
+}
+
+td.list-group-link {
+  padding-left: 0.5rem;
+}
+
+/*****************************
+ * CV TOC styles
+ *****************************/
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -50px;
+  visibility: hidden;
+}
+
+ul.timeline {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+ul.timeline li {
+  position: relative;
+  min-height: 2.2rem;
+  color: var(--global-text-color);
+  list-style-position: inside;
+}
+
+span.badge-toc {
+  color: var(--global-bg-color);
+  background-color: var(--global-theme-color);
+  border-radius: 0.125rem;
+  padding: 0.125rem 0.5rem 0.125rem 0.5rem;
+  font-weight: 700 !important;
+  display: inline-block;
+  inline-size: fit-content;
+}
+
+ul.timeline li::before {
+  content: "";
+  min-height: 2.5rem;
+  width: 1px;
+  background: var(--global-text-color);
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 2px;
+  top: -0.5rem;
+}
+
+/*ul.timeline::before {
+     content: "●";
+     font-size: 1em;
+     display: inline-block;
+     margin: 0;
+     padding: 0;
+     position: relative;
+     left: -2px;
+     top: 0.4rem;
+     color: var(--global-text-color);
+}
+ ul.timeline::after {
+     content: "●";
+     font-size: 1em;
+     display: inline-block;
+     margin: 0;
+     padding: 0;
+     position: relative;
+     left: -2px;
+     top: -1rem;
+     color: var(--global-text-color);
+}
+*/

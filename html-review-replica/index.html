@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<!--
+  A cross-device homage / replica of the "scroll to get inside" 3D tunnel
+  effect from the html review issue 04 (design & code by shelby wilson).
+  This rebuild ENABLES the effect on phones too (the original is desktop only).
+  Content here is original placeholder text, not the journal's literary works.
+-->
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>scroll-inside replica</title>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script src="assets/scroll.js?v=1.0" type="text/javascript"></script>
+</head>
+
+<body>
+    <header>
+        <h2>replica demo, desktop + phone</h2>
+        <h1>the scroll&#8209;inside effect</h1>
+        <nav>
+            <a href="#how">how it works</a>
+            <a href="https://thehtml.review/04/">original</a>
+        </nav>
+        <p class="hint">scroll down to fly through &#8595;</p>
+    </header>
+
+    <main>
+        <article class="p ascii">
+            <a class="title" href="#">Welcome Home</a>
+            <div class="description">
+                <a href="#"><pre>`'::.
+    _________H ,%%&amp;%,
+   /\     _   \%&amp;&amp;%%&amp;%
+  /  \___/^\___\%&amp;%%&amp;&amp;
+  |  | []   [] |%\Y&amp;%'
+  |  |   .-.   | ||
+ ~~@._|@@_|||_@@|~||~~~~~~~~~~~~~
+     `""") )"""`     step inside </pre></a>
+            </div>
+            <p class="author">Panel 01</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">Depth Is a Variable</a>
+            <div class="description"><a href="#"><p>Every panel lives at a fixed Z, and scrolling just adds one number to all of them at once.</p></a></div>
+            <p class="author">Panel 02</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">A Fixed Stage</a>
+            <div class="description"><a href="#"><p>The scene never moves. The page is just tall, and the scroll position becomes a dial.</p></a></div>
+            <p class="author">Panel 03</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">Perspective</a>
+            <div class="description"><a href="#"><p>A single CSS property turns flat boxes into a corridor that recedes into the screen.</p></a></div>
+            <p class="author">Panel 04</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">Fade In Turn</a>
+            <div class="description"><a href="#"><p>Each panel only lights up during its own slice of the scroll, so you read one at a time.</p></a></div>
+            <p class="author">Panel 05</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">The Walls</a>
+            <div class="description"><a href="#"><p>Oversized pseudo&#8209;elements flank every frame so the stack reads as a continuous hallway.</p></a></div>
+            <p class="author">Panel 06</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">Smooth on Touch</a>
+            <div class="description"><a href="#"><p>A requestAnimationFrame loop eases toward the scroll position, so momentum scrolling stays fluid on phones.</p></a></div>
+            <p class="author">Panel 07</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">Dynamic Viewport</a>
+            <div class="description"><a href="#"><p>Using dvh units keeps the layout stable while the mobile address bar shows and hides.</p></a></div>
+            <p class="author">Panel 08</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">One Bridge</a>
+            <div class="description"><a href="#"><p>JavaScript does almost nothing: it copies scroll into a CSS variable and the styles do the rest.</p></a></div>
+            <p class="author">Panel 09</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">The Doorway</a>
+            <div class="description"><a href="#"><p>A floating link surfaces the piece you have scrolled up to, so you can step inside it.</p></a></div>
+            <p class="author">Panel 10</p>
+        </article>
+
+        <article class="p">
+            <a class="title" href="#">Reduced Motion</a>
+            <div class="description"><a href="#"><p>If you prefer less motion, the tunnel flattens into a calm vertical list of cards.</p></a></div>
+            <p class="author">Panel 11</p>
+        </article>
+
+        <article class="p" id="how">
+            <a class="title" href="#">Keep Scrolling</a>
+            <div class="description"><a href="#"><p>That is the whole trick. Plain HTML, a little CSS calc, one tiny script &#8212; on every screen.</p></a></div>
+            <p class="author">Panel 12</p>
+        </article>
+    </main>
+
+    <a href="" id="link"></a>
+
+    <footer>
+        <h2>replica demo</h2>
+        <h1>the scroll&#8209;inside effect</h1>
+        <nav>
+            <a href="#">top</a>
+            <a href="https://thehtml.review/04/">original by shelby wilson</a>
+        </nav>
+    </footer>
+</body>
+
+</html>

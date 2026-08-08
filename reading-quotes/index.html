@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The Reading Room — Highlights Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A hand-built library of reading highlights — search, filter by book and category, spin a random passage, or study them as flashcards." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="day">
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <!-- ============================ HERO ============================ -->
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="hero-kicker">a personal library of marginalia</p>
+      <h1 class="hero-title">The&nbsp;Reading&nbsp;Room</h1>
+      <p class="hero-sub">Every sentence worth keeping — gathered from years of reading, searchable, shufflable, and ready to study.</p>
+      <div class="hero-stats" id="heroStats">
+        <span class="stat"><span class="stat-num" id="statHighlights">—</span><span class="stat-label">highlights</span></span>
+        <span class="stat-div"></span>
+        <span class="stat"><span class="stat-num" id="statBooks">—</span><span class="stat-label">books</span></span>
+        <span class="stat-div"></span>
+        <span class="stat"><span class="stat-num" id="statCats">—</span><span class="stat-label">categories</span></span>
+      </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle light / dark" aria-label="Toggle theme">
+      <span class="theme-toggle-icon">☾</span>
+    </button>
+  </header>
+
+  <!-- ========================= CONTROL BAR ========================= -->
+  <div class="controls" id="controls">
+    <div class="controls-inner">
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="search" id="search" placeholder="Search highlights, books, authors…" autocomplete="off" spellcheck="false" />
+        <button class="clear-search" id="clearSearch" aria-label="Clear search" title="Clear">✕</button>
+      </div>
+
+      <div class="control-selects">
+        <div class="select-wrap">
+          <select id="bookSelect">
+            <option value="">All books</option>
+          </select>
+        </div>
+        <div class="select-wrap">
+          <select id="sortSelect">
+            <option value="default">Sort · By book</option>
+            <option value="az">Sort · A → Z</option>
+            <option value="long">Sort · Longest</option>
+            <option value="short">Sort · Shortest</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-buttons">
+        <button class="btn btn-toggle" id="favToggle" title="Show favourites only">
+          <span class="star">★</span> Favourites
+        </button>
+        <button class="btn btn-ghost" id="randomBtn" title="Surprise me (R)">
+          <span class="btn-ico">✦</span> Random
+        </button>
+        <button class="btn btn-solid" id="flashBtn" title="Enter flashcards mode">
+          <span class="btn-ico">▤</span> Flashcards
+        </button>
+      </div>
+    </div>
+
+    <div class="chips" id="catChips"></div>
+  </div>
+
+  <!-- ========================= RESULTS ========================= -->
+  <main class="stage">
+    <div class="results-bar">
+      <span id="resultCount" class="result-count">Loading the library…</span>
+      <button class="reset-link" id="resetFilters" hidden>clear all filters</button>
+    </div>
+    <div id="masonry" class="masonry" aria-live="polite"></div>
+    <div id="emptyState" class="empty-state" hidden>
+      <div class="empty-mark">❦</div>
+      <p>No highlights match those filters.</p>
+      <button class="btn btn-ghost" id="emptyReset">Reset filters</button>
+    </div>
+    <div id="sentinel" class="sentinel"></div>
+    <div id="loadingMore" class="loading-more" hidden>gathering more passages…</div>
+  </main>
+
+  <footer class="page-foot">
+    <span>❦</span>
+    <p>Marginalia collected over years of reading. Built for slow browsing.</p>
+    <p><a class="foot-link" href="/reading-highlights/">✦ Explore the highlights as a map &rarr;</a></p>
+  </footer>
+
+  <!-- ========================= SPOTLIGHT MODAL ========================= -->
+  <div class="spotlight" id="spotlight" hidden>
+    <div class="spotlight-backdrop" data-close></div>
+    <figure class="spotlight-card" role="dialog" aria-modal="true" aria-label="Highlight">
+      <span class="spotlight-mark">“</span>
+      <blockquote id="spotQuote" class="spotlight-quote"></blockquote>
+      <div id="spotNote" class="spotlight-note" hidden></div>
+      <figcaption class="spotlight-meta">
+        <span id="spotBook" class="spot-book"></span>
+        <span id="spotAuthor" class="spot-author"></span>
+        <span id="spotCat" class="spot-cat"></span>
+      </figcaption>
+      <div class="spotlight-actions">
+        <button class="btn btn-ghost" id="spotCopy">⧉ Copy</button>
+        <button class="btn btn-ghost" id="spotAgain">✦ Another random</button>
+        <button class="btn btn-solid" data-close>Close</button>
+      </div>
+    </figure>
+  </div>
+
+  <!-- ========================= FLASHCARDS MODE ========================= -->
+  <div class="flash" id="flash" hidden>
+    <div class="flash-topbar">
+      <div class="flash-title">Flashcards</div>
+      <div class="flash-scope" id="flashScope"></div>
+      <button class="flash-close" id="flashClose" aria-label="Exit flashcards">✕</button>
+    </div>
+
+    <div class="flash-stage">
+      <button class="flash-nav flash-prev" id="flashPrev" aria-label="Previous">‹</button>
+
+      <div class="flash-card-viewport">
+        <div class="flash-card" id="flashCard">
+          <div class="flash-face flash-front">
+            <span class="flash-quote-mark">“</span>
+            <p class="flash-text" id="flashText"></p>
+            <p class="flash-book" id="flashBook"></p>
+            <span class="flash-flip-hint">click for the next card</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="flash-nav flash-next" id="flashNext" aria-label="Next">›</button>
+    </div>
+
+    <div class="flash-controls">
+      <div class="flash-progress"><span id="flashPos">1</span> <span class="flash-of">/</span> <span id="flashTotal">1</span></div>
+      <div class="flash-btns">
+        <button class="btn btn-ghost" id="flashShuffle">⇄ Shuffle</button>
+      </div>
+      <div class="flash-hint">click or → next · ← previous · S to shuffle · esc to exit</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

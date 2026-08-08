@@ -1,0 +1,1561 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#10130f" />
+  <title>Eval runs to improve Computer use UX</title>
+  <meta name="description" content="Three OSWorld experiments on making computer-use agents cheaper, faster, and less lost: screenshot resolution, FocusChain, and action batching." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2310130f'/%3E%3Cpath d='M13 18h38v28H13zM19 38l8-9 7 6 10-14' fill='none' stroke='%23f4f7f4' stroke-width='4'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --ink: #10130f;
+      --ink-soft: #3d453f;
+      --muted: #6f766f;
+      --paper: #f4f7f4;
+      --paper-2: #ffffff;
+      --band: #e9efe8;
+      --line: #cfd8d0;
+      --line-strong: #9bac9d;
+      --blue: #275cc8;
+      --blue-soft: #dfe8ff;
+      --teal: #0b887c;
+      --teal-soft: #d8efeb;
+      --coral: #d85647;
+      --coral-soft: #fae2de;
+      --gold: #b98614;
+      --gold-soft: #f4e8c8;
+      --violet: #6956b6;
+      --violet-soft: #e5e0f7;
+      --shadow: 0 24px 70px rgba(16, 19, 15, 0.12);
+      --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.52;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(207, 216, 208, 0.72);
+      background: rgba(244, 247, 244, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 58px;
+      gap: 22px;
+    }
+
+    .mark {
+      display: inline-grid;
+      grid-template-columns: 26px auto;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 720;
+    }
+
+    .mark svg {
+      width: 26px;
+      height: 26px;
+      display: block;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--ink-soft);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .nav a {
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav a:hover {
+      border-color: currentColor;
+    }
+
+    .hero {
+      position: relative;
+      min-height: auto;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(244, 247, 244, 0.98) 0%, rgba(244, 247, 244, 0.72) 56%, rgba(233, 239, 232, 0.98) 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-viz {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.92;
+    }
+
+    .hero-viz svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hero-card-viz {
+      opacity: 0.86;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      align-items: end;
+      min-height: calc(100svh - 132px);
+      padding: 72px 0 36px;
+    }
+
+    .eyebrow {
+      color: var(--teal);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      margin-bottom: 18px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 970px;
+      font-size: clamp(42px, 7vw, 96px);
+      line-height: 0.94;
+      letter-spacing: 0;
+      font-weight: 760;
+    }
+
+    .band {
+      border-bottom: 1px solid var(--line);
+      padding: 82px 0;
+    }
+
+    .band.alt {
+      background: var(--band);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.78fr) minmax(0, 1.22fr);
+      gap: 54px;
+      align-items: start;
+      margin-bottom: 36px;
+    }
+
+    .overview-head {
+      grid-template-columns: 1fr;
+      margin-bottom: 28px;
+    }
+
+    .overview-head h2 {
+      max-width: 760px;
+    }
+
+    .section-kicker {
+      color: var(--teal);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 780;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: clamp(32px, 4vw, 58px);
+      line-height: 1;
+      letter-spacing: 0;
+      font-weight: 740;
+    }
+
+    .section-copy {
+      color: var(--ink-soft);
+      font-size: clamp(17px, 1.8vw, 21px);
+      line-height: 1.45;
+    }
+
+    .experiment-map {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .map-lanes {
+      display: grid;
+      gap: 10px;
+    }
+
+    .lane {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      padding: 14px;
+      min-height: 96px;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .lane:hover,
+    .lane.is-active {
+      transform: translateY(-2px);
+      background: var(--paper-2);
+      border-color: var(--line-strong);
+    }
+
+    .lane-token {
+      width: 52px;
+      height: 52px;
+      border: 1px solid currentColor;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .lane-title {
+      display: block;
+      font-weight: 740;
+      line-height: 1.2;
+    }
+
+    .lane-sub {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .focus-panel {
+      position: relative;
+      min-height: 418px;
+      border: 1px solid var(--line);
+      background: var(--paper-2);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .focus-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.34;
+    }
+
+    .focus-content {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      align-content: space-between;
+      min-height: 418px;
+      padding: 30px;
+    }
+
+    .focus-index {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .focus-title {
+      margin-top: 26px;
+      max-width: 530px;
+      font-size: clamp(30px, 4.4vw, 62px);
+      line-height: 0.98;
+      font-weight: 760;
+      letter-spacing: 0;
+    }
+
+    .focus-body {
+      max-width: 600px;
+      color: var(--ink-soft);
+      font-size: 17px;
+      margin-top: 18px;
+    }
+
+    .focus-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 38px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .focus-facts div {
+      min-height: 94px;
+      background: rgba(244, 247, 244, 0.94);
+      padding: 14px;
+    }
+
+    .focus-facts strong {
+      display: block;
+      font-size: 23px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .focus-facts span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.34;
+      margin-top: 6px;
+    }
+
+    .chapter {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.68fr) minmax(0, 1.32fr);
+      gap: 54px;
+      align-items: start;
+    }
+
+    .chapter-label {
+      position: sticky;
+      top: 92px;
+    }
+
+    .chapter-label .num {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 760;
+      text-transform: uppercase;
+    }
+
+    .chapter-label h2 {
+      margin-top: 12px;
+    }
+
+    .chapter-label p {
+      margin-top: 18px;
+      color: var(--ink-soft);
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--paper-2);
+      padding: 28px;
+      margin-bottom: 18px;
+    }
+
+    .panel.tight {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .panel h3 {
+      font-size: 22px;
+      line-height: 1.16;
+      letter-spacing: 0;
+      margin-bottom: 14px;
+    }
+
+    .panel p {
+      color: var(--ink-soft);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
+      margin-bottom: 18px;
+    }
+
+    .mini-card {
+      min-height: 126px;
+      padding: 18px;
+      background: var(--paper-2);
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 30px;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .mini-card span {
+      display: block;
+      color: var(--muted);
+      margin-top: 9px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .viz-panel {
+      min-height: 384px;
+      padding: 18px 18px 12px;
+    }
+
+    .viz-caption {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 4px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-family: var(--mono);
+    }
+
+    .viz-panel svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .bars text,
+    .axis-label {
+      fill: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .resolution-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      align-items: end;
+      padding: 28px;
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .screen-sample {
+      display: grid;
+      align-content: end;
+      min-height: 170px;
+      gap: 10px;
+    }
+
+    .screen-box {
+      border: 1px solid rgba(244, 247, 244, 0.72);
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px),
+        rgba(255, 255, 255, 0.08);
+      background-size: 14px 14px;
+      transform-origin: bottom left;
+    }
+
+    .screen-sample b {
+      font-family: var(--mono);
+      font-size: 13px;
+    }
+
+    .screen-sample span {
+      color: rgba(244, 247, 244, 0.72);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .algorithm-triptych {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .algorithm-card {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+      border: 1px solid var(--line);
+      background: var(--paper-2);
+      padding: 18px;
+      min-height: 100%;
+    }
+
+    .algorithm-head {
+      display: grid;
+      gap: 5px;
+    }
+
+    .algorithm-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 18px;
+      font-weight: 780;
+      line-height: 1.15;
+    }
+
+    .algorithm-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex: 0 0 auto;
+      background: var(--blue);
+    }
+
+    .algorithm-card.is-v1 .algorithm-dot {
+      background: var(--teal);
+    }
+
+    .algorithm-card.is-v2 .algorithm-dot {
+      background: var(--gold);
+    }
+
+    .algorithm-sub {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .algorithm-step {
+      border: 1px solid var(--line);
+      background: rgba(244, 247, 244, 0.7);
+      padding: 12px;
+      min-height: 96px;
+    }
+
+    .algorithm-step b {
+      display: block;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 760;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      margin-bottom: 6px;
+    }
+
+    .algorithm-step span {
+      display: block;
+      color: var(--ink-soft);
+      font-size: 13px;
+      line-height: 1.38;
+    }
+
+    .algorithm-card.is-v1 .algorithm-step.is-new {
+      border-left: 3px solid var(--teal);
+    }
+
+    .algorithm-card.is-v2 .algorithm-step.is-new {
+      border-left: 3px solid var(--gold);
+    }
+
+    .algorithm-stat {
+      border-top: 1px dashed var(--line);
+      padding-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .algorithm-stat strong {
+      color: var(--ink);
+    }
+
+    .algorithm-card.is-v1 .algorithm-stat strong {
+      color: var(--teal);
+    }
+
+    .algorithm-card.is-v2 .algorithm-stat strong {
+      color: var(--gold);
+    }
+
+    .algorithm-panel {
+      margin-bottom: 18px;
+    }
+
+    .algorithm-sequence {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 16px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .algorithm-sequence div {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      background: var(--paper-2);
+      padding: 16px;
+      min-height: 148px;
+    }
+
+    .algorithm-sequence b {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--teal);
+      color: var(--teal);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .algorithm-sequence span {
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.38;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .arch-node {
+      position: relative;
+      min-height: 154px;
+      border: 1px solid var(--line);
+      background: var(--paper-2);
+      padding: 16px;
+    }
+
+    .arch-node:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -13px;
+      width: 13px;
+      height: 1px;
+      background: var(--line-strong);
+    }
+
+    .arch-node:last-child:after {
+      display: none;
+    }
+
+    .arch-node svg {
+      width: 28px;
+      height: 28px;
+      margin-bottom: 18px;
+    }
+
+    .arch-node b {
+      display: block;
+      line-height: 1.18;
+    }
+
+    .arch-node span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .artifact-panel {
+      margin-top: 18px;
+    }
+
+    .artifact-panel p {
+      max-width: 760px;
+    }
+
+    .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
+      margin-top: 16px;
+    }
+
+    .artifact-grid.single {
+      grid-template-columns: 1fr;
+    }
+
+    .artifact-grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .artifact-label {
+      margin: 18px 0 8px;
+      color: var(--teal);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+
+    .artifact-link {
+      min-height: 118px;
+      background: var(--paper-2);
+      padding: 18px;
+      text-decoration: none;
+      display: grid;
+      align-content: space-between;
+      transition: background 160ms ease;
+    }
+
+    .artifact-link:hover {
+      background: var(--blue-soft);
+    }
+
+    .artifact-link b {
+      display: block;
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .artifact-link span {
+      display: block;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-top: 14px;
+    }
+
+    footer {
+      padding: 36px 0 56px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .tooltip {
+      position: fixed;
+      z-index: 40;
+      pointer-events: none;
+      max-width: 280px;
+      padding: 9px 11px;
+      border: 1px solid rgba(244, 247, 244, 0.28);
+      background: rgba(16, 19, 15, 0.94);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.35;
+      opacity: 0;
+      transform: translate(-50%, -115%);
+      transition: opacity 100ms ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    @media (max-width: 920px) {
+      .nav {
+        display: none;
+      }
+
+      .section-head,
+      .experiment-map,
+      .chapter {
+        grid-template-columns: 1fr;
+      }
+
+      .chapter-label {
+        position: static;
+      }
+
+      .architecture {
+        grid-template-columns: 1fr;
+      }
+
+      .algorithm-triptych,
+      .algorithm-sequence {
+        grid-template-columns: 1fr;
+      }
+
+      .arch-node:after {
+        top: auto;
+        right: auto;
+        left: 22px;
+        bottom: -13px;
+        width: 1px;
+        height: 13px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .shell {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero-card-viz {
+        display: none;
+      }
+
+      .hero-content {
+        min-height: auto;
+        padding: 60px 0 24px;
+      }
+
+      h1 {
+        font-size: clamp(38px, 11vw, 58px);
+        line-height: 0.98;
+      }
+
+      .mini-grid,
+      .focus-facts,
+      .resolution-strip,
+      .artifact-grid,
+      .artifact-grid.three,
+      .artifact-grid.single {
+        grid-template-columns: 1fr;
+      }
+
+      .lane {
+        grid-template-columns: 50px 1fr;
+      }
+
+      .focus-content {
+        padding: 22px;
+      }
+
+      .focus-facts {
+        margin-top: 26px;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <div class="tooltip" id="tooltip"></div>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="mark" href="#top" aria-label="Computer Use Field Notes home">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M5 8h22v16H5z" stroke="currentColor" stroke-width="1.7"/>
+          <path d="M9 21l5-6 4 4 5-7" stroke="currentColor" stroke-width="1.7"/>
+          <path d="M10 27h12" stroke="currentColor" stroke-width="1.7"/>
+        </svg>
+        <span>Computer Use Field Notes</span>
+      </a>
+      <nav class="nav" aria-label="Report sections">
+        <a href="#map">Overview</a>
+        <a href="#resize">Screenshot size</a>
+        <a href="#focuschain">Running notes</a>
+        <a href="#batching">Action batching</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-viz" aria-hidden="true">
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+          <defs>
+            <pattern id="field-grid" width="64" height="64" patternUnits="userSpaceOnUse">
+              <path d="M64 0H0V64" fill="none" stroke="#cfd8d0" stroke-width="1" opacity="0.48"/>
+            </pattern>
+          </defs>
+          <rect width="1440" height="900" fill="url(#field-grid)"/>
+          <path d="M0 730C170 650 260 640 390 695C525 752 628 736 745 640C900 512 1012 528 1160 604C1290 671 1366 628 1440 572" fill="none" stroke="#0b887c" stroke-width="3" opacity="0.42"/>
+          <path d="M0 620C178 560 287 570 405 606C529 644 660 620 771 527C912 410 1055 441 1185 508C1318 576 1380 535 1440 495" fill="none" stroke="#275cc8" stroke-width="2" opacity="0.26"/>
+          <path d="M0 785C160 724 283 713 415 764C560 820 690 797 830 690C970 583 1090 590 1226 659C1335 715 1392 694 1440 666" fill="none" stroke="#d85647" stroke-width="2" opacity="0.32"/>
+          <g opacity="0.74">
+            <circle cx="244" cy="654" r="5" fill="#d85647"/>
+            <circle cx="512" cy="724" r="6" fill="#275cc8"/>
+            <circle cx="742" cy="640" r="9" fill="#0b887c"/>
+            <circle cx="1006" cy="526" r="6" fill="#b98614"/>
+            <circle cx="1218" cy="616" r="10" fill="#6956b6"/>
+          </g>
+          <g class="hero-card-viz" transform="translate(940 112)">
+            <rect x="0" y="0" width="380" height="236" fill="#ffffff" stroke="#9bac9d"/>
+            <rect x="24" y="28" width="332" height="178" fill="#f4f7f4" stroke="#cfd8d0"/>
+            <path d="M44 172h292" stroke="#cfd8d0"/>
+            <path d="M44 132h292" stroke="#cfd8d0"/>
+            <path d="M44 92h292" stroke="#cfd8d0"/>
+            <rect x="64" y="112" width="44" height="60" fill="#d85647"/>
+            <rect x="136" y="82" width="44" height="90" fill="#275cc8"/>
+            <rect x="208" y="62" width="44" height="110" fill="#0b887c"/>
+            <rect x="280" y="96" width="44" height="76" fill="#b98614"/>
+          </g>
+        </svg>
+      </div>
+      <div class="shell hero-content">
+        <div>
+          <div class="eyebrow">OSWorld experiments · July 2026 · every trace public</div>
+          <h1 id="hero-title">Eval runs to improve Computer use UX</h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="map">
+      <div class="shell">
+        <div class="section-head overview-head">
+          <div>
+            <h2>Three improvement strategies in the report.</h2>
+          </div>
+        </div>
+
+        <div class="experiment-map">
+          <div class="map-lanes" role="list" aria-label="Experiment map">
+            <button class="lane is-active" data-focus="resize" type="button">
+              <span class="lane-token" style="color: var(--blue)">01</span>
+              <span><span class="lane-title">Send smaller screenshots</span><span class="lane-sub">Reduce image tokens and check whether task success holds.</span></span>
+            </button>
+            <button class="lane" data-focus="focuschain" type="button">
+              <span class="lane-token" style="color: var(--teal)">02</span>
+              <span><span class="lane-title">Keep a running task note</span><span class="lane-sub">Help the agent remember what is done and what remains.</span></span>
+            </button>
+            <button class="lane" data-focus="batching" type="button">
+              <span class="lane-token" style="color: var(--gold)">03</span>
+              <span><span class="lane-title">Batch GUI actions</span><span class="lane-sub">Let the agent send several clicks or keystrokes at once.</span></span>
+            </button>
+          </div>
+
+          <div class="focus-panel" aria-live="polite">
+            <div class="focus-grid"></div>
+            <div class="focus-content">
+              <div>
+                <div class="focus-index" id="focus-index">01 / SCREEN RESOLUTION</div>
+                <div class="focus-title" id="focus-title">Smaller screenshots lowered cost without lowering pass rate.</div>
+                <p class="focus-body" id="focus-body">Every computer-use step sends a screenshot to the model. Sending 960×540 screenshots used fewer tokens than 1280×720, while the 70-task pass count stayed at least as good.</p>
+              </div>
+              <div class="focus-facts" id="focus-facts">
+                <div><strong>$7.35</strong><span>per 70 tasks at 960×540</span></div>
+                <div><strong>29/70</strong><span>passes versus 25/70 baseline</span></div>
+                <div><strong>31.3%</strong><span>fewer model input tokens</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band alt" id="resize">
+      <div class="shell chapter">
+        <aside class="chapter-label">
+          <div class="num">Experiment 01</div>
+          <h2>Use smaller screenshots to lower cost.</h2>
+          <p>Each computer-use step sends another screenshot to the model. Large screenshots use more tokens. We tested smaller screenshots to find the cheapest size that still solved tasks.</p>
+        </aside>
+
+        <div>
+          <div class="mini-grid" aria-label="Resolution experiment summary">
+            <div class="mini-card"><strong>280</strong><span>runs across four screenshot sizes on the same 70-task pack</span></div>
+            <div class="mini-card"><strong>31.3%</strong><span>fewer model input tokens at 960×540 than 1280×720</span></div>
+            <div class="mini-card"><strong>on par</strong><span>eval score stayed on par despite image compression</span></div>
+          </div>
+
+          <div class="panel tight">
+            <div class="resolution-strip" aria-label="Screenshot resolution samples">
+              <div class="screen-sample">
+                <div class="screen-box" style="width: 100%; aspect-ratio: 16 / 9;"></div>
+                <b>1280×720</b>
+                <span>baseline · $10.10 · 25/70</span>
+              </div>
+              <div class="screen-sample">
+                <div class="screen-box" style="width: 80%; aspect-ratio: 16 / 9;"></div>
+                <b>1024×576</b>
+                <span>$7.69 · 29/70</span>
+              </div>
+              <div class="screen-sample">
+                <div class="screen-box" style="width: 75%; aspect-ratio: 16 / 9; border-color: #8ff0dc;"></div>
+                <b>960×540</b>
+                <span>adopted · $7.35 · 29/70</span>
+              </div>
+              <div class="screen-sample">
+                <div class="screen-box" style="width: 62.5%; aspect-ratio: 16 / 9;"></div>
+                <b>800×450</b>
+                <span>$6.44 · 24/70</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel viz-panel">
+            <div class="viz-caption"><span>screenshot size results</span><span>lower cost · similar pass rate</span></div>
+            <svg id="resize-chart" viewBox="0 0 860 440" role="img" aria-label="Chart comparing cost, model input tokens, and passed tasks by screenshot resolution"></svg>
+          </div>
+
+          <div class="panel">
+            <h3>What we chose</h3>
+            <p>960×540 was the best default in this run: it cost $7.35 per 70 tasks versus $10.10 at 1280×720, and passed 29 tasks versus 25. 800×450 was cheaper, but it passed fewer tasks, so it is a cost-only option rather than the default.</p>
+          </div>
+
+          <div class="panel artifact-panel">
+            <h3>Artifacts for this run</h3>
+            <p>Use these to inspect the resize experiment directly: the run bundle has the trajectories, screenshots, recordings, and score data; the script shows how the 70-task pack was drawn.</p>
+            <div class="artifact-grid">
+              <a class="artifact-link" href="https://osworld-image-resize-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/osworld-image-resize-070-artifacts.tar.gz" target="_blank" rel="noreferrer">
+                <b>Resize artifact bundle</b>
+                <span>S3 · 2.1 GB · 280 trajectories</span>
+              </a>
+              <a class="artifact-link" href="https://osworld-image-resize-traces-298579054527.s3.us-west-2.amazonaws.com/draw_task_pack.py" target="_blank" rel="noreferrer">
+                <b>Task-pack script</b>
+                <span>seed 20260704 · reproducible task draw</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="focuschain">
+      <div class="shell chapter">
+        <aside class="chapter-label">
+          <div class="num">Experiment 02</div>
+          <h2>Task notes reduced loops, then exposed a verification bug.</h2>
+          <p>We tested three harness variants: the original keep-everything loop, v1 FocusChain, and v2 Gated Ledger. The note helped the agent stop repeating itself, but a stricter ledger still could not fix wrong screen reads.</p>
+        </aside>
+
+        <div>
+          <div class="algorithm-triptych" aria-label="Control, v1 FocusChain, and v2 Gated Ledger algorithms">
+            <div class="algorithm-card is-control">
+              <div class="algorithm-head">
+                <div class="algorithm-title"><span class="algorithm-dot"></span><span>Control</span></div>
+                <div class="algorithm-sub">Keep everything, no task note.</div>
+              </div>
+              <div class="algorithm-step">
+                <b>Harness to model</b>
+                <span>Send full history plus the latest screenshot on every step.</span>
+              </div>
+              <div class="algorithm-step">
+                <b>Model</b>
+                <span>Re-derive what is done and what remains from many prior screenshots.</span>
+              </div>
+              <div class="algorithm-step">
+                <b>Failure mode</b>
+                <span>Long tasks often re-check and retry until they hit the step cap.</span>
+              </div>
+              <div class="algorithm-stat">29/64 long runs hit the cap · <strong>0.79</strong> finish precision</div>
+            </div>
+
+            <div class="algorithm-card is-v1">
+              <div class="algorithm-head">
+                <div class="algorithm-title"><span class="algorithm-dot"></span><span>v1 FocusChain</span></div>
+                <div class="algorithm-sub">Append-only prose note, echoed at the end of context.</div>
+              </div>
+              <div class="algorithm-step is-new">
+                <b>New input</b>
+                <span>The latest task note is placed after history and screenshot, so it is the last thing the model sees.</span>
+              </div>
+              <div class="algorithm-step is-new">
+                <b>New output</b>
+                <span>Each tool call includes a short note: goal, facts, completed work, and remaining work.</span>
+              </div>
+              <div class="algorithm-step">
+                <b>Tradeoff</b>
+                <span>The agent stops looping, but the note can self-certify work before the screen proves it.</span>
+              </div>
+              <div class="algorithm-stat"><strong>12.6% fewer steps</strong> · 14/64 cap-outs · 0.48 finish precision</div>
+            </div>
+
+            <div class="algorithm-card is-v2">
+              <div class="algorithm-head">
+                <div class="algorithm-title"><span class="algorithm-dot"></span><span>v2 Gated Ledger</span></div>
+                <div class="algorithm-sub">Structured ledger plus a harness-enforced finish gate.</div>
+              </div>
+              <div class="algorithm-step is-new">
+                <b>New schema</b>
+                <span>The note becomes fields for constraints, remaining work, next check, and verified done.</span>
+              </div>
+              <div class="algorithm-step is-new">
+                <b>New gate</b>
+                <span>If remaining work is listed, a no-action finish is rejected once and the agent must re-check.</span>
+              </div>
+              <div class="algorithm-step">
+                <b>Result</b>
+                <span>The gate worked mechanically, but the model still misread screens and emptied the ledger too early.</span>
+              </div>
+              <div class="algorithm-stat"><strong>10.2% fewer steps</strong> · 0.52 finish precision · target missed</div>
+            </div>
+          </div>
+
+          <div class="panel viz-panel">
+            <div class="viz-caption"><span>long-task outcomes</span><span>fewer loops · more wrong finishes</span></div>
+            <svg id="focus-chart" viewBox="0 0 860 380" role="img" aria-label="Chart comparing long task outcomes for the original agent and the agent with running task notes"></svg>
+          </div>
+
+          <div class="panel">
+            <h3>What we learned</h3>
+            <p>v1 worked as a termination mechanism: it reduced repeated checking and step-cap failures. v2 proved the next bottleneck was visual verification, not note format. If the model misreads the screen, a structured ledger can still sincerely mark the wrong thing as done.</p>
+          </div>
+
+          <div class="panel artifact-panel">
+            <h3>Artifacts for this run</h3>
+            <p>Use the run bundles to inspect trajectories and screenshots. Use the code links to review exactly how v1 FocusChain and v2 Gated Ledger changed the harness.</p>
+            <div class="artifact-label">Run bundles</div>
+            <div class="artifact-grid three">
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/control-blocks.tar.gz" target="_blank" rel="noreferrer">
+                <b>Control blocks</b>
+                <span>S3 · 1.0 GB · 80 baseline task-runs</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/v1-treatment-blocks.tar.gz" target="_blank" rel="noreferrer">
+                <b>v1 FocusChain blocks</b>
+                <span>S3 · 0.97 GB · 80 task-note task-runs</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/v2-treatment-blocks.tar.gz" target="_blank" rel="noreferrer">
+                <b>v2 Gated Ledger blocks</b>
+                <span>S3 · 1.0 GB · 80 gated-ledger task-runs</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/long-extension-blocks.tar.gz" target="_blank" rel="noreferrer">
+                <b>Long-task extension</b>
+                <span>S3 · 0.72 GB · 46 long-horizon task-runs</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/smokes.tar.gz" target="_blank" rel="noreferrer">
+                <b>Smoke runs</b>
+                <span>S3 · 62 MB · v1 and v2 validation probes</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/analysis-and-logs.tar.gz" target="_blank" rel="noreferrer">
+                <b>Analysis and logs</b>
+                <span>S3 · 6.8 MB · scripts, CSVs, task packs, logs</span>
+              </a>
+            </div>
+            <div class="artifact-label">Code and patches</div>
+            <div class="artifact-grid three">
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/osworld-focuschain-branch-2d8ca929.tar.gz" target="_blank" rel="noreferrer">
+                <b>Full source tree</b>
+                <span>S3 · 10 MB · final focuschain-ab branch</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/focuschain-algorithm-commits.patch" target="_blank" rel="noreferrer">
+                <b>Algorithm patch series</b>
+                <span>S3 · 21 KB · v1 b66b99dd + v2 2d8ca929</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/main.b66b99dd.py" target="_blank" rel="noreferrer">
+                <b>v1 main.py</b>
+                <span>S3 · note capture and echo path</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/context_policies.b66b99dd.py" target="_blank" rel="noreferrer">
+                <b>v1 context policy</b>
+                <span>S3 · FocusChain context policy</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/main.2d8ca929.py" target="_blank" rel="noreferrer">
+                <b>v2 main.py</b>
+                <span>S3 · gated ledger and finish gate</span>
+              </a>
+              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/context_policies.2d8ca929.py" target="_blank" rel="noreferrer">
+                <b>v2 context policy</b>
+                <span>S3 · structured ledger context policy</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="band alt" id="batching">
+      <div class="shell chapter">
+        <aside class="chapter-label">
+          <div class="num">Experiment 03</div>
+          <h2>Turning batching on did not reduce cost.</h2>
+          <p>We tested whether letting one model call execute several GUI actions would make the agent cheaper. It did more work per call, but retries and prompt caching erased the expected savings.</p>
+        </aside>
+
+        <div>
+          <div class="mini-grid" aria-label="Action batching summary">
+            <div class="mini-card"><strong>2.3×</strong><span>more GUI actions per model call</span></div>
+            <div class="mini-card"><strong>+3.4%</strong><span>cost movement, not statistically significant</span></div>
+            <div class="mini-card"><strong>57.5% / 55%</strong><span>batched versus single-action score</span></div>
+          </div>
+
+          <div class="panel algorithm-panel">
+            <h3>Algorithm change tested</h3>
+            <p>The comparison keeps the same model, task pack, prompt cache, screenshot size, and step cap. The change is the tool contract: one arm sends one GUI action at a time, while the batched arm can send several GUI actions from the same model response.</p>
+            <div class="algorithm-sequence" aria-label="Batching comparison algorithm">
+              <div>
+                <b>01</b>
+                <span>Start with the single-action arm: one GUI action per model response.</span>
+              </div>
+              <div>
+                <b>02</b>
+                <span>Turn batching on: allow a response to contain multiple GUI actions.</span>
+              </div>
+              <div>
+                <b>03</b>
+                <span>Keep the model, screenshots, cache, task pack, and step cap fixed.</span>
+              </div>
+              <div>
+                <b>04</b>
+                <span>Run the same 40-task pack and compare paired cost, calls, actions, and score.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="architecture" aria-label="Batching experiment design">
+            <div class="arch-node">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h5" stroke="currentColor" stroke-width="1.7"/></svg>
+              <b>Single-action arm</b>
+              <span>The comparison arm sends one click, keystroke, wait, or scroll at a time.</span>
+            </div>
+            <div class="arch-node">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 5h10M7 12h10M7 19h6M4 5h.01M4 12h.01M4 19h.01" stroke="currentColor" stroke-width="1.9"/></svg>
+              <b>Batched arm</b>
+              <span>The tested arm can send several GUI actions in one model response.</span>
+            </div>
+            <div class="arch-node">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14M8 4v16M16 4v16" stroke="currentColor" stroke-width="1.7"/></svg>
+              <b>Same setup</b>
+              <span>Both arms use Sonnet, caching, 960×540 screenshots, 50 steps, and the same task pack.</span>
+            </div>
+            <div class="arch-node">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.6-5.7M20 12a8 8 0 0 1-13.6 5.7M17.5 3.5v4h-4M6.5 20.5v-4h4" stroke="currentColor" stroke-width="1.7"/></svg>
+              <b>Paired eval</b>
+              <span>Each arm runs the same 40 OSWorld tasks, then bootstrap CIs compare the per-task differences.</span>
+            </div>
+            <div class="arch-node">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 18h16M7 18V9M12 18V5M17 18v-6" stroke="currentColor" stroke-width="1.7"/></svg>
+              <b>Result</b>
+              <span>Batching executed 2.3× more actions per call, but did not produce a clear cost or score win.</span>
+            </div>
+          </div>
+
+          <div class="panel" style="margin-top: 18px;">
+            <h3>What we learned</h3>
+            <p>Batching worked mechanically: it raised GUI actions per model call by 2.3×. But the cost did not clearly fall; the paired estimate moved only +3.4%, with the confidence interval crossing zero. Score stayed on par: 57.5% for batched versus 55% for single-action.</p>
+          </div>
+
+          <div class="panel">
+            <h3>Where to spend the next run</h3>
+            <p>If the goal is cost, batching is not the highest-leverage knob. The better next eval is targeted verification: find traces where batched actions spend many steps without fresh visual feedback, then test whether smaller action groups or screen checks improve reliability.</p>
+          </div>
+
+          <div class="panel artifact-panel">
+            <h3>Artifacts for this run</h3>
+            <p>Only the essentials: raw traces for both arms, the paired summary table, and the patch that makes the comparison explicit. The full bucket still has logs, scripts, and extra code files if needed.</p>
+            <div class="artifact-grid">
+              <a class="artifact-link" href="https://batching-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/single-action-traces.tar.gz" target="_blank" rel="noreferrer">
+                <b>Single-action traces</b>
+                <span>S3 · 632.9 MB · comparison traces</span>
+              </a>
+              <a class="artifact-link" href="https://batching-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/control-blocks.tar.gz" target="_blank" rel="noreferrer">
+                <b>Batched traces</b>
+                <span>S3 · 1.0 GB · batching traces</span>
+              </a>
+              <a class="artifact-link" href="https://batching-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/patches/0004-Add-single_action-mode-one-action-per-tool-call-batc.patch" target="_blank" rel="noreferrer">
+                <b>Tool-contract patch</b>
+                <span>S3 · exact comparison change</span>
+              </a>
+              <a class="artifact-link" href="https://batching-ab-traces-298579054527.s3.us-west-2.amazonaws.com/summary_paired.csv" target="_blank" rel="noreferrer">
+                <b>Paired summary</b>
+                <span>S3 · calls, cost, score CIs</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="shell">Built from public run artifacts, analysis logs, and source data for every major claim.</div>
+  </footer>
+
+  <script>
+    const focusData = {
+      resize: {
+        index: "01 / SCREEN RESOLUTION",
+        title: "Smaller screenshots lowered cost without lowering pass rate.",
+        body: "Every computer-use step sends a screenshot to the model. Sending 960×540 screenshots used fewer tokens than 1280×720, while the 70-task pass count stayed at least as good.",
+        facts: [
+          ["$7.35", "per 70 tasks at 960×540"],
+          ["29/70", "passes versus 25/70 baseline"],
+          ["31.3%", "fewer model input tokens"],
+        ],
+      },
+      focuschain: {
+        index: "02 / FOCUSCHAIN",
+        title: "Task notes reduced loops, then exposed a verification bug.",
+        body: "v1 FocusChain cut repeated checking by echoing a running note at the end of context. v2 Gated Ledger added structure and a finish gate, but still failed when the model misread the screen.",
+        facts: [
+          ["−12.6%", "v1 steps versus the original run"],
+          ["0.52", "v2 finish precision, still below target"],
+          ["code", "source tree and algorithm patch linked"],
+        ],
+      },
+      batching: {
+        index: "03 / ACTION BATCHING",
+        title: "Turning batching on did not reduce cost.",
+        body: "Letting one model response execute several GUI actions raised actions per call, but retries and prompt caching erased the expected savings. Batching was not a clear cost win.",
+        facts: [
+          ["2.3×", "more GUI actions per model call"],
+          ["+3.4%", "cost movement, not significant"],
+          ["57.5% / 55%", "batched versus single-action score"],
+        ],
+      },
+    };
+
+    const lanes = Array.from(document.querySelectorAll(".lane"));
+    const focusIndex = document.getElementById("focus-index");
+    const focusTitle = document.getElementById("focus-title");
+    const focusBody = document.getElementById("focus-body");
+    const focusFacts = document.getElementById("focus-facts");
+
+    function renderFocus(key) {
+      const item = focusData[key];
+      if (!item) return;
+      lanes.forEach((lane) => lane.classList.toggle("is-active", lane.dataset.focus === key));
+      focusIndex.textContent = item.index;
+      focusTitle.textContent = item.title;
+      focusBody.textContent = item.body;
+      focusFacts.innerHTML = item.facts.map(([value, label]) => `<div><strong>${value}</strong><span>${label}</span></div>`).join("");
+    }
+
+    lanes.forEach((lane) => {
+      lane.addEventListener("mouseenter", () => renderFocus(lane.dataset.focus));
+      lane.addEventListener("focus", () => renderFocus(lane.dataset.focus));
+      lane.addEventListener("click", () => renderFocus(lane.dataset.focus));
+    });
+
+    const tooltip = document.getElementById("tooltip");
+    function showTip(event, html) {
+      tooltip.innerHTML = html;
+      tooltip.style.left = `${event.clientX}px`;
+      tooltip.style.top = `${event.clientY}px`;
+      tooltip.style.opacity = "1";
+    }
+    function hideTip() {
+      tooltip.style.opacity = "0";
+    }
+
+    const resizeData = [
+      { label: "1280×720", cost: 10.10, tokens: 10.01, passed: 25, steps: 835, color: "#d85647", note: "baseline" },
+      { label: "1024×576", cost: 7.69, tokens: 7.24, passed: 29, steps: 816, color: "#275cc8", note: "pilot scare vanished" },
+      { label: "960×540", cost: 7.35, tokens: 6.88, passed: 29, steps: 818, color: "#0b887c", note: "adopted" },
+      { label: "800×450", cost: 6.44, tokens: 5.79, passed: 24, steps: 838, color: "#b98614", note: "cost mode" },
+    ];
+
+    function clear(svg) {
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+    }
+
+    function svgEl(tag, attrs = {}) {
+      const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+      Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, value));
+      return el;
+    }
+
+    function drawResizeChart() {
+      const svg = document.getElementById("resize-chart");
+      clear(svg);
+      const width = 860;
+      const height = 440;
+      const left = 20;
+      const top = 26;
+      const cardW = width - left * 2;
+      const cardH = 118;
+      const cardGap = 18;
+      const metricX = left + 18;
+      const labelX = left + 170;
+      const barX = left + 214;
+      const plotW = width - barX - 58;
+      const rowH = 15;
+      const rowGap = 7;
+      const groups = [
+        { key: "cost", label: "Cost", unit: "USD / 70 tasks", max: 10.5, format: (v) => `$${v.toFixed(2)}` },
+        { key: "tokens", label: "Input tokens", unit: "millions", max: 10.5, format: (v) => v.toFixed(2) },
+        { key: "passed", label: "Passed", unit: "tasks of 70", max: 35, format: (v) => String(v) },
+      ];
+
+      groups.forEach((group, groupIndex) => {
+        const yBase = top + groupIndex * (cardH + cardGap);
+        svg.appendChild(svgEl("rect", {
+          x: left,
+          y: yBase,
+          width: cardW,
+          height: cardH,
+          fill: "rgba(244, 247, 244, 0.58)",
+          stroke: "#cfd8d0",
+        }));
+
+        const label = svgEl("text", { x: metricX, y: yBase + 30, class: "axis-label" });
+        label.textContent = group.label;
+        svg.appendChild(label);
+
+        const unit = svgEl("text", { x: metricX, y: yBase + 50, class: "axis-label" });
+        unit.textContent = group.unit;
+        unit.setAttribute("opacity", "0.72");
+        svg.appendChild(unit);
+
+        resizeData.forEach((row, rowIndex) => {
+          const y = yBase + 22 + rowIndex * (rowH + rowGap);
+          const barW = Math.max(4, (row[group.key] / group.max) * plotW);
+
+          const name = svgEl("text", { x: labelX, y: y + 13, "text-anchor": "end", class: "axis-label" });
+          name.textContent = row.label;
+          name.setAttribute("opacity", groupIndex === 0 ? "1" : "0.62");
+          svg.appendChild(name);
+
+          const rect = svgEl("rect", {
+            x: barX,
+            y,
+            width: barW,
+            height: rowH,
+            fill: row.color,
+            opacity: group.key === "passed" && row.passed < 25 ? "0.68" : "0.92",
+          });
+          rect.addEventListener("mousemove", (event) => {
+            showTip(event, `${row.label}<br>${group.label}: ${row[group.key]}<br>${row.note}`);
+          });
+          rect.addEventListener("mouseleave", hideTip);
+          svg.appendChild(rect);
+
+          const value = svgEl("text", { x: barX + barW + 9, y: y + 13, class: "axis-label" });
+          value.textContent = group.format(row[group.key]);
+          if (barX + barW > width - 74) {
+            value.setAttribute("x", barX + barW - 10);
+            value.setAttribute("text-anchor", "end");
+            value.style.fill = "#ffffff";
+            value.style.fontWeight = "700";
+          }
+          svg.appendChild(value);
+
+          if (row.note === "adopted" && group.key === "cost") {
+            const pillX = Math.min(barX + barW + 58, width - 118);
+            const pill = svgEl("rect", {
+              x: pillX,
+              y: y - 2,
+              width: 66,
+              height: 19,
+              rx: 9.5,
+              fill: "#d8efeb",
+              stroke: "#0b887c",
+            });
+            svg.appendChild(pill);
+            const pillText = svgEl("text", { x: pillX + 33, y: y + 12, "text-anchor": "middle", class: "axis-label" });
+            pillText.textContent = "adopted";
+            pillText.style.fill = "#0b887c";
+            pillText.style.fontSize = "10px";
+            pillText.style.fontWeight = "700";
+            svg.appendChild(pillText);
+          }
+        });
+      });
+    }
+
+    const focusOutcomeData = [
+      { label: "Correct finish", control: 27, focus: 25, color: "#0b887c" },
+      { label: "Wrong finish", control: 6, focus: 23, color: "#d85647" },
+      { label: "Hit step limit", control: 29, focus: 14, color: "#b98614" },
+      { label: "Repeated action %", control: 3.57, focus: 1.68, color: "#275cc8", suffix: "%" },
+    ];
+
+    function drawFocusChart() {
+      const svg = document.getElementById("focus-chart");
+      clear(svg);
+      const width = 860;
+      const height = 380;
+      const left = 132;
+      const top = 32;
+      const plotW = width - left - 42;
+      const rowH = 70;
+      const max = 32;
+
+      focusOutcomeData.forEach((row, index) => {
+        const y = top + index * rowH;
+        const label = svgEl("text", { x: 6, y: y + 38, class: "axis-label" });
+        label.textContent = row.label;
+        svg.appendChild(label);
+        svg.appendChild(svgEl("line", { x1: left, y1: y + 54, x2: left + plotW, y2: y + 54, stroke: "#cfd8d0" }));
+        [
+          { arm: "original run", value: row.control, yOffset: 10, opacity: 0.42 },
+          { arm: "with task notes", value: row.focus, yOffset: 34, opacity: 0.92 },
+        ].forEach((bar) => {
+          const barMax = row.suffix === "%" ? 4 : max;
+          const barW = Math.max(4, (bar.value / barMax) * plotW);
+          const rect = svgEl("rect", {
+            x: left,
+            y: y + bar.yOffset,
+            width: barW,
+            height: 18,
+            fill: row.color,
+            opacity: bar.opacity,
+          });
+          rect.addEventListener("mousemove", (event) => showTip(event, `${row.label}<br>${bar.arm}: ${bar.value}${row.suffix || ""}`));
+          rect.addEventListener("mouseleave", hideTip);
+          svg.appendChild(rect);
+          const value = svgEl("text", { x: left + barW + 8, y: y + bar.yOffset + 14, class: "axis-label" });
+          value.textContent = `${bar.value}${row.suffix || ""}`;
+          svg.appendChild(value);
+        });
+      });
+
+      const legend = [
+        ["original run", 0.42],
+        ["with task notes", 0.92],
+      ];
+      legend.forEach((item, i) => {
+        const x = left + i * 122;
+        svg.appendChild(svgEl("rect", { x, y: height - 22, width: 18, height: 10, fill: "#10130f", opacity: item[1] }));
+        const text = svgEl("text", { x: x + 26, y: height - 13, class: "axis-label" });
+        text.textContent = item[0];
+        svg.appendChild(text);
+      });
+    }
+
+    drawResizeChart();
+    drawFocusChart();
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>if we could just</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="if we could just">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- boiling scanned-paper background -->
+  <div class="bg" id="bg"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- displacement filters that make the printed ink "boil" -->
+  <svg class="defs" aria-hidden="true" focusable="false">
+    <filter id="boil0" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="2" seed="2" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="boil1" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.013 0.015" numOctaves="2" seed="9" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.8" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="boil2" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="2" seed="17" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <main class="stage">
+    <div class="box" id="intro">
+      <div class="line">
+        <p class="prompt boil">If we could just</p>
+
+        <div class="select jitter" id="select">
+          <button class="select-box" id="selectBox" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span id="selectValue">&hellip;</span>
+            <span class="chevron" aria-hidden="true">&#9662;</span>
+          </button>
+          <!-- options are generated from sequences.txt -->
+          <ul class="menu" id="menu" role="listbox" hidden></ul>
+        </div>
+      </div>
+
+      <button class="next" id="next" type="button" aria-label="next">&rarr;</button>
+    </div>
+  </main>
+
+  <!-- the per-phrase sequence: text closing in behind accreting square frames -->
+  <section class="seq" id="seq" hidden aria-hidden="true">
+    <div class="seq-bg" id="seqBg"></div>
+    <div class="seq-grain" aria-hidden="true"></div>
+    <div class="rings" id="rings"></div>
+    <p class="seq-line boil" id="seqLine"></p>
+  </section>
+
+  <!-- the "love you" finale: every click splits a panel in two, forever -->
+  <section class="finale" id="finale" hidden aria-hidden="true"></section>
+
+  <script src="script.js"></script>
+</body>
+</html>

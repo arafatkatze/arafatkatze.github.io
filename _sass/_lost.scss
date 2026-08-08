@@ -1,0 +1,288 @@
+/*******************************************************************************
+ * 404 — "You've wandered off the trail."
+ * A lone wanderer with a lantern, under a real night sky.
+ ******************************************************************************/
+
+$lost-sky-top: #060a1d;
+$lost-sky-mid: #130f31;
+$lost-sky-glow: #3a1c5c;
+$lost-ground: #05030f;
+$lost-hill-back: #251b48;
+$lost-hill-mid: #181134;
+$lost-hill-front: #0b0820;
+$lost-lantern: #ffcf7a;
+$lost-lantern-warm: #ff9d4d;
+$lost-violet: #c084fc;
+$lost-pink: #f472b6;
+
+/* Hide the default page header — this page brings its own heading. */
+.post:has(.lost-404) .post-header {
+  display: none;
+}
+
+.lost-404 {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1100px;
+  border-radius: 22px;
+  overflow: hidden;
+  color: #f3f0ff;
+  background: linear-gradient(180deg, $lost-sky-top 0%, $lost-sky-mid 48%, $lost-ground 100%);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.45),
+    inset 0 0 120px rgba(58, 28, 92, 0.35);
+  isolation: isolate;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+/* ------------------------------- the scene ------------------------------- */
+
+.lost-scene {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 56vh, 540px);
+  overflow: hidden;
+}
+
+/* soft purple horizon glow that ties back to the site accent */
+.lost-scene::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -40%;
+  width: 120%;
+  height: 80%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(58, 28, 92, 0.55) 0%, rgba(58, 28, 92, 0) 65%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* twinkling starfield (dots injected by JS) */
+.lost-stars {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.lost-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.85;
+  animation: lost-twinkle var(--dur, 4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: opacity, transform;
+}
+
+@keyframes lost-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+
+/* the moon */
+.lost-moon {
+  position: absolute;
+  top: 11%;
+  right: 13%;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #fff 0%, #e8e3ff 45%, #c9c0ee 100%);
+  box-shadow:
+    0 0 40px 8px rgba(220, 215, 255, 0.45),
+    0 0 100px 30px rgba(160, 140, 230, 0.25);
+  z-index: 1;
+}
+
+/* a wandering shooting star */
+.lost-shooting {
+  position: absolute;
+  top: 18%;
+  left: -10%;
+  width: 140px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 80%, #fff 100%);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+  opacity: 0;
+  transform: rotate(18deg);
+  z-index: 1;
+  animation: lost-shoot 9s ease-in 3s infinite;
+}
+
+@keyframes lost-shoot {
+  0%   { opacity: 0; transform: translate(0, 0) rotate(18deg); }
+  3%   { opacity: 1; }
+  12%  { opacity: 1; }
+  16%  { opacity: 0; transform: translate(70vw, 22vh) rotate(18deg); }
+  100% { opacity: 0; transform: translate(70vw, 22vh) rotate(18deg); }
+}
+
+/* the giant, faint 404 hanging in the sky */
+.lost-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -58%);
+  font-size: clamp(7rem, 26vw, 19rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(192, 132, 252, 0.9) 0%, rgba(244, 114, 182, 0.55) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0.22;
+  text-shadow: 0 0 60px rgba(192, 132, 252, 0.25);
+  user-select: none;
+  pointer-events: none;
+  animation: lost-breathe 7s ease-in-out infinite;
+}
+
+@keyframes lost-breathe {
+  0%, 100% { opacity: 0.18; }
+  50%      { opacity: 0.28; }
+}
+
+/* the hills + wanderer live in one SVG that hugs the bottom */
+.lost-hills {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  z-index: 2;
+  display: block;
+}
+
+.lost-hill-back  { fill: #{$lost-hill-back}; }
+.lost-hill-mid   { fill: #{$lost-hill-mid}; }
+.lost-hill-front { fill: #{$lost-hill-front}; }
+.lost-tree       { fill: #{$lost-hill-front}; }
+
+/* the wanderer's silhouette */
+.lost-figure {
+  stroke: #04020a;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.lost-figure-fill { fill: #04020a; stroke: none; }
+
+/* lantern + its warm pool of light */
+.lost-lantern-glow {
+  animation: lost-flicker 3.5s ease-in-out infinite;
+  transform-origin: center;
+}
+.lost-lantern-core { fill: #{$lost-lantern}; }
+
+@keyframes lost-flicker {
+  0%, 100% { opacity: 0.95; }
+  45%      { opacity: 0.7; }
+  70%      { opacity: 1; }
+}
+
+/* ------------------------------- the copy -------------------------------- */
+
+.lost-copy {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 0.5rem 1.5rem 2.75rem;
+  margin-top: -2.5rem;
+}
+
+.lost-eyebrow {
+  font-family: var(--bs-font-monospace, monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(192, 132, 252, 0.85);
+  margin-bottom: 0.65rem;
+}
+
+.lost-title {
+  font-size: clamp(1.7rem, 4.4vw, 2.7rem);
+  font-weight: 700;
+  margin: 0 0 1.6rem;
+  color: #fbf9ff;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.6);
+}
+
+.lost-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.lost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #e9e4ff;
+  border: 1px solid rgba(192, 132, 252, 0.35);
+  background: rgba(192, 132, 252, 0.06);
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    background: rgba(192, 132, 252, 0.16);
+    border-color: rgba(192, 132, 252, 0.6);
+    color: #fff;
+  }
+}
+
+.lost-btn--home {
+  color: #1a1030;
+  background: linear-gradient(135deg, $lost-lantern 0%, $lost-lantern-warm 100%);
+  border-color: transparent;
+  box-shadow: 0 8px 26px rgba(255, 157, 77, 0.3);
+
+  &:hover {
+    color: #1a1030;
+    background: linear-gradient(135deg, #ffd98f 0%, #ffae66 100%);
+    box-shadow: 0 12px 32px rgba(255, 157, 77, 0.42);
+  }
+}
+
+/* gentle entrance */
+.lost-copy > * {
+  animation: lost-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.lost-copy > *:nth-child(1) { animation-delay: 0.05s; }
+.lost-copy > *:nth-child(2) { animation-delay: 0.15s; }
+.lost-copy > *:nth-child(3) { animation-delay: 0.25s; }
+.lost-copy > *:nth-child(4) { animation-delay: 0.35s; }
+.lost-copy > *:nth-child(5) { animation-delay: 0.45s; }
+
+@keyframes lost-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 576px) {
+  .lost-moon { width: 46px; height: 46px; top: 9%; right: 10%; }
+  .lost-copy { padding-bottom: 2rem; }
+}
+
+/* respect those who'd rather hold still */
+@media (prefers-reduced-motion: reduce) {
+  .lost-star,
+  .lost-shooting,
+  .lost-number,
+  .lost-lantern-glow,
+  .lost-copy > * {
+    animation: none !important;
+  }
+  .lost-number { opacity: 0.24; }
+}
