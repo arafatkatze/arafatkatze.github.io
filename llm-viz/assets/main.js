@@ -448,8 +448,11 @@
       p.pause();
     });
 
+    wireDepthScroller();
+
     app.on("frame", function (active) {
       updateHoverCard(active);
+      updateDepthScroller();
     });
 
     document.addEventListener("keydown", function (e) {
@@ -474,6 +477,59 @@
         $("welcome").classList.add("hidden");
       }
     });
+  }
+
+  /**
+   * The wheel travels the model on desktop; touch has no wheel, so this rail
+   * is the equivalent control there. Dragging it maps directly onto the
+   * camera's height in the scene.
+   */
+  function wireDepthScroller() {
+    var app = state.app;
+    var wrap = $("depth");
+    var track = $("depth-track");
+    var dragging = false;
+
+    function applyFromClientY(clientY) {
+      var r = track.getBoundingClientRect();
+      var f = Math.min(1, Math.max(0, (clientY - r.top) / Math.max(1, r.height)));
+      var range = app.depthRange();
+      app.setDepthY(range.max - f * (range.max - range.min));
+      state.player.pause();
+    }
+
+    track.addEventListener("pointerdown", function (e) {
+      dragging = true;
+      wrap.classList.add("active");
+      track.setPointerCapture(e.pointerId);
+      applyFromClientY(e.clientY);
+      e.preventDefault();
+    });
+    track.addEventListener("pointermove", function (e) {
+      if (dragging) applyFromClientY(e.clientY);
+    });
+    function release() {
+      dragging = false;
+      wrap.classList.remove("active");
+    }
+    track.addEventListener("pointerup", release);
+    track.addEventListener("pointercancel", release);
+
+    wrap.addEventListener(
+      "wheel",
+      function (e) {
+        e.preventDefault();
+        app.travel(e.deltaY * 2.4);
+        state.player.pause();
+      },
+      { passive: false }
+    );
+  }
+
+  function updateDepthScroller() {
+    var thumb = $("depth-thumb");
+    if (!thumb) return;
+    thumb.style.top = (state.app.depthFraction() * 100).toFixed(2) + "%";
   }
 
   function updateHoverCard(active) {
@@ -513,9 +569,11 @@
     el.innerHTML =
       '<div class="overlay-card"><h1>Getting around</h1>' +
       '<div class="help-list">' +
+      row("scroll", "travel up and down the model") +
+      row("drag the right rail", "same travel, by hand (and on touch)") +
       row("drag", "orbit the model") +
       row("shift + drag", "pan") +
-      row("scroll / pinch", "zoom") +
+      row("ctrl + scroll / pinch", "zoom") +
       row("hover", "read a cell and light up the cells that made it") +
       row("click", "pin that cell, click again to release") +
       row("space", "play or pause the walkthrough") +
