@@ -442,7 +442,10 @@
     };
 
     app.on("interact", function () {
-      // let people take the wheel without the tour yanking it back
+      // Manual camera/cell interaction takes the wheel. Pausing here also
+      // keeps a freshly pinned tooltip from being displaced when autoplay
+      // advances to the next beat a moment later.
+      p.pause();
     });
 
     app.on("frame", function (active) {
