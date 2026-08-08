@@ -190,6 +190,17 @@ ninja.data = [{
             window.location.href = "/philosophy/2024/05/06/inwards.html";
           
         },
+      },{id: "post-ruby-tensorflow-introduction-internals-and-image-recognition",
+        
+          title: "Ruby TensorFlow — Introduction, Internals, and Image Recognition",
+        
+        description: "Three early tutorials on tensorflow.rb combined into one — introducing the Ruby API, understanding how Google Protobuf powers the graph internals, and running Inception-v3 image recognition in Ruby.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/ruby-tensorflow/";
+          
+        },
       },{id: "books-1984",
           title: '1984',
           description: "",
@@ -360,6 +371,11 @@ ninja.data = [{
           description: "How one prompt turned a 17-hour autonomous hill climb into an 88.8% state-of-the-art Terminal-Bench 2.1 score.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/recursiveSelfImprovement/";
+            },},{id: "projects-ruby-tensorflow",
+          title: 'Ruby TensorFlow',
+          description: "Porting TensorFlow to Ruby with the tensorflow.rb gem — the Ruby API, how Google Protobuf drives the graph internals, and Inception-v3 image recognition in Ruby.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/rubyTensorflow/";
             },},{id: "projects-scroll-inside-effect",
           title: 'Scroll-Inside Effect',
           description: "A cross-device homage to the html review 04 &quot;scroll to fly through&quot; 3D tunnel — rebuilt to run on phones too.",
