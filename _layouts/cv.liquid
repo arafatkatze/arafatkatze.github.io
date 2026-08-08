@@ -43,6 +43,7 @@ layout: default
 
     <article>
       <div class="cv">
+        {% include github_contributions.liquid %}
         {% for entry in site.data.cv %}
           <a class="anchor" id="{{ entry.title }}"></a>
           <div class="card mt-3 p-3">
@@ -109,6 +110,7 @@ layout: default
 
     <article>
       <div class="cv">
+        {% include github_contributions.liquid %}
         {% for data in site.data.resume %}
           {% if site.jsonresume and site.jsonresume.size > 0 %}
             {% unless site.jsonresume contains data[0] %}
