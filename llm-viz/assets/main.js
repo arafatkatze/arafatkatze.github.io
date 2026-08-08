@@ -448,8 +448,12 @@
       p.pause();
     });
 
+    wireDepthScroller();
+    wireZoomControls();
+
     app.on("frame", function (active) {
       updateHoverCard(active);
+      updateDepthScroller();
     });
 
     document.addEventListener("keydown", function (e) {
@@ -461,6 +465,10 @@
         p.next();
       } else if (e.code === "ArrowLeft") {
         p.prev();
+      } else if (e.key === "+" || e.key === "=") {
+        app.zoomBy(1 / 1.25);
+      } else if (e.key === "-" || e.key === "_") {
+        app.zoomBy(1.25);
       } else if (e.key === "l" || e.key === "L") {
         $("btn-labels").click();
       } else if (e.key === "r" || e.key === "R") {
@@ -474,6 +482,89 @@
         $("welcome").classList.add("hidden");
       }
     });
+  }
+
+  /**
+   * The wheel travels the model on desktop; touch has no wheel, so this rail
+   * is the equivalent control there. Dragging it maps directly onto the
+   * camera's height in the scene.
+   */
+  function wireDepthScroller() {
+    var app = state.app;
+    var wrap = $("depth");
+    var track = $("depth-track");
+    var dragging = false;
+
+    function applyFromClientY(clientY) {
+      var r = track.getBoundingClientRect();
+      var f = Math.min(1, Math.max(0, (clientY - r.top) / Math.max(1, r.height)));
+      var range = app.depthRange();
+      app.setDepthY(range.max - f * (range.max - range.min));
+      state.player.pause();
+    }
+
+    track.addEventListener("pointerdown", function (e) {
+      dragging = true;
+      wrap.classList.add("active");
+      track.setPointerCapture(e.pointerId);
+      applyFromClientY(e.clientY);
+      e.preventDefault();
+    });
+    track.addEventListener("pointermove", function (e) {
+      if (dragging) applyFromClientY(e.clientY);
+    });
+    function release() {
+      dragging = false;
+      wrap.classList.remove("active");
+    }
+    track.addEventListener("pointerup", release);
+    track.addEventListener("pointercancel", release);
+
+    wrap.addEventListener(
+      "wheel",
+      function (e) {
+        e.preventDefault();
+        app.travel(e.deltaY * 2.4);
+        state.player.pause();
+      },
+      { passive: false }
+    );
+  }
+
+  /**
+   * Explicit zoom buttons. The wheel is given over to travelling the model,
+   * so zoom needs a control you can find without reading the shortcuts.
+   * Holding a button keeps zooming.
+   */
+  function wireZoomControls() {
+    var app = state.app;
+    [["zoom-in", 1 / 1.18], ["zoom-out", 1.18]].forEach(function (pair) {
+      var el = $(pair[0]);
+      var factor = pair[1];
+      var timer = null;
+      function stop() {
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
+      el.addEventListener("pointerdown", function (e) {
+        e.preventDefault();
+        app.zoomBy(factor);
+        state.player.pause();
+        stop();
+        timer = setInterval(function () {
+          app.zoomBy(factor);
+        }, 110);
+      });
+      el.addEventListener("pointerup", stop);
+      el.addEventListener("pointerleave", stop);
+      el.addEventListener("pointercancel", stop);
+    });
+  }
+
+  function updateDepthScroller() {
+    var thumb = $("depth-thumb");
+    if (!thumb) return;
+    thumb.style.top = (state.app.depthFraction() * 100).toFixed(2) + "%";
   }
 
   function updateHoverCard(active) {
@@ -513,9 +604,12 @@
     el.innerHTML =
       '<div class="overlay-card"><h1>Getting around</h1>' +
       '<div class="help-list">' +
+      row("scroll", "travel up and down the model") +
+      row("drag the right rail", "same travel, by hand (and on touch)") +
+      row("+ / -", "zoom in and out (or the buttons by the rail)") +
+      row("ctrl + scroll / pinch", "zoom") +
       row("drag", "orbit the model") +
       row("shift + drag", "pan") +
-      row("scroll / pinch", "zoom") +
       row("hover", "read a cell and light up the cells that made it") +
       row("click", "pin that cell, click again to release") +
       row("space", "play or pause the walkthrough") +
