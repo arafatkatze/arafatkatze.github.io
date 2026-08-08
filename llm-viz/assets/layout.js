@@ -148,6 +148,7 @@
       src: o.src || null,
       formula: o.formula || "",
       about: o.about || "",
+      dividers: o.dividers || null,
       rowsUsed: o.rowsUsed,
     });
   }
@@ -170,6 +171,7 @@
       src: o.src || null,
       formula: o.formula || "",
       about: o.about || "",
+      dividers: o.dividers || null,
     });
   }
 
@@ -191,6 +193,7 @@
       src: o.src || null,
       formula: o.formula || "",
       about: o.about || "",
+      dividers: o.dividers || null,
     });
   }
 
@@ -212,6 +215,7 @@
       src: o.src || null,
       formula: o.formula || "",
       about: o.about || "",
+      dividers: o.dividers || null,
       rowsUsed: o.rowsUsed,
     });
   }
@@ -447,7 +451,10 @@
         section: "attention",
         colAxis: "Q|K|V channel",
         formula: "Wqkv[c, j]",
-        about: "One wall holding the query, key and value projections side by side.",
+        about:
+          "One wall holding the query, key and value projections side by side. " +
+          "The gold rules split it into Q, K and V; the fainter ones into heads.",
+        dividers: { xMajor: C, xMinor: A },
       });
       down(GAP);
       bar(scene, {
@@ -459,6 +466,7 @@
         tensor: w[wp + "attn.qkv.b"] || null,
         section: "attention",
         formula: "bqkv[j]",
+        dividers: { xMajor: C, xMinor: A },
       });
       down(GAP);
       slab(scene, {
@@ -475,9 +483,29 @@
         colAxis: "Q|K|V channel",
         src: { type: "matmul", input: p + "ln1.out", weight: p + "qkv.w", bias: p + "qkv.b" },
         formula: "qkv[t, j] = sum_c n[t, c] * Wqkv[c, j] + bqkv[j]",
-        about: "Three projections of every token, computed in one matmul.",
+        about:
+          "Three projections of every token, computed in one matmul. Columns " +
+          "0-" + (C - 1) + " are Q, " + C + "-" + (2 * C - 1) + " are K, " +
+          (2 * C) + "-" + (3 * C - 1) + " are V; each splits again into " + H + " heads.",
+        dividers: { xMajor: C, xMinor: A },
       });
       scene.label("Q, K, V", [0, y - 5, T / 2 + 5], { tier: 1, blockId: p + "qkv" });
+
+      // Name the three regions of the fused slab, and the head bands in each.
+      // Only for the model drawn with real values: at GPT-3's 96 blocks x 96
+      // heads this would be tens of thousands of DOM labels.
+      if (detail === "full") {
+        ["Q", "K", "V"].forEach(function (which, wi) {
+          var segCenter = (wi - 1) * C;
+          scene.label(which, [segCenter, y + 11, -T / 2 - 10], { tier: 1, cls: "seg" });
+          for (var hh = 0; hh < H; hh++) {
+            scene.label("h" + hh, [segCenter - C / 2 + (hh + 0.5) * A, y + 5, -T / 2 - 4.5], {
+              tier: 2,
+              cls: "seg sub",
+            });
+          }
+        });
+      }
 
       // -- heads
       var laneW = Math.max(3 * A + 12, T + 20) + 18;
@@ -658,6 +686,7 @@
         src: { type: "concat", heads: headIds, headSize: A },
         formula: "concat over heads",
         about: "The heads' outputs laid end to end, back to width C.",
+        dividers: { xMajor: A },
       });
 
       down(GAP * 1.4 + C);
@@ -671,6 +700,10 @@
         tensor: w[wp + "attn.proj.w"] || null,
         section: "projection",
         formula: "Wproj[c, j]",
+        about:
+          "Its rows are the concatenated head outputs, so the rules mark which " +
+          "band of rows belongs to which head.",
+        dividers: { yMajor: A },
       });
       down(GAP);
       bar(scene, {

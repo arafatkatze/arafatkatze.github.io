@@ -10,7 +10,7 @@
 
   var LV = (global.LV = global.LV || {});
   var M = LV.math;
-  var FPB = 28; // floats per block instance
+  var FPB = 32; // floats per block instance
   var FPBEAM = 12;
 
   function App(opts) {
@@ -243,8 +243,19 @@
         e.preventDefault();
         self.camTarget = null;
         self.autoSpin = false;
-        var k = Math.exp(M.clamp(e.deltaY, -260, 260) * 0.0016);
-        self.camera.dist = M.clamp(self.camera.dist * k, 3, 400000);
+        var delta = M.clamp(e.deltaY, -260, 260);
+        // The model is one tall column, so a bare wheel travels down it the way
+        // a page scrolls. Zooming stays on a modifier (and on pinch).
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
+          self.distTarget = null;
+          self.camera.dist = M.clamp(
+            self.camera.dist * Math.exp(delta * 0.0016),
+            MIN_DIST,
+            MAX_DIST
+          );
+        } else {
+          self.travel(delta * 2.4);
+        }
         self.emit("interact");
       },
       { passive: false }
@@ -265,7 +276,8 @@
           (e.touches[0].clientY + e.touches[1].clientY) / 2,
         ];
         if (pinch) {
-          self.camera.dist = M.clamp(self.camera.dist * (pinch.d / d), 3, 400000);
+          self.distTarget = null;
+          self.camera.dist = M.clamp(self.camera.dist * (pinch.d / d), MIN_DIST, MAX_DIST);
           var cam = self.camera;
           var right = M.norm3(M.cross3([0, 1, 0], M.sub3(cam.eye, cam.target)));
           var up = M.norm3(M.cross3(M.sub3(cam.eye, cam.target), right));
@@ -286,6 +298,57 @@
     c.addEventListener("touchend", function () {
       pinch = null;
     });
+  };
+
+  /**
+   * Travel up or down the model. `pixels` is in screen units, so a scroll
+   * covers the same amount of tower whether you are zoomed in on one slab or
+   * looking at the whole thing. Travel is bounded to the model plus a margin
+   * so you cannot scroll off into empty space.
+   */
+  App.prototype.travel = function (pixels) {
+    if (!this.scene) return;
+    var worldPerPixel =
+      (this.camera.dist * 2 * Math.tan(this.camera.fov / 2)) /
+      Math.max(1, this.canvas.clientHeight);
+    this.setDepthY(this.camera.target[1] - pixels * worldPerPixel);
+  };
+
+  var MIN_DIST = 3;
+  var MAX_DIST = 400000;
+
+  /**
+   * Zoom by a multiplier. Eased rather than applied outright so repeated
+   * button presses and key repeats glide instead of jumping.
+   */
+  App.prototype.zoomBy = function (factor) {
+    var from = this.distTarget || this.camera.dist;
+    this.camTarget = null;
+    this.autoSpin = false;
+    this.distTarget = M.clamp(from * factor, MIN_DIST, MAX_DIST);
+  };
+
+  /** Move the camera to an absolute height, clamped to the model's extent. */
+  App.prototype.setDepthY = function (y) {
+    var range = this.depthRange();
+    this.camTarget = null;
+    this.autoSpin = false;
+    this.camera.target[1] = M.clamp(y, range.min, range.max);
+  };
+
+  App.prototype.depthRange = function () {
+    var s = this.scene;
+    // just enough overscroll to see the first and last slab clear of the edge
+    var margin = Math.max(10, (s.max[1] - s.min[1]) * 0.02);
+    return { min: s.min[1] - margin, max: s.max[1] + margin };
+  };
+
+  /** Where the camera currently sits along the model: 0 at the top, 1 at the bottom. */
+  App.prototype.depthFraction = function () {
+    var range = this.depthRange();
+    var span = range.max - range.min;
+    if (span < 1e-6) return 0;
+    return M.clamp((range.max - this.camera.target[1]) / span, 0, 1);
   };
 
   App.prototype.click = function () {
@@ -387,6 +450,13 @@
         this.camTarget = null;
       }
     }
+    if (this.distTarget) {
+      this.camera.dist = M.approach(this.camera.dist, this.distTarget, 11, dt);
+      if (Math.abs(this.camera.dist - this.distTarget) < this.distTarget * 0.004) {
+        this.camera.dist = this.distTarget;
+        this.distTarget = null;
+      }
+    }
     if (this.autoSpin) this.camera.yaw += dt * 0.06;
 
     var aspect = this.canvas.width / Math.max(1, this.canvas.height);
@@ -476,6 +546,11 @@
       d[o + 24] = b.emph;
       d[o + 26] = 0;
       d[o + 27] = i * 0.137;
+      var div = b.dividers;
+      d[o + 28] = div && div.xMajor ? div.xMajor : 0;
+      d[o + 29] = div && div.xMinor ? div.xMinor : 0;
+      d[o + 30] = div && div.yMajor ? div.yMajor : 0;
+      d[o + 31] = div && div.yMinor ? div.yMinor : 0;
     }
 
     var beams = this.scene.beams;

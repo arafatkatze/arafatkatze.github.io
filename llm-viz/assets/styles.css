@@ -591,6 +591,86 @@ body {
   color: var(--ok);
 }
 
+/* ------------------------------------------------------------ depth scroller */
+
+#depth {
+  position: absolute;
+  right: 382px;
+  top: 96px;
+  bottom: 96px;
+  width: 26px;
+  z-index: 22;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  touch-action: none;
+  opacity: 0.42;
+  transition: opacity 0.25s;
+}
+
+#depth:hover,
+#depth.active {
+  opacity: 1;
+}
+
+.depth-track {
+  position: relative;
+  flex: 1;
+  width: 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  cursor: ns-resize;
+}
+
+.depth-thumb {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 46px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 16px rgba(110, 168, 255, 0.55);
+  pointer-events: none;
+}
+
+.depth-cap {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding: 6px 0;
+}
+
+.zoom-btn {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  background: rgba(12, 18, 30, 0.85);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.zoom-btn:hover {
+  background: rgba(110, 168, 255, 0.22);
+  border-color: var(--accent);
+}
+
+.zoom-btn:active {
+  background: rgba(110, 168, 255, 0.36);
+}
+
 /* -------------------------------------------------------------- model card */
 
 #modelcard {
@@ -978,6 +1058,10 @@ button.ghost:hover {
   #modelcard {
     display: none;
   }
+
+  #depth {
+    right: 336px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1028,6 +1112,31 @@ button.ghost:hover {
     font-size: 13px;
   }
 
+  /* on a phone this is the only way to travel the model, so make it a real
+     target rather than a hairline */
+  #depth {
+    right: 6px;
+    top: 146px;
+    bottom: 44%;
+    width: 38px;
+    opacity: 0.9;
+  }
+
+  .depth-track {
+    width: 8px;
+  }
+
+  .depth-thumb {
+    width: 18px;
+    height: 54px;
+  }
+
+  .zoom-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 17px;
+  }
+
   #topbar {
     gap: 8px;
     padding: 0 8px;
@@ -1063,4 +1172,18 @@ button.ghost:hover {
 
 .lv-label.sub {
   color: rgba(200, 214, 235, 0.72);
+}
+
+.lv-label.seg {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 224, 160, 0.95);
+  letter-spacing: 0.08em;
+}
+
+.lv-label.seg.sub {
+  font-size: 9.5px;
+  color: rgba(190, 205, 230, 0.7);
+  letter-spacing: 0.04em;
 }
