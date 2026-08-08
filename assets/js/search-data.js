@@ -371,6 +371,11 @@ ninja.data = [{
           description: "How one prompt turned a 17-hour autonomous hill climb into an 88.8% state-of-the-art Terminal-Bench 2.1 score.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/recursiveSelfImprovement/";
+            },},{id: "projects-my-room-scanned",
+          title: 'My room, scanned',
+          description: "iPhone LiDAR → interactive photoreal 3D room, LiteReality-style",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/roomLidar/";
             },},{id: "projects-ruby-tensorflow",
           title: 'Ruby TensorFlow',
           description: "Porting TensorFlow to Ruby with the tensorflow.rb gem — the Ruby API, how Google Protobuf drives the graph internals, and Inception-v3 image recognition in Ruby.",
