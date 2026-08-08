@@ -98,7 +98,7 @@
           ),
           beat(
             "<p>You are not on rails. <b>Scroll</b> to travel down the tower (or drag the " +
-              "rail on the right), <b>drag</b> to orbit, <b>ctrl-scroll</b> to zoom, and " +
+              "rail on the right), <b>drag</b> to orbit, <b>+</b> and <b>&minus;</b> to zoom, and " +
               "<b>hover any cell</b> to see its value together with the exact cells that " +
               "produced it. Press <b>space</b> to pause or resume the tour.</p>",
             { cam: { ids: null, pad: 1.25, yaw: 0.95 }, dur: 10 }

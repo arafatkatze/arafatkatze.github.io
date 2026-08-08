@@ -449,6 +449,7 @@
     });
 
     wireDepthScroller();
+    wireZoomControls();
 
     app.on("frame", function (active) {
       updateHoverCard(active);
@@ -464,6 +465,10 @@
         p.next();
       } else if (e.code === "ArrowLeft") {
         p.prev();
+      } else if (e.key === "+" || e.key === "=") {
+        app.zoomBy(1 / 1.25);
+      } else if (e.key === "-" || e.key === "_") {
+        app.zoomBy(1.25);
       } else if (e.key === "l" || e.key === "L") {
         $("btn-labels").click();
       } else if (e.key === "r" || e.key === "R") {
@@ -526,6 +531,36 @@
     );
   }
 
+  /**
+   * Explicit zoom buttons. The wheel is given over to travelling the model,
+   * so zoom needs a control you can find without reading the shortcuts.
+   * Holding a button keeps zooming.
+   */
+  function wireZoomControls() {
+    var app = state.app;
+    [["zoom-in", 1 / 1.18], ["zoom-out", 1.18]].forEach(function (pair) {
+      var el = $(pair[0]);
+      var factor = pair[1];
+      var timer = null;
+      function stop() {
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
+      el.addEventListener("pointerdown", function (e) {
+        e.preventDefault();
+        app.zoomBy(factor);
+        state.player.pause();
+        stop();
+        timer = setInterval(function () {
+          app.zoomBy(factor);
+        }, 110);
+      });
+      el.addEventListener("pointerup", stop);
+      el.addEventListener("pointerleave", stop);
+      el.addEventListener("pointercancel", stop);
+    });
+  }
+
   function updateDepthScroller() {
     var thumb = $("depth-thumb");
     if (!thumb) return;
@@ -571,9 +606,10 @@
       '<div class="help-list">' +
       row("scroll", "travel up and down the model") +
       row("drag the right rail", "same travel, by hand (and on touch)") +
+      row("+ / -", "zoom in and out (or the buttons by the rail)") +
+      row("ctrl + scroll / pinch", "zoom") +
       row("drag", "orbit the model") +
       row("shift + drag", "pan") +
-      row("ctrl + scroll / pinch", "zoom") +
       row("hover", "read a cell and light up the cells that made it") +
       row("click", "pin that cell, click again to release") +
       row("space", "play or pause the walkthrough") +

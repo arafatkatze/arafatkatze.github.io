@@ -247,7 +247,12 @@
         // The model is one tall column, so a bare wheel travels down it the way
         // a page scrolls. Zooming stays on a modifier (and on pinch).
         if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
-          self.camera.dist = M.clamp(self.camera.dist * Math.exp(delta * 0.0016), 3, 400000);
+          self.distTarget = null;
+          self.camera.dist = M.clamp(
+            self.camera.dist * Math.exp(delta * 0.0016),
+            MIN_DIST,
+            MAX_DIST
+          );
         } else {
           self.travel(delta * 2.4);
         }
@@ -271,7 +276,8 @@
           (e.touches[0].clientY + e.touches[1].clientY) / 2,
         ];
         if (pinch) {
-          self.camera.dist = M.clamp(self.camera.dist * (pinch.d / d), 3, 400000);
+          self.distTarget = null;
+          self.camera.dist = M.clamp(self.camera.dist * (pinch.d / d), MIN_DIST, MAX_DIST);
           var cam = self.camera;
           var right = M.norm3(M.cross3([0, 1, 0], M.sub3(cam.eye, cam.target)));
           var up = M.norm3(M.cross3(M.sub3(cam.eye, cam.target), right));
@@ -306,6 +312,20 @@
       (this.camera.dist * 2 * Math.tan(this.camera.fov / 2)) /
       Math.max(1, this.canvas.clientHeight);
     this.setDepthY(this.camera.target[1] - pixels * worldPerPixel);
+  };
+
+  var MIN_DIST = 3;
+  var MAX_DIST = 400000;
+
+  /**
+   * Zoom by a multiplier. Eased rather than applied outright so repeated
+   * button presses and key repeats glide instead of jumping.
+   */
+  App.prototype.zoomBy = function (factor) {
+    var from = this.distTarget || this.camera.dist;
+    this.camTarget = null;
+    this.autoSpin = false;
+    this.distTarget = M.clamp(from * factor, MIN_DIST, MAX_DIST);
   };
 
   /** Move the camera to an absolute height, clamped to the model's extent. */
@@ -428,6 +448,13 @@
       var d = M.len3(M.sub3(this.camera.target, this.camTarget.target));
       if (d < this.camera.dist * 0.002 && Math.abs(this.camera.dist - this.camTarget.dist) < this.camTarget.dist * 0.01) {
         this.camTarget = null;
+      }
+    }
+    if (this.distTarget) {
+      this.camera.dist = M.approach(this.camera.dist, this.distTarget, 11, dt);
+      if (Math.abs(this.camera.dist - this.distTarget) < this.distTarget * 0.004) {
+        this.camera.dist = this.distTarget;
+        this.distTarget = null;
       }
     }
     if (this.autoSpin) this.camera.yaw += dt * 0.06;
