@@ -644,6 +644,33 @@ body {
   padding: 6px 0;
 }
 
+.zoom-btn {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  background: rgba(12, 18, 30, 0.85);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.zoom-btn:hover {
+  background: rgba(110, 168, 255, 0.22);
+  border-color: var(--accent);
+}
+
+.zoom-btn:active {
+  background: rgba(110, 168, 255, 0.36);
+}
+
 /* -------------------------------------------------------------- model card */
 
 #modelcard {
@@ -1089,10 +1116,10 @@ button.ghost:hover {
      target rather than a hairline */
   #depth {
     right: 6px;
-    top: 152px;
-    bottom: 46%;
-    width: 34px;
-    opacity: 0.85;
+    top: 146px;
+    bottom: 44%;
+    width: 38px;
+    opacity: 0.9;
   }
 
   .depth-track {
@@ -1102,6 +1129,12 @@ button.ghost:hover {
   .depth-thumb {
     width: 18px;
     height: 54px;
+  }
+
+  .zoom-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 17px;
   }
 
   #topbar {
