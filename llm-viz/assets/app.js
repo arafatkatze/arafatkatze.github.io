@@ -10,7 +10,7 @@
 
   var LV = (global.LV = global.LV || {});
   var M = LV.math;
-  var FPB = 28; // floats per block instance
+  var FPB = 32; // floats per block instance
   var FPBEAM = 12;
 
   function App(opts) {
@@ -519,6 +519,11 @@
       d[o + 24] = b.emph;
       d[o + 26] = 0;
       d[o + 27] = i * 0.137;
+      var div = b.dividers;
+      d[o + 28] = div && div.xMajor ? div.xMajor : 0;
+      d[o + 29] = div && div.xMinor ? div.xMinor : 0;
+      d[o + 30] = div && div.yMajor ? div.yMajor : 0;
+      d[o + 31] = div && div.yMinor ? div.yMinor : 0;
     }
 
     var beams = this.scene.beams;

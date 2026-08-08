@@ -1140,3 +1140,17 @@ button.ghost:hover {
 .lv-label.sub {
   color: rgba(200, 214, 235, 0.72);
 }
+
+.lv-label.seg {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 224, 160, 0.95);
+  letter-spacing: 0.08em;
+}
+
+.lv-label.seg.sub {
+  font-size: 9.5px;
+  color: rgba(190, 205, 230, 0.7);
+  letter-spacing: 0.04em;
+}
