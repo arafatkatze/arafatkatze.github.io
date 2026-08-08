@@ -398,7 +398,9 @@ document.addEventListener("DOMContentLoaded", function () {
     { name: "Vatican City", country: "Vatican City", lat: 41.9029, lng: 12.4534 },
     { name: "Florence", country: "Italy", lat: 43.7696, lng: 11.2558 },
     { name: "Istanbul", country: "Turkey", lat: 41.0082, lng: 28.9784 },
-    { name: "Dubai", country: "UAE", lat: 25.2048, lng: 55.2708 }
+    { name: "Dubai", country: "UAE", lat: 25.2048, lng: 55.2708 },
+    { name: "Lima", country: "Peru", lat: -12.0464, lng: -77.0428 },
+    { name: "Cusco", country: "Peru", lat: -13.5319, lng: -71.9675 }
   ];
 
   var today = new Date();
@@ -417,7 +419,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var continents = { "North America": 0, "South America": 0, "Europe": 0, "Asia": 0 };
   var continentMap = {
     "Canada": "North America", "Guatemala": "North America", "El Salvador": "North America",
-    "Brazil": "South America",
+    "Brazil": "South America", "Peru": "South America",
     "Switzerland": "Europe", "Netherlands": "Europe", "Belgium": "Europe",
     "France": "Europe", "Germany": "Europe", "Norway": "Europe",
     "Bulgaria": "Europe", "Albania": "Europe", "Ukraine": "Europe",
