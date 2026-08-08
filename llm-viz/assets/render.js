@@ -174,8 +174,12 @@ void main() {
   float b = rangeHit(vI5, cell) * vI5.w;
   float hi = vI6.y > 0.5 ? min(a, b) : max(a, b);
   if (hi > 0.001) {
-    vec3 glow = vec3(1.0, 0.88, 0.45);
-    col = mix(col, col * 1.35 + glow * 0.55, clamp(hi, 0.0, 1.0));
+    // Provenance has to remain legible on both dark activations and bright
+    // weights. Use an emissive gold/white override rather than a subtle tint;
+    // the gentle pulse distinguishes it from a naturally large positive cell.
+    float pulse = 0.92 + 0.08 * sin(uTime * 4.5);
+    vec3 glow = vec3(1.75, 1.32, 0.48) * pulse;
+    col = mix(col, glow, 0.55 + 0.45 * clamp(hi, 0.0, 1.0));
   }
 
   // emphasis: a soft outward glow used by the walkthrough
