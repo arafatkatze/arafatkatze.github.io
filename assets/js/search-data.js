@@ -335,6 +335,11 @@ ninja.data = [{
           description: "a small constellation of the people who shaped me — hover any star, read their story.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/nightsky/";
+            },},{id: "projects-open-sourcing-evals-for-open-weight-agents",
+          title: 'Open-sourcing evals for open-weight agents',
+          description: "The Hill Climber&#39;s Checklist for evaluating open-weight agents, with scores, tradeoffs, and public traces.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/open-weight-agent-evals/";
             },},{id: "projects-public-speaking",
           title: 'Public Speaking',
           description: "Talks and conference videos on AI agents, evals, and machine learning",
