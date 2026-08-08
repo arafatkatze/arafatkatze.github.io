@@ -227,6 +227,7 @@ exclude:
   - README.md
   - readme_preview/
   - reading-quotes/highlights.csv
+  - llm-viz/tools/
   - sdk-wip-main/
   - vendor
 keep_files:
@@ -288,6 +289,8 @@ jekyll-minifier:
       "fab2-replica/index.html",
       "fab2-replica/assets/styles.css",
       "computer-use-field-notes/index.html",
+      "llm-viz/index.html",
+      "llm-viz/assets/styles.css",
     ]
 
 # -----------------------------------------------------------------------------
