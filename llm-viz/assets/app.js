@@ -243,8 +243,14 @@
         e.preventDefault();
         self.camTarget = null;
         self.autoSpin = false;
-        var k = Math.exp(M.clamp(e.deltaY, -260, 260) * 0.0016);
-        self.camera.dist = M.clamp(self.camera.dist * k, 3, 400000);
+        var delta = M.clamp(e.deltaY, -260, 260);
+        // The model is one tall column, so a bare wheel travels down it the way
+        // a page scrolls. Zooming stays on a modifier (and on pinch).
+        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) {
+          self.camera.dist = M.clamp(self.camera.dist * Math.exp(delta * 0.0016), 3, 400000);
+        } else {
+          self.travel(delta * 2.4);
+        }
         self.emit("interact");
       },
       { passive: false }
@@ -286,6 +292,43 @@
     c.addEventListener("touchend", function () {
       pinch = null;
     });
+  };
+
+  /**
+   * Travel up or down the model. `pixels` is in screen units, so a scroll
+   * covers the same amount of tower whether you are zoomed in on one slab or
+   * looking at the whole thing. Travel is bounded to the model plus a margin
+   * so you cannot scroll off into empty space.
+   */
+  App.prototype.travel = function (pixels) {
+    if (!this.scene) return;
+    var worldPerPixel =
+      (this.camera.dist * 2 * Math.tan(this.camera.fov / 2)) /
+      Math.max(1, this.canvas.clientHeight);
+    this.setDepthY(this.camera.target[1] - pixels * worldPerPixel);
+  };
+
+  /** Move the camera to an absolute height, clamped to the model's extent. */
+  App.prototype.setDepthY = function (y) {
+    var range = this.depthRange();
+    this.camTarget = null;
+    this.autoSpin = false;
+    this.camera.target[1] = M.clamp(y, range.min, range.max);
+  };
+
+  App.prototype.depthRange = function () {
+    var s = this.scene;
+    // just enough overscroll to see the first and last slab clear of the edge
+    var margin = Math.max(10, (s.max[1] - s.min[1]) * 0.02);
+    return { min: s.min[1] - margin, max: s.max[1] + margin };
+  };
+
+  /** Where the camera currently sits along the model: 0 at the top, 1 at the bottom. */
+  App.prototype.depthFraction = function () {
+    var range = this.depthRange();
+    var span = range.max - range.min;
+    if (span < 1e-6) return 0;
+    return M.clamp((range.max - this.camera.target[1]) / span, 0, 1);
   };
 
   App.prototype.click = function () {
