@@ -79,7 +79,14 @@
         // difference only lands if you watch the camera travel it
         app.camTarget = null;
         app.camera.applySnapshot(app.poseFor(["m0:embed", "m0:probs"], { pad: 1.2 }));
-        app.flyTo(app.poseFor(null, { pad: 1.1 }), 0.35);
+        // stop once GPT-2 XL fits: framing GPT-3 as well would put every other
+        // model below one pixel, so it is left running off the top instead
+        app.flyTo(
+          app.poseFor(["m0:embed", "m0:probs", "m1:embed", "m1:probs", "m2:embed", "m2:probs"], {
+            pad: 1.3,
+          }),
+          0.32
+        );
       }
       return;
     }
@@ -144,9 +151,10 @@
     }).join("");
     $("modelcard").innerHTML =
       '<div class="mc-title"><span>Four models, one scale</span></div>' +
-      '<div class="mc-blurb">Drawn side by side with the same cell size. ' +
-      "GPT-3 is about two million times the size of nano-gpt, so the bar chart " +
-      "below is logarithmic &mdash; the towers are not.</div>" +
+      '<div class="mc-blurb">Drawn side by side with the same cell size. GPT-3 ' +
+      "runs off the top of the screen at this framing, and nano-gpt is already " +
+      "smaller than a pixel &mdash; hence the logarithmic bar chart. Click a row " +
+      "to fly to that model.</div>" +
       '<div class="cmp">' +
       rows +
       "</div>";
@@ -189,6 +197,7 @@
           state.app.focus = null;
           state.app.highlights = {};
         }
+        $("nar-body").dataset.section = ""; // force the live/not-live note to refresh
         renderNarrative();
       };
       wrap.appendChild(b);

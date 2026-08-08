@@ -999,21 +999,33 @@ button.ghost:hover {
     left: 0;
     right: 0;
     width: auto;
-    max-height: 46%;
+    max-height: 42%;
     border-radius: 16px 16px 0 0;
   }
 
   #promptbar {
     bottom: auto;
-    top: 60px;
+    top: 58px;
     left: 8px;
     right: 8px;
-    padding: 8px 10px;
-    gap: 7px;
+    padding: 7px 9px;
+    gap: 6px;
+    justify-content: center;
   }
 
-  .prompt-note {
+  .icon-btn.floating {
+    top: 112px;
+  }
+
+  .prompt-note,
+  .prompt-label {
     display: none;
+  }
+
+  .tok {
+    width: 27px;
+    height: 27px;
+    font-size: 13px;
   }
 
   #topbar {
