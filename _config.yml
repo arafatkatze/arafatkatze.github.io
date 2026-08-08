@@ -229,6 +229,7 @@ exclude:
   - reading-quotes/highlights.csv
   - llm-viz/tools/
   - sdk-wip-main/
+  - tests/
   - vendor
 keep_files:
   - CNAME
