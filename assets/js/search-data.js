@@ -345,6 +345,11 @@ ninja.data = [{
           description: "An interactive galaxy of 10,000+ reading highlights, placed by meaning (sentence embeddings → UMAP) and clustered into themes like love, money, fear, and writing. Hover a point to read the quote and where it&#39;s from; zoom, pan, and isolate a theme. Fast, self-contained, and mobile-friendly — with a banner back to the full quotes list and flashcards.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/readingMap/";
+            },},{id: "projects-recursive-self-improvement-for-coding-agents",
+          title: 'Recursive Self Improvement for Coding Agents',
+          description: "How one prompt turned a 17-hour autonomous hill climb into an 88.8% state-of-the-art Terminal-Bench 2.1 score.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/recursiveSelfImprovement/";
             },},{id: "projects-scroll-inside-effect",
           title: 'Scroll-Inside Effect',
           description: "A cross-device homage to the html review 04 &quot;scroll to fly through&quot; 3D tunnel — rebuilt to run on phones too.",
