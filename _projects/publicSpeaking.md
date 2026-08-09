@@ -36,7 +36,7 @@ At Europe's largest Ruby conference in Budapest, I introduced [tensorflow.rb](ht
 Over the years I've spoken at conferences across Europe and North America on machine learning, algorithm visualization, and life as a digital nomad in tech:
 
 - **DevOpsDays Recife (2022):** Digital nomading in tech, [talk](https://devopsdays.org/events/2022-recife/program/arafat-khan/)
-- **GopherCon India (2019):** Algorithm visualizations in Go, [conference](https://gopherconindia.org/2019/), [project](https://github.com/Arafatk/DataViz)
+- **GopherCon India (2019):** Algorithm visualizations in Go, [project](https://github.com/Arafatk/DataViz)
 - **Google Developers Windsor (2019):** TensorFlow Ruby, [event](https://gdg.community.dev/events/details/google-gdg-windsor-presents-the-windsor-essex-devfest-sold-out/)
 - **GoWayFest Belarus (2018):** Visualizations in Go, [project](https://github.com/Arafatk/DataViz)
 - **Ruby on Ice, Germany (2018):** TensorFlow for Rubyists ML workshop, [talk](http://2018.rubyonice.com/speakers/arafat_khan)
