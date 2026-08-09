@@ -190,17 +190,6 @@ ninja.data = [{
             window.location.href = "/philosophy/2024/05/06/inwards.html";
           
         },
-      },{id: "post-ruby-tensorflow-introduction-internals-and-image-recognition",
-        
-          title: "Ruby TensorFlow — Introduction, Internals, and Image Recognition",
-        
-        description: "Three early tutorials on tensorflow.rb combined into one — introducing the Ruby API, understanding how Google Protobuf powers the graph internals, and running Inception-v3 image recognition in Ruby.",
-        section: "Posts",
-        handler: () => {
-          
-            window.location.href = "/blog/ruby-tensorflow/";
-          
-        },
       },{id: "books-1984",
           title: '1984',
           description: "",
