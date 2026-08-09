@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -44,4 +46,4 @@ jobs:
         with:
           fail: true
           # only check local links
-          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --verbose --no-progress '_site/**/*.html'
+          args: --offline --remap 'https://arafatkatze.com(/?.*) file://${{ github.workspace }}/_site$1' --verbose --no-progress '_site/**/*.html'
