@@ -1,6 +1,5 @@
 # -----------------------------------------------------------------------------
 # Site settings
-# (redeploy: rollback to 4c4ce5db)
 # -----------------------------------------------------------------------------
 
 title: "Ara's Space" # the website title (if blank, full name will be used instead)
@@ -9,10 +8,10 @@ middle_name:
 last_name: Khan
 email: arafat.da.khan@gmail.com
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+  Personal site of Ara Khan, an AI engineer building coding agents, evaluation systems, and open-source developer tools.
 footer_text: >
 
-keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
+keywords: Ara Khan, AI engineering, coding agents, agent evaluation, open source, infrastructure, technical writing
 
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: 💌 # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
@@ -64,9 +63,9 @@ max_width: 930px
 # -----------------------------------------------------------------------------
 # Display links to the page with a preview object on social media.
 # see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
-serve_schema_org: false # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
+serve_og_meta: true # Include Open Graph meta tags in the HTML head
+serve_schema_org: true # Include Schema.org in the HTML head
+og_image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772992166/profile_photo_fvaxo9.png # Site-wide Open Graph image
 
 # -----------------------------------------------------------------------------
 # Social integration
@@ -74,7 +73,7 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 
 github_username: arafatkatze # your GitHub user name
 gitlab_username: # your GitLab user name
-twitter_username: arafatkatze # your Twitter handle
+x_username: arafatkatze # your X handle
 mastodon_username: mastodon.social/@arafatkatze # your mastodon instance+username in the format instance.tld/@username
 linkedin_username: arafatkatze # your LinkedIn user name
 telegram_username: # your Telegram user name
@@ -347,7 +346,7 @@ scholar:
   group_by: year
   group_order: descending
 
-# Display different badges withs stats for your publications
+# Display different badges with stats for your publications
 # Customize badge behavior in _layouts/bib.liquid
 enable_publication_badges:
   altmetric: true # Altmetric badge (Customization options: https://badge-docs.altmetric.com/index.html)
