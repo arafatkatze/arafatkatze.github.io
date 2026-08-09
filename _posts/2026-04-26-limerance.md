@@ -1,8 +1,8 @@
 ---
 layout: post
-title: The gift of an agonizing limerance
+title: The gift of an agonizing limerence
 date: 2026-04-26 14:00:00
-description: The gift of an agonizing limerance
+description: The gift of an agonizing limerence
 category: philosophy
 tags: philosophy skiing travel
 ---
