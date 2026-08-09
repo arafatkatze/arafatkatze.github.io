@@ -311,11 +311,6 @@ ninja.data = [{
           description: "Eval runs to improve computer-use UX — OSWorld experiments on smaller screenshots, running task notes, and batched GUI actions, with every trace public.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/computerUseFieldNotes/";
-            },},{id: "projects-scroll-to-fly-effect",
-          title: 'Scroll-to-Fly Effect',
-          description: "An homage to fab2.com&#39;s flying camera — scroll and the page lifts off, twists, glides, and dives to the next stop. Rebuilt from scratch, phones included; content is placeholder for now.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/fab2Replica/";
             },},{id: "projects-priviledged-homelessness",
           title: 'Priviledged Homelessness',
           description: "",
@@ -341,11 +336,6 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/mathmaking/";
-            },},{id: "projects-navigation-queues-navigation-cues",
-          title: 'Navigation queues | Navigation cues',
-          description: "A scroll-driven web essay about scrollbars, infinite scroll, and the fear of getting lost — replica for future customization.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/navigationCues/";
             },},{id: "projects-stories-from-my-night-sky",
           title: 'Stories from my night sky',
           description: "a small constellation of the people who shaped me — hover any star, read their story.",
@@ -381,11 +371,6 @@ ninja.data = [{
           description: "Porting TensorFlow to Ruby with the tensorflow.rb gem — the Ruby API, how Google Protobuf drives the graph internals, and Inception-v3 image recognition in Ruby.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/rubyTensorflow/";
-            },},{id: "projects-scroll-inside-effect",
-          title: 'Scroll-Inside Effect',
-          description: "A cross-device homage to the html review 04 &quot;scroll to fly through&quot; 3D tunnel — rebuilt to run on phones too.",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/scroll-inside-replica/";
             },},{id: "projects-but-you-are-just-a-quot-content-creator-quot",
           title: 'But you are just a &amp;quot;content creator&amp;quot;',
           description: "",
