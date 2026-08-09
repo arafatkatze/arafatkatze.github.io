@@ -87,14 +87,7 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
     type: image
 
-  # Row 4: brazil tall + pixel board + on looking inwards + into the wild
-  - title: Brazil
-    label: Projects · Fun
-    link: /projects/Brazil/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
-    type: image
-    span: tall
-
+  # Row 4: pixel board + on looking inwards + into the wild
   - title: Pixel Board
     label: Pixels · Art
     link: /pixels/
