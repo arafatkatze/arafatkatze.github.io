@@ -80,11 +80,11 @@ ninja.data = [{
             window.location.href = "/philosophy/2026/06/19/art.html";
           
         },
-      },{id: "post-the-gift-of-an-agonizing-limerance",
+      },{id: "post-the-gift-of-an-agonizing-limerence",
         
-          title: "The gift of an agonizing limerance",
+          title: "The gift of an agonizing limerence",
         
-        description: "The gift of an agonizing limerance",
+        description: "The gift of an agonizing limerence",
         section: "Posts",
         handler: () => {
           
