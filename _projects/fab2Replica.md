@@ -5,6 +5,7 @@ description: An homage to fab2.com's flying camera — scroll and the page lifts
 img: assets/img/fab2_replica.webp
 importance: 1
 category: art
+hidden: true
 redirect: /fab2-replica/
 ---
 

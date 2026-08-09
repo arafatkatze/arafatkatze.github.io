@@ -303,7 +303,8 @@ open each one inside a window (content is lazy-fetched from the real page). {% e
     {% endfor %}
   ],
   "projects": [
-    {% for p in site.projects %}{"title": {{ p.title | jsonify }}, "url": {{ p.url | relative_url | jsonify }}, "date": {{ p.category | default: "" | jsonify }}, "year": {{ p.category | default: "" | jsonify }}, "redirect": {% if p.redirect %}{% if p.redirect contains "://" %}{{ p.redirect | jsonify }}{% else %}{{ p.redirect | relative_url | jsonify }}{% endif %}{% else %}""{% endif %}}{% unless forloop.last %},{% endunless %}
+    {% assign visible_projects = site.projects | where_exp: "project", "project.hidden != true" %}
+    {% for p in visible_projects %}{"title": {{ p.title | jsonify }}, "url": {{ p.url | relative_url | jsonify }}, "date": {{ p.category | default: "" | jsonify }}, "year": {{ p.category | default: "" | jsonify }}, "redirect": {% if p.redirect %}{% if p.redirect contains "://" %}{{ p.redirect | jsonify }}{% else %}{{ p.redirect | relative_url | jsonify }}{% endif %}{% else %}""{% endif %}}{% unless forloop.last %},{% endunless %}
     {% endfor %}
   ]
 }

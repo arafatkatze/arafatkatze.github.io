@@ -5,6 +5,7 @@ description: A cross-device homage to the html review 04 "scroll to fly through"
 img: assets/img/scroll_inside_replica.webp
 importance: 1
 category: art
+hidden: true
 redirect: /html-review-replica/
 ---
 
