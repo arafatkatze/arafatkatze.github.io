@@ -36,7 +36,7 @@ I have read dozens of eval blogs and learned that they are mostly about self-con
 
 ## How do we run evals?
 
-We use [Harbor](https://github.com/laude-institute/harbor). It is a widely adopted agent-evaluation framework built by the creators of [Terminal-Bench](https://terminalbench.com/). It abstracts away sandbox management, the agent loop, and rollout monitoring to run evals.
+We use [Harbor](https://github.com/laude-institute/harbor). It is a widely adopted agent-evaluation framework built by the creators of [Terminal-Bench](https://www.tbench.ai/). It abstracts away sandbox management, the agent loop, and rollout monitoring to run evals.
 
 Harbor lets you run tons of parallelized evals using Modal on the same 89-problem coding dataset, [Terminal Bench](https://www.tbench.ai/), so you can do long eval runs across different coding agent harnesses and quickly figure out aggregate eval run metrics like input tokens, cached tokens, output tokens, net price, tool calls used, etc.
 
@@ -86,13 +86,13 @@ One measure of a good eval is variance. For meaningful problems, the same model,
 
 ### Here are a few examples of variance on Cline's end
 
-| Model | Setup | Spread |
-|---|---|---|
-| minimax-m3 | Same build, 5 reruns | 43.8% to 56.2% (±11 tasks); two back-to-back runs flipped 11 tasks up and 18 down |
-| deepseek-v4-pro | Same build, 2 runs | 44.9% vs 53.9% (22 tasks flipped, some positive and some negative) |
-| glm-5.1 | Same build, 3 reruns | 46.1% / 47.2% / 49.4% (24% of tasks flipped) |
-| deepseek-v4-flash | Same build, 3 reruns | 38.2% / 44.9% / 48.3% (±5 tasks, error count went 20/17/9) |
-| glm-5.2 | Same build, many reruns | 56.2% to 74.2% (~16 tasks) |
+| Model             | Setup                   | Spread                                                                            |
+| ----------------- | ----------------------- | --------------------------------------------------------------------------------- |
+| minimax-m3        | Same build, 5 reruns    | 43.8% to 56.2% (±11 tasks); two back-to-back runs flipped 11 tasks up and 18 down |
+| deepseek-v4-pro   | Same build, 2 runs      | 44.9% vs 53.9% (22 tasks flipped, some positive and some negative)                |
+| glm-5.1           | Same build, 3 reruns    | 46.1% / 47.2% / 49.4% (24% of tasks flipped)                                      |
+| deepseek-v4-flash | Same build, 3 reruns    | 38.2% / 44.9% / 48.3% (±5 tasks, error count went 20/17/9)                        |
+| glm-5.2           | Same build, many reruns | 56.2% to 74.2% (~16 tasks)                                                        |
 
 Note that the cause of variance must be identified. If there's infrastructure flakiness on your end, that's a problem you must solve. It could be anything from using a low-performance provider to flaky VMs. You must do everything possible to iron out variance in the eval runs and be confident that identical configuration values are respected.
 
@@ -132,12 +132,12 @@ If you are building a common harness, you are not going to maintain a completely
 
 A classic example was an experiment in which we added tool-bloat truncation to solve token bloat in MiniMax models.
 
-| Model | Before → with the fix → final stack | Direction |
-|---|---|---|
-| minimax-m2.7 | 32.6% → 41.6% → 46.1% | +13.5 points ▲ |
-| glm-5.1 | 48.3% → 52.8% → 57.3% | +9.0 points ▲ |
-| deepseek-v4-pro | 47.2% → 47.2% → 42.7% | −4.5 points ▼ |
-| deepseek-v4-flash | 48.3% → 43.8% → 41.6% | −6.7 points ▼ |
+| Model             | Before → with the fix → final stack | Direction      |
+| ----------------- | ----------------------------------- | -------------- |
+| minimax-m2.7      | 32.6% → 41.6% → 46.1%               | +13.5 points ▲ |
+| glm-5.1           | 48.3% → 52.8% → 57.3%               | +9.0 points ▲  |
+| deepseek-v4-pro   | 47.2% → 47.2% → 42.7%               | −4.5 points ▼  |
+| deepseek-v4-flash | 48.3% → 43.8% → 41.6%               | −6.7 points ▼  |
 
 With one truncation clamp, we saw that it improved MiniMax M2.7 by 13.5 points and GLM-5.1 by 9 points. But it also hurt DeepSeek Flash by 6.7 points and DeepSeek Pro by 4.5. So the same change had opposite effects on different models.
 

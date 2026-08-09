@@ -22,7 +22,7 @@ This guide outlines the process of hill climbing that we used to benchmark model
 
 Hill climbing is an iterative improvement process for AI agents/models. You run an AI coding agent on a standardized set of coding tasks, measure the score, change one thing (a prompt tweak, a bug fix, a config flag), run again, and keep the change if the score goes up. Revert if it goes down. Repeat.
 
-Most coding agent evaluations are either single-turn or too saturated. However, Terminal Bench has created problems and verifiers that test the entire agentic flow, allowing you to test the full range of tasks your coding agent could do and grade the entire set of steps it performs. There's a ton that's been written about building high quality evals for AI agents and Anthropic's [Demystifying evals](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) blog dives into how to design and run high-quality evals.
+Most coding agent evaluations are either single-turn or too saturated. However, [Terminal Bench](https://www.tbench.ai/) has created problems and verifiers that test the entire agentic flow, allowing you to test the full range of tasks your coding agent could do and grade the entire set of steps it performs. There's a ton that's been written about building high quality evals for AI agents and Anthropic's [Demystifying evals](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) blog dives into how to design and run high-quality evals.
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 700px;">
     {% include figure.liquid
@@ -153,7 +153,7 @@ This command will run the entire harbor eval run with a timeout of 40 minutes (2
 harbor jobs summarize ./jobs/LATEST --failed -m haiku
 ```
 
-This command categorizes *why* tasks failed. Common failure patterns we found:
+This command categorizes _why_ tasks failed. Common failure patterns we found:
 
 - **AgentTimeoutError** — Cline CLI's default 600s timeout was too short. Fix: `--ak timeout=2400`
 - **Missing expected files** — Cline assumed success without verifying. Fix: [PR #9154](https://github.com/cline/cline/pull/9154) (require verification before completion)
