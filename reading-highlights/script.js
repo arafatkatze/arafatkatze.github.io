@@ -686,14 +686,16 @@
     const dt = Math.min(0.05, (now - lastT) / 1000);
     lastT = now;
 
-    const animating = spinning || !!tween || vTheta !== 0 || vPhi !== 0 || Math.abs(flat - flatTarget) > 1e-4;
+    // a quote on screen holds the idle orbit still, so it stays readable
+    const drifting = spinning && hoverI < 0 && selI < 0;
+    const animating = drifting || !!tween || vTheta !== 0 || vPhi !== 0 || Math.abs(flat - flatTarget) > 1e-4;
     if (!animating && !dirty) return;
     dirty = false;
 
     stepTween(now);
 
     if (!dragging && !tween) {
-      if (spinning) cam.theta += SPIN_SPEED * dt;
+      if (drifting) cam.theta += SPIN_SPEED * dt;
       if (Math.abs(vTheta) > 1e-5 || Math.abs(vPhi) > 1e-5) {
         cam.theta += vTheta;
         cam.phi = clamp(cam.phi + vPhi, -1.45, 1.45);
