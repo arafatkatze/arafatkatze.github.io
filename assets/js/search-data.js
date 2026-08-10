@@ -295,29 +295,34 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/communalArt/";
-            },},{id: "projects-computer-use-field-notes",
-          title: 'Computer Use Field Notes',
-          description: "Eval runs to improve computer-use UX — OSWorld experiments on smaller screenshots, running task notes, and batched GUI actions, with every trace public.",
+            },},{id: "projects-",
+          title: '',
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/computerUseFieldNotes/";
+            },},{id: "projects-",
+          title: '',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/fab2Replica/";
             },},{id: "projects-priviledged-homelessness",
           title: 'Priviledged Homelessness',
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/homelessness/";
-            },},{id: "projects-if-we-could-just",
-          title: 'If we could just',
-          description: "An interactive boil-text experience. It opens with the &quot;you didn&#39;t know that&quot; confessions, then asks if we could just — pick a path (be lovers, be friends, stop talking) and watch it unravel phrase by phrase behind accreting frames, ending in a screen that keeps splitting into &quot;love you&quot;.",
+            },},{id: "projects-",
+          title: '',
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/ifWeCouldJust/";
-            },},{id: "projects-the-math-of-llm-inference",
-          title: 'The Math of LLM Inference',
-          description: "How to save millions by self-hosting LLMs — the math of inference and the real dollars, grounded in production traffic.",
+            },},{id: "projects-",
+          title: '',
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/inferenceMath/";
-            },},{id: "projects-llm-visualization",
-          title: 'LLM Visualization',
-          description: "A GPT drawn at full resolution — all 85,728 parameters, every activation, and a guided walkthrough from tokens to output probabilities. Runs the model live in your browser.",
+            },},{id: "projects-",
+          title: '',
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/llmVisualization/";
             },},{id: "projects-mathematics-of-love",
@@ -325,9 +330,14 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/mathmaking/";
-            },},{id: "projects-stories-from-my-night-sky",
-          title: 'Stories from my night sky',
-          description: "a small constellation of the people who shaped me — hover any star, read their story.",
+            },},{id: "projects-",
+          title: '',
+          description: "",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/navigationCues/";
+            },},{id: "projects-",
+          title: '',
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/nightsky/";
             },},{id: "projects-open-sourcing-evals-for-open-weight-agents",
@@ -340,9 +350,9 @@ ninja.data = [{
           description: "Talks and conference videos on AI agents, evals, and machine learning",
           section: "Projects",handler: () => {
               window.location.href = "/projects/publicSpeaking/";
-            },},{id: "projects-the-reading-map",
-          title: 'The Reading Map',
-          description: "An interactive galaxy of 10,000+ reading highlights, placed by meaning (sentence embeddings → UMAP) and clustered into themes like love, money, fear, and writing. Hover a point to read the quote and where it&#39;s from; zoom, pan, and isolate a theme. Fast, self-contained, and mobile-friendly — with a banner back to the full quotes list and flashcards.",
+            },},{id: "projects-",
+          title: '',
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/readingMap/";
             },},{id: "projects-recursive-self-improvement-for-coding-agents",
@@ -355,9 +365,9 @@ ninja.data = [{
           description: "iPhone LiDAR → interactive photoreal 3D room, LiteReality-style",
           section: "Projects",handler: () => {
               window.location.href = "/projects/roomLidar/";
-            },},{id: "projects-ruby-tensorflow",
-          title: 'Ruby TensorFlow',
-          description: "Porting TensorFlow to Ruby with the tensorflow.rb gem — the Ruby API, how Google Protobuf drives the graph internals, and Inception-v3 image recognition in Ruby.",
+            },},{id: "projects-",
+          title: '',
+          description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/rubyTensorflow/";
             },},{id: "projects-but-you-are-just-a-quot-content-creator-quot",
