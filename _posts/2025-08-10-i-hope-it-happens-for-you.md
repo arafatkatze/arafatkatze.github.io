@@ -37,13 +37,13 @@ We were now going to tell you which is which.
     {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1760332858/3_rgtiln.png" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
-People describe what they want, but attraction does not follow the form cleanly. We kept one match deliberately surprising to leave room for that mismatch.
+The truth is, what people say they want and what they actually want are very different things. Matchmaking, like everything else here, is a little bit of math and a lot of magic. By keeping this element of surprise, we added that magic.
 I think people come to these events and see someone they like and immediately feel this anxiety: Will this person like me? Do I want to take the leap of approaching them? What if they say no? And if they do, am I an incessant botherer doomed to a lifetime of loneliness? duhhhhh… maybe I should check my phone for the 5th time.
 
-The cards gave each person a reason to approach someone without inventing an opening line. I explain the matching system in a separate technical post.
+The whole point of making these cards was to make that anxiety go away. To give people a valid excuse to approach someone they liked, so the magic of introduction could finally happen. The math behind all these cards is in another blog post for nerds. This one is just about philosophy.
 Right before the event, a friend of mine(Mrs X) said, 'What you're doing is nothing serious; it's only my life that's in your hands.' I know she said it as a joke, but at that moment, it hit me that a few lines of code I've written could potentially decide the course of someone's lifetime.
 
-I hope at least a few people from the event end up dating. Two people who love the same strange little blog might get to build something together.
+There's a deep part of me that believes that at least a few people in the matchmaking event could end up dating, and I really hope that it does happen. It will make me very happy, and more importantly, two people with a similar background who are enamored by similar ideas get to be together. What could be more beautiful than this?
 
 At the same time, it hit me that so many people in this discourse of matchmaking have perverse incentives. Every single day, yet another dating app just wants you to pay more to keep coming back. They have very little interest in you actually getting married. I made a vow to get nothing out of it, that's the only way this could ever really work. I want to do it right.
 
@@ -51,7 +51,7 @@ A few magical things that happened:
 
 - Mrs X met Mr H(another guy we know) matched with each other. I knew both of them and they know each other. The sheer surprise of this boggles my brain. We live in a small world.
 - A guy got there late, so he couldn't pick his card in time. Later, when I showed him matches with the card of his name, one match was actually his friend and she was hanging out with him the whole time.
-- The system combined hard filters, compatibility scores, and an LLM that parsed personality clues. I wrote up [the matching algorithm and its math](https://arafatkatze.github.io/projects/mathmaking/).
+- The whole system ran on algorithms and weighted matching—a blend of hard filters, compatibility scores, and a bit of LLM magic to parse personalities. If you're curious about how we actually built the matching system (or want to geek out on the math), I wrote a technical deep-dive [here](https://arafatkatze.github.io/projects/mathmaking/).
 
 I really hope that everyone had a good time.
 Overall the intent of this event was to get the room "popping" just get people to talk to each feel their "vibes" and then people get each other's numbers and hopefully they talk and feel some spark.

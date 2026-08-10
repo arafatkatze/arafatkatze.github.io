@@ -6,10 +6,10 @@ importance: 1
 category: unpublished
 ---
 
-I keep seeing people in their twenties build an audience on TikTok or Substack, then use the audience as their qualification to tell everyone how to live. Much of the advice repackages someone else's work.
+There's this weird new grift lately—people in their mid-to-late 20s hopping on TikTok or Substack telling everyone how to live, when honestly, their only real achievement is building a following. It's wild how confidently they dish out life advice while clearly still figuring stuff out themselves. The more I read their content, the clearer it gets: they're mostly repackaging other people's insights, and it's starting to annoy me.
 
-I trust this advice less when the writer's income depends on publishing every week. The schedule rewards a steady supply of posts about "creativity" and "authenticity," whether the writer has learned anything new or not.
+I've noticed the more someone's income depends solely on creating content, the less I trust their advice. If your job demands weekly posts, eventually you're just recycling shallow takes on "creativity" and "authenticity" to keep followers happy. We say creativity is spontaneous, yet we act like a weekly schedule magically generates fresh insights—it doesn't. At that point, they're not sharing wisdom; they're meeting quotas.
 
-I would rather listen to someone who has done the thing I want to do. A builder can explain what survived contact with the work. A full-time advice writer has to keep the advice coming.
+Maybe the real trick is only listening to people who've genuinely accomplished exactly what you're trying to do. Titles like "content creator" or "writer" increasingly feel like oxymorons, because their incentives aren't aligned with yours. Reading their repetitive takes isn't just unproductive—it's infuriating.
 
-I spent too many hours doom-scrolling through those posts because I wanted an intellectual home. I found recycled ideas delivered with confidence. I want work with risk and evidence behind it, so I am done taking advice from people whose main accomplishment is giving advice.
+Looking back, I've wasted way too many hours doom-scrolling through these so-called insights, convincing myself I was learning something valuable. Sure, occasionally something interesting slips through, but honestly, very few people have that spark—that rawness—that comes from genuinely creating things. I've been looking for an intellectual home in these posts, but I just can't find it. What I crave is risk, originality, and authenticity—and I'm finally realizing I'll never get that from these grifters. Moving forward, I'm done taking advice from people whose only accomplishment is giving advice.

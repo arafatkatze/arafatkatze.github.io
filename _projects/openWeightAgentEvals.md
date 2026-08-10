@@ -10,11 +10,11 @@ permalink: /projects/open-weight-agent-evals/
 
 ## Preface
 
-New models such as Fable and GPT-5.6 Sol make the cost problem hard to ignore. Frontier labs set both the price and the usage limits for closed-weight models.
+With new model releases like Fable and Gpt-5.6 Sol, it's becoming increasingly clear that closed-weight models are becoming a very expensive commodity, leaving us at the mercy of frontier labs to tell us what to use and how much.
 
 {% twitter https://x.com/i/status/2075530242186166519 %}
 
-Most coding-agent subscriptions hide the token value of their credits, and that value can change by the day. Companies that burn the most tokens have started to [default to open-weight models](https://x.com/brian_armstrong/status/2070670644577280109) or [build their own efficient harnesses](https://www.glean.com/blog/enterprise-agent-harness).
+Most coding-agent subscription plans lack pricing transparency, and the credit limits could have different token values depending on the day. Even the most pro-AI-usage, token-maxxing companies are now finding that their options are either to [default to open-weight models](https://x.com/brian_armstrong/status/2070670644577280109) or simply to [make their own harness for efficiency](https://www.glean.com/blog/enterprise-agent-harness).
 
 At Cline, we noticed an unusual rise in the token usage of open-weight models in the last few months for obvious reasons, such as price and quality improvements that make open-weight models on par with or better than closed-weight models.
 
@@ -30,9 +30,9 @@ So we started digging into how Cline performs on open-weight models. Most Cline 
 
 Our new SDK lets us measure the average token size of Cline requests, and the conclusion was damning: our requests ran 20–30% heavier than the publicly advertised averages of the most efficient harnesses. While we did have SOTA eval scores on most open-weight models, the extra token costs didn't make that acceptable.
 
-## The Hill Climber's Checklist
+## Promise of this blog
 
-The Hill Climber's Checklist has five heuristics for improving an agent without losing sight of cost or regressions. The examples come with more than a thousand dollars' worth of scores and downloadable traces, so you can inspect the failures yourself.
+I have read dozens of eval blogs and learned that they are mostly about self-congratulation and benchmark-maxxing. This will be a different blog. I will walk you through the Hill Climber's Checklist: five heuristics for hill climbing and how to approach them depending on your goals. In the end, I will leave you with over a thousand dollars worth of hill-climbing scores and traces. You can download and explore those traces to find nuanced findings by letting your agents go through them.
 
 ## How do we run evals?
 
@@ -149,7 +149,7 @@ With one truncation clamp, we saw that it improved MiniMax M2.7 by 13.5 points a
 
 The cut itself was simple: any tool output over 50K got clamped to 8K by keeping the head and tail and deleting the middle. That was pure deletion without compression, so nothing summarized what was removed. Rereading the same file returned the same truncated view, so the model had no way to recover the missing middle. It still helped because an agent resends its entire history on every turn. One giant observation gets paid for on every future request, so trimming it kept the conversation shape sane, preserved cache locality, and cut the cost.
 
-The result depends on how each model reads long context. GLM and MiniMax lost track of the middle of long, noisy output, so deleting it improved their scores by 13.5 and 9 points. DeepSeek still used that middle state, so the same deletion cost Flash 6.7 points and Pro 4.5 points.
+Whether it helps a specific model depends on how that model reads long context. GLM and MiniMax get lost in the middle of long noisy output, so deleting the middle sharpened them: +13.5 and +9 points. DeepSeek reasons over the body and tail of long tool outputs, so the deleted middle held state it was still using, and with no way to get it back it dropped 6.7 and 4.5 points. So it turns out that the same knob had opposite effects depending on the model.
 
 To fix this, you have two options:
 
@@ -159,11 +159,11 @@ B. Use completely different algorithmic routes for different models. This comes 
 
 We have pursued option B in many ways, using prompt families for different models to optimize for the best parts of different model families, but only after a carefully considered refactor.
 
-Measure the tradeoff against your use case. Record which models improved, which regressed, and whether the regression is acceptable. A harness only wins for a specific combination of model, provider, and workload.
+In your case, you are looking for the tradeoff. Which models got better? Which ones got worse? And is the regression acceptable for the use case you actually care about? There is no universally better harness. There is only what is better for a particular model, provider, and use case, and you must find that out for yourself.
 
 ### Providers
 
-The same model can behave differently across providers such as CoreWeave, Baseten, and Fireworks. Quantization explains only part of the difference.
+Believe it or not, the same model is not the same model on every provider. Many frontier open-weight models are served by multiple providers, such as CoreWeave, Baseten, and Fireworks. People assume the difference between providers is just quantization, but that is only a small part of the story.
 
 Different providers differ in cache hit ratios, quantization, TTFT, latency, and pricing, and every one of those moves your eval metrics. Whenever we onboard a new provider to route traffic to, we make sure its eval score is on par with the others. You can have a good eval score and a bad cache hit rate at the same time. If you don't run evals, you won't know what went wrong.
 
@@ -184,7 +184,7 @@ The moral of the story is that you must be careful when dealing with different o
 
 ## More thinking is not automatically better
 
-More reasoning effort can cost more while lowering the score. It is not a free intelligence knob.
+When it comes to thinking, the general belief is that more is better. This is not necessarily true. Reasoning effort is not a free intelligence knob. It costs more, and sometimes it lowers the score.
 
 Opus 5's FrontierCode result is a classic counterexample to the idea that more thinking leads to better results.
 
@@ -208,6 +208,6 @@ Having a private set of worthwhile problems with good verifiers is the best way 
 
 There's no better applied AI exercise than working through evals. It will help you understand why your agents are going wrong and how to squeeze the best possible performance out of a model and expose you to the tradeoffs that align with your teams goals.
 
-You learn evals by running them, inspecting mistakes, and trying again. These [eval run traces](https://app.notion.com/p/1c5bce3254df803cb959c1967e17113b) show Cline on several models; you can give them to an agent and ask it to identify the failure modes.
+Evals are ultimately a trial-and-error mechanism. Unless you try, iterate, and make plenty of mistakes, you'll never really learn how to do it well. As promised, I am attaching [dozens of eval run traces](https://app.notion.com/p/1c5bce3254df803cb959c1967e17113b) so that you can see how Cline’s runs on different models, you are welcome to run agents on these runs to see the failure modes and learn from that.
 
 Evals are hard and these heuristics are a great place to start. If you do it enough, you might even be able to write [recursive self-improving prompts](https://cline.bot/blog/recursive-self-improvement-for-coding-agents) to automate yourself out of the eval improvement loop altogether.
