@@ -158,7 +158,7 @@
     try {
       window.localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data: data }));
     } catch (error) {
-      /* storage disabled or full — the graph still works */
+      /* storage disabled or full: the graph still works */
     }
   }
 
@@ -370,7 +370,7 @@
 
     Promise.all([snapshot, live]).then(function () {
       if (!rendered) {
-        setStatus(host, "Contribution activity is unavailable right now — view it on GitHub instead.");
+        setStatus(host, "Contribution activity is unavailable right now: view it on GitHub instead.");
       }
     });
   }

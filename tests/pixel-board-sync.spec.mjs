@@ -162,7 +162,7 @@ async function run() {
     if (cond) console.log(`PASS  ${name}`);
     else {
       failures.push(name);
-      console.error(`FAIL  ${name}${detail ? ` — ${detail}` : ""}`);
+      console.error(`FAIL  ${name}${detail ? `: ${detail}` : ""}`);
     }
   };
 

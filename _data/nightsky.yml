@@ -1,33 +1,33 @@
 # Stories from my night sky.
 #
 # The conceit: every star here is a *real* one in the night sky. Its name
-# and meaning are a portrait of the person it stands for — but the
+# and meaning are a portrait of the person it stands for, but the
 # person themselves stays anonymous. The brightness reflects how loud
 # they are in my life; the color, the spectral class. Whether you know
 # any of them is between us.
 #
 # These 24 stars are the interactive companion to the blog post
-# "Messages to 24 People I Know" — each star carries one of the 24
+# "Messages to 24 People I Know": each star carries one of the 24
 # anonymous messages. At rest they look like ordinary stars scattered
 # across the sky; you can't tell which ones hold a message until you
 # hover and one blooms open.
 #
-# Positions are NOT set here — the JS scatters the stars organically
+# Positions are NOT set here: the JS scatters the stars organically
 # (blue-noise) so the sky never looks like a grid. Order matters though:
 # the Nth star carries the Nth message.
 #
 # Fields:
 #   id            (required)  unique, stable
 #   name          (required)  the real star's name (Polaris, Sirius, …)
-#   role          (optional)  one-line subtitle — what kind of person they
+#   role          (optional)  one-line subtitle: what kind of person they
 #                             are in your life. Keep it abstract.
-#   star_meaning  (optional)  one-line gloss on the star itself — why this
+#   star_meaning  (optional)  one-line gloss on the star itself: why this
 #                             star fits this person.
 #   constellation (optional)  e.g. "Ursa Minor"
 #   magnitude     (optional)  0.4 (faint) → 1.2 (bright). Default 0.85.
 #                             Drives the size of the bloom on hover.
 #   color         (optional)  hex tint to suggest spectral class
-#   since         (optional)  e.g. "2014" — shown under the name
+#   since         (optional)  e.g. "2014": shown under the name
 #   image         (optional)  avatar image URL
 #   link          (optional)  internal link, e.g. "/blog/letter"
 #   story         (required)  paragraphs separated by blank lines.
@@ -41,7 +41,7 @@ show_constellations: false
 people:
   - id: sirius
     name: "Sirius"
-    star_meaning: "the brightest star in the sky — the Dog Star."
+    star_meaning: "the brightest star in the sky: the Dog Star."
     constellation: "Canis Major"
     magnitude: 1.2
     color: "#d8e8ff"
@@ -50,7 +50,7 @@ people:
 
   - id: betelgeuse
     name: "Betelgeuse"
-    star_meaning: "the red shoulder of Orion — a giant near the end of its life."
+    star_meaning: "the red shoulder of Orion: a giant near the end of its life."
     constellation: "Orion"
     magnitude: 0.95
     color: "#ff9b6f"
@@ -59,7 +59,7 @@ people:
 
   - id: mizar
     name: "Mizar"
-    star_meaning: "the horse and rider — a star that is secretly two."
+    star_meaning: "the horse and rider: a star that is secretly two."
     constellation: "Ursa Major"
     magnitude: 0.7
     color: "#e8eeff"
@@ -68,7 +68,7 @@ people:
 
   - id: vega
     name: "Vega"
-    star_meaning: "the harp star — Lyra's falling vulture-musician."
+    star_meaning: "the harp star: Lyra's falling vulture-musician."
     constellation: "Lyra"
     magnitude: 1.0
     color: "#dbe6ff"
@@ -77,7 +77,7 @@ people:
 
   - id: capella
     name: "Capella"
-    star_meaning: "the little she-goat — a golden light in Auriga."
+    star_meaning: "the little she-goat: a golden light in Auriga."
     constellation: "Auriga"
     magnitude: 0.9
     color: "#fff0c8"
@@ -86,7 +86,7 @@ people:
 
   - id: algol
     name: "Algol"
-    star_meaning: "the Demon Star — it dims and brightens, never the same twice."
+    star_meaning: "the Demon Star: it dims and brightens, never the same twice."
     constellation: "Perseus"
     magnitude: 0.75
     color: "#cdd9ff"
@@ -95,7 +95,7 @@ people:
 
   - id: aldebaran
     name: "Aldebaran"
-    star_meaning: "the follower — the orange eye of the bull."
+    star_meaning: "the follower: the orange eye of the bull."
     constellation: "Taurus"
     magnitude: 0.85
     color: "#ffb37a"
@@ -104,7 +104,7 @@ people:
 
   - id: altair
     name: "Altair"
-    star_meaning: "the flying eagle — fast, far, hard to keep up with."
+    star_meaning: "the flying eagle: fast, far, hard to keep up with."
     constellation: "Aquila"
     magnitude: 0.85
     color: "#f0f4ff"
@@ -113,7 +113,7 @@ people:
 
   - id: achernar
     name: "Achernar"
-    star_meaning: "'the river's end' — where Eridanus finally runs out."
+    star_meaning: "'the river's end': where Eridanus finally runs out."
     constellation: "Eridanus"
     magnitude: 0.8
     color: "#cfe0ff"
@@ -131,7 +131,7 @@ people:
 
   - id: arcturus
     name: "Arcturus"
-    star_meaning: "the bear-watcher — a steady old orange giant."
+    star_meaning: "the bear-watcher: a steady old orange giant."
     constellation: "Boötes"
     magnitude: 1.0
     color: "#ffcf9e"
@@ -140,7 +140,7 @@ people:
 
   - id: antares
     name: "Antares"
-    star_meaning: "rival of Mars — the red, defiant heart of the scorpion."
+    star_meaning: "rival of Mars: the red, defiant heart of the scorpion."
     constellation: "Scorpius"
     magnitude: 0.95
     color: "#ff8a66"
@@ -149,7 +149,7 @@ people:
 
   - id: castor
     name: "Castor"
-    star_meaning: "the mortal twin — itself a knot of six stars."
+    star_meaning: "the mortal twin: itself a knot of six stars."
     constellation: "Gemini"
     magnitude: 0.65
     color: "#eef2ff"
@@ -158,7 +158,7 @@ people:
 
   - id: deneb
     name: "Deneb"
-    star_meaning: "the swan's tail — so far away that its light is ancient."
+    star_meaning: "the swan's tail, so far away that its light is ancient."
     constellation: "Cygnus"
     magnitude: 0.85
     color: "#eef3ff"
@@ -176,7 +176,7 @@ people:
 
   - id: fomalhaut
     name: "Fomalhaut"
-    star_meaning: "'the mouth of the fish' — a lonely southern light."
+    star_meaning: "'the mouth of the fish': a lonely southern light."
     constellation: "Piscis Austrinus"
     magnitude: 0.7
     color: "#eaf0ff"
@@ -185,7 +185,7 @@ people:
 
   - id: spica
     name: "Spica"
-    star_meaning: "the ear of wheat — blue-white and sharp."
+    star_meaning: "the ear of wheat: blue-white and sharp."
     constellation: "Virgo"
     magnitude: 0.8
     color: "#cdd9ff"
@@ -194,7 +194,7 @@ people:
 
   - id: canopus
     name: "Canopus"
-    star_meaning: "the great navigator — second brightest of all."
+    star_meaning: "the great navigator: second brightest of all."
     constellation: "Carina"
     magnitude: 1.05
     color: "#fff4e0"
@@ -203,7 +203,7 @@ people:
 
   - id: procyon
     name: "Procyon"
-    star_meaning: "'before the dog' — it rises just ahead of Sirius."
+    star_meaning: "'before the dog': it rises just ahead of Sirius."
     constellation: "Canis Minor"
     magnitude: 0.85
     color: "#eef2ff"
@@ -221,7 +221,7 @@ people:
 
   - id: rigel
     name: "Rigel"
-    star_meaning: "'the foot of the giant' — Orion's blue-white anchor."
+    star_meaning: "'the foot of the giant': Orion's blue-white anchor."
     constellation: "Orion"
     magnitude: 1.0
     color: "#c8d6ff"
@@ -230,7 +230,7 @@ people:
 
   - id: mirfak
     name: "Mirfak"
-    star_meaning: "the elbow — the bright heart of Perseus."
+    star_meaning: "the elbow: the bright heart of Perseus."
     constellation: "Perseus"
     magnitude: 0.6
     color: "#fff2d6"
@@ -248,7 +248,7 @@ people:
 
   - id: polaris
     name: "Polaris"
-    star_meaning: "the North Star — the one that holds still so you can find your way."
+    star_meaning: "the North Star: the one that holds still so you can find your way."
     constellation: "Ursa Minor"
     magnitude: 0.8
     color: "#fff5e0"

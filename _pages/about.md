@@ -122,7 +122,7 @@ bento_tiles:
     label: Writing · Letters
     link: /philosophy/2025/03/05/messages-to-24-people
     type: text
-    excerpt: "24 honest, unfiltered messages to people who shaped my life — some will never read theirs."
+    excerpt: "24 honest, unfiltered messages to people who shaped my life. Some will never read theirs."
     span: wide
 
   - title: The Stranger

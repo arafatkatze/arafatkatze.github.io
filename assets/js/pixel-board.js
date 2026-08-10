@@ -228,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Pull the shared board from the remote and adopt it when it is newer than
-  // our own last edit. This is what keeps two open tabs in consensus — without
+  // our own last edit. This keeps two open tabs in consensus without
   // it, the remote is only ever read once at page load.
   function pullRemote() {
     if (!SYNC_URL || isDrawing) {
@@ -540,14 +540,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var message = submitMessage.value.trim();
     if (!message) {
-      showSubmitError("say something first — a message is required :)");
+      showSubmitError("say something first: a message is required :)");
       submitMessage.focus();
       return;
     }
 
     var previous = Number(localStorage.getItem(SUBMIT_COOLDOWN_KEY) || 0);
     if (previous && previous + SUBMIT_COOLDOWN_MS > Date.now()) {
-      showSubmitError("you just sent one — give it a minute before sending another");
+      showSubmitError("you just sent one: give it a minute before sending another");
       return;
     }
 
@@ -578,7 +578,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitSuccessState.style.display = "block";
       })
       .catch(function () {
-        showSubmitError("something went wrong sending it — please try again");
+        showSubmitError("something went wrong sending it: please try again");
       })
       .finally(function () {
         submitSend.disabled = false;

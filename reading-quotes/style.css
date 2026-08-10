@@ -1,5 +1,5 @@
 /* ============================================================
-   The Reading Room — highlights library
+   The Reading Room: highlights library
    A warm "reading room / library" aesthetic:
    parchment by day, deep ink by night, elegant serif type.
    ============================================================ */
@@ -412,7 +412,7 @@ mark.hit { background: color-mix(in srgb, var(--hl-yellow) 70%, transparent); co
 .spotlight-mark { position: absolute; top: 6px; left: 26px; font-family: var(--display); font-size: 90px; color: var(--gold-soft); opacity: 0.4; line-height: 1; }
 .spotlight-quote { font-family: var(--serif); font-size: clamp(21px, 3.4vw, 27px); line-height: 1.5; color: var(--ink); margin: 8px 0 18px; white-space: pre-line; }
 .spotlight-note { font-family: var(--sans); font-size: 13.5px; color: var(--ink-soft); background: var(--paper-2); border-radius: 10px; padding: 12px 15px; margin-bottom: 16px; }
-.spotlight-note::before { content: "note — "; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-size: 10.5px; }
+.spotlight-note::before { content: "note: "; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-size: 10.5px; }
 .spotlight-meta { display: flex; flex-direction: column; gap: 3px; border-top: 1px solid var(--line-soft); padding-top: 16px; }
 .spot-book { font-family: var(--display); font-weight: 600; font-size: 16px; color: var(--ink); }
 .spot-author { font-family: var(--sans); font-size: 13px; color: var(--ink-faint); }

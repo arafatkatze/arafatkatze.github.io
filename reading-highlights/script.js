@@ -1,5 +1,5 @@
 /* ============================================================
-   The Reading Map — fast Canvas galaxy of highlights
+   The Reading Map: fast Canvas galaxy of highlights
    ============================================================ */
 (function () {
   "use strict";

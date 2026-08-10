@@ -61,7 +61,7 @@ uv tool install harbor
 
 **2. Get API Keys**
 
-You need at least one provider API key. [OpenRouter](https://openrouter.ai/) is recommended — it's been the most reliable for evals (other providers have been unreliable for local runs because of infra/rate limiting issues).
+You need at least one provider API key. [OpenRouter](https://openrouter.ai/) is recommended: it's been the most reliable for evals (other providers have been unreliable for local runs because of infra/rate limiting issues).
 
 Ideally your .env file should look like this:
 
@@ -155,19 +155,19 @@ harbor jobs summarize ./jobs/LATEST --failed -m haiku
 
 This command categorizes _why_ tasks failed. Common failure patterns we found:
 
-- **AgentTimeoutError** — Cline CLI's default 600s timeout was too short. Fix: `--ak timeout=2400`
-- **Missing expected files** — Cline assumed success without verifying. Fix: [PR #9154](https://github.com/cline/cline/pull/9154) (require verification before completion)
-- **Command exit codes not surfaced** — Cline didn't know commands failed. Fix: [PR #9156](https://github.com/cline/cline/pull/9156)
-- **Long-running commands cut off** — Build/test/train commands killed early. Fix: [PR #9159](https://github.com/cline/cline/pull/9159)
+- **AgentTimeoutError**: Cline CLI's default 600s timeout was too short. Fix: `--ak timeout=2400`
+- **Missing expected files**: Cline assumed success without verifying. Fix: [PR #9154](https://github.com/cline/cline/pull/9154) (require verification before completion)
+- **Command exit codes not surfaced**: Cline didn't know commands failed. Fix: [PR #9156](https://github.com/cline/cline/pull/9156)
+- **Long-running commands cut off**: Build/test/train commands killed early. Fix: [PR #9159](https://github.com/cline/cline/pull/9159)
 - **Inference errors** like: rate limits from providers, insufficient balance on the API provider etc
 
 Your goal with any set of failures is to portfolio allocate them in a category and then bucket them. There are some failures that won't be able to cover no matter how much you tweak the params etc. At least 25% of the failures are supposed to be this way. Those would need an actual step function improvement in the model itself but for the rest of the failures you would have to look at both the model doing something stupid or alternatively the model being configured the wrong way and missing some prompt/algorithmic logic.
 
-To be able to differentiate and bucket the kind of failures you get is the real magic sauce of evals and is a question of your taste. If you are good at figuring out where your model went wrong you can take those lessons to post training and other AI steps as well.
+The key eval skill is separating failures into useful buckets. If you can identify where a model went wrong, you can carry those lessons into post-training and other parts of the stack.
 
 ### Step 3: A/B Test Code Changes
 
-This is where the real hill climbing happens — improving Cline itself:
+This is where the real hill climbing happens: improving Cline itself:
 
 ```bash
 # Test main branch
@@ -221,8 +221,8 @@ We're still climbing and exploring hill climbing and are automating runs on ever
 
 ### Related Links
 
-- [Demystifying evals for AI agents — Anthropic](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
-- [SkyRL Harbor — NovaSky](https://novasky-ai.notion.site/skyrl-harbor)
+- [Demystifying evals for AI agents: Anthropic](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)
+- [SkyRL Harbor: NovaSky](https://novasky-ai.notion.site/skyrl-harbor)
 - [Prime Intellect Lab](https://www.primeintellect.ai/blog/lab)
 
 You can read the original blog post at [cline.bot/blog/a-practical-guide-to-hill-climbing](https://cline.bot/blog/a-practical-guide-to-hill-climbing).

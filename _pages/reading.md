@@ -10,8 +10,8 @@ nav_order: 1
 
 <p class="reading-room-cta">
   Want to wander through everything I've ever underlined? Step into
-  <a href="{{ '/reading-quotes/' | relative_url }}"><strong>The Reading Room</strong></a>
-  — 13,000+ highlights from ~2,000 books you can search, filter, shuffle at random, or study as flashcards.
+  <a href="https://arafatkatze.com/reading-highlights/"><strong>The Reading Room</strong></a>:
+  13,000+ highlights from ~2,000 books you can search, filter, shuffle at random, or study as flashcards.
 </p>
 
 <style>

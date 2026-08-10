@@ -2,7 +2,7 @@
  * llm-viz layout: turns a GPT of a given shape into 3D geometry.
  *
  * The model is drawn as a tower that you descend. Activations are horizontal
- * slabs — one row per token (Z), one column per channel (X) — and weight
+ * slabs: one row per token (Z) and one column per channel (X). Weight
  * matrices are the vertical walls standing between them, so that every matmul
  * reads as "the row above times the column of the wall lands in the cell
  * below". Aggregates (means, maxes, sums) are thin columns beside their slab.

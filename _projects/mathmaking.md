@@ -41,7 +41,7 @@ This part wasn't exactly a surprise because it would make sense that most people
 </div>
 
 This was somewhat surprising given the Bay Area's typically diverse representation of sexual orientations. However, our data was limited by technical constraints. We had to restrict the form to single-choice selections because Typeform's multi-selection export format makes data analysis extremely difficult(Ava wanted to offer multiple selections but I had to force things this way as typeform parsing gets totally messed up).
-This unfortunately skewed our results. I later learned many bisexual attendees selected single options rather than accurately representing their orientation. I sincerely apologize for this limitation, it's clearly an area I need to improve. I appreciate the feedback and we are committed to finding better solutions for future events.
+This skewed our results. I later learned that many bisexual attendees selected one option because the form did not represent their orientation. I chose the simpler export format, and I need to fix that limitation before another event.
 
 <div class="col-sm mt-3 mt-md-0" style="max-width: 450px;">
     {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1760330865/9_ltgt18.png" title="example image" class="img-fluid rounded z-depth-1" %}
@@ -84,7 +84,7 @@ This algorithm led to everyone getting a matching score, which would define how 
 
 Total → 730 Pairs of Matches
 In terms of algorithmic complexity, this was fine so far.
-If we look at the score distribution of the people who matched, it turns out, given the algorithm, most people who matched were only 60-65% compatible. On a philosophical level, what this means is that, it was basically impossible to find your near perfect opposite pair. I think that what this broadly means is that, don't assume you know what you're looking for. Who knows what magical thing, you might find in another person as long as you're matching on most things.
+Most matched pairs scored only 60–65% compatible. The filters could find people who met each other's constraints, but they could not identify a perfect opposite. That gap is useful: you may not know which differences will make you like someone.
 
 ### The Final Match Making
 

@@ -153,7 +153,7 @@
       '<div class="mc-title"><span>Four models, one scale</span></div>' +
       '<div class="mc-blurb">Drawn side by side with the same cell size. GPT-3 ' +
       "runs off the top of the screen at this framing, and nano-gpt is already " +
-      "smaller than a pixel &mdash; hence the logarithmic bar chart. Click a row " +
+      "smaller than a pixel, hence the logarithmic bar chart. Click a row " +
       "to fly to that model.</div>" +
       '<div class="cmp">' +
       rows +

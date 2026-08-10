@@ -40,6 +40,6 @@ This post is about how open source model labs like MiniMax are actually doing ex
 
 ## Doing things and telling people
 
-Many of us are just lurking through the internet and not sharing, thinking our ideas are not worth sharing, and this post explains why sharing ideas is critical not just for yourself but for the world.
+This post argues that publishing unfinished ideas helps other builders test them and gives you better criticism than keeping them private.
 
 {% twitter https://x.com/arafatkatze/status/2003526045069386145 %}
