@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Scroll-Inside Effect
-description: A cross-device homage to the html review 04 "scroll to fly through" 3D tunnel, rebuilt to run on phones too.
+description: A cross-device homage to the html review 04 "scroll to fly through" 3D tunnel — rebuilt to run on phones too.
 img: assets/img/scroll_inside_replica.webp
 importance: 1
 category: art
@@ -14,7 +14,7 @@ A self-contained rebuild of the 3D "scroll to get inside" tunnel effect from
 by shelby wilson).
 
 The original gates the effect to desktop; this version runs the fly-through on
-phones too. A `requestAnimationFrame` easing loop keeps motion smooth during
+phones too — a `requestAnimationFrame` easing loop keeps motion smooth during
 mobile momentum scrolling, `dvh` units handle the dynamic address bar, and
 off-screen panels are culled so it stays within mobile memory limits.
 
