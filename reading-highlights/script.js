@@ -1,5 +1,5 @@
 /* ============================================================
-   The Reading Map — a rotatable 3D galaxy of highlights
+   The Reading Map: a rotatable 3D galaxy of highlights
 
    Points live in a 3-D UMAP embedding (map.json: x, y, z) and are drawn as
    glowing sprites by a small hand-rolled WebGL renderer, so the page stays

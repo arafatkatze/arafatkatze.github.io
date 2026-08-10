@@ -1,5 +1,5 @@
 /*******************************************************************************
- * 404 — "You've wandered off the trail."
+ * 404: "You've wandered off the trail."
  * A lone wanderer with a lantern, under a real night sky.
  ******************************************************************************/
 
@@ -15,7 +15,7 @@ $lost-lantern-warm: #ff9d4d;
 $lost-violet: #c084fc;
 $lost-pink: #f472b6;
 
-/* Hide the default page header — this page brings its own heading. */
+/* Hide the default page header: this page brings its own heading. */
 .post:has(.lost-404) .post-header {
   display: none;
 }

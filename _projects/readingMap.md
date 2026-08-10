@@ -1,7 +1,7 @@
 ---
 layout: page
 title: The Reading Map
-description: A rotatable 3D galaxy of 10,000+ reading highlights, placed by meaning (sentence embeddings → UMAP) and clustered into themes like love, money, fear, and writing. Drag to orbit, scroll to zoom, hover a star to read the quote and where it's from, isolate a theme, or flatten the whole thing back to a 2D map. Fast, self-contained, and mobile-friendly — with a banner back to the full quotes list and flashcards.
+description: A rotatable 3D galaxy of 10,000+ reading highlights, placed by meaning (sentence embeddings → UMAP) and clustered into themes like love, money, fear, and writing. Drag to orbit, scroll to zoom, hover a star to read the quote and where it's from, isolate a theme, or flatten the whole thing back to a 2D map. Fast, self-contained, and mobile-friendly, with a banner back to the full quotes list and flashcards.
 img: assets/img/reading_map.webp
 importance: 1
 category: art

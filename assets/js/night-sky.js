@@ -16,7 +16,7 @@
 //
 // The board is full-bleed and can be any shape. Rather than a fixed
 // viewBox we measure the stage's pixel size and set the viewBox to match
-// it 1:1 — so circles stay round, stars spread to the full width, and
+// it 1:1 so circles stay round, stars spread to the full width, and
 // nothing letterboxes whatever the aspect ratio. On resize we re-measure
 // and rebuild.
 // ─────────────────────────────────────────────────────────────────────────────

@@ -3,9 +3,9 @@
 // Strategy: serve the real page, script, style and map data straight out of the
 // repository, then drive the camera the way a visitor would and check that the
 // view actually changed. The WebGL canvas cannot be read back reliably after
-// compositing, so every assertion looks at the 2-D overlay canvas instead — it
-// carries the theme labels and hover rings, and it is redrawn with the exact
-// projection the GPU uses, so a camera move always shows up there.
+// compositing, so every assertion looks at the 2-D overlay canvas instead. That
+// canvas carries the theme labels and hover rings, and it is redrawn with the
+// exact projection the GPU uses, so a camera move always shows up there.
 //
 // Software WebGL (SwiftShader) is requested so this passes on headless CI. If a
 // machine has no WebGL at all the page falls back to drawing points on the
@@ -98,7 +98,7 @@ async function run() {
       console.log(`PASS ${name}`);
     } else {
       failures.push(`${name}${detail ? `: ${detail}` : ""}`);
-      console.error(`FAIL ${name}${detail ? ` — ${detail}` : ""}`);
+      console.error(`FAIL ${name}${detail ? `: ${detail}` : ""}`);
     }
   }
 

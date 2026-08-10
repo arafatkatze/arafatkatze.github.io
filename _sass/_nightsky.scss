@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Stories from my night sky — interactive page styles.
+// Stories from my night sky: interactive page styles.
 // Page-scoped: lives entirely under .nightsky-page so nothing leaks to the
 // rest of the site. The sky is dark in both light and dark site themes.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -7,7 +7,7 @@
 // ── Full-page cosmic background ───────────────────────────────────────────
 // When the night-sky page is on screen, paint a deep nebula gradient with a
 // tiling starfield (the star tile is sourced from kokorobot.ca) across the
-// whole page — behind the navbar, content, and footer. The background lives on
+// whole page: behind the navbar, content, and footer. The background lives on
 // the root <html> element so it reliably covers the entire scroll canvas
 // (top-to-bottom), and the body is made transparent so it shows through.
 // Scoped with :has() so it never leaks to the rest of the site; browsers
@@ -125,7 +125,7 @@ html:has(.nightsky-page) {
   margin-right: calc(50% - 50vw);
   // A wide cinematic band. The JS measures this exact box and locks the SVG
   // viewBox to it 1:1, so the 24 stars always spread across the full width
-  // and circles stay round at any size — no aspect-ratio juggling needed.
+  // and circles stay round at any size: no aspect-ratio juggling needed.
   height: clamp(480px, 74vh, 880px);
   border-radius: 0;
   overflow: hidden;
@@ -240,8 +240,8 @@ html:has(.nightsky-page) {
 }
 
 // ── Named stars ──────────────────────────────────────────────────────────
-// At rest a named star looks like any other point of light in the field —
-// no big halo, no spikes — so you can't tell which 24 hold a message. Hover
+// At rest a named star looks like any other point of light in the field.
+// With no big halo or spikes, you can't tell which 24 hold a message. Hover
 // (or focus) blooms the tinted halo wide, fans out the diffraction spikes
 // and reveals the name: the surprise.
 @keyframes ns-named-twinkle {
@@ -273,7 +273,7 @@ html:has(.nightsky-page) {
     animation: ns-named-twinkle 5s ease-in-out infinite;
   }
 
-  // Spikes are invisible until hover — part of the reveal.
+  // Spikes are invisible until hover: part of the reveal.
   .ns-spike {
     opacity: 0;
     transition: opacity 0.4s ease;

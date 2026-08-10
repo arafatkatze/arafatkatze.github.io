@@ -102,7 +102,7 @@ bento_tiles:
     excerpt: "I have been looking outwards for too long. It's time to look inwards."
     bg: warm
 
-  # Row 5: into the wild + if we could just
+  # Row 5: into the wild + love in the void
   - title: Into the Wild
     label: Reading · Books
     link: /reading/
@@ -111,18 +111,20 @@ bento_tiles:
     author: Jon Krakauer
     badge: Read
 
-  - title: If we could just
-    label: Projects · Art
-    link: /you-didnt-know-that/
-    image: assets/img/if_we_could_just.webp
-    type: image
+  - title: Love in the Void
+    label: Reading · Books
+    link: /reading/
+    image: assets/img/book_covers/love_in_the_void.jpg
+    type: book
+    author: Simone Weil
+    badge: Read
 
   # Row 6: messages + the stranger + reading map
   - title: Messages to 24 People I Know
     label: Writing · Letters
     link: /philosophy/2025/03/05/messages-to-24-people
     type: text
-    excerpt: "24 honest, unfiltered messages to people who shaped my life — some will never read theirs."
+    excerpt: "24 honest, unfiltered messages to people who shaped my life. Some will never read theirs."
     span: wide
 
   - title: The Stranger

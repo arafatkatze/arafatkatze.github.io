@@ -94,7 +94,7 @@ async function run() {
   function assert(name, condition, detail = "") {
     if (!condition) {
       failures.push(`${name}${detail ? `: ${detail}` : ""}`);
-      console.error(`FAIL ${name}${detail ? ` — ${detail}` : ""}`);
+      console.error(`FAIL ${name}${detail ? `: ${detail}` : ""}`);
     } else {
       console.log(`PASS ${name}`);
     }
