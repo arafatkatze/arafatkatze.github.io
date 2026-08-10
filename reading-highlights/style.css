@@ -206,7 +206,8 @@ body {
   .legend-body { display: flex; flex-wrap: wrap; gap: 4px; }
   .legend.collapsed .legend-body { display: none; }
   .legend-item { padding: 6px 8px; }
-  .controls { bottom: 14px; right: 12px; }
+  /* five buttons stack too tall for a phone, so they run along the bottom */
+  .controls { bottom: 14px; right: 12px; left: 12px; flex-direction: row; justify-content: flex-end; }
   .ctl { width: 40px; height: 40px; }
   .ctl-wide { width: 40px; min-width: 40px; padding: 0; }
   #spin .ctl-text { display: none; }
