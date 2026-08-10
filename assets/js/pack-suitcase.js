@@ -82,7 +82,7 @@
   ];
 
   var addReacts = {
-    'winter-coat': "1.8kg — that's 10% of the entire suitcase for one item.",
+    'winter-coat': "1.8kg: that's 10% of the entire suitcase for one item.",
     'guitar': "2kg of music. Say goodbye to a lot of clothes.",
     'yoga-mat': "1.5kg of inner peace. Outer chaos.",
     'hair-dryer': "Air. Is. Free.",
@@ -206,10 +206,10 @@
     var over = tw - MAX;
     if (over > 0) {
       el.className = 'pack-status pack-status-over';
-      el.innerHTML = '<span class="pack-status-icon">⚠️</span> <span>OVERLOADED — remove <strong>' + fmtWeight(over) + '</strong> to close the suitcase</span>';
+      el.innerHTML = '<span class="pack-status-icon">⚠️</span> <span>OVERLOADED: remove <strong>' + fmtWeight(over) + '</strong> to close the suitcase</span>';
     } else if (over > -300) {
       el.className = 'pack-status pack-status-tight';
-      el.innerHTML = '<span class="pack-status-icon">🟡</span> <span>Tight fit — only <strong>' + fmtWeight(-over) + '</strong> of room left</span>';
+      el.innerHTML = '<span class="pack-status-icon">🟡</span> <span>Tight fit: only <strong>' + fmtWeight(-over) + '</strong> of room left</span>';
     } else {
       el.className = 'pack-status pack-status-ok';
       el.innerHTML = '<span class="pack-status-icon">✅</span> <span>Suitcase closes. <strong>' + fmtWeight(-over) + '</strong> to spare.</span>';

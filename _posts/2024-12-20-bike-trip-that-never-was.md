@@ -33,7 +33,7 @@ I tried it for five minutes and felt something I hadn't felt since I was 18 writ
 
 And that's when I realized I was caught. My twenties are ending. There are certain things you can only do once that cross-continental bike trip being one of them. I've traveled to 30 countries but my stomach and soul still have this endless desire to explore more. Like something's missing and I need to see more of the world to fill it.
 
-But then there's this other thing. AGI is coming. And I mean really coming.(For my non-tech friends: AGI is basically a super intelligent computer like Samantha from "Her" that can do anything a human can do, but faster and smarter).
+AGI is coming. For my non-tech friends, I mean a computer like Samantha from "Her" that can do anything a human can do, only faster and smarter.
 
 Within the next one or two years, the world as we know it will fundamentally change. You'll say things and magic will come to life. Every time I tell my hippie friends this, they roll their eyes like I'm fucking insane. And every single day, this vision gets closer to reality(While I am not waiting for an "I told you so moment", I do know that it will come).
 

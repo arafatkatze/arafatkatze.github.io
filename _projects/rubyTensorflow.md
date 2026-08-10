@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Ruby TensorFlow
-description: Porting TensorFlow to Ruby with the tensorflow.rb gem — the Ruby API, how Google Protobuf drives the graph internals, and Inception-v3 image recognition in Ruby.
+description: Porting TensorFlow to Ruby with the tensorflow.rb gem: the Ruby API, how Google Protobuf drives the graph internals, and Inception-v3 image recognition in Ruby.
 img: assets/img/tensorflow/tensorflow-ruby-cover.jpeg
 importance: 2
 category: work
@@ -11,9 +11,9 @@ category: work
     {% include figure.html path="assets/img/tensorflow/tensorflow-ruby-cover.jpeg" title="TensorFlow Ruby" class="img-fluid rounded z-depth-1" %}
 </div>
 
-Back in 2016 I spent a good chunk of my time porting TensorFlow to Ruby with the [tensorflow.rb](https://github.com/somaticio/tensorflow.rb) gem. I wrote three separate blog posts about it back then — an introduction to the Ruby API, a developer deep-dive into how Google Protobuf drives the graph internals, and a hands-on image recognition tutorial. This project stitches all three together into one, so the whole story lives in a single place.
+Back in 2016 I spent a good chunk of my time porting TensorFlow to Ruby with the [tensorflow.rb](https://github.com/somaticio/tensorflow.rb) gem. I wrote three separate blog posts about it back then: an introduction to the Ruby API, a technical explanation of how Google Protobuf drives the graph internals, and a hands-on image recognition tutorial. This project stitches all three together into one, so the whole story lives in a single place.
 
-## Part 1 — Introducing the TensorFlow Ruby API
+## Part 1: Introducing the TensorFlow Ruby API
 
 TensorFlow is an extraordinary open source software library for numerical computation using data flow graphs. It was originally developed by researchers and engineers working on the Google Brain Team within Google's Machine Intelligence research organisation for the purpose of conducting machine learning and deep neural networks research, but the system is general enough to be applicable in a wide variety of other domains as well.
 
@@ -64,9 +64,9 @@ Then we define a new hash in Ruby with the key as the placeholder corresponding 
 
 Almost everyone can see that the above example simply didn't live up to the hype I had been talking about for a while, so here is another interesting example of Ruby TensorFlow. This example shows you how to get the determinant of a batch of matrices. If you look closely, this is very similar to the previous example, with the difference being that I only have a single input and the op used is `BatchMatrixDeterminant`. The result is `[[-45.0, -513.0, 1.0]]`, which is the determinant for the first, second, and third matrix. Actually you can do a LOT of good things such as:
 
-1. **Arithmetic operators** — addition, subtraction, element-wise multiplication, element-wise mod, etc.
-2. **Basic math functions** — element-wise exponent, element-wise power, element-wise log, trigonometric operations like tan, sin, cos, etc.
-3. **Matrix functions (these are the best)** — matrix inversion, matrix multiplication, determinants, diagonal, trace, solving a system of linear equations, cholesky decomposition, etc.
+1. **Arithmetic operators**: addition, subtraction, element-wise multiplication, element-wise mod, etc.
+2. **Basic math functions**: element-wise exponent, element-wise power, element-wise log, trigonometric operations like tan, sin, cos, etc.
+3. **Matrix functions (these are the best)**: matrix inversion, matrix multiplication, determinants, diagonal, trace, solving a system of linear equations, cholesky decomposition, etc.
 
 You can also do complex number functions too (like multiplying complex matrices).
 
@@ -74,7 +74,7 @@ You can also do complex number functions too (like multiplying complex matrices)
 
 I researched how the Python libs work internally, and basically the plan to generate the graph and plan how to execute it is managed from Python, which sends all the graph to be executed to the C++ libraries. These libs take the graph and execute all the nodes of the graph. Therefore, what we need to do is port the graph generation and planning code from Python to Ruby, and rely on the same C++ libraries for execution.
 
-## Part 2 — Ruby TensorFlow for developers
+## Part 2: Ruby TensorFlow for developers
 
 In this part I dwell upon simple and useful ideas that will help developers understand how Google Protobuf is used in Ruby TensorFlow. Even though the primary purpose is to explain the Ruby API, I am sure that developers specializing in different languages can greatly benefit from the ideas here.
 
@@ -114,10 +114,10 @@ graph_def.node[2]
 
 Once you've loaded a file into the `graph_def` variable, you can now access the data inside it. For most practical purposes, the important section is the list of nodes stored in the `node` member. Each node is a `NodeDef` object, also defined in `graph.proto`. These are the fundamental building blocks of TensorFlow graphs, with each one defining a single operation along with its input connections. Here are the members of a `NodeDef` and what they mean:
 
-- **Name** — every node should have a unique identifier that's not used by any other node in the graph. The name is used when defining the connections between nodes, and when setting inputs and outputs for the whole graph when it's run.
-- **op** — this defines what operation to run, for example "Add", "MatMul", or "Conv2D". When a graph is run, this op name is looked up in a registry to find an implementation.
-- **input** — a list of strings, each one of which is the name of another node, optionally followed by a colon and an output port number.
-- **attr** — a key/value store holding all the attributes of a node. These are the permanent properties of nodes, things that don't change at runtime such as the size of filters for convolutions, or the values of constant ops. Because there can be so many different types of attribute values, there's a separate protobuf file defining the data structure that holds them, in `tensorflow/core/framework/attr_value.proto`.
+- **Name**: every node should have a unique identifier that's not used by any other node in the graph. The name is used when defining the connections between nodes, and when setting inputs and outputs for the whole graph when it's run.
+- **op**: this defines what operation to run, for example "Add", "MatMul", or "Conv2D". When a graph is run, this op name is looked up in a registry to find an implementation.
+- **input**: a list of strings, each one of which is the name of another node, optionally followed by a colon and an output port number.
+- **attr**: a key/value store holding all the attributes of a node. These are the permanent properties of nodes, things that don't change at runtime such as the size of filters for convolutions, or the values of constant ops. Because there can be so many different types of attribute values, there's a separate protobuf file defining the data structure that holds them, in `tensorflow/core/framework/attr_value.proto`.
 
 Each attribute has a unique name string, and the expected attributes are listed when the operation is defined. If an attribute isn't present in a node, but it has a default listed in the operation definition, that default is used when the graph is created.
 
@@ -133,7 +133,7 @@ File.open('graph.pb', 'w') { |file| file.write(graph.graph_def_raw) }
 
 And run the specs again. This will save the graph definition in a `graph.pb` file, and then you can convert it using the `pb_to_pbtxt` Python file to read it in human-readable form.
 
-## Part 3 — Image recognition in Ruby TensorFlow
+## Part 3: Image recognition in Ruby TensorFlow
 
 Developers for tensorflow.rb had been having a long discussion about developing something really cool with Ruby TensorFlow, and so we decided to work on the image recognition tutorial and got some really interesting results that I'd like to share. Our main source of inspiration was the TensorFlow image recognition tutorial.
 
@@ -141,9 +141,9 @@ Developers for tensorflow.rb had been having a long discussion about developing 
 
 Our brains make vision seem easy. It doesn't take any effort for humans to tell apart a lion and a jaguar, read a sign, or recognize a human's face. But these are actually hard problems to solve with a computer: they only seem easy because our brains are incredibly good at understanding images.
 
-In the last few years the field of machine learning has made tremendous progress on addressing these difficult problems. In particular, a kind of model called a deep convolutional neural network can achieve reasonable performance on hard visual recognition tasks — matching or exceeding human performance in some domains.
+In the last few years the field of machine learning has made tremendous progress on addressing these difficult problems. In particular, a kind of model called a deep convolutional neural network can achieve reasonable performance on hard visual recognition tasks: matching or exceeding human performance in some domains.
 
-Researchers have demonstrated steady progress in computer vision by validating their work against ImageNet — an academic benchmark for computer vision. Google took this to the next step by releasing code for running image recognition on their latest model, Inception-v3. Inception-v3 is trained for the ImageNet Large Visual Recognition Challenge using the data from 2012. This is a standard task in computer vision, where models try to classify entire images into 1000 classes, like "Zebra", "Dalmatian", and "Dishwasher". Inception-v3 reaches a 3.46% error rate for top-5 results.
+Researchers have demonstrated steady progress in computer vision by validating their work against ImageNet: an academic benchmark for computer vision. Google took this to the next step by releasing code for running image recognition on their latest model, Inception-v3. Inception-v3 is trained for the ImageNet Large Visual Recognition Challenge using the data from 2012. This is a standard task in computer vision, where models try to classify entire images into 1000 classes, like "Zebra", "Dalmatian", and "Dishwasher". Inception-v3 reaches a 3.46% error rate for top-5 results.
 
 This tutorial will teach you how to use Inception-v3 in tensorflow.rb. You'll learn how to classify images into 1000 classes in Ruby.
 

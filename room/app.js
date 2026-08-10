@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { PLYLoader } from 'three/addons/loaders/PLYLoader.js';
 
-// Wrapped in main() — no top-level await, so JS minifiers (terser without
+// Wrapped in main(): no top-level await, so JS minifiers (terser without
 // module mode) can process this file.
 async function main() {
 

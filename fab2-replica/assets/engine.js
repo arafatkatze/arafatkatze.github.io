@@ -2,15 +2,15 @@
  * scroll-to-fly replica engine (original code).
  *
  * The whole page is one flat "wafer". Sections are pinned to it at fixed
- * world positions + rotations. A camera of four numbers — cx, cy (where it
- * looks), w (how wide it sees), r (roll) — is the only thing that moves;
+ * world positions + rotations. A camera uses four numbers: cx, cy (where it
+ * looks), w (how wide it sees), and r (roll). It is the only thing that moves;
  * every frame we write ONE transform onto #world.
  *
  * Scrolling scrubs an arc-length s along a precomputed path of legs.
  * Each leg between stops is walked in phases: LIFT (zoom out until both
  * stops fit), TWIST (roll to the next stop's bearing), GLIDE (pan across
- * the wafer), DIVE (zoom back in). That phase grammar — not a circle —
- * is what gives fab2.com's tour its "flying somewhere" feel.
+ * the wafer), DIVE (zoom back in). That four-phase path gives fab2.com's tour
+ * its "flying somewhere" feel.
  *
  * Pinch / ctrl+wheel / +/- buttons leave the tour into a free view;
  * scrubbing again (or tapping a stop) flies you back to the nearest stop.
@@ -120,9 +120,9 @@
     var dy = b.cy - a.cy;
     var d = Math.hypot(dx, dy);
     var dr = shortAngle((b.r || 0) - (a.r || 0));
-    // every move lifts until the WHOLE table is in view — the pages are
+    // every move lifts until the WHOLE table is in view: the pages are
     // packed close, so at the top of the lift the entire site reads at
-    // once, sheets on one round table — then it dives into the next page
+    // once, sheets on one round table: then it dives into the next page
     var peak = clamp(Math.max(a.w, b.w, d * 0.6, TABLE_W), Math.max(a.w, b.w), W_MAX);
 
     var lnUp = Math.log(peak / a.w);        // >= 0
@@ -326,7 +326,7 @@
 
     // tour: chase the scrub target, then magnet onto a stop. The magnet is
     // DIRECTIONAL: once you have lifted off a stop, it carries you on to
-    // the next one instead of snapping back — one wheel burst, one leg.
+    // the next one instead of snapping back: one wheel burst, one leg.
     if (now - lastScrub > 260) {
       var k = magnetStop();
       sTarget += (cum[k] - sTarget) * 0.075;
@@ -567,7 +567,7 @@
     moved = 0;
     document.body.classList.add("is-dragging");
     if (pointers.length === 1 && mode === "tour") {
-      // packed stops make legs short in s — cap this swipe at one stop
+      // packed stops make legs short in s: cap this swipe at one stop
       // each way so a single flick never skips pages
       var k0 = nearestStopS(sTarget);
       gestLo = cum[Math.max(k0 - 1, 0)];

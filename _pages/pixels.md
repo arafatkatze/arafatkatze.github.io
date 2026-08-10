@@ -37,7 +37,7 @@ nav_order: 7
       <h4 class="pixel-modal-title" id="pixel-modal-title">send your art to ara</h4>
       <p class="pixel-modal-subtitle">
         your board gets delivered as an image, along with a little note from you.
-        totally anonymous &mdash; no name, no email, just pixels and words.
+        totally anonymous: no name, no email, just pixels and words.
       </p>
       <div class="pixel-modal-preview">
         <img id="pixel-submit-preview" alt="Preview of your pixel board" />

@@ -25,7 +25,7 @@ nav: false
   <div class="pack-hero">
     <div class="pack-hero-emoji">🧳</div>
     <h2 class="pack-hero-title">This suitcase won't close.</h2>
-    <p class="pack-hero-sub">I travel full-time with only a carry-on. The limit is 18kg — but right now it's overloaded. Can you figure out what to cut?</p>
+    <p class="pack-hero-sub">I travel full-time with only a carry-on. The limit is 18kg, and right now it's overloaded. Can you figure out what to cut?</p>
   </div>
 
   <div class="pack-section">

@@ -1,5 +1,5 @@
 /* ============================================================
-   The Reading Room — highlights library logic
+   The Reading Room: highlights library logic
    ============================================================ */
 (function () {
   "use strict";
@@ -142,7 +142,7 @@
     order.forEach(({ id, title, author, count }) => {
       const opt = document.createElement("option");
       opt.value = id;
-      const label = author ? `${title} — ${author}` : title;
+      const label = author ? `${title}: ${author}` : title;
       opt.textContent = `${truncate(label, 60)} (${count})`;
       frag.appendChild(opt);
     });
@@ -202,7 +202,7 @@
 
     // Swipe left/right to move, click/tap to advance. Pointer Events unify
     // touch, mouse and pen and fire reliably even when the gesture begins over
-    // the overlaid nav arrows — so swipe works in both directions.
+    // the overlaid nav arrows so swipe works in both directions.
     const fstage = document.querySelector(".flash-stage");
     let psx = 0, psy = 0, pdown = false;
     fstage.addEventListener("pointerdown", (e) => {
@@ -400,7 +400,7 @@
     if ($("flash").hidden) document.body.style.overflow = "";
   }
   function copySpotlight() {
-    const txt = `“${$("spotQuote").textContent}”\n— ${$("spotBook").textContent}${$("spotAuthor").textContent ? ", " + $("spotAuthor").textContent : ""}`;
+    const txt = `“${$("spotQuote").textContent}”\nFrom ${$("spotBook").textContent}${$("spotAuthor").textContent ? ", " + $("spotAuthor").textContent : ""}`;
     navigator.clipboard.writeText(txt).then(() => {
       const btn = $("spotCopy"); const old = btn.textContent;
       btn.textContent = "✓ Copied"; setTimeout(() => (btn.textContent = old), 1400);
@@ -446,7 +446,7 @@
     const b = DATA.books[h[1]];
     const author = DATA.authors[b[1]] || "";
     $("flashText").textContent = h[0];
-    $("flashBook").textContent = b[0] + (author ? " — " + author : "");
+    $("flashBook").textContent = b[0] + (author ? ": " + author : "");
     $("flashPos").textContent = Math.min(flashPos + 1, flashPool.length);
   }
   function flashStep(dir) {
@@ -565,7 +565,7 @@
     };
   }
   // Draw a random highlight id from `pool` that is NOT `avoidHid` and, whenever
-  // possible, is from a different book — and (if a `seen` set is given) one not
+  // possible, is from a different book and (if a `seen` set is given) one not
   // shown yet this session. Guarantees no back-to-back highlights from the
   // same book unless the pool leaves no other choice.
   function pickDifferent(pool, avoidHid, seen) {

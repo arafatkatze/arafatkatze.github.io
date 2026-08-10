@@ -1,4 +1,4 @@
-/* scroll-to-fly replica — original styles for a fab2.com interaction homage.
+/* scroll-to-fly replica: original styles for a fab2.com interaction homage.
    Warm pastel skin: a sunlit wafer, colorful "prints" stack, and a glossy
    control deck (pan puck / zoom slider / roll dial). The world is one flat
    plane; the camera (a single transform on .world) does all the moving. */
@@ -221,7 +221,7 @@ body.is-dragging {
   color: var(--purple-deep);
 }
 
-/* glossy pill button — the fab2 "Careers →" look */
+/* glossy pill button: the fab2 "Careers →" look */
 .pill {
   align-self: flex-start;
   display: inline-flex;

@@ -119,4 +119,4 @@ if (failures > 0) {
   console.error(`FAILED: ${failures} mismatches`);
   process.exit(1);
 }
-console.log("OK — attention internals match PyTorch exactly (within float32)");
+console.log("OK: attention internals match PyTorch exactly (within float32)");

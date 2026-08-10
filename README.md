@@ -1,6 +1,6 @@
 # Ara's Space
 
-Personal website of **Ara Khan** — writing, photography, projects, travel, and a few experiments that escaped the lab.
+Personal website of **Ara Khan**: writing, photography, projects, travel, and a few experiments that escaped the lab.
 
 🌐 **Live:** [arafatkatze.github.io](https://arafatkatze.github.io)
 
@@ -12,7 +12,7 @@ The site is organized as a [bento](/) of things I make and care about:
 
 | Section | What it is |
 | --- | --- |
-| [Writing](https://arafatkatze.github.io/blog/) | Essays and notes — philosophy, letters, and the occasional rabbit hole |
+| [Writing](https://arafatkatze.github.io/blog/) | Essays and notes: philosophy, letters, and the occasional rabbit hole |
 | [Projects](https://arafatkatze.github.io/projects/) | Things I've built, including agentic AI work |
 | [Photography](https://arafatkatze.github.io/photography/) | A visual journal |
 | [Reading](https://arafatkatze.github.io/reading/) | Books I'm reading and what stuck |
@@ -42,10 +42,10 @@ Content lives in `_pages/`, `_posts/`, and `_projects/`; layout and styling live
 
 ## Credits
 
-Built on the wonderful [**al-folio**](https://github.com/alshedivat/al-folio) Jekyll theme by [Maruan Al-Shedivat](https://maruan.alshedivat.com) and its contributors, which is itself based on the [\*folio theme](https://github.com/bogoli/-folio) by [Lia Bogoev](https://liabogoev.com). The theme is MIT-licensed; my own content and customizations are not — see below.
+Built on the wonderful [**al-folio**](https://github.com/alshedivat/al-folio) Jekyll theme by [Maruan Al-Shedivat](https://maruan.alshedivat.com) and its contributors, which is itself based on the [\*folio theme](https://github.com/bogoli/-folio) by [Lia Bogoev](https://liabogoev.com). The theme is MIT-licensed; my own content and customizations are not. See below.
 
 ## License
 
 The original al-folio theme code remains under its [MIT License](https://github.com/alshedivat/al-folio/blob/main/LICENSE).
 
-All original content and customizations in this repository — writing, photography, artwork, designs, and bespoke code — are **© 2026 Ara Khan, All Rights Reserved**. See [LICENSE](LICENSE). No reuse, copying, modification, or distribution without prior written permission.
+All original content and customizations in this repository, including writing, photography, artwork, designs, and bespoke code, are **© 2026 Ara Khan, All Rights Reserved**. See [LICENSE](LICENSE). No reuse, copying, modification, or distribution without prior written permission.

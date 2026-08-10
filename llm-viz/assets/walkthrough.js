@@ -65,7 +65,7 @@
           beat(
             "<p>This is <b>nano-gpt</b>: a complete GPT-style language model with " +
               "<b>85,728 parameters</b>, drawn at full resolution. Every little square " +
-              "you can see is one number the model actually holds &mdash; nothing here is " +
+              "you can see is one number the model holds. Nothing here is " +
               "a stand-in.</p>",
             { cam: { ids: null, pad: 1.1, yaw: 0.5 }, dur: 9 }
           ),
@@ -81,7 +81,7 @@
           ),
           beat(
             "<p>Information falls straight down this tower. Horizontal slabs are " +
-              "<b>activations</b> &mdash; one row per token, one column per channel. The " +
+              "<b>activations</b>: one row per token, one column per channel. The " +
               "vertical walls between them are <b>weight matrices</b>: the numbers learned " +
               "during training.</p>",
             { cam: { ids: [ln1, qkvW, qkv], pad: 1.5 }, focus: { ids: [ln1, qkvW, qkv] }, dur: 10 }
@@ -174,7 +174,7 @@
             }
           ),
           beat(
-            "<p>Looking a token up is not a multiplication &mdash; it is a copy. Row <i>t</i> of " +
+            "<p>Looking a token up copies a row. Row <i>t</i> of " +
               "the token embedding is literally row <code>token[t]</code> of the table, lifted " +
               "out unchanged.</p>",
             {
@@ -187,7 +187,7 @@
           beat(
             "<p>That alone would leave the model blind to order: <code>ABC</code> and " +
               "<code>CBA</code> would look identical. So a second table adds a learned " +
-              "<b>position embedding</b> &mdash; one distinct vector per slot in the context.</p>",
+              "<b>position embedding</b>: one distinct vector per slot in the context.</p>",
             {
               cam: { ids: ["wpe", "posEmbed"], pad: 1.35 },
               focus: { ids: ["wpe", "posEmbed"] },
@@ -223,8 +223,8 @@
           ),
           beat(
             "<p>It works one token at a time, along a row. Take the 48 numbers of that row, " +
-              "compute their <b>mean</b> and their <b>standard deviation</b> &mdash; the two thin " +
-              "columns beside the slab &mdash; and nothing crosses between tokens.</p>",
+              "compute their <b>mean</b> and their <b>standard deviation</b>, shown in the two thin " +
+              "columns beside the slab. Nothing crosses between tokens.</p>",
             {
               cam: { ids: [block0("ln1.mu"), block0("ln1.sigma"), ln1], pad: 1.25 },
               focus: { ids: [block0("ln1.mu"), block0("ln1.sigma"), ln1] },
@@ -238,8 +238,8 @@
           ),
           beat(
             "<p>Subtract the mean, divide by the deviation, and the row now has mean 0 and " +
-              "variance 1. Then two learned bars &mdash; a <b>gain</b> and a <b>bias</b>, one " +
-              "number per channel &mdash; let the model undo that normalisation wherever it turns " +
+              "variance 1. Then two learned bars, a <b>gain</b> and a <b>bias</b>, each with one " +
+              "number per channel, let the model undo that normalisation wherever it turns " +
               "out to be unhelpful.</p>",
             {
               cam: { ids: [block0("ln1.g"), block0("ln1.b"), ln1], pad: 1.3 },
@@ -275,7 +275,7 @@
           ),
           beat(
             "<p>The 144 columns are then cut into <b>three heads</b> of 16. Each head gets its " +
-              "own query, key and value slabs and runs the rest of attention independently &mdash; " +
+              "own query, key and value slabs and runs the rest of attention independently, giving " +
               "three separate opinions about which tokens matter.</p>",
             {
               cam: { ids: allHeads("q").concat(allHeads("v")), pad: 1.2 },
@@ -306,7 +306,7 @@
           ),
           beat(
             "<p>A <b>softmax</b> along each row turns those scores into weights that are " +
-              "positive and sum to one &mdash; an attention pattern. Now every row is a recipe: " +
+              "positive and sum to one. The resulting attention pattern makes every row a recipe for " +
               "how much of each earlier token to mix in.</p>",
             {
               cam: { ids: [head(0, 0, "scores"), head(0, 0, "sm")], pad: 1.3 },
@@ -337,7 +337,7 @@
         beats: [
           beat(
             "<p>The three heads finish with 16 channels each. Laid end to end they are 48 wide " +
-              "again &mdash; exactly the width of the residual stream, which is not a coincidence.</p>",
+              "again, exactly the width of the residual stream.</p>",
             {
               cam: { ids: allHeads("out").concat([block0("vcomb")]), pad: 1.25 },
               focus: { ids: allHeads("out").concat([block0("vcomb")]) },
@@ -345,7 +345,7 @@
             }
           ),
           beat(
-            "<p>One more weight wall &mdash; the <b>output projection</b> &mdash; lets the heads' " +
+            "<p>One more weight wall, the <b>output projection</b>, lets the heads' " +
               "results be recombined rather than merely concatenated, so a channel of the " +
               "result can draw on all three heads at once.</p>",
             {
@@ -374,7 +374,7 @@
         beats: [
           beat(
             "<p>The second half of a block is a plain two-layer network applied to each token " +
-              "on its own. No token talks to another here &mdash; it is pure per-token thinking " +
+              "on its own. No token talks to another here; each token processes " +
               "about what attention just delivered.</p>",
             {
               cam: { ids: [block0("ln2.out"), block0("mlp.act"), block0("mlp.out")], pad: 1.2 },
@@ -385,7 +385,7 @@
             }
           ),
           beat(
-            "<p>First a wide wall projects each 48-channel vector <b>up to 192</b> &mdash; four " +
+            "<p>First a wide wall projects each 48-channel vector <b>up to 192</b>, four " +
               "times the width. This is where most of a real model's parameters live: about " +
               "two thirds of every transformer block.</p>",
             {
@@ -442,7 +442,7 @@
           ),
           beat(
             "<p>The residual stream is the spine running through all of it. Every block reads " +
-              "the stream, works out a correction, and adds it back &mdash; which is why a " +
+              "the stream, works out a correction, and adds it back. That is why a " +
               "hundred-layer model still trains: the gradient has a straight path home.</p>",
             {
               cam: { ids: ["embed", B(2, "resid2")], pad: 1.05, yaw: 0.15 },
@@ -473,7 +473,7 @@
           ),
           beat(
             "<p>Exponentiate every entry, then divide by the total. Exponentials blow up fast, " +
-              "so the largest entry of the row is subtracted first &mdash; that is what the thin " +
+              "so the largest entry of the row is subtracted first. The thin " +
               "<b>max</b> column beside the slab is for. It cannot change the answer, only keep " +
               "it finite.</p>",
             {
@@ -506,7 +506,7 @@
         beats: [
           beat(
             "<p>After the last block, one final layer norm tidies the stream, and then a single " +
-              "wall &mdash; the <b>language model head</b> &mdash; projects each 48-channel vector " +
+              "wall, the <b>language model head</b>, projects each 48-channel vector " +
               "onto one score per vocabulary entry.</p>",
             {
               cam: { ids: ["lnf.out", "head.w", "logits"], pad: 1.3 },
@@ -526,7 +526,7 @@
           ),
           beat(
             "<p>Only the last row is used when generating. Take its most likely letter, append " +
-              "it to the input, and run the whole tower again &mdash; that loop is what " +
+              "it to the input, and run the whole tower again. That loop is what " +
               "<b>autoregression</b> means, and it is how the sorted answer gets written one " +
               "letter at a time.</p>",
             {
