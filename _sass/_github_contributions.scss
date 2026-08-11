@@ -228,15 +228,20 @@ a.contrib-graph__profile {
   }
 }
 
-.contrib-graph__tooltip {
-  --contrib-tooltip-arrow: 4px;
-  // Clearance between the arrow tip and the hovered square. Wide enough that the
-  // panel also clears the row of squares directly above it.
-  --contrib-tooltip-gap: 10px;
+$contrib-tooltip-arrow: 4px;
+// Clearance between the arrow tip and the hovered square, wide enough that the
+// panel also clears the row of squares directly above it.
+$contrib-tooltip-gap: 10px;
 
+.contrib-graph__tooltip {
   position: absolute;
   z-index: 10;
-  transform: translate(-50%, calc(-100% - var(--contrib-tooltip-arrow) - var(--contrib-tooltip-gap)));
+  transform: translate(-50%, -100%);
+  // The clearance is a margin rather than part of the transform because
+  // cssminify2 rewrites calc(-100% - 14px) as calc( - 100% - 14px) in production
+  // builds. Browsers reject that, and dropping the transform leaves the tooltip
+  // sitting on top of the grid and off to one side.
+  margin-top: -($contrib-tooltip-arrow + $contrib-tooltip-gap);
   padding: 0.35rem 0.6rem;
   border-radius: 0.4rem;
   background-color: var(--global-text-color);
@@ -255,7 +260,7 @@ a.contrib-graph__profile {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    border: var(--contrib-tooltip-arrow) solid transparent;
+    border: $contrib-tooltip-arrow solid transparent;
     border-top-color: var(--global-text-color);
   }
 

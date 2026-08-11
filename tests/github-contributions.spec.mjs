@@ -1,3 +1,10 @@
+/**
+ * Serves _site and drives the contribution graph in a real browser.
+ *
+ * Build with `JEKYLL_ENV=production` before running: the tooltip assertions only
+ * exercise cssminify2's rewriting of the stylesheet, which is where the tooltip
+ * positioning has broken before, when the site is built the way it is deployed.
+ */
 import { chromium } from "playwright";
 import { createServer } from "http";
 import { readFileSync, statSync, existsSync } from "fs";
@@ -186,6 +193,11 @@ async function run() {
 
       assert("tooltip text matches the hovered day", (await tooltip.textContent()) === expected, expected);
 
+      // A transform the browser rejected reads back as "none", which drops the
+      // tooltip onto the grid and off to one side of the day it describes.
+      const transform = await page.evaluate(() => getComputedStyle(document.querySelector(".contrib-graph__tooltip")).transform);
+      assert("tooltip transform survives minification", transform !== "none", transform);
+
       const tooltipBox = await tooltip.boundingBox();
       const cellBox = await cell.boundingBox();
       assert(
@@ -202,6 +214,10 @@ async function run() {
         return hovered.getBoundingClientRect().top - (tip.getBoundingClientRect().bottom + overhang);
       });
       assert("tooltip keeps clear of the hovered day", arrowGap >= 8, `gap=${arrowGap}px`);
+
+      // Mid-grid days are far from the edges the tooltip gets clamped against.
+      const offCentre = Math.abs(cellBox.x + cellBox.width / 2 - (tooltipBox.x + tooltipBox.width / 2));
+      assert("tooltip is centred over the hovered day", offCentre <= 2, `off by ${offCentre}px`);
       await page.close();
     }
 
