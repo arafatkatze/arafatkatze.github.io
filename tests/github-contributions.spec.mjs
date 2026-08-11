@@ -75,7 +75,8 @@ async function readGraph(page) {
     return {
       cellCount: cells.length,
       paintedCount: cells.filter((cell) => cell.hasAttribute("data-level")).length,
-      levels: [...new Set(cells.map((cell) => cell.getAttribute("data-level")))].sort(),
+      // Padding cells outside the date range carry no level, so only painted days count.
+      levels: [...new Set(cells.filter((cell) => cell.hasAttribute("data-level")).map((cell) => cell.getAttribute("data-level")))].sort(),
       firstLabel: cells.find((cell) => cell.hasAttribute("data-label")).getAttribute("data-label"),
       caption: host.querySelector(".contrib-graph__caption").textContent,
       endDate: host.getAttribute("data-end-date"),
@@ -192,6 +193,15 @@ async function run() {
         tooltipBox.y + tooltipBox.height <= cellBox.y + 1,
         JSON.stringify({ tooltip: tooltipBox.y, cell: cellBox.y })
       );
+
+      // Only the top border of the arrow triangle is painted, so that is its visible overhang.
+      const arrowGap = await page.evaluate(() => {
+        const tip = document.querySelector(".contrib-graph__tooltip.is-visible");
+        const hovered = [...document.querySelectorAll(".contrib-graph__cells .contrib-graph__cell")].find((cell) => cell.matches(":hover"));
+        const overhang = parseFloat(getComputedStyle(tip, "::after").borderTopWidth);
+        return hovered.getBoundingClientRect().top - (tip.getBoundingClientRect().bottom + overhang);
+      });
+      assert("tooltip keeps clear of the hovered day", arrowGap >= 8, `gap=${arrowGap}px`);
       await page.close();
     }
 

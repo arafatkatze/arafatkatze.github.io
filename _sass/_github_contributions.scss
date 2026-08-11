@@ -229,9 +229,14 @@ a.contrib-graph__profile {
 }
 
 .contrib-graph__tooltip {
+  --contrib-tooltip-arrow: 4px;
+  // Clearance between the arrow tip and the hovered square. Wide enough that the
+  // panel also clears the row of squares directly above it.
+  --contrib-tooltip-gap: 10px;
+
   position: absolute;
   z-index: 10;
-  transform: translate(-50%, calc(-100% - 0.5rem));
+  transform: translate(-50%, calc(-100% - var(--contrib-tooltip-arrow) - var(--contrib-tooltip-gap)));
   padding: 0.35rem 0.6rem;
   border-radius: 0.4rem;
   background-color: var(--global-text-color);
@@ -250,7 +255,7 @@ a.contrib-graph__profile {
     top: 100%;
     left: 50%;
     transform: translateX(-50%);
-    border: 4px solid transparent;
+    border: var(--contrib-tooltip-arrow) solid transparent;
     border-top-color: var(--global-text-color);
   }
 
