@@ -21,16 +21,17 @@ Agentic search is a very difficult unsolved problem and has historically had all
 
 {% twitter https://x.com/arafatkatze/status/1988524692832235899 %}
 
-## Reverse Engineering AI tooling
+## Self hosting inference mini book
 
-Tons of AI tools are very similar but not quite the same. You can easily untangle them by using this reverse proxy technique to take out their prompts.
-{% twitter https://x.com/arafatkatze/status/2002076497704849873 %}
+A mini book on self-hosting inference, covering the practical details of running your own inference stack.
 
-## Race to the RL Pipeline
+{% twitter https://x.com/arafatkatze/status/2084668541270397223 %}
 
-Tons of AI startups would benefit greatly if they could fit into the RL pipeline workflow, and this post reflects on how to position startups in this space.
+## Recursive self improvement
 
-{% twitter https://x.com/arafatkatze/status/1978868569271341083 %}
+A striking example of recursive self improvement in action: an agent improving its own harness to boost its performance and cut its run cost.
+
+{% twitter https://x.com/cline/status/2082544250148057240 %}
 
 ## Open source model labs
 
