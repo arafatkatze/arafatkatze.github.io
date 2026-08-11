@@ -2,7 +2,6 @@
 
 Personal website of **Ara Khan**: writing, photography, projects, travel, and a few experiments that escaped the lab.
 
-
 🌐 **Live:** [arafatkatze.github.io](https://arafatkatze.github.io)
 
 ---
@@ -11,16 +10,16 @@ Personal website of **Ara Khan**: writing, photography, projects, travel, and a 
 
 The site is organized as a [bento](/) of things I make and care about:
 
-| Section | What it is |
-| --- | --- |
-| [Writing](https://arafatkatze.github.io/blog/) | Essays and notes: philosophy, letters, and the occasional rabbit hole |
-| [Projects](https://arafatkatze.github.io/projects/) | Things I've built, including agentic AI work |
-| [Photography](https://arafatkatze.github.io/photography/) | A visual journal |
-| [Reading](https://arafatkatze.github.io/reading/) | Books I'm reading and what stuck |
-| [Travel](https://arafatkatze.github.io/travel/) | An interactive globe of where I've been |
-| [Pixel Board](https://arafatkatze.github.io/pixels/) | A collaborative pixel canvas |
-| [arOS](https://arafatkatze.github.io/desktop/) | This whole site, reimagined as a tiny desktop operating system |
-| [Resume](https://arafatkatze.github.io/cv/) | The professional bits |
+| Section                                                   | What it is                                                            |
+| --------------------------------------------------------- | --------------------------------------------------------------------- |
+| [Writing](https://arafatkatze.github.io/blog/)            | Essays and notes: philosophy, letters, and the occasional rabbit hole |
+| [Projects](https://arafatkatze.github.io/projects/)       | Things I've built, including agentic AI work                          |
+| [Photography](https://arafatkatze.github.io/photography/) | A visual journal                                                      |
+| [Reading](https://arafatkatze.github.io/reading/)         | Books I'm reading and what stuck                                      |
+| [Travel](https://arafatkatze.github.io/travel/)           | An interactive globe of where I've been                               |
+| [Pixel Board](https://arafatkatze.github.io/pixels/)      | A collaborative pixel canvas                                          |
+| [arOS](https://arafatkatze.github.io/desktop/)            | This whole site, reimagined as a tiny desktop operating system        |
+| [Resume](https://arafatkatze.github.io/cv/)               | The professional bits                                                 |
 
 ## Running it locally
 
