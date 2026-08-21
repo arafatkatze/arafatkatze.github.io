@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Build the 2-D embedding map for the reading highlights.
+"""Build the 3-D embedding map for the reading highlights.
 
 Pipeline:
-  highlights.json  ->  text embeddings  ->  UMAP (2-D)  ->  KMeans clusters
+  highlights.json  ->  text embeddings  ->  UMAP (3-D)  ->  KMeans clusters
                     ->  per-cluster theme labels (distinctive TF-IDF terms)
                     ->  compact map.json (+ .gz)
 
@@ -25,6 +25,10 @@ HL = os.path.join(HERE, "..", "reading-quotes", "highlights.json")
 OUT = os.path.join(HERE, "map.json")
 K = int(os.environ.get("MAP_K", "7"))
 EXPAND = float(os.environ.get("MAP_EXPAND", "1.9"))  # push clusters apart
+DIMS = int(os.environ.get("MAP_DIMS", "3"))
+# The galaxy reads better when it is wider than it is deep, so the depth axis
+# is squashed a little relative to the two widest ones.
+DEPTH = float(os.environ.get("MAP_DEPTH", "0.62"))
 
 # Warm, distinct categorical palette (looks vivid on a dark background).
 PALETTE = [
@@ -82,33 +86,42 @@ def embed(texts):
         return emb, "tfidf"
 
 
-def layout(emb):
+def layout(emb, dims=DIMS):
     import umap
-    print("UMAP -> 2D ...", flush=True)
+    print(f"UMAP -> {dims}D ...", flush=True)
     reducer = umap.UMAP(n_neighbors=25, min_dist=0.25, metric="cosine",
-                        random_state=42, n_components=2)
+                        random_state=42, n_components=dims)
     return reducer.fit_transform(emb).astype(np.float32)
 
 
-def expand_clusters(xy, labels, k, factor):
+def expand_clusters(pts, labels, k, factor):
     """Push whole clusters away from the global centroid to open gaps between
     themes, while preserving each cluster's internal shape."""
-    g = xy.mean(0)
-    out = xy.copy()
+    g = pts.mean(0)
+    out = pts.copy()
     for c in range(k):
         idx = np.where(labels == c)[0]
         if len(idx) == 0:
             continue
-        cen = xy[idx].mean(0)
-        out[idx] = xy[idx] + (cen - g) * (factor - 1.0)
+        cen = pts[idx].mean(0)
+        out[idx] = pts[idx] + (cen - g) * (factor - 1.0)
     return out
 
 
-def normalize(xy):
-    xy = xy - xy.min(0)
-    span = xy.max(0)
-    scale = 1000.0 / max(span[0], span[1])
-    return (xy * scale).astype(np.float32)
+def normalize(pts):
+    """Scale so the widest axis spans 1000 units, with the two widest axes as
+    the map plane and the narrowest (squashed) one as depth."""
+    pts = np.asarray(pts, dtype=np.float32)
+    if pts.shape[1] == 3:
+        order = np.argsort(-(pts.max(0) - pts.min(0)))
+        pts = pts[:, order]
+    pts = pts - pts.min(0)
+    span = pts.max(0)
+    pts = pts * (1000.0 / max(span[0], span[1]))
+    if pts.shape[1] == 3:
+        mid = (pts[:, 2].min() + pts[:, 2].max()) / 2.0
+        pts[:, 2] = (pts[:, 2] - mid) * DEPTH + mid
+    return pts.astype(np.float32)
 
 
 def one_word(w):
@@ -182,36 +195,41 @@ def main():
     print(f"{n} highlights", flush=True)
     emb, method = embed(texts)
     labels = cluster(emb, K)
-    xy = layout(emb)
-    xy = expand_clusters(xy, labels, K, EXPAND)
-    xy = normalize(xy)
+    pts = layout(emb)
+    pts = expand_clusters(pts, labels, K, EXPAND)
+    pts = normalize(pts)
     names = label_clusters(texts, labels, cats, K)
 
     clusters = []
     for c in range(K):
         idx = np.where(labels == c)[0]
-        cx, cy = xy[idx].mean(0) if len(idx) else (0, 0)
+        cen = pts[idx].mean(0) if len(idx) else np.zeros(DIMS, dtype=np.float32)
         clusters.append({
             "id": c,
             "label": names[c]["label"],
             "terms": names[c]["terms"],
             "category": names[c]["category"],
             "color": PALETTE[c % len(PALETTE)],
-            "cx": round(float(cx), 1),
-            "cy": round(float(cy), 1),
+            "cx": round(float(cen[0]), 1),
+            "cy": round(float(cen[1]), 1),
             "count": int(len(idx)),
         })
+        if DIMS > 2:
+            clusters[-1]["cz"] = round(float(cen[2]), 1)
 
     out = {
         "method": method,
         "n": n,
         "k": K,
+        "dims": DIMS,
         "clusters": clusters,
         # parallel arrays, point order == highlights.json order
-        "x": [round(float(v), 1) for v in xy[:, 0]],
-        "y": [round(float(v), 1) for v in xy[:, 1]],
+        "x": [round(float(v), 1) for v in pts[:, 0]],
+        "y": [round(float(v), 1) for v in pts[:, 1]],
         "c": [int(v) for v in labels],
     }
+    if DIMS > 2:
+        out["z"] = [round(float(v), 1) for v in pts[:, 2]]
     payload = json.dumps(out, separators=(",", ":"))
     open(OUT, "w").write(payload)
     with gzip.open(OUT + ".gz", "wb", compresslevel=9) as f:
