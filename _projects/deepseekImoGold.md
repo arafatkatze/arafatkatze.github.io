@@ -75,6 +75,8 @@ As promised, we have attached all the solution traces from the different models 
 | Qwen 3.6 35B A3B                                                                    | **16/42**  | 7 · 2 · 1 · 2 · 3 · 1 | **$0.2251**             |
 | [IMO 2026 human median](https://www.imo-official.org/results/individual/year/2026/) | 16/42      | 7 · 1 · 0 · 7 · 2 · 0 | High school social life |
 
+The human row is two different medians: 16/42 is the median of contestants' total scores; P1–P6 are per-problem medians, which need not add up to the overall median.
+
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
     path="assets/img/deepseek-imo-gold/score-vs-cost.webp"
