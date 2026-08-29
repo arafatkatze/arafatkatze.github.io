@@ -2,7 +2,7 @@
 layout: page
 title: DeepSeek wins IMO Gold on 12 cents
 description: DeepSeek V4 Flash scored 30/42 on IMO 2026 in Cline, clearing the gold cutoff for $0.12 — about 140 times cheaper than Claude Fable 5.
-img: https://storage.ghost.io/c/d6/fe/d6feb101-a8e6-444b-bae8-3ca714794abb/content/images/2026/08/DeepSeek-wins-IMO-Gold-on-12-cents.png
+img: assets/img/deepseek-imo-gold/hero.webp
 importance: 1
 category: work
 permalink: /projects/deepseek-wins-imo-gold-on-12-cents/
@@ -10,7 +10,7 @@ permalink: /projects/deepseek-wins-imo-gold-on-12-cents/
 
 <div class="col-sm mt-3 mt-md-0 mx-auto">
     {% include figure.liquid
-    path="https://storage.ghost.io/c/d6/fe/d6feb101-a8e6-444b-bae8-3ca714794abb/content/images/2026/08/DeepSeek-wins-IMO-Gold-on-12-cents.png"
+    path="assets/img/deepseek-imo-gold/hero.webp"
     alt="DeepSeek wins IMO Gold on 12 cents"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -25,7 +25,7 @@ Frontier models scoring perfect runs has been covered extensively. Our interesti
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="https://storage.ghost.io/c/d6/fe/d6feb101-a8e6-444b-bae8-3ca714794abb/content/images/2026/08/scores-and-selected-prices.webp"
+    path="assets/img/deepseek-imo-gold/scores-and-selected-prices.webp"
     alt="IMO 2026 scores and selected prices across eight models"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -77,7 +77,7 @@ As promised, we have attached all the solution traces from the different models 
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="https://storage.ghost.io/c/d6/fe/d6feb101-a8e6-444b-bae8-3ca714794abb/content/images/2026/08/score-vs-cost.webp"
+    path="assets/img/deepseek-imo-gold/score-vs-cost.webp"
     alt="IMO 2026 score versus cost for each model"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -90,7 +90,7 @@ In 2025, an advanced version of Gemini Deep Think achieved a gold medal score wo
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="https://storage.ghost.io/c/d6/fe/d6feb101-a8e6-444b-bae8-3ca714794abb/content/images/2026/08/Gemini-achieved-gold-medal-level-in-the-International-Mathematical-Olympiad.jpg"
+    path="assets/img/deepseek-imo-gold/gemini-imo-gold.jpg"
     alt="Gemini achieved gold medal level in the International Mathematical Olympiad"
     class="img-fluid rounded z-depth-1" %}
 </div>
