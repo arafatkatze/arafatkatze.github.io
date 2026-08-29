@@ -2,7 +2,7 @@
 layout: page
 title: DeepSeek wins IMO Gold on 12 cents
 description: DeepSeek V4 Flash scored 30/42 on IMO 2026 in Cline, clearing the gold cutoff for $0.12 — about 140 times cheaper than Claude Fable 5.
-img: assets/img/deepseek-imo-gold/hero.webp
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041687/site/deepseek-imo-gold/hero.png
 importance: 1
 category: work
 permalink: /projects/deepseek-wins-imo-gold-on-12-cents/
@@ -10,7 +10,7 @@ permalink: /projects/deepseek-wins-imo-gold-on-12-cents/
 
 <div class="col-sm mt-3 mt-md-0 mx-auto">
     {% include figure.liquid
-    path="assets/img/deepseek-imo-gold/hero.webp"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041687/site/deepseek-imo-gold/hero.png"
     alt="DeepSeek wins IMO Gold on 12 cents"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -25,7 +25,7 @@ Frontier models scoring perfect runs has been covered extensively. Our interesti
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="assets/img/deepseek-imo-gold/scores-and-selected-prices.webp"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041688/site/deepseek-imo-gold/scores-and-selected-prices.webp"
     alt="IMO 2026 scores and selected prices across eight models"
     class="img-fluid rounded z-depth-1" %}
 </div>
