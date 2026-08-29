@@ -27,6 +27,10 @@ A mini book on self-hosting inference, covering the practical details of running
 
 {% twitter https://x.com/arafatkatze/status/2084668541270397223 %}
 
+## Open-sourcing evals for open-weight agents
+
+The Hill Climber's Checklist: five heuristics for evaluating open-weight coding agents, with scores, tradeoffs, and public traces. Read it [here](/projects/open-weight-agent-evals/) or on the [Cline Blog](https://cline.bot/blog/open-sourcing-evals-for-open-weight-agents).
+
 ## Recursive self improvement
 
 A striking example of recursive self improvement in action: an agent improving its own harness to boost its performance and cut its run cost.

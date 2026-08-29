@@ -75,10 +75,10 @@ bento_tiles:
     author: Khaled Hosseini
     badge: Read
 
-  - title: Agentic AI
+  - title: Open-sourcing evals
     label: Projects · Work
-    link: /projects/AgenticAi/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
+    link: /projects/open-weight-agent-evals/
+    image: https://storage.ghost.io/c/d6/fe/d6feb101-a8e6-444b-bae8-3ca714794abb/content/images/2026/08/Open-sourcing-evals-for-open-weight-agents.png
     type: image
 
   - title: Skiing
