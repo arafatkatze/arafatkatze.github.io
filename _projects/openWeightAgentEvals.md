@@ -2,11 +2,20 @@
 layout: page
 title: Open-sourcing evals for open-weight agents
 description: The Hill Climber's Checklist for evaluating open-weight agents, with scores, tradeoffs, and public traces.
-img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168010/open-weight-agent-evals/usage-ranking.png
+img: https://storage.ghost.io/c/d6/fe/d6feb101-a8e6-444b-bae8-3ca714794abb/content/images/2026/08/Open-sourcing-evals-for-open-weight-agents.png
 importance: 1
 category: work
 permalink: /projects/open-weight-agent-evals/
 ---
+
+<div class="col-sm mt-3 mt-md-0 mx-auto">
+    {% include figure.liquid
+    path="https://storage.ghost.io/c/d6/fe/d6feb101-a8e6-444b-bae8-3ca714794abb/content/images/2026/08/Open-sourcing-evals-for-open-weight-agents.png"
+    alt="Open-sourcing evals for open-weight agents"
+    class="img-fluid rounded z-depth-1" %}
+</div>
+
+*Published August 18, 2026 · Originally published on the [Cline Blog](https://cline.bot/blog/open-sourcing-evals-for-open-weight-agents).*
 
 ## Preface
 
