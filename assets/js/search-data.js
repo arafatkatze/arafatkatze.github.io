@@ -300,6 +300,11 @@ ninja.data = [{
           description: "Eval runs to improve computer-use UX — OSWorld experiments on smaller screenshots, running task notes, and batched GUI actions, with every trace public.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/computerUseFieldNotes/";
+            },},{id: "projects-deepseek-wins-imo-gold-on-12-cents",
+          title: 'DeepSeek wins IMO Gold on 12 cents',
+          description: "DeepSeek V4 Flash scored 30/42 on IMO 2026 in Cline, clearing the gold cutoff for $0.12 — about 140 times cheaper than Claude Fable 5.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/deepseek-wins-imo-gold-on-12-cents/";
             },},{id: "projects-priviledged-homelessness",
           title: 'Priviledged Homelessness',
           description: "",
