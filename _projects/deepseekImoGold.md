@@ -15,7 +15,7 @@ permalink: /projects/deepseek-wins-imo-gold-on-12-cents/
     class="img-fluid rounded z-depth-1" %}
 </div>
 
-*Published August 26, 2026 · Originally published on the [Cline Blog](https://cline.bot/blog/deepseek-wins-imo-gold-on-12-cents).*
+_Published August 26, 2026 · Originally published on the [Cline Blog](https://cline.bot/blog/deepseek-wins-imo-gold-on-12-cents)._
 
 We wanted to know the cheapest possible way to win an IMO gold medal, so we ran eight models against IMO 2026 problems in Cline and had the proofs graded blind.
 
@@ -63,17 +63,17 @@ As promised, we have attached all the solution traces from the different models 
 
 ## Model Scores and Prices
 
-| Model | Best score | P1–P6 | Price |
-| --- | --- | --- | --- |
-| GPT-5.6 Sol | **42/42** | 7 · 7 · 7 · 7 · 7 · 7 | **$3.2336** |
-| Claude Fable 5 | **41/42** | 7 · 7 · 6 · 7 · 7 · 7 | **$17.1956** |
-| Kimi K3 | **35/42** | 7 · 4 · 7 · 7 · 7 · 3 | **$5.1328** |
-| DeepSeek V4 Flash | **30/42** | 7 · 4 · 3 · 7 · 7 · 2 | **$0.1215** |
-| DeepSeek V4 Pro | **30/42** | 7 · 4 · 2 · 7 · 7 · 3 | **$0.4761** |
-| MiMo V2.5 Pro | **30/42** | 7 · 2 · 3 · 7 · 7 · 4 | **$1.0650** |
-| GLM 5.2 | **21/42** | 7 · 0 · 0 · 7 · 7 · 0 | **$2.3855** |
-| Qwen 3.6 35B A3B | **16/42** | 7 · 2 · 1 · 2 · 3 · 1 | **$0.2251** |
-| [IMO 2026 human median](https://www.imo-official.org/results/individual/year/2026/) | 16/42 | 7 · 1 · 0 · 7 · 2 · 0 | High school social life |
+| Model                                                                               | Best score | P1–P6                 | Price                   |
+| ----------------------------------------------------------------------------------- | ---------- | --------------------- | ----------------------- |
+| GPT-5.6 Sol                                                                         | **42/42**  | 7 · 7 · 7 · 7 · 7 · 7 | **$3.2336**             |
+| Claude Fable 5                                                                      | **41/42**  | 7 · 7 · 6 · 7 · 7 · 7 | **$17.1956**            |
+| Kimi K3                                                                             | **35/42**  | 7 · 4 · 7 · 7 · 7 · 3 | **$5.1328**             |
+| DeepSeek V4 Flash                                                                   | **30/42**  | 7 · 4 · 3 · 7 · 7 · 2 | **$0.1215**             |
+| DeepSeek V4 Pro                                                                     | **30/42**  | 7 · 4 · 2 · 7 · 7 · 3 | **$0.4761**             |
+| MiMo V2.5 Pro                                                                       | **30/42**  | 7 · 2 · 3 · 7 · 7 · 4 | **$1.0650**             |
+| GLM 5.2                                                                             | **21/42**  | 7 · 0 · 0 · 7 · 7 · 0 | **$2.3855**             |
+| Qwen 3.6 35B A3B                                                                    | **16/42**  | 7 · 2 · 1 · 2 · 3 · 1 | **$0.2251**             |
+| [IMO 2026 human median](https://www.imo-official.org/results/individual/year/2026/) | 16/42      | 7 · 1 · 0 · 7 · 2 · 0 | High school social life |
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
