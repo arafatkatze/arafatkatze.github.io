@@ -707,69 +707,6 @@
       line-height: 1.35;
     }
 
-    .artifact-panel {
-      margin-top: 18px;
-    }
-
-    .artifact-panel p {
-      max-width: 760px;
-    }
-
-    .artifact-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1px;
-      border: 1px solid var(--line);
-      background: var(--line);
-      margin-top: 16px;
-    }
-
-    .artifact-grid.single {
-      grid-template-columns: 1fr;
-    }
-
-    .artifact-grid.three {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .artifact-label {
-      margin: 18px 0 8px;
-      color: var(--teal);
-      font-family: var(--mono);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0;
-    }
-
-    .artifact-link {
-      min-height: 118px;
-      background: var(--paper-2);
-      padding: 18px;
-      text-decoration: none;
-      display: grid;
-      align-content: space-between;
-      transition: background 160ms ease;
-    }
-
-    .artifact-link:hover {
-      background: var(--blue-soft);
-    }
-
-    .artifact-link b {
-      display: block;
-      font-size: 18px;
-      line-height: 1.15;
-    }
-
-    .artifact-link span {
-      display: block;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 12px;
-      margin-top: 14px;
-    }
-
     footer {
       padding: 36px 0 56px;
       color: var(--muted);
@@ -861,10 +798,7 @@
 
       .mini-grid,
       .focus-facts,
-      .resolution-strip,
-      .artifact-grid,
-      .artifact-grid.three,
-      .artifact-grid.single {
+      .resolution-strip {
         grid-template-columns: 1fr;
       }
 
@@ -943,7 +877,7 @@
       </div>
       <div class="shell hero-content">
         <div>
-          <div class="eyebrow">OSWorld experiments · July 2026 · every trace public</div>
+          <div class="eyebrow">OSWorld experiments · July 2026 · three harness experiments</div>
           <h1 id="hero-title">Eval runs to improve Computer use UX</h1>
         </div>
       </div>
@@ -1042,20 +976,6 @@
             <p>960×540 was the best default in this run: it cost $7.35 per 70 tasks versus $10.10 at 1280×720, and passed 29 tasks versus 25. 800×450 was cheaper, but it passed fewer tasks, so it is a cost-only option rather than the default.</p>
           </div>
 
-          <div class="panel artifact-panel">
-            <h3>Artifacts for this run</h3>
-            <p>Use these to inspect the resize experiment directly: the run bundle has the trajectories, screenshots, recordings, and score data; the script shows how the 70-task pack was drawn.</p>
-            <div class="artifact-grid">
-              <a class="artifact-link" href="https://osworld-image-resize-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/osworld-image-resize-070-artifacts.tar.gz" target="_blank" rel="noreferrer">
-                <b>Resize artifact bundle</b>
-                <span>S3 · 2.1 GB · 280 trajectories</span>
-              </a>
-              <a class="artifact-link" href="https://osworld-image-resize-traces-298579054527.s3.us-west-2.amazonaws.com/draw_task_pack.py" target="_blank" rel="noreferrer">
-                <b>Task-pack script</b>
-                <span>seed 20260704 · reproducible task draw</span>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -1141,65 +1061,6 @@
             <p>v1 worked as a termination mechanism: it reduced repeated checking and step-cap failures. v2 proved the next bottleneck was visual verification, not note format. If the model misreads the screen, a structured ledger can still sincerely mark the wrong thing as done.</p>
           </div>
 
-          <div class="panel artifact-panel">
-            <h3>Artifacts for this run</h3>
-            <p>Use the run bundles to inspect trajectories and screenshots. Use the code links to review exactly how v1 FocusChain and v2 Gated Ledger changed the harness.</p>
-            <div class="artifact-label">Run bundles</div>
-            <div class="artifact-grid three">
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/control-blocks.tar.gz" target="_blank" rel="noreferrer">
-                <b>Control blocks</b>
-                <span>S3 · 1.0 GB · 80 baseline task-runs</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/v1-treatment-blocks.tar.gz" target="_blank" rel="noreferrer">
-                <b>v1 FocusChain blocks</b>
-                <span>S3 · 0.97 GB · 80 task-note task-runs</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/v2-treatment-blocks.tar.gz" target="_blank" rel="noreferrer">
-                <b>v2 Gated Ledger blocks</b>
-                <span>S3 · 1.0 GB · 80 gated-ledger task-runs</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/long-extension-blocks.tar.gz" target="_blank" rel="noreferrer">
-                <b>Long-task extension</b>
-                <span>S3 · 0.72 GB · 46 long-horizon task-runs</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/smokes.tar.gz" target="_blank" rel="noreferrer">
-                <b>Smoke runs</b>
-                <span>S3 · 62 MB · v1 and v2 validation probes</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/analysis-and-logs.tar.gz" target="_blank" rel="noreferrer">
-                <b>Analysis and logs</b>
-                <span>S3 · 6.8 MB · scripts, CSVs, task packs, logs</span>
-              </a>
-            </div>
-            <div class="artifact-label">Code and patches</div>
-            <div class="artifact-grid three">
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/osworld-focuschain-branch-2d8ca929.tar.gz" target="_blank" rel="noreferrer">
-                <b>Full source tree</b>
-                <span>S3 · 10 MB · final focuschain-ab branch</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/focuschain-algorithm-commits.patch" target="_blank" rel="noreferrer">
-                <b>Algorithm patch series</b>
-                <span>S3 · 21 KB · v1 b66b99dd + v2 2d8ca929</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/main.b66b99dd.py" target="_blank" rel="noreferrer">
-                <b>v1 main.py</b>
-                <span>S3 · note capture and echo path</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/context_policies.b66b99dd.py" target="_blank" rel="noreferrer">
-                <b>v1 context policy</b>
-                <span>S3 · FocusChain context policy</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/main.2d8ca929.py" target="_blank" rel="noreferrer">
-                <b>v2 main.py</b>
-                <span>S3 · gated ledger and finish gate</span>
-              </a>
-              <a class="artifact-link" href="https://focuschain-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/context_policies.2d8ca929.py" target="_blank" rel="noreferrer">
-                <b>v2 context policy</b>
-                <span>S3 · structured ledger context policy</span>
-              </a>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
@@ -1280,28 +1141,6 @@
             <p>If the goal is cost, batching is not the highest-leverage knob. The better next eval is targeted verification: find traces where batched actions spend many steps without fresh visual feedback, then test whether smaller action groups or screen checks improve reliability.</p>
           </div>
 
-          <div class="panel artifact-panel">
-            <h3>Artifacts for this run</h3>
-            <p>Only the essentials: raw traces for both arms, the paired summary table, and the patch that makes the comparison explicit. The full bucket still has logs, scripts, and extra code files if needed.</p>
-            <div class="artifact-grid">
-              <a class="artifact-link" href="https://batching-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/single-action-traces.tar.gz" target="_blank" rel="noreferrer">
-                <b>Single-action traces</b>
-                <span>S3 · 632.9 MB · comparison traces</span>
-              </a>
-              <a class="artifact-link" href="https://batching-ab-traces-298579054527.s3.us-west-2.amazonaws.com/bundles/control-blocks.tar.gz" target="_blank" rel="noreferrer">
-                <b>Batched traces</b>
-                <span>S3 · 1.0 GB · batching traces</span>
-              </a>
-              <a class="artifact-link" href="https://batching-ab-traces-298579054527.s3.us-west-2.amazonaws.com/code/patches/0004-Add-single_action-mode-one-action-per-tool-call-batc.patch" target="_blank" rel="noreferrer">
-                <b>Tool-contract patch</b>
-                <span>S3 · exact comparison change</span>
-              </a>
-              <a class="artifact-link" href="https://batching-ab-traces-298579054527.s3.us-west-2.amazonaws.com/summary_paired.csv" target="_blank" rel="noreferrer">
-                <b>Paired summary</b>
-                <span>S3 · calls, cost, score CIs</span>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -1309,7 +1148,7 @@
   </main>
 
   <footer>
-    <div class="shell">Built from public run artifacts, analysis logs, and source data for every major claim.</div>
+    <div class="shell">Built from run artifacts, analysis logs, and source data for every major claim. The raw trace bundles are no longer hosted.</div>
   </footer>
 
   <script>
