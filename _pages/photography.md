@@ -14,9 +14,12 @@ photography: true
   directly to a project.
 -->
 
+<div class="blog-hero">
+  <h1>photography.</h1>
+</div>
+
 <section class="photo-gallery" aria-label="Photography projects">
   <header class="photo-gallery__intro">
-    <p class="photo-gallery__eyebrow">Photographs</p>
     <h1 class="photo-gallery__title" id="photo-gallery-title">{{ site.data.photography.projects[0].title }}</h1>
     <p class="photo-gallery__caption" id="photo-gallery-caption" hidden></p>
   </header>

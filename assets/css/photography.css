@@ -25,20 +25,11 @@
   padding: 0 1rem;
 }
 
-.photo-gallery__eyebrow {
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--global-text-color-light, #828282);
-  margin: 0 0 0.5rem;
-}
-
 .photo-gallery__title {
-  font-family: var(--global-theme-font, inherit);
-  font-weight: 300;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 400;
   font-size: clamp(1.6rem, 3.4vw, 2.4rem);
   margin: 0 0 0.5rem;
-  letter-spacing: -0.01em;
 }
 
 .photo-gallery__caption {
