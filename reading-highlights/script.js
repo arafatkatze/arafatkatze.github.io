@@ -1,5 +1,5 @@
 /* ============================================================
-   The Reading Map — fast Canvas galaxy of highlights
+   The Reading Map: fast Canvas galaxy of highlights
    ============================================================ */
 (function () {
   "use strict";
@@ -9,18 +9,26 @@
   const ctx = canvas.getContext("2d");
   const tip = $("tip");
 
-  let MAP = null;      // {clusters, x[], y[], c[], n}
-  let HL = null;       // highlights payload (for tooltip text)
-  let colorOf = [];    // cluster id -> color
-  let labelOf = [];    // cluster id -> display label
+  let MAP = null; // {clusters, x[], y[], c[], n}
+  let HL = null; // highlights payload (for tooltip text)
+  let colorOf = []; // cluster id -> color
+  let labelOf = []; // cluster id -> display label
 
   // view transform (data -> screen, CSS px):  s = d*scale + t
-  let scale = 1, tx = 0, ty = 0, fitScale = 1;
+  let scale = 1,
+    tx = 0,
+    ty = 0,
+    fitScale = 1;
   let dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
-  let W = 0, H = 0;
+  let W = 0,
+    H = 0;
 
-  let grid = null, cell = 24; // spatial index in data space
-  let hoverI = -1, selI = -1, focusCluster = -1, focusPreview = -1;
+  let grid = null,
+    cell = 24; // spatial index in data space
+  let hoverI = -1,
+    selI = -1,
+    focusCluster = -1,
+    focusPreview = -1;
   let needsDraw = false;
 
   // ---------- load ----------
@@ -34,11 +42,16 @@
       setup();
       $("loading").classList.add("done");
     })
-    .catch((e) => { $("loading").innerHTML = "<p>could not load the map</p>"; console.error(e); });
+    .catch((e) => {
+      $("loading").innerHTML = "<p>could not load the map</p>";
+      console.error(e);
+    });
 
   // tooltip text loads in parallel; map is interactive before it arrives
   loadGz("../reading-quotes/highlights.json.gz", "../reading-quotes/highlights.json")
-    .then((d) => { HL = d; })
+    .then((d) => {
+      HL = d;
+    })
     .catch((e) => console.warn("tooltip text unavailable", e));
 
   async function loadGz(gzUrl, plainUrl) {
@@ -49,7 +62,9 @@
           const s = r.body.pipeThrough(new DecompressionStream("gzip"));
           return JSON.parse(await new Response(s).text());
         }
-      } catch (e) { /* fall through */ }
+      } catch (e) {
+        /* fall through */
+      }
     }
     return (await fetch(plainUrl)).json();
   }
@@ -67,30 +82,38 @@
 
   function resize() {
     dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
-    W = canvas.clientWidth; H = canvas.clientHeight;
+    W = canvas.clientWidth;
+    H = canvas.clientHeight;
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
   }
 
   function dataBounds() {
-    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    let minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity;
     const { x, y } = MAP;
     for (let i = 0; i < MAP.n; i++) {
-      if (x[i] < minX) minX = x[i]; if (x[i] > maxX) maxX = x[i];
-      if (y[i] < minY) minY = y[i]; if (y[i] > maxY) maxY = y[i];
+      if (x[i] < minX) minX = x[i];
+      if (x[i] > maxX) maxX = x[i];
+      if (y[i] < minY) minY = y[i];
+      if (y[i] > maxY) maxY = y[i];
     }
     return { minX, minY, maxX, maxY };
   }
 
   function fitView() {
     const b = dataBounds();
-    const spanX = Math.max(1, b.maxX - b.minX), spanY = Math.max(1, b.maxY - b.minY);
+    const spanX = Math.max(1, b.maxX - b.minX),
+      spanY = Math.max(1, b.maxY - b.minY);
     const pad = 46;
     fitScale = Math.min((W - pad * 2) / spanX, (H - pad * 2 - 70) / spanY);
     scale = fitScale;
-    const cx = (b.minX + b.maxX) / 2, cy = (b.minY + b.maxY) / 2;
+    const cx = (b.minX + b.maxX) / 2,
+      cy = (b.minY + b.maxY) / 2;
     tx = W / 2 - cx * scale;
-    ty = (H / 2 + 20) - cy * scale;
+    ty = H / 2 + 20 - cy * scale;
     requestDraw();
   }
 
@@ -100,30 +123,44 @@
     const { x, y } = MAP;
     for (let i = 0; i < MAP.n; i++) {
       const key = ((x[i] / cell) | 0) + "," + ((y[i] / cell) | 0);
-      let a = grid.get(key); if (!a) grid.set(key, (a = [])); a.push(i);
+      let a = grid.get(key);
+      if (!a) grid.set(key, (a = []));
+      a.push(i);
     }
   }
 
   function pointAt(sx, sy) {
     // screen -> data
-    const dx = (sx - tx) / scale, dy = (sy - ty) / scale;
-    const gx = (dx / cell) | 0, gy = (dy / cell) | 0;
-    let best = -1, bestD = 12 * 12; // px^2 threshold
+    const dx = (sx - tx) / scale,
+      dy = (sy - ty) / scale;
+    const gx = (dx / cell) | 0,
+      gy = (dy / cell) | 0;
+    let best = -1,
+      bestD = 12 * 12; // px^2 threshold
     for (let ox = -1; ox <= 1; ox++)
       for (let oy = -1; oy <= 1; oy++) {
-        const a = grid.get((gx + ox) + "," + (gy + oy));
+        const a = grid.get(gx + ox + "," + (gy + oy));
         if (!a) continue;
         for (const i of a) {
-          const px = MAP.x[i] * scale + tx, py = MAP.y[i] * scale + ty;
+          const px = MAP.x[i] * scale + tx,
+            py = MAP.y[i] * scale + ty;
           const d = (px - sx) * (px - sx) + (py - sy) * (py - sy);
-          if (d < bestD) { bestD = d; best = i; }
+          if (d < bestD) {
+            bestD = d;
+            best = i;
+          }
         }
       }
     return best;
   }
 
   // ---------- draw ----------
-  function requestDraw() { if (!needsDraw) { needsDraw = true; requestAnimationFrame(draw); } }
+  function requestDraw() {
+    if (!needsDraw) {
+      needsDraw = true;
+      requestAnimationFrame(draw);
+    }
+  }
 
   function pointRadius() {
     return Math.max(1.1, Math.min(7, 1.5 * Math.pow(scale / fitScale, 0.42)));
@@ -140,7 +177,8 @@
     // batch points by cluster to minimize state changes
     const paths = MAP.clusters.map(() => new Path2D());
     for (let i = 0; i < MAP.n; i++) {
-      const sx = x[i] * scale + tx, sy = y[i] * scale + ty;
+      const sx = x[i] * scale + tx,
+        sy = y[i] * scale + ty;
       if (sx < -8 || sx > W + 8 || sy < -8 || sy > H + 8) continue;
       const p = paths[c[i]];
       p.moveTo(sx + r, sy);
@@ -173,17 +211,22 @@
     for (const k of order) {
       if (eff >= 0 && eff !== k) continue;
       const cl = MAP.clusters[k];
-      const sx = cl.cx * scale + tx, sy = cl.cy * scale + ty;
+      const sx = cl.cx * scale + tx,
+        sy = cl.cy * scale + ty;
       if (sx < -60 || sx > W + 60 || sy < -30 || sy > H + 30) continue;
       const size = Math.max(13, Math.min(22, 13 + Math.log2(cl.count) - 6 + (scale / fitScale - 1) * 2.2));
       ctx.font = `600 ${size}px "Fraunces", Georgia, serif`;
       const txt = labelOf[k];
-      const w = ctx.measureText(txt).width + 12, h = size + 8;
+      const w = ctx.measureText(txt).width + 12,
+        h = size + 8;
       const box = { x: sx - w / 2, y: sy - h / 2, w, h };
       let clash = false;
       if (eff < 0) {
         for (const p of placed) {
-          if (box.x < p.x + p.w && box.x + box.w > p.x && box.y < p.y + p.h && box.y + box.h > p.y) { clash = true; break; }
+          if (box.x < p.x + p.w && box.x + box.w > p.x && box.y < p.y + p.h && box.y + box.h > p.y) {
+            clash = true;
+            break;
+          }
         }
       }
       if (clash) continue;
@@ -197,7 +240,8 @@
   }
 
   function drawRing(i, selected) {
-    const sx = MAP.x[i] * scale + tx, sy = MAP.y[i] * scale + ty;
+    const sx = MAP.x[i] * scale + tx,
+      sy = MAP.y[i] * scale + ty;
     const r = pointRadius();
     ctx.beginPath();
     ctx.arc(sx, sy, r + (selected ? 6 : 4), 0, 6.2832);
@@ -211,12 +255,17 @@
     ctx.fillStyle = document.body.dataset.theme === "day" ? "#fff" : "#fff";
     ctx.fill();
     ctx.fillStyle = colorOf[MAP.c[i]];
-    ctx.beginPath(); ctx.arc(sx, sy, r, 0, 6.2832); ctx.fill();
+    ctx.beginPath();
+    ctx.arc(sx, sy, r, 0, 6.2832);
+    ctx.fill();
   }
 
   // ---------- tooltip ----------
   function showTip(i, clientX, clientY) {
-    if (i < 0) { tip.hidden = true; return; }
+    if (i < 0) {
+      tip.hidden = true;
+      return;
+    }
     if (!HL) return; // text not loaded yet
     const h = HL.highlights[i];
     const b = HL.books[h[1]];
@@ -233,7 +282,8 @@
     if (tip.hidden) return;
     if (window.innerWidth <= 720) return; // bottom sheet on mobile
     const rect = tip.getBoundingClientRect();
-    let x = clientX + 16, y = clientY + 16;
+    let x = clientX + 16,
+      y = clientY + 16;
     if (x + rect.width > window.innerWidth - 8) x = clientX - rect.width - 16;
     if (y + rect.height > window.innerHeight - 8) y = clientY - rect.height - 16;
     tip.style.left = Math.max(8, x) + "px";
@@ -242,33 +292,59 @@
 
   // ---------- interaction ----------
   function bind() {
-    window.addEventListener("resize", () => { resize(); requestDraw(); });
+    window.addEventListener("resize", () => {
+      resize();
+      requestDraw();
+    });
 
     // hover (mouse only)
     canvas.addEventListener("mousemove", (e) => {
       const i = pointAt(e.clientX, e.clientY - canvas.getBoundingClientRect().top);
-      if (i !== hoverI) { hoverI = i; requestDraw(); }
-      if (i >= 0) { showTip(i, e.clientX, e.clientY); canvas.style.cursor = "pointer"; }
-      else if (!dragging) { tip.hidden = selI < 0; canvas.style.cursor = "grab"; if (selI < 0) hoverI = -1; }
+      if (i !== hoverI) {
+        hoverI = i;
+        requestDraw();
+      }
+      if (i >= 0) {
+        showTip(i, e.clientX, e.clientY);
+        canvas.style.cursor = "pointer";
+      } else if (!dragging) {
+        tip.hidden = selI < 0;
+        canvas.style.cursor = "grab";
+        if (selI < 0) hoverI = -1;
+      }
       if (i >= 0) positionTip(e.clientX, e.clientY);
     });
-    canvas.addEventListener("mouseleave", () => { if (selI < 0) { hoverI = -1; tip.hidden = true; requestDraw(); } });
+    canvas.addEventListener("mouseleave", () => {
+      if (selI < 0) {
+        hoverI = -1;
+        tip.hidden = true;
+        requestDraw();
+      }
+    });
 
     // wheel zoom
-    canvas.addEventListener("wheel", (e) => {
-      e.preventDefault();
-      const top = canvas.getBoundingClientRect().top;
-      zoomAt(e.clientX, e.clientY - top, Math.pow(1.0015, -e.deltaY));
-    }, { passive: false });
+    canvas.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
+        const top = canvas.getBoundingClientRect().top;
+        zoomAt(e.clientX, e.clientY - top, Math.pow(1.0015, -e.deltaY));
+      },
+      { passive: false }
+    );
 
     // pointer pan / pinch / tap
     const pts = new Map();
-    let last = null, pinchDist = 0, moved = 0;
+    let last = null,
+      pinchDist = 0,
+      moved = 0;
     canvas.addEventListener("pointerdown", (e) => {
       canvas.setPointerCapture(e.pointerId);
       pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
-      last = { x: e.clientX, y: e.clientY }; moved = 0;
-      dragging = true; canvas.classList.add("grabbing");
+      last = { x: e.clientX, y: e.clientY };
+      moved = 0;
+      dragging = true;
+      canvas.classList.add("grabbing");
       if (pts.size === 2) pinchDist = twoDist(pts);
     });
     canvas.addEventListener("pointermove", (e) => {
@@ -276,13 +352,17 @@
       pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
       const top = canvas.getBoundingClientRect().top;
       if (pts.size === 2) {
-        const d = twoDist(pts), mid = twoMid(pts);
+        const d = twoDist(pts),
+          mid = twoMid(pts);
         if (pinchDist > 0) zoomAt(mid.x, mid.y - top, d / pinchDist);
         pinchDist = d;
       } else if (last) {
-        const dx = e.clientX - last.x, dy = e.clientY - last.y;
+        const dx = e.clientX - last.x,
+          dy = e.clientY - last.y;
         moved += Math.abs(dx) + Math.abs(dy);
-        tx += dx; ty += dy; requestDraw();
+        tx += dx;
+        ty += dy;
+        requestDraw();
         if (!tip.hidden && selI < 0) tip.hidden = true;
       }
       last = { x: e.clientX, y: e.clientY };
@@ -292,31 +372,50 @@
         // tap: select nearest
         const top = canvas.getBoundingClientRect().top;
         const i = pointAt(e.clientX, e.clientY - top);
-        selI = i; hoverI = i;
-        if (i >= 0) showTip(i, e.clientX, e.clientY); else tip.hidden = true;
+        selI = i;
+        hoverI = i;
+        if (i >= 0) showTip(i, e.clientX, e.clientY);
+        else tip.hidden = true;
         requestDraw();
       }
       pts.delete(e.pointerId);
       if (pts.size < 2) pinchDist = 0;
-      if (pts.size === 0) { dragging = false; last = null; canvas.classList.remove("grabbing"); }
+      if (pts.size === 0) {
+        dragging = false;
+        last = null;
+        canvas.classList.remove("grabbing");
+      }
     };
     canvas.addEventListener("pointerup", up);
     canvas.addEventListener("pointercancel", up);
 
     $("zoomIn").addEventListener("click", () => zoomAt(W / 2, H / 2, 1.4));
     $("zoomOut").addEventListener("click", () => zoomAt(W / 2, H / 2, 1 / 1.4));
-    $("reset").addEventListener("click", () => { focusCluster = -1; selI = -1; tip.hidden = true; syncLegend(); fitView(); });
+    $("reset").addEventListener("click", () => {
+      focusCluster = -1;
+      selI = -1;
+      tip.hidden = true;
+      syncLegend();
+      fitView();
+    });
     $("themeToggle").addEventListener("click", toggleTheme);
     $("legendToggle").addEventListener("click", () => {
-      const l = $("legend"); l.classList.toggle("collapsed");
+      const l = $("legend");
+      l.classList.toggle("collapsed");
       $("legendToggle").textContent = l.classList.contains("collapsed") ? "+" : "–";
     });
     restoreTheme();
   }
 
   let dragging = false;
-  function twoDist(pts) { const a = [...pts.values()]; return Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y); }
-  function twoMid(pts) { const a = [...pts.values()]; return { x: (a[0].x + a[1].x) / 2, y: (a[0].y + a[1].y) / 2 }; }
+  function twoDist(pts) {
+    const a = [...pts.values()];
+    return Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y);
+  }
+  function twoMid(pts) {
+    const a = [...pts.values()];
+    return { x: (a[0].x + a[1].x) / 2, y: (a[0].y + a[1].y) / 2 };
+  }
 
   function zoomAt(sx, sy, factor) {
     const ns = Math.max(fitScale * 0.5, Math.min(fitScale * 60, scale * factor));
@@ -331,31 +430,53 @@
   function buildLegend() {
     const body = $("legendBody");
     body.innerHTML = "";
-    MAP.clusters.slice().sort((a, b) => b.count - a.count).forEach((cl) => {
-      const item = document.createElement("div");
-      item.className = "legend-item";
-      item.dataset.cluster = cl.id;
-      item.innerHTML =
-        `<span class="legend-dot" style="background:${cl.color};color:${cl.color}"></span>` +
-        `<span class="legend-label">${escapeHTML(titleize(cl.label))}</span>` +
-        `<span class="legend-count">${cl.count}</span>`;
-      item.addEventListener("mouseenter", () => { if (focusCluster < 0) { hoverCluster(cl.id); } });
-      item.addEventListener("mouseleave", () => { if (focusCluster < 0) { hoverClusterOff(); } });
-      item.addEventListener("click", () => {
-        focusCluster = focusCluster === cl.id ? -1 : cl.id;
-        selI = -1; tip.hidden = true; syncLegend(); requestDraw();
+    MAP.clusters
+      .slice()
+      .sort((a, b) => b.count - a.count)
+      .forEach((cl) => {
+        const item = document.createElement("div");
+        item.className = "legend-item";
+        item.dataset.cluster = cl.id;
+        item.innerHTML =
+          `<span class="legend-dot" style="background:${cl.color};color:${cl.color}"></span>` +
+          `<span class="legend-label">${escapeHTML(titleize(cl.label))}</span>` +
+          `<span class="legend-count">${cl.count}</span>`;
+        item.addEventListener("mouseenter", () => {
+          if (focusCluster < 0) {
+            hoverCluster(cl.id);
+          }
+        });
+        item.addEventListener("mouseleave", () => {
+          if (focusCluster < 0) {
+            hoverClusterOff();
+          }
+        });
+        item.addEventListener("click", () => {
+          focusCluster = focusCluster === cl.id ? -1 : cl.id;
+          selI = -1;
+          tip.hidden = true;
+          syncLegend();
+          requestDraw();
+        });
+        body.appendChild(item);
       });
-      body.appendChild(item);
-    });
   }
-  function hoverCluster(id) { focusPreview = id; requestDraw(); }
-  function hoverClusterOff() { focusPreview = -1; requestDraw(); }
+  function hoverCluster(id) {
+    focusPreview = id;
+    requestDraw();
+  }
+  function hoverClusterOff() {
+    focusPreview = -1;
+    requestDraw();
+  }
   function syncLegend() {
-    $("legendBody").querySelectorAll(".legend-item").forEach((el) => {
-      const id = +el.dataset.cluster;
-      el.classList.toggle("active", focusCluster === id);
-      el.classList.toggle("dim", focusCluster >= 0 && focusCluster !== id);
-    });
+    $("legendBody")
+      .querySelectorAll(".legend-item")
+      .forEach((el) => {
+        const id = +el.dataset.cluster;
+        el.classList.toggle("active", focusCluster === id);
+        el.classList.toggle("dim", focusCluster >= 0 && focusCluster !== id);
+      });
   }
 
   // ---------- theme ----------
@@ -363,24 +484,32 @@
     const day = document.body.dataset.theme === "day";
     document.body.dataset.theme = day ? "night" : "day";
     $("themeToggle").textContent = day ? "☀" : "☾";
-    try { localStorage.setItem("rm-theme", document.body.dataset.theme); } catch (e) {}
+    try {
+      localStorage.setItem("rm-theme", document.body.dataset.theme);
+    } catch (e) {}
     requestDraw();
   }
   function restoreTheme() {
     try {
       const t = localStorage.getItem("rm-theme");
-      if (t) { document.body.dataset.theme = t; }
+      if (t) {
+        document.body.dataset.theme = t;
+      }
     } catch (e) {}
     $("themeToggle").textContent = document.body.dataset.theme === "day" ? "☾" : "☀";
   }
 
   // ---------- utils ----------
   function titleize(s) {
-    return String(s || "").split(" · ").map((w) =>
-      w.replace(/\b([a-z])/g, (m, c) => c.toUpperCase())).join(" · ");
+    return String(s || "")
+      .split(" · ")
+      .map((w) => w.replace(/\b([a-z])/g, (m, c) => c.toUpperCase()))
+      .join(" · ");
   }
-  function truncate(s, n) { return s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s; }
+  function truncate(s, n) {
+    return s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s;
+  }
   function escapeHTML(s) {
-    return String(s).replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+    return String(s).replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[m]);
   }
 })();

@@ -94,10 +94,10 @@ nav_order: 4
           <span class="contrib-card__lang" data-lang-for="{{ item.repo }}"></span>
           <div class="contrib-card__stats">
             <span class="contrib-card__stat" data-stars-for="{{ item.repo }}">
-              <i class="far fa-star"></i> &mdash;
+              <i class="far fa-star"></i> …
             </span>
             <span class="contrib-card__stat" data-forks-for="{{ item.repo }}">
-              <i class="fas fa-code-branch"></i> &mdash;
+              <i class="fas fa-code-branch"></i> …
             </span>
           </div>
         </div>
@@ -182,7 +182,7 @@ nav_order: 4
     if (user.company) metaParts.push('<span><i class="fas fa-building"></i> ' + user.company + '</span>');
     if (user.blog) {
       var blogDisplay = user.blog.replace(/^https?:\/\//, '').replace(/\/$/, '');
-      metaParts.push('<span><i class="fas fa-link"></i> <a href="' + (user.blog.match(/^https?:\/\//) ? user.blog : 'https://' + user.blog) + '">' + blogDisplay + '</a></span>');
+      metaParts.push('<span><i class="fas fa-link"></i> <a href="' + (user.blog.match(/^https?:\/\//) ? user.blog: 'https://' + user.blog) + '">' + blogDisplay + '</a></span>');
     }
     metaEl.innerHTML = metaParts.join('');
   }

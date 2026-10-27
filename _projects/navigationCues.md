@@ -5,5 +5,6 @@ description: A scroll-driven web essay about scrollbars, infinite scroll, and th
 img: assets/navigation-cues/og-preview.png
 importance: 2
 category: art
+hidden: true
 redirect: /navigation-cues/
 ---

@@ -10,6 +10,7 @@ _site
 Gemfile.lock
 assets/libs/
 node_modules/
+sdk-wip-main/
 vendor
 .idea
 .venv

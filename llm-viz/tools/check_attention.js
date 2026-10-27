@@ -23,9 +23,7 @@ meta.tensors.forEach((t) => {
 });
 const model = { meta, cfg: meta.config, w };
 
-const ref = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "attention_reference.json"), "utf8")
-);
+const ref = JSON.parse(fs.readFileSync(path.join(__dirname, "attention_reference.json"), "utf8"));
 const run = LV.forward(model, ref.sequence);
 const { C, headSize: A, nHeads: H, blockSize: T } = model.cfg;
 
@@ -63,27 +61,11 @@ for (let b = 0; b < ref.blocks.length; b++) {
         compare(`b${b}.h${h}.v[${t},${a}]`, jh.v.data[t * A + a], rh.v[t][a]);
         compare(`b${b}.h${h}.out[${t},${a}]`, jh.vOut.data[t * A + a], rh.out[t][a]);
         // the wide fused slab must agree with the per-head slices it is cut from
-        compare(
-          `b${b}.h${h}.qkvSliceQ[${t},${a}]`,
-          jb.qkv.data[t * 3 * C + h * A + a],
-          rh.q[t][a]
-        );
-        compare(
-          `b${b}.h${h}.qkvSliceK[${t},${a}]`,
-          jb.qkv.data[t * 3 * C + C + h * A + a],
-          rh.k[t][a]
-        );
-        compare(
-          `b${b}.h${h}.qkvSliceV[${t},${a}]`,
-          jb.qkv.data[t * 3 * C + 2 * C + h * A + a],
-          rh.v[t][a]
-        );
+        compare(`b${b}.h${h}.qkvSliceQ[${t},${a}]`, jb.qkv.data[t * 3 * C + h * A + a], rh.q[t][a]);
+        compare(`b${b}.h${h}.qkvSliceK[${t},${a}]`, jb.qkv.data[t * 3 * C + C + h * A + a], rh.k[t][a]);
+        compare(`b${b}.h${h}.qkvSliceV[${t},${a}]`, jb.qkv.data[t * 3 * C + 2 * C + h * A + a], rh.v[t][a]);
         // concat order drawn in "Head outputs combined" must be head-major
-        compare(
-          `b${b}.h${h}.concat[${t},${a}]`,
-          jb.vCombined.data[t * C + h * A + a],
-          rh.out[t][a]
-        );
+        compare(`b${b}.h${h}.concat[${t},${a}]`, jb.vCombined.data[t * C + h * A + a], rh.out[t][a]);
       }
       let rowSum = 0;
       for (let j = 0; j < T; j++) {
@@ -119,4 +101,4 @@ if (failures > 0) {
   console.error(`FAILED: ${failures} mismatches`);
   process.exit(1);
 }
-console.log("OK — attention internals match PyTorch exactly (within float32)");
+console.log("OK: attention internals match PyTorch exactly (within float32)");

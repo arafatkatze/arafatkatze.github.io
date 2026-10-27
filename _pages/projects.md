@@ -5,7 +5,7 @@ permalink: /projects/
 description: Some of my favourite life stories and photos
 nav: true
 nav_order: 3
-display_categories: [art, work]
+display_categories: [work, art]
 ---
 
 <div class="post">
@@ -14,9 +14,11 @@ display_categories: [art, work]
   <h1>projects.</h1>
 </div>
 
+{% assign visible_projects = site.projects | where_exp: "project", "project.hidden != true" %}
 {% for category in page.display_categories %}
-  {% assign cat_projects = site.projects | where: "category", category | sort: "importance" %}
-  {% if cat_projects.size > 0 %}
+{% assign cat_projects = visible_projects | where: "category", category | sort: "importance" %}
+{% if cat_projects.size > 0 %}
+
   <section class="project-category-section">
     <h2 class="project-category-title">{{ category | capitalize }}</h2>
     <div class="project-card-grid">

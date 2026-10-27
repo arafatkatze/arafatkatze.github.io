@@ -1,4 +1,4 @@
-# The Reading Room — data
+# The Reading Room: data
 
 This folder is a self-contained web app (`index.html`, `style.css`, `script.js`)
 plus its data.
@@ -17,7 +17,7 @@ plus its data.
 
 4. Commit both `highlights.csv` and the regenerated `highlights.json`.
 
-That's it — the site reads `highlights.json` at runtime, so the library
+That's it: the site reads `highlights.json` at runtime, so the library
 updates as soon as the new JSON is deployed.
 
 ## What the generator does

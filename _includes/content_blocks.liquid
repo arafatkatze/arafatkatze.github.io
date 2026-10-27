@@ -1,5 +1,5 @@
 {% comment %}
-  Bento grid — chester.how-style tile mosaic for the front page.
+  Bento grid: chester.how-style tile mosaic for the front page.
   Tiles are defined in page.bento_tiles front matter.
 {% endcomment %}
 
@@ -8,7 +8,9 @@
     <a
       class="bento-tile {{ tile.type | default: 'image' }} {% if tile.span %}span-{{ tile.span }}{% endif %} {% if tile.bg %}bg-{{ tile.bg }}{% endif %}"
       href="{{ tile.link | relative_url }}"
-      {% if tile.style %}style="{{ tile.style }}"{% endif %}
+      {% if tile.style %}
+        style="{{ tile.style }}"
+      {% endif %}
     >
       {% if tile.image %}
         <div class="bento-tile-img">
@@ -17,14 +19,26 @@
           {% else %}
             {% assign tile_img_src = tile.image | relative_url %}
           {% endif %}
-          <img src="{{ tile_img_src }}" alt="{{ tile.title }}" loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}"{% if tile.image_dark %} class="tile-img-light"{% endif %} />
+          <img
+            src="{{ tile_img_src }}"
+            alt="{{ tile.title }}"
+            loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}"
+            {% if tile.image_dark %}
+              class="tile-img-light"
+            {% endif %}
+          >
           {% if tile.image_dark %}
             {% if tile.image_dark contains '://' %}
               {% assign tile_img_dark_src = tile.image_dark %}
             {% else %}
               {% assign tile_img_dark_src = tile.image_dark | relative_url %}
             {% endif %}
-            <img src="{{ tile_img_dark_src }}" alt="{{ tile.title }}" loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}" class="tile-img-dark" />
+            <img
+              src="{{ tile_img_dark_src }}"
+              alt="{{ tile.title }}"
+              loading="{% if forloop.index <= 4 %}eager{% else %}lazy{% endif %}"
+              class="tile-img-dark"
+            >
           {% endif %}
         </div>
       {% endif %}
@@ -50,7 +64,9 @@
           {% endif %}
           <span class="bento-tile-arrow">&#8599;</span>
           {% if tile.badge %}
-            <span class="bento-tile-badge {% if tile.badge == 'Favorite' %}badge-fav{% elsif tile.badge == 'Reading' %}badge-reading{% else %}badge-read{% endif %}">{{ tile.badge }}</span>
+            <span class="bento-tile-badge {% if tile.badge == 'Favorite' %}badge-fav{% elsif tile.badge == 'Reading' %}badge-reading{% else %}badge-read{% endif %}">
+              {{- tile.badge -}}
+            </span>
           {% endif %}
           <span class="bento-tile-book-title">{{ tile.title }}</span>
           {% if tile.author %}

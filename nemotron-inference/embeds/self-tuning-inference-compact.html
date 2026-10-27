@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Self-tuning inference · compact loop</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 10px 12px;
+        background: #fff;
+        color: #18385f;
+        font:
+          12px ui-sans-serif,
+          -apple-system,
+          BlinkMacSystemFont,
+          'Segoe UI',
+          sans-serif;
+      }
+      main {
+        max-width: 670px;
+        margin: auto;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 3px;
+        font-size: 12px;
+        font-weight: 650;
+      }
+      header span {
+        font-size: 9px;
+        font-weight: 400;
+        color: #8194ac;
+      }
+      svg {
+        width: 100%;
+        height: 300px;
+        display: block;
+        font-family: Arial, sans-serif;
+      }
+      .node .frame {
+        fill: #fff;
+        stroke: #adc7e4;
+        stroke-width: 1.4;
+        transition: 0.1s;
+      }
+      .node.active .frame {
+        fill: #edf4ff;
+        stroke: #2167e5;
+        stroke-width: 2;
+      }
+      .node.lab.active .frame {
+        fill: #fff4e8;
+        stroke: #c17e3e;
+      }
+      .orbit {
+        fill: none;
+        stroke: #b2cdeb;
+        stroke-width: 0.8;
+        stroke-dasharray: 2 6;
+      }
+      .label {
+        font:
+          600 15px Arial,
+          sans-serif;
+        fill: #18385f;
+      }
+      .sub {
+        font:
+          11px Arial,
+          sans-serif;
+        fill: #7189a6;
+      }
+      .tiny {
+        font:
+          10px Arial,
+          sans-serif;
+        fill: #7189a6;
+      }
+      .node-number {
+        font:
+          9px ui-monospace,
+          monospace;
+        fill: #8ba3bf;
+        letter-spacing: 1px;
+      }
+      .gpu-name {
+        font:
+          8px ui-monospace,
+          monospace;
+        fill: #819bb9;
+      }
+      .gpu-mini rect {
+        fill: #eff6ff;
+        stroke: #a1bfe4;
+        stroke-width: 1;
+      }
+      .wire {
+        stroke: #c4d6eb;
+        stroke-width: 1.5;
+        fill: none;
+      }
+      .flow {
+        fill: none;
+        stroke: #2167e5;
+        stroke-width: 2;
+        stroke-dasharray: 5 7;
+        opacity: 0;
+        animation: flow 0.333333s linear infinite;
+      }
+      .flow.on {
+        opacity: 1;
+      }
+      .orb {
+        fill: #2167e5;
+        display: none;
+      }
+      .orb.on {
+        display: block;
+      }
+      .telemetry {
+        fill: none;
+        stroke: #3978c9;
+        stroke-width: 2;
+      }
+      .brain-dot {
+        fill: #2167e5;
+      }
+      .route-track {
+        fill: #dce7f4;
+      }
+      #trafficBar {
+        fill: #2167e5;
+        transition: width 0.166667s;
+      }
+      #bars rect {
+        fill: #c17e3e;
+        opacity: 0.45;
+      }
+      #bars rect:nth-child(2) {
+        opacity: 0.7;
+      }
+      #bars rect:nth-child(3) {
+        opacity: 1;
+      }
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      button {
+        border: 1px solid #ccdced;
+        border-radius: 6px;
+        padding: 6px 10px;
+        background: #f6f9fd;
+        color: #385a84;
+        font: 11px inherit;
+        cursor: pointer;
+      }
+      button.primary {
+        background: #2167e5;
+        color: white;
+        border-color: #2167e5;
+      }
+      button:focus-visible {
+        outline: 2px solid #d49454;
+        outline-offset: 2px;
+      }
+      #status {
+        font-size: 11px;
+        line-height: 1.45;
+        min-height: 32px;
+        margin: 7px 0 0;
+        color: #6e85a1;
+      }
+      .paused * {
+        animation-play-state: paused !important;
+      }
+      @keyframes flow {
+        to {
+          stroke-dashoffset: -24;
+        }
+      }
+      @media (max-width: 440px) {
+        body {
+          padding: 9px;
+        }
+        svg {
+          height: 260px;
+        }
+        .sub,
+        .tiny {
+          display: none;
+        }
+        header span {
+          font-size: 8px;
+        }
+        #status {
+          min-height: 46px;
+        }
+        button {
+          padding: 6px 8px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>Self-tuning inference<span>Concept animation · Solar</span></header>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440" role="img" aria-labelledby="diagramTitle diagramDesc">
+        <title id="diagramTitle">The complete self-tuning inference loop</title>
+        <desc id="diagramDesc">
+          Production GPUs send telemetry to Grafana. An agent captures a workload and tests recipes on an isolated GPU. Validation gates a canary
+          release and traffic promotion. Failed canaries restore the known-good deployment.
+        </desc>
+        <path class="wire" d="M637 360H720V10H180V23" marker-end="url(#arrow)" />
+        <path class="wire" d="M237 360H523" marker-end="url(#arrow)" />
+        <path class="wire" d="M180 277V303" marker-end="url(#arrow)" />
+        <path class="wire" d="M523 220H237" marker-end="url(#arrow)" />
+        <path class="wire" d="M580 137V163" marker-end="url(#arrow)" />
+        <path class="wire" d="M237 80H523" marker-end="url(#arrow)" />
+        <defs>
+          <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7" fill="#2167e5" /></marker>
+        </defs>
+        <path id="f0" class="flow" d="M237 80H523" marker-end="url(#arrow)" />
+        <circle id="orb0" class="orb" r="4" opacity="0">
+          <set attributeName="opacity" to="1" begin="0s" fill="freeze" />
+          <animateMotion dur="0.566667s" repeatCount="indefinite"><mpath href="#f0" /></animateMotion>
+        </circle>
+        <path id="f1" class="flow" d="M580 137V163" marker-end="url(#arrow)" />
+        <circle id="orb1" class="orb" r="4" opacity="0">
+          <set attributeName="opacity" to="1" begin="0s" fill="freeze" />
+          <animateMotion dur="0.608333s" repeatCount="indefinite"><mpath href="#f1" /></animateMotion>
+        </circle>
+        <path id="f2" class="flow" d="M523 220H237" marker-end="url(#arrow)" />
+        <circle id="orb2" class="orb" r="4" opacity="0">
+          <set attributeName="opacity" to="1" begin="0s" fill="freeze" />
+          <animateMotion dur="0.65s" repeatCount="indefinite"><mpath href="#f2" /></animateMotion>
+        </circle>
+        <path id="f3" class="flow" d="M180 277V303" marker-end="url(#arrow)" />
+        <circle id="orb3" class="orb" r="4" opacity="0">
+          <set attributeName="opacity" to="1" begin="0s" fill="freeze" />
+          <animateMotion dur="0.691667s" repeatCount="indefinite"><mpath href="#f3" /></animateMotion>
+        </circle>
+        <path id="f4" class="flow" d="M237 360H523" marker-end="url(#arrow)" />
+        <circle id="orb4" class="orb" r="4" opacity="0">
+          <set attributeName="opacity" to="1" begin="0s" fill="freeze" />
+          <animateMotion dur="0.733333s" repeatCount="indefinite"><mpath href="#f4" /></animateMotion>
+        </circle>
+        <path id="f5" class="flow" d="M637 360H720V10H180V23" marker-end="url(#arrow)" />
+        <circle id="orb5" class="orb" r="4" opacity="0">
+          <set attributeName="opacity" to="1" begin="0s" fill="freeze" />
+          <animateMotion dur="0.775s" repeatCount="indefinite"><mpath href="#f5" /></animateMotion>
+        </circle>
+        <g id="production" class="node" transform="translate(180 80) scale(.72) translate(-260 -120)">
+          <circle class="orbit outer" cx="260" cy="120" r="86" />
+          <circle class="frame" cx="260" cy="120" r="76" />
+          <circle class="orbit inner" cx="260" cy="120" r="70" />
+          <text x="260.0" y="71.0" class="node-number" text-anchor="middle">01</text>
+          <text x="260.0" y="93.0" class="label" text-anchor="middle">Production GPUs</text>
+          <text x="260.0" y="113.0" class="sub" text-anchor="middle" id="prodSub">Current recipe · live</text>
+          <g class="gpu-mini">
+            <rect x="207" y="130" width="25" height="34" rx="5" />
+            <rect x="213" y="136" width="13" height="10" rx="2" />
+            <text x="219.5" y="158.0" class="gpu-name" text-anchor="middle">GPU 1</text>
+          </g>
+          <g class="gpu-mini">
+            <rect x="236" y="130" width="25" height="34" rx="5" />
+            <rect x="242" y="136" width="13" height="10" rx="2" />
+            <text x="248.5" y="158.0" class="gpu-name" text-anchor="middle">GPU 2</text>
+          </g>
+          <g class="gpu-mini">
+            <rect x="265" y="130" width="25" height="34" rx="5" />
+            <rect x="271" y="136" width="13" height="10" rx="2" />
+            <text x="277.5" y="158.0" class="gpu-name" text-anchor="middle">GPU 3</text>
+          </g>
+          <g class="gpu-mini">
+            <rect x="294" y="130" width="25" height="34" rx="5" />
+            <rect x="300" y="136" width="13" height="10" rx="2" />
+            <text x="306.5" y="158.0" class="gpu-name" text-anchor="middle">GPU 4</text>
+          </g>
+        </g>
+        <g id="metrics" class="node" transform="translate(580 80) scale(.72) translate(-740 -120)">
+          <circle class="orbit outer" cx="740" cy="120" r="86" />
+          <circle class="frame" cx="740" cy="120" r="76" />
+          <circle class="orbit inner" cx="740" cy="120" r="70" />
+          <text x="740.0" y="71.0" class="node-number" text-anchor="middle">02</text>
+          <text x="740.0" y="93.0" class="label" text-anchor="middle">Grafana / metrics</text>
+          <text x="740.0" y="113.0" class="sub" text-anchor="middle">Observe the real workload</text>
+          <path id="telemetryWave" class="telemetry" d="M692 142l16-6 16 12 16-19 16 11 16-9 16 13" />
+          <text x="740.0" y="170.0" class="tiny" text-anchor="middle">Latency · queue · VRAM</text>
+        </g>
+        <g id="agent" class="node" transform="translate(580 220) scale(.72) translate(-740 -330)">
+          <circle class="orbit outer" cx="740" cy="330" r="86" />
+          <circle class="frame" cx="740" cy="330" r="76" />
+          <circle class="orbit inner" cx="740" cy="330" r="70" />
+          <text x="740.0" y="281.0" class="node-number" text-anchor="middle">03</text>
+          <text x="740.0" y="303.0" class="label" text-anchor="middle">Tuning agent</text>
+          <text x="740.0" y="323.0" class="sub" text-anchor="middle" id="agentSub">Compare repeated runs</text>
+          <text x="740.0" y="352.0" class="tiny" text-anchor="middle" id="objective">Throughput within SLO</text>
+          <circle class="brain-dot" cx="740" cy="373" r="4" />
+        </g>
+        <g id="lab" class="node lab" transform="translate(180 220) scale(.72) translate(-260 -330)">
+          <circle class="orbit outer" cx="260" cy="330" r="86" />
+          <circle class="frame" cx="260" cy="330" r="76" />
+          <circle class="orbit inner" cx="260" cy="330" r="70" />
+          <text x="260.0" y="281.0" class="node-number" text-anchor="middle">04</text>
+          <text x="260.0" y="303.0" class="label" text-anchor="middle">Isolated test GPU</text>
+          <text x="260.0" y="323.0" class="sub" text-anchor="middle" id="labSub">Replay · no user traffic</text>
+          <g id="bars">
+            <rect x="212" y="342" width="39" height="5" rx="2.5" />
+            <rect x="212" y="355" width="66" height="5" rx="2.5" />
+            <rect x="212" y="368" width="96" height="5" rx="2.5" />
+          </g>
+        </g>
+        <g id="gate" class="node" transform="translate(180 360) scale(.72) translate(-260 -540)">
+          <circle class="orbit outer" cx="260" cy="540" r="86" />
+          <circle class="frame" cx="260" cy="540" r="76" />
+          <circle class="orbit inner" cx="260" cy="540" r="70" />
+          <text x="260.0" y="491.0" class="node-number" text-anchor="middle">05</text>
+          <text x="260.0" y="513.0" class="label" text-anchor="middle">Validation gate</text>
+          <text x="260.0" y="533.0" class="sub" text-anchor="middle" id="gateSub">Quality + SLO + health</text>
+          <text x="260.0" y="563.0" class="tiny" text-anchor="middle" id="gateStatus">Held-out quality set</text>
+          <text x="260.0" y="585.0" class="gpu-name" text-anchor="middle">PASS BEFORE RELEASE</text>
+        </g>
+        <g id="router" class="node" transform="translate(580 360) scale(.72) translate(-740 -540)">
+          <circle class="orbit outer" cx="740" cy="540" r="86" />
+          <circle class="frame" cx="740" cy="540" r="76" />
+          <circle class="orbit inner" cx="740" cy="540" r="70" />
+          <text x="740.0" y="491.0" class="node-number" text-anchor="middle">06</text>
+          <text x="740.0" y="513.0" class="label" text-anchor="middle">Traffic router</text>
+          <text x="740.0" y="533.0" class="sub" text-anchor="middle" id="routerSub">Old 100% · new 0%</text>
+          <rect class="route-track" x="692" y="557" width="96" height="7" rx="3.5" />
+          <rect id="trafficBar" x="692" y="557" width="0" height="7" rx="3.5" />
+          <text x="740.0" y="585.0" class="gpu-name" text-anchor="middle">CANARY → PROMOTE</text>
+        </g>
+      </svg>
+      <div class="controls">
+        <button id="play">❚❚ Pause</button><button id="next" class="primary">Next →</button><button id="reset">↺ Reset</button
+        ><button id="fail">Test rollback</button>
+      </div>
+      <p id="status"></p>
+    </main>
+    <script>
+      const $ = (id) => document.getElementById(id);
+      let stage = 0,
+        playing = !matchMedia('(prefers-reduced-motion: reduce)').matches,
+        failed = false,
+        t = 0;
+      const stages = [
+        ['Observe live traffic', ['production', 'metrics'], [0]],
+        ['Capture a representative workload', ['metrics', 'agent'], [1]],
+        ['Replay on the isolated test GPU', ['agent', 'lab'], [2]],
+        ['Compare candidate recipes', ['agent', 'lab'], [2]],
+        ['Check held-out quality and latency', ['lab', 'gate'], [3]],
+        ['Canary: send only 5% of live traffic', ['gate', 'router', 'production'], [4, 5]],
+        ['Expand traffic only while healthy', ['router', 'production'], [5]],
+        ['Keep monitoring; tune again', ['production', 'metrics', 'agent'], [0, 1]],
+      ];
+      function draw() {
+        const s = stages[stage],
+          rollback = failed && stage >= 6;
+        for (const id of ['production', 'metrics', 'agent', 'lab', 'gate', 'router']) $(id).classList.toggle('active', s[1].includes(id));
+        for (let i = 0; i < 6; i++) {
+          $('f' + i).classList.toggle('on', s[2].includes(i));
+          $('orb' + i).classList.toggle('on', s[2].includes(i));
+        }
+        const share = rollback ? 0 : stage < 5 ? 0 : stage === 5 ? 5 : stage === 6 ? [5, 25, 50, 100][Math.min(3, Math.floor(t / 625))] : 100;
+        $('routerSub').textContent = `Old ${100 - share}% · new ${share}%`;
+        $('trafficBar').setAttribute('width', (96 * share) / 100);
+        $('status').textContent = `${stage + 1}/8 · ` + (rollback ? 'Canary failed → restore the known-good recipe.' : s[0] + '.');
+        $('play').textContent = playing ? '❚❚ Pause' : '▶ Play';
+        document.querySelector('main').classList.toggle('paused', !playing);
+        const svg = document.querySelector('svg');
+        if (svg.pauseAnimations) {
+          if (playing) svg.unpauseAnimations();
+          else svg.pauseAnimations();
+        }
+      }
+      $('play').onclick = () => {
+        playing = !playing;
+        draw();
+      };
+      $('next').onclick = () => {
+        playing = false;
+        stage = (stage + 1) % 8;
+        t = 0;
+        draw();
+      };
+      $('reset').onclick = () => {
+        stage = 0;
+        t = 0;
+        failed = false;
+        playing = true;
+        draw();
+      };
+      $('fail').onclick = () => {
+        failed = true;
+        stage = 5;
+        t = 0;
+        playing = true;
+        draw();
+      };
+      setInterval(() => {
+        if (!playing || document.hidden) return;
+        t += 250;
+        if (t >= 2500) {
+          stage = (stage + 1) % 8;
+          t = 0;
+          if (!stage) failed = false;
+        }
+        draw();
+      }, 250 / 3);
+      draw();
+    </script>
+  </body>
+</html>

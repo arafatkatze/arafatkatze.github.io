@@ -7,8 +7,7 @@ const ROOT = "/workspace/_site";
 const PORT = 18080;
 const GRID_SIZE = 50;
 const STORAGE_KEY = "pixel-board-state";
-const SYNC_URL =
-  "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/pixelboard";
+const SYNC_URL = "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/pixelboard";
 
 const MIME = {
   ".html": "text/html",
@@ -41,9 +40,7 @@ function startStaticServer() {
 }
 
 function emptyGrid() {
-  return Array.from({ length: GRID_SIZE }, () =>
-    Array.from({ length: GRID_SIZE }, () => null)
-  );
+  return Array.from({ length: GRID_SIZE }, () => Array.from({ length: GRID_SIZE }, () => null));
 }
 
 function placePixel(grid, x, y, color) {
@@ -94,7 +91,7 @@ async function run() {
   function assert(name, condition, detail = "") {
     if (!condition) {
       failures.push(`${name}${detail ? `: ${detail}` : ""}`);
-      console.error(`FAIL ${name}${detail ? ` — ${detail}` : ""}`);
+      console.error(`FAIL ${name}${detail ? `: ${detail}` : ""}`);
     } else {
       console.log(`PASS ${name}`);
     }
@@ -115,11 +112,7 @@ async function run() {
     await page.reload({ waitUntil: "networkidle" });
     await waitForBoard(page);
     await page.waitForTimeout(700);
-    assert(
-      "pixels survive reload",
-      (await readPixelCount(page)) >= 2,
-      `count=${await readPixelCount(page)}`
-    );
+    assert("pixels survive reload", (await readPixelCount(page)) >= 2, `count=${await readPixelCount(page)}`);
 
     // 2) Stale remote must not clobber newer local state
     const freshLocal = {
@@ -201,11 +194,7 @@ async function run() {
     releaseRemote();
     await page.waitForTimeout(700);
 
-    assert(
-      "draw-before-fetch survives delayed remote",
-      (await readPixelCount(page)) >= 2,
-      `count=${await readPixelCount(page)}`
-    );
+    assert("draw-before-fetch survives delayed remote", (await readPixelCount(page)) >= 2, `count=${await readPixelCount(page)}`);
 
     const racedState = await readStoredState(page);
     assert(

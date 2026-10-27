@@ -2,15 +2,15 @@
  * scroll-to-fly replica engine (original code).
  *
  * The whole page is one flat "wafer". Sections are pinned to it at fixed
- * world positions + rotations. A camera of four numbers — cx, cy (where it
- * looks), w (how wide it sees), r (roll) — is the only thing that moves;
+ * world positions + rotations. A camera uses four numbers: cx, cy (where it
+ * looks), w (how wide it sees), and r (roll). It is the only thing that moves;
  * every frame we write ONE transform onto #world.
  *
  * Scrolling scrubs an arc-length s along a precomputed path of legs.
  * Each leg between stops is walked in phases: LIFT (zoom out until both
  * stops fit), TWIST (roll to the next stop's bearing), GLIDE (pan across
- * the wafer), DIVE (zoom back in). That phase grammar — not a circle —
- * is what gives fab2.com's tour its "flying somewhere" feel.
+ * the wafer), DIVE (zoom back in). That four-phase path gives fab2.com's tour
+ * its "flying somewhere" feel.
  *
  * Pinch / ctrl+wheel / +/- buttons leave the tour into a free view;
  * scrubbing again (or tapping a stop) flies you back to the nearest stop.
@@ -30,25 +30,33 @@
 
   /* ------------------------------------------------------------ tuning */
 
-  var ZOOM_RHO = 2.4;   // perceptual distance per e-fold of view width
-  var PAN_GAIN = 2.6;   // stretches the glide so it reads, not teleports
+  var ZOOM_RHO = 2.4; // perceptual distance per e-fold of view width
+  var PAN_GAIN = 2.6; // stretches the glide so it reads, not teleports
   var GLIDE_MIN = 0.55; // even short hops hold the table view for a beat
-  var TWIST_W = 0.8;    // s-length of a 90 degree twist
-  var FIT_PAD = 1.12;   // landing view = stop rect * this much air
-  var TABLE_W = 5300;   // view width where the WHOLE main table is visible
-  var W_MIN = 220;      // closest the camera may dive
-  var W_MAX = 11000;    // farthest it may lift (both tables + air)
-  var SCRUB_WHEEL = 0.0030; // s per wheel px
-  var SCRUB_TOUCH = 0.0060; // s per swipe px
-  var LIFT_OFF = 0.10;      // leg fraction after which the magnet carries you on
+  var TWIST_W = 0.8; // s-length of a 90 degree twist
+  var FIT_PAD = 1.12; // landing view = stop rect * this much air
+  var TABLE_W = 5300; // view width where the WHOLE main table is visible
+  var W_MIN = 220; // closest the camera may dive
+  var W_MAX = 11000; // farthest it may lift (both tables + air)
+  var SCRUB_WHEEL = 0.003; // s per wheel px
+  var SCRUB_TOUCH = 0.006; // s per swipe px
+  var LIFT_OFF = 0.1; // leg fraction after which the magnet carries you on
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* --------------------------------------------------------- utilities */
 
-  function clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
-  function clamp01(v) { return clamp(v, 0, 1); }
-  function easeInOut(p) { return 0.5 - 0.5 * Math.cos(Math.PI * p); }
-  function shortAngle(d) { return ((d + 180) % 360 + 360) % 360 - 180; }
+  function clamp(v, lo, hi) {
+    return v < lo ? lo : v > hi ? hi : v;
+  }
+  function clamp01(v) {
+    return clamp(v, 0, 1);
+  }
+  function easeInOut(p) {
+    return 0.5 - 0.5 * Math.cos(Math.PI * p);
+  }
+  function shortAngle(d) {
+    return ((((d + 180) % 360) + 360) % 360) - 180;
+  }
 
   /* ----------------------------------------------------- place frames */
 
@@ -73,9 +81,7 @@
       var rot = parseFloat(el.dataset.rot || 0);
       el.style.width = sz.w + "px";
       el.style.height = sz.h + "px";
-      el.style.transform =
-        "translate(" + x + "px," + y + "px) rotate(" + rot + "deg) " +
-        "translate(" + (-sz.w / 2) + "px," + (-sz.h / 2) + "px)";
+      el.style.transform = "translate(" + x + "px," + y + "px) rotate(" + rot + "deg) " + "translate(" + -sz.w / 2 + "px," + -sz.h / 2 + "px)";
     });
   }
 
@@ -91,7 +97,7 @@
       fw: 0,
       fh: 0,
       r: parseFloat(el.dataset.rot || 0),
-      w: 0 // landing view width, set by measure()
+      w: 0, // landing view width, set by measure()
     };
   });
 
@@ -106,10 +112,7 @@
       s.fw = sz.w;
       s.fh = sz.h;
       // view width so the stop's rect fits the viewport with FIT_PAD air
-      s.w = clamp(
-        Math.max(s.fw * FIT_PAD, s.fh * FIT_PAD * (vpW / vpH)),
-        W_MIN, W_MAX
-      );
+      s.w = clamp(Math.max(s.fw * FIT_PAD, s.fh * FIT_PAD * (vpW / vpH)), W_MIN, W_MAX);
     });
   }
 
@@ -120,13 +123,13 @@
     var dy = b.cy - a.cy;
     var d = Math.hypot(dx, dy);
     var dr = shortAngle((b.r || 0) - (a.r || 0));
-    // every move lifts until the WHOLE table is in view — the pages are
+    // every move lifts until the WHOLE table is in view: the pages are
     // packed close, so at the top of the lift the entire site reads at
-    // once, sheets on one round table — then it dives into the next page
+    // once, sheets on one round table: then it dives into the next page
     var peak = clamp(Math.max(a.w, b.w, d * 0.6, TABLE_W), Math.max(a.w, b.w), W_MAX);
 
-    var lnUp = Math.log(peak / a.w);        // >= 0
-    var lnDn = Math.log(b.w / peak);        // <= 0
+    var lnUp = Math.log(peak / a.w); // >= 0
+    var lnDn = Math.log(b.w / peak); // <= 0
 
     var phases = [];
     function add(len, fn) {
@@ -136,10 +139,10 @@
     /* 1 LIFT  */ add(lnUp / ZOOM_RHO, function (f) {
       return { cx: a.cx, cy: a.cy, w: a.w * Math.exp(lnUp * f), r: a.r };
     });
-    /* 2 TWIST */ add(Math.abs(dr) / 90 * TWIST_W, function (f) {
+    /* 2 TWIST */ add((Math.abs(dr) / 90) * TWIST_W, function (f) {
       return { cx: a.cx, cy: a.cy, w: peak, r: a.r + dr * f };
     });
-    /* 3 GLIDE */ add(Math.max(d / peak * PAN_GAIN, d > 1 ? GLIDE_MIN : 0), function (f) {
+    /* 3 GLIDE */ add(Math.max((d / peak) * PAN_GAIN, d > 1 ? GLIDE_MIN : 0), function (f) {
       return { cx: a.cx + dx * f, cy: a.cy + dy * f, w: peak, r: a.r + dr };
     });
     /* 4 DIVE  */ add(-lnDn / ZOOM_RHO, function (f) {
@@ -147,7 +150,10 @@
     });
 
     var acc = 0;
-    phases.forEach(function (p) { p.s0 = acc; acc += p.S; });
+    phases.forEach(function (p) {
+      p.s0 = acc;
+      acc += p.S;
+    });
     var S = Math.max(acc, 1e-6);
 
     return {
@@ -157,17 +163,20 @@
         if (s >= S) return { cx: b.cx, cy: b.cy, w: b.w, r: b.r };
         var ph = phases[phases.length - 1];
         for (var i = 0; i < phases.length; i++) {
-          if (s < phases[i].s0 + phases[i].S) { ph = phases[i]; break; }
+          if (s < phases[i].s0 + phases[i].S) {
+            ph = phases[i];
+            break;
+          }
         }
         return ph.fn(easeInOut(clamp01((s - ph.s0) / ph.S)));
-      }
+      },
     };
   }
 
   /* ------------------------------------------------------ the tour path */
 
   var legs = [];
-  var cum = [];     // s position of each stop along the tour
+  var cum = []; // s position of each stop along the tour
   var S_TOTAL = 0;
 
   function rebuildPath() {
@@ -214,7 +223,10 @@
     var bd = Infinity;
     for (var i = 0; i < stops.length; i++) {
       var d = Math.hypot(stops[i].cx - c.cx, stops[i].cy - c.cy);
-      if (d < bd) { bd = d; best = i; }
+      if (d < bd) {
+        bd = d;
+        best = i;
+      }
     }
     return best;
   }
@@ -223,16 +235,16 @@
 
   // mode: "tour" (camera on the path) | "fly" (animated leg) | "free"
   var mode = "tour";
-  var s = 0;             // current arc position (tour)
+  var s = 0; // current arc position (tour)
   var sTarget = 0;
-  var cam = null;        // current camera (always kept up to date)
-  var freeCam = null;    // camera while in free mode
-  var flight = null;     // { leg, t0, dur, toStop } while mode === "fly"
+  var cam = null; // current camera (always kept up to date)
+  var freeCam = null; // camera while in free mode
+  var flight = null; // { leg, t0, dur, toStop } while mode === "fly"
   var lastScrub = 0;
-  var scrubDir = 0;      // +1 flying forward, -1 backward
+  var scrubDir = 0; // +1 flying forward, -1 backward
   var interacted = false;
-  var padPan = { x: 0, y: 0 };  // held pan-puck direction
-  var levelRoll = false;        // dial pressed: ease roll back to 0
+  var padPan = { x: 0, y: 0 }; // held pan-puck direction
+  var levelRoll = false; // dial pressed: ease roll back to 0
 
   /* ------------------------------------------------------------ render */
 
@@ -240,10 +252,22 @@
     cam = c;
     var scale = vpW / c.w;
     worldEl.style.transform =
-      "translate(" + (vpW / 2) + "px," + (vpH / 2) + "px) " +
-      "rotate(" + (-c.r).toFixed(4) + "deg) " +
-      "scale(" + scale.toFixed(6) + ") " +
-      "translate(" + (-c.cx).toFixed(3) + "px," + (-c.cy).toFixed(3) + "px)";
+      "translate(" +
+      vpW / 2 +
+      "px," +
+      vpH / 2 +
+      "px) " +
+      "rotate(" +
+      (-c.r).toFixed(4) +
+      "deg) " +
+      "scale(" +
+      scale.toFixed(6) +
+      ") " +
+      "translate(" +
+      (-c.cx).toFixed(3) +
+      "px," +
+      (-c.cy).toFixed(3) +
+      "px)";
     syncDeck(c);
   }
 
@@ -251,12 +275,12 @@
     var scale = vpW / cam.w;
     var dx = (px - vpW / 2) / scale;
     var dy = (py - vpH / 2) / scale;
-    var rad = cam.r * Math.PI / 180;
+    var rad = (cam.r * Math.PI) / 180;
     var cos = Math.cos(rad);
     var sin = Math.sin(rad);
     return {
       x: cam.cx + dx * cos - dy * sin,
-      y: cam.cy + dx * sin + dy * cos
+      y: cam.cy + dx * sin + dy * cos,
     };
   }
 
@@ -266,8 +290,7 @@
     k = clamp(k, 0, stops.length - 1);
     var to = { cx: stops[k].cx, cy: stops[k].cy, w: stops[k].w, r: stops[k].r };
     var from = { cx: cam.cx, cy: cam.cy, w: cam.w, r: cam.r };
-    if (Math.abs(from.cx - to.cx) < 1 && Math.abs(from.cy - to.cy) < 1 &&
-        Math.abs(Math.log(from.w / to.w)) < 0.01) {
+    if (Math.abs(from.cx - to.cx) < 1 && Math.abs(from.cy - to.cy) < 1 && Math.abs(Math.log(from.w / to.w)) < 0.01) {
       arrive(k);
       return;
     }
@@ -276,7 +299,7 @@
       leg: leg,
       t0: performance.now(),
       dur: reducedMotion ? 0 : clamp(leg.S * 520, 700, 2600),
-      toStop: k
+      toStop: k,
     };
     mode = "fly";
   }
@@ -308,7 +331,7 @@
       // held pan-puck arrow: drift in screen direction, rotated by roll
       touch();
       var step = freeCam.w * 0.012;
-      var prad = freeCam.r * Math.PI / 180;
+      var prad = (freeCam.r * Math.PI) / 180;
       var pcos = Math.cos(prad);
       var psin = Math.sin(prad);
       freeCam.cx += (padPan.x * pcos - padPan.y * psin) * step;
@@ -318,7 +341,10 @@
     if (mode === "free" && freeCam) {
       if (levelRoll) {
         freeCam.r += (0 - freeCam.r) * 0.12;
-        if (Math.abs(freeCam.r) < 0.05) { freeCam.r = 0; levelRoll = false; }
+        if (Math.abs(freeCam.r) < 0.05) {
+          freeCam.r = 0;
+          levelRoll = false;
+        }
       }
       render(freeCam);
       return;
@@ -326,11 +352,14 @@
 
     // tour: chase the scrub target, then magnet onto a stop. The magnet is
     // DIRECTIONAL: once you have lifted off a stop, it carries you on to
-    // the next one instead of snapping back — one wheel burst, one leg.
+    // the next one instead of snapping back: one wheel burst, one leg.
     if (now - lastScrub > 260) {
       var k = magnetStop();
       sTarget += (cum[k] - sTarget) * 0.075;
-      if (Math.abs(cum[k] - sTarget) < 0.002) { sTarget = cum[k]; scrubDir = 0; }
+      if (Math.abs(cum[k] - sTarget) < 0.002) {
+        sTarget = cum[k];
+        scrubDir = 0;
+      }
     }
     s += (sTarget - s) * (reducedMotion ? 1 : 0.11);
     render(evalPath(s));
@@ -358,7 +387,10 @@
       b.type = "button";
       b.textContent = st.label;
       b.setAttribute("data-ui", "");
-      b.addEventListener("click", function () { touch(); flyToStop(i); });
+      b.addEventListener("click", function () {
+        touch();
+        flyToStop(i);
+      });
       navEl.appendChild(b);
       navBtns.push(b);
     }
@@ -372,8 +404,12 @@
   function markStop(k) {
     if (k === hereIdx) return;
     hereIdx = k;
-    navBtns.forEach(function (b, i) { b.classList.toggle("is-here", i === k); });
-    dotEls.forEach(function (d, i) { d.classList.toggle("is-here", i === k); });
+    navBtns.forEach(function (b, i) {
+      b.classList.toggle("is-here", i === k);
+    });
+    dotEls.forEach(function (d, i) {
+      d.classList.toggle("is-here", i === k);
+    });
   }
 
   function touch() {
@@ -426,12 +462,14 @@
 
   var zoomInBtn = document.getElementById("zoom-in");
   var zoomOutBtn = document.getElementById("zoom-out");
-  if (zoomInBtn) zoomInBtn.addEventListener("click", function () {
-    freeZoomAt(vpW / 2, vpH / 2, 1.45);
-  });
-  if (zoomOutBtn) zoomOutBtn.addEventListener("click", function () {
-    freeZoomAt(vpW / 2, vpH / 2, 1 / 1.45);
-  });
+  if (zoomInBtn)
+    zoomInBtn.addEventListener("click", function () {
+      freeZoomAt(vpW / 2, vpH / 2, 1.45);
+    });
+  if (zoomOutBtn)
+    zoomOutBtn.addEventListener("click", function () {
+      freeZoomAt(vpW / 2, vpH / 2, 1 / 1.45);
+    });
 
   /* ------------------------------------------------- the control deck */
 
@@ -463,9 +501,14 @@
     }
     if (readoutEl) {
       var line =
-        "field " + Math.round(c.w) +
-        " \u00b7 r " + (c.r >= 0 ? "+" : "\u2212") + Math.abs(c.r).toFixed(1) +
-        " \u00b7 " + (vpW / c.w).toFixed(3) + "\u00d7";
+        "field " +
+        Math.round(c.w) +
+        " \u00b7 r " +
+        (c.r >= 0 ? "+" : "\u2212") +
+        Math.abs(c.r).toFixed(1) +
+        " \u00b7 " +
+        (vpW / c.w).toFixed(3) +
+        "\u00d7";
       if (line !== lastReadout) {
         lastReadout = line;
         readoutEl.textContent = line;
@@ -499,8 +542,12 @@
     trackEl.addEventListener("pointermove", function (e) {
       if (sliding) sliderSet(e.clientY);
     });
-    trackEl.addEventListener("pointerup", function () { sliding = false; });
-    trackEl.addEventListener("pointercancel", function () { sliding = false; });
+    trackEl.addEventListener("pointerup", function () {
+      sliding = false;
+    });
+    trackEl.addEventListener("pointercancel", function () {
+      sliding = false;
+    });
   }
 
   // pan puck: hold an arrow to drift, tap the orb to fly back to a stop
@@ -512,37 +559,46 @@
       btn.setPointerCapture(e.pointerId);
       e.preventDefault();
     }
-    function stop() { padPan.x = 0; padPan.y = 0; }
+    function stop() {
+      padPan.x = 0;
+      padPan.y = 0;
+    }
     btn.addEventListener("pointerdown", start);
     btn.addEventListener("pointerup", stop);
     btn.addEventListener("pointercancel", stop);
   });
 
   var orbBtn = document.getElementById("pad-orb");
-  if (orbBtn) orbBtn.addEventListener("click", function () {
-    touch();
-    flyToStop(mode === "free" && freeCam ? nearestStopWorld(freeCam) : nearestStopS(sTarget));
-  });
+  if (orbBtn)
+    orbBtn.addEventListener("click", function () {
+      touch();
+      flyToStop(mode === "free" && freeCam ? nearestStopWorld(freeCam) : nearestStopS(sTarget));
+    });
 
   // roll dial: tap to level the camera's head back to 0
   var dialBtn = document.getElementById("dial");
-  if (dialBtn) dialBtn.addEventListener("click", function () {
-    touch();
-    if (enterFree()) levelRoll = true;
-  });
+  if (dialBtn)
+    dialBtn.addEventListener("click", function () {
+      touch();
+      if (enterFree()) levelRoll = true;
+    });
 
   /* ------------------------------------------------------------ wheel */
 
-  document.addEventListener("wheel", function (e) {
-    if (e.target.closest("[data-ui]")) return;
-    e.preventDefault();
-    if (e.ctrlKey || e.metaKey) {
-      freeZoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0024));
-    } else {
-      var d = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      scrub(d * SCRUB_WHEEL);
-    }
-  }, { passive: false });
+  document.addEventListener(
+    "wheel",
+    function (e) {
+      if (e.target.closest("[data-ui]")) return;
+      e.preventDefault();
+      if (e.ctrlKey || e.metaKey) {
+        freeZoomAt(e.clientX, e.clientY, Math.exp(-e.deltaY * 0.0024));
+      } else {
+        var d = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        scrub(d * SCRUB_WHEEL);
+      }
+    },
+    { passive: false }
+  );
 
   /* ---------------------------------------------------------- pointers */
 
@@ -550,8 +606,8 @@
   var pinch0 = 0;
   var pinchW0 = 0;
   var moved = 0;
-  var gestLo = -Infinity;  // one touch gesture may travel at most one
-  var gestHi = Infinity;   // stop in either direction
+  var gestLo = -Infinity; // one touch gesture may travel at most one
+  var gestHi = Infinity; // stop in either direction
 
   function findPtr(id) {
     for (var i = 0; i < pointers.length; i++) {
@@ -567,7 +623,7 @@
     moved = 0;
     document.body.classList.add("is-dragging");
     if (pointers.length === 1 && mode === "tour") {
-      // packed stops make legs short in s — cap this swipe at one stop
+      // packed stops make legs short in s: cap this swipe at one stop
       // each way so a single flick never skips pages
       var k0 = nearestStopS(sTarget);
       gestLo = cum[Math.max(k0 - 1, 0)];
@@ -575,7 +631,7 @@
     }
     if (pointers.length === 2) {
       pinch0 = pinchDist();
-      pinchW0 = (mode === "free" && freeCam ? freeCam.w : cam.w);
+      pinchW0 = mode === "free" && freeCam ? freeCam.w : cam.w;
     }
   });
 
@@ -609,7 +665,7 @@
       // free view: one finger pans the wafer
       touch();
       var scale = vpW / freeCam.w;
-      var rad = freeCam.r * Math.PI / 180;
+      var rad = (freeCam.r * Math.PI) / 180;
       var cos = Math.cos(rad);
       var sin = Math.sin(rad);
       freeCam.cx -= (dx * cos - dy * sin) / scale;
@@ -640,7 +696,7 @@
   function pinchMid() {
     return {
       x: (pointers[0].x + pointers[1].x) / 2,
-      y: (pointers[0].y + pointers[1].y) / 2
+      y: (pointers[0].y + pointers[1].y) / 2,
     };
   }
 
@@ -680,7 +736,11 @@
     btn.addEventListener("click", function () {
       var id = btn.getAttribute("data-fly");
       for (var i = 0; i < stops.length; i++) {
-        if (stops[i].id === id) { touch(); flyToStop(i); return; }
+        if (stops[i].id === id) {
+          touch();
+          flyToStop(i);
+          return;
+        }
       }
     });
   });
@@ -715,5 +775,10 @@
   render(cam);
   markStop(0);
   rafId = requestAnimationFrame(frame);
-  setTimeout(function () { flyToStop(0); }, reducedMotion ? 0 : 450);
+  setTimeout(
+    function () {
+      flyToStop(0);
+    },
+    reducedMotion ? 0 : 450
+  );
 })();

@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const GRID_SIZE = 50;
   const STORAGE_KEY = "pixel-board-state";
-  const SYNC_URL =
-    "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/pixelboard";
+  const SYNC_URL = "https://getpantry.cloud/apiv1/pantry/1fe0a904-31b9-467b-9667-7d46e6ab5773/basket/pixelboard";
   var syncTimeout = null;
   var syncInFlight = false;
   var hasUnsyncedChanges = false;
@@ -167,10 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var payload = JSON.stringify(createStatePayload());
 
     if (navigator.sendBeacon) {
-      navigator.sendBeacon(
-        SYNC_URL,
-        new Blob([payload], { type: "application/json" })
-      );
+      navigator.sendBeacon(SYNC_URL, new Blob([payload], { type: "application/json" }));
       return;
     }
 
@@ -228,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Pull the shared board from the remote and adopt it when it is newer than
-  // our own last edit. This is what keeps two open tabs in consensus — without
+  // our own last edit. This keeps two open tabs in consensus without
   // it, the remote is only ever read once at page load.
   function pullRemote() {
     if (!SYNC_URL || isDrawing) {
@@ -336,8 +332,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateCount() {
-    countEl.textContent =
-      pixelCount + (pixelCount === 1 ? " pixel" : " pixels") + " placed";
+    countEl.textContent = pixelCount + (pixelCount === 1 ? " pixel" : " pixels") + " placed";
   }
 
   function buildPalette() {
@@ -506,8 +501,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     submitPreview.src = renderBoardImage(4);
-    submitCaption.textContent =
-      pixelCount + (pixelCount === 1 ? " pixel" : " pixels") + " of pure art";
+    submitCaption.textContent = pixelCount + (pixelCount === 1 ? " pixel" : " pixels") + " of pure art";
     submitFormState.style.display = "block";
     submitSuccessState.style.display = "none";
     clearSubmitError();
@@ -540,14 +534,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var message = submitMessage.value.trim();
     if (!message) {
-      showSubmitError("say something first — a message is required :)");
+      showSubmitError("say something first: a message is required :)");
       submitMessage.focus();
       return;
     }
 
     var previous = Number(localStorage.getItem(SUBMIT_COOLDOWN_KEY) || 0);
     if (previous && previous + SUBMIT_COOLDOWN_MS > Date.now()) {
-      showSubmitError("you just sent one — give it a minute before sending another");
+      showSubmitError("you just sent one: give it a minute before sending another");
       return;
     }
 
@@ -578,7 +572,7 @@ document.addEventListener("DOMContentLoaded", function () {
         submitSuccessState.style.display = "block";
       })
       .catch(function () {
-        showSubmitError("something went wrong sending it — please try again");
+        showSubmitError("something went wrong sending it: please try again");
       })
       .finally(function () {
         submitSend.disabled = false;
@@ -597,8 +591,7 @@ document.addEventListener("DOMContentLoaded", function () {
       particle.style.height = size + "px";
       particle.style.left = Math.random() * 100 + "%";
       particle.style.top = Math.random() * 100 + "%";
-      particle.style.backgroundColor =
-        COLORS[Math.floor(Math.random() * COLORS.length)].hex;
+      particle.style.backgroundColor = COLORS[Math.floor(Math.random() * COLORS.length)].hex;
       particle.style.animationDelay = Math.random() * 6 + "s";
       particle.style.animationDuration = 4 + Math.random() * 4 + "s";
       particle.style.opacity = 0.15 + Math.random() * 0.2;

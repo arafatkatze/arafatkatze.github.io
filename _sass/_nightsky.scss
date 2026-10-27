@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Stories from my night sky — interactive page styles.
+// Stories from my night sky: interactive page styles.
 // Page-scoped: lives entirely under .nightsky-page so nothing leaks to the
 // rest of the site. The sky is dark in both light and dark site themes.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -7,7 +7,7 @@
 // ── Full-page cosmic background ───────────────────────────────────────────
 // When the night-sky page is on screen, paint a deep nebula gradient with a
 // tiling starfield (the star tile is sourced from kokorobot.ca) across the
-// whole page — behind the navbar, content, and footer. The background lives on
+// whole page: behind the navbar, content, and footer. The background lives on
 // the root <html> element so it reliably covers the entire scroll canvas
 // (top-to-bottom), and the body is made transparent so it shows through.
 // Scoped with :has() so it never leaks to the rest of the site; browsers
@@ -31,13 +31,15 @@ html:has(.nightsky-page) {
   overflow-x: clip;
   // Gradients stay anchored to the viewport for a steady nebula glow, while
   // the star tile repeats down the full length of the page.
-  background-image:
-    radial-gradient(ellipse at 18% 16%, rgba(120, 80, 200, 0.28) 0%, transparent 55%),
-    radial-gradient(ellipse at 84% 84%, rgba(40, 110, 200, 0.26) 0%, transparent 60%),
-    url("../img/nightsky/starfield.png"),
+  background-image: radial-gradient(ellipse at 18% 16%, rgba(120, 80, 200, 0.28) 0%, transparent 55%),
+    radial-gradient(ellipse at 84% 84%, rgba(40, 110, 200, 0.26) 0%, transparent 60%), url("../img/nightsky/starfield.png"),
     radial-gradient(ellipse at top, #1c1f3d 0%, #0a0d1f 55%, #04050b 100%);
   background-repeat: no-repeat, no-repeat, repeat, no-repeat;
-  background-size: auto, auto, 200px 200px, cover;
+  background-size:
+    auto,
+    auto,
+    200px 200px,
+    cover;
   background-position: center, center, center, center;
   background-attachment: fixed, fixed, scroll, fixed;
 
@@ -47,17 +49,17 @@ html:has(.nightsky-page) {
 }
 
 .nightsky-page {
-  --ns-bg-top:    #1c1f3d;
-  --ns-bg-mid:    #0a0d1f;
+  --ns-bg-top: #1c1f3d;
+  --ns-bg-mid: #0a0d1f;
   --ns-bg-bottom: #04050b;
-  --ns-text:      #e6e9ff;
+  --ns-text: #e6e9ff;
   --ns-text-soft: #b6bcdb;
   --ns-text-mute: #7d85a8;
-  --ns-card-bg:   rgba(20, 24, 46, 0.92);
+  --ns-card-bg: rgba(20, 24, 46, 0.92);
   --ns-card-border: rgba(255, 255, 255, 0.12);
-  --ns-accent:    var(--global-theme-color);
+  --ns-accent: var(--global-theme-color);
 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ns-text);
   max-width: 980px;
   margin: 0 auto;
@@ -106,7 +108,9 @@ html:has(.nightsky-page) {
     text-decoration: underline;
     text-decoration-color: rgba(230, 233, 255, 0.4);
     text-underline-offset: 3px;
-    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+    transition:
+      text-decoration-color 0.2s ease,
+      color 0.2s ease;
 
     &:hover {
       color: #ffffff;
@@ -125,32 +129,31 @@ html:has(.nightsky-page) {
   margin-right: calc(50% - 50vw);
   // A wide cinematic band. The JS measures this exact box and locks the SVG
   // viewBox to it 1:1, so the 24 stars always spread across the full width
-  // and circles stay round at any size — no aspect-ratio juggling needed.
+  // and circles stay round at any size: no aspect-ratio juggling needed.
   height: clamp(480px, 74vh, 880px);
   border-radius: 0;
   overflow: hidden;
   cursor: crosshair;
   box-shadow:
     0 24px 80px rgba(0, 0, 0, 0.6),
-    inset 0  1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
     inset 0 -1px 0 rgba(255, 255, 255, 0.06);
   // Layered cosmic background:
   //   1. Faint Milky Way band (diagonal, blue-violet-warm)
   //   2. A purple nebula bloom (top-left)
   //   3. A blue nebula bloom (bottom-right)
   //   4. Deep base sky gradient
-  background:
-    linear-gradient(
+  background: linear-gradient(
       115deg,
       transparent 22%,
       rgba(170, 190, 255, 0.05) 38%,
-      rgba(215, 195, 255, 0.10) 50%,
+      rgba(215, 195, 255, 0.1) 50%,
       rgba(255, 220, 200, 0.07) 60%,
       transparent 78%
     ),
     radial-gradient(ellipse at 18% 22%, rgba(120, 80, 200, 0.22) 0%, transparent 55%),
-    radial-gradient(ellipse at 84% 78%, rgba(40, 110, 200, 0.20) 0%, transparent 60%),
-    radial-gradient(ellipse at top,    var(--ns-bg-top) 0%, var(--ns-bg-mid) 55%, var(--ns-bg-bottom) 100%);
+    radial-gradient(ellipse at 84% 78%, rgba(40, 110, 200, 0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at top, var(--ns-bg-top) 0%, var(--ns-bg-mid) 55%, var(--ns-bg-bottom) 100%);
 
   // Phones get a taller board so all 24 stars have room to spread out
   // vertically instead of crowding into a short wide strip.
@@ -164,12 +167,7 @@ html:has(.nightsky-page) {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(
-      ellipse at center,
-      transparent 55%,
-      rgba(0, 0, 0, 0.35) 88%,
-      rgba(0, 0, 0, 0.55) 100%
-    );
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.35) 88%, rgba(0, 0, 0, 0.55) 100%);
     z-index: 2;
   }
 }
@@ -185,8 +183,13 @@ html:has(.nightsky-page) {
 
 // ── Ambient stars ────────────────────────────────────────────────────────
 @keyframes ns-twinkle {
-  0%, 100% { opacity: var(--ns-op, 0.7); }
-  50%      { opacity: calc(var(--ns-op, 0.7) * 0.55); }
+  0%,
+  100% {
+    opacity: var(--ns-op, 0.7);
+  }
+  50% {
+    opacity: calc(var(--ns-op, 0.7) * 0.55);
+  }
 }
 
 .ns-ambient {
@@ -240,13 +243,18 @@ html:has(.nightsky-page) {
 }
 
 // ── Named stars ──────────────────────────────────────────────────────────
-// At rest a named star looks like any other point of light in the field —
-// no big halo, no spikes — so you can't tell which 24 hold a message. Hover
+// At rest a named star looks like any other point of light in the field.
+// With no big halo or spikes, you can't tell which 24 hold a message. Hover
 // (or focus) blooms the tinted halo wide, fans out the diffraction spikes
 // and reveals the name: the surprise.
 @keyframes ns-named-twinkle {
-  0%, 100% { opacity: 1;    }
-  50%      { opacity: 0.55; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
 }
 
 .ns-named {
@@ -259,8 +267,9 @@ html:has(.nightsky-page) {
     // Shrunk right down so it reads as a small field-star glow until hover.
     transform: scale(0.17);
     opacity: 0.5;
-    transition: opacity 0.4s ease,
-                transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+      opacity 0.4s ease,
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     pointer-events: none;
   }
 
@@ -273,7 +282,7 @@ html:has(.nightsky-page) {
     animation: ns-named-twinkle 5s ease-in-out infinite;
   }
 
-  // Spikes are invisible until hover — part of the reveal.
+  // Spikes are invisible until hover: part of the reveal.
   .ns-spike {
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -307,8 +316,12 @@ html:has(.nightsky-page) {
       opacity: 1;
       animation-play-state: paused;
     }
-    .ns-spike { opacity: 1; }
-    .ns-label { opacity: 1; }
+    .ns-spike {
+      opacity: 1;
+    }
+    .ns-label {
+      opacity: 1;
+    }
   }
 }
 
@@ -330,7 +343,9 @@ html:has(.nightsky-page) {
   pointer-events: none;
   opacity: 0;
   transform: translate(-50%, -110%);
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
   z-index: 4;
 
   &[data-visible="true"] {
@@ -358,7 +373,7 @@ html:has(.nightsky-page) {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.04));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.04));
   border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
@@ -431,7 +446,9 @@ html:has(.nightsky-page) {
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   z-index: 3;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
 
   &:hover {
     background: rgba(20, 25, 50, 0.85);
@@ -459,14 +476,13 @@ html:has(.nightsky-page) {
 
   strong {
     font-style: normal;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-weight: 600;
     color: rgba(230, 233, 255, 0.85);
     letter-spacing: 0.06em;
     margin-right: 0.4rem;
   }
 }
-
 
 // ── Modal ────────────────────────────────────────────────────────────────
 .nightsky-modal {
@@ -511,8 +527,14 @@ html:has(.nightsky-page) {
 }
 
 @keyframes ns-modal-in {
-  from { opacity: 0; transform: translateY(8px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .ns-modal-close {
@@ -529,7 +551,9 @@ html:has(.nightsky-page) {
   line-height: 1;
   cursor: pointer;
 
-  &:hover { background: rgba(255, 255, 255, 0.1); }
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
   &:focus-visible {
     outline: 2px solid var(--ns-accent);
     outline-offset: 2px;
@@ -563,7 +587,7 @@ html:has(.nightsky-page) {
   font-size: 1.4rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.95) !important;
-  background: linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.05));
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -591,14 +615,15 @@ html:has(.nightsky-page) {
   color: var(--ns-text-mute);
 }
 
-
 .ns-modal-story p {
   font-size: 0.98rem;
   line-height: 1.75;
   color: var(--ns-text);
   margin: 0 0 0.85rem;
 
-  &:last-child { margin-bottom: 0; }
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .ns-modal-link {
@@ -609,8 +634,12 @@ html:has(.nightsky-page) {
   text-decoration: none;
   font-weight: 600;
 
-  &::after { content: " →"; }
-  &:hover { text-decoration: underline; }
+  &::after {
+    content: " →";
+  }
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 // Reduce motion
@@ -618,6 +647,10 @@ html:has(.nightsky-page) {
   .ns-ambient,
   .ns-named .ns-halo,
   .nightsky-modal-card,
-  .ns-shooting { animation: none !important; }
-  .nightsky-reset { transition: none; }
+  .ns-shooting {
+    animation: none !important;
+  }
+  .nightsky-reset {
+    transition: none;
+  }
 }

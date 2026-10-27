@@ -1,5 +1,5 @@
 /* ============================================================
-   The Reading Room — highlights library logic
+   The Reading Room: highlights library logic
    ============================================================ */
 (function () {
   "use strict";
@@ -24,17 +24,17 @@
 
   // ------- State -------
   let DATA = null;
-  let hlText = [];        // lowercased highlight text (for search)
-  let bookText = [];      // lowercased "title author" per book (for search)
+  let hlText = []; // lowercased highlight text (for search)
+  let bookText = []; // lowercased "title author" per book (for search)
   const state = {
     q: "",
-    cats: new Set(),      // selected category ids
-    book: "",             // book id or ""
+    cats: new Set(), // selected category ids
+    book: "", // book id or ""
     favOnly: false,
     sort: "default",
   };
-  let filtered = [];      // array of highlight ids after filters
-  let rendered = 0;       // how many of `filtered` have been laid out
+  let filtered = []; // array of highlight ids after filters
+  let rendered = 0; // how many of `filtered` have been laid out
   const BATCH = 36;
   let colEls = [];
   let colHeights = [];
@@ -45,7 +45,10 @@
   // ------- Load -------
   showSkeleton();
   loadData()
-    .then((d) => { DATA = d; init(); })
+    .then((d) => {
+      DATA = d;
+      init();
+    })
     .catch((err) => {
       resultCount.textContent = "Could not load the library.";
       masonry.innerHTML = "";
@@ -63,7 +66,9 @@
           const text = await new Response(stream).text();
           return JSON.parse(text);
         }
-      } catch (e) { /* fall through to plain JSON */ }
+      } catch (e) {
+        /* fall through to plain JSON */
+      }
     }
     const res = await fetch("highlights.json");
     return res.json();
@@ -112,9 +117,7 @@
 
   // ------- Category chips (sorted by highlight count desc) -------
   function buildCategoryChips() {
-    const order = DATA.categories
-      .map((name, id) => ({ id, name, count: DATA.categoryCounts[id] || 0 }))
-      .sort((a, b) => b.count - a.count);
+    const order = DATA.categories.map((name, id) => ({ id, name, count: DATA.categoryCounts[id] || 0 })).sort((a, b) => b.count - a.count);
     catChips.innerHTML = "";
     order.forEach(({ id, name, count }) => {
       const chip = document.createElement("button");
@@ -134,7 +137,9 @@
   // ------- Book <select> (sorted by highlight count desc) -------
   function buildBookSelect() {
     const counts = new Array(DATA.books.length).fill(0);
-    DATA.highlights.forEach((h) => { counts[h[1]]++; });
+    DATA.highlights.forEach((h) => {
+      counts[h[1]]++;
+    });
     const order = DATA.books
       .map((b, id) => ({ id, title: b[0], author: DATA.authors[b[1]] || "", count: counts[id] }))
       .sort((a, b) => b.count - a.count);
@@ -142,7 +147,7 @@
     order.forEach(({ id, title, author, count }) => {
       const opt = document.createElement("option");
       opt.value = id;
-      const label = author ? `${title} — ${author}` : title;
+      const label = author ? `${title}: ${author}` : title;
       opt.textContent = `${truncate(label, 60)} (${count})`;
       frag.appendChild(opt);
     });
@@ -151,20 +156,31 @@
 
   // ------- Events -------
   function bindEvents() {
-    searchInput.addEventListener("input", debounce(() => {
-      state.q = searchInput.value.trim().toLowerCase();
-      clearSearch.classList.toggle("show", state.q.length > 0);
-      apply();
-    }, 160));
+    searchInput.addEventListener(
+      "input",
+      debounce(() => {
+        state.q = searchInput.value.trim().toLowerCase();
+        clearSearch.classList.toggle("show", state.q.length > 0);
+        apply();
+      }, 160)
+    );
 
     clearSearch.addEventListener("click", () => {
-      searchInput.value = ""; state.q = "";
+      searchInput.value = "";
+      state.q = "";
       clearSearch.classList.remove("show");
-      apply(); searchInput.focus();
+      apply();
+      searchInput.focus();
     });
 
-    bookSelect.addEventListener("change", () => { state.book = bookSelect.value; apply(); });
-    sortSelect.addEventListener("change", () => { state.sort = sortSelect.value; apply(); });
+    bookSelect.addEventListener("change", () => {
+      state.book = bookSelect.value;
+      apply();
+    });
+    sortSelect.addEventListener("change", () => {
+      state.sort = sortSelect.value;
+      apply();
+    });
 
     favToggle.addEventListener("click", () => {
       state.favOnly = !state.favOnly;
@@ -180,9 +196,12 @@
     $("themeToggle").addEventListener("click", toggleTheme);
 
     // infinite scroll
-    io = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) renderNextBatch();
-    }, { rootMargin: "800px 0px" });
+    io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) renderNextBatch();
+      },
+      { rootMargin: "800px 0px" }
+    );
     io.observe(sentinel);
 
     window.addEventListener("resize", debounce(relayout, 180));
@@ -197,36 +216,53 @@
     $("flashClose").addEventListener("click", closeFlash);
     $("flashPrev").addEventListener("click", () => flashStep(-1));
     $("flashNext").addEventListener("click", () => flashStep(1));
-    $("flashCard").addEventListener("click", () => { if (!swipeJustHappened) flashStep(1); });
+    $("flashCard").addEventListener("click", () => {
+      if (!swipeJustHappened) flashStep(1);
+    });
     $("flashShuffle").addEventListener("click", flashShuffle);
 
     // Swipe left/right to move, click/tap to advance. Pointer Events unify
     // touch, mouse and pen and fire reliably even when the gesture begins over
-    // the overlaid nav arrows — so swipe works in both directions.
+    // the overlaid nav arrows so swipe works in both directions.
     const fstage = document.querySelector(".flash-stage");
-    let psx = 0, psy = 0, pdown = false;
+    let psx = 0,
+      psy = 0,
+      pdown = false;
     fstage.addEventListener("pointerdown", (e) => {
-      psx = e.clientX; psy = e.clientY; pdown = true;
+      psx = e.clientX;
+      psy = e.clientY;
+      pdown = true;
     });
     fstage.addEventListener("pointerup", (e) => {
       if (!pdown) return;
       pdown = false;
-      const dx = e.clientX - psx, dy = e.clientY - psy;
+      const dx = e.clientX - psx,
+        dy = e.clientY - psy;
       if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
         swipeJustHappened = true;
         flashStep(dx < 0 ? 1 : -1);
-        setTimeout(() => { swipeJustHappened = false; }, 400);
+        setTimeout(() => {
+          swipeJustHappened = false;
+        }, 400);
       }
     });
-    fstage.addEventListener("pointercancel", () => { pdown = false; });
+    fstage.addEventListener("pointercancel", () => {
+      pdown = false;
+    });
 
     document.addEventListener("keydown", onKey);
   }
 
   function resetAll() {
-    state.q = ""; state.cats.clear(); state.book = ""; state.favOnly = false; state.sort = "default";
-    searchInput.value = ""; clearSearch.classList.remove("show");
-    bookSelect.value = ""; sortSelect.value = "default";
+    state.q = "";
+    state.cats.clear();
+    state.book = "";
+    state.favOnly = false;
+    state.sort = "default";
+    searchInput.value = "";
+    clearSearch.classList.remove("show");
+    bookSelect.value = "";
+    sortSelect.value = "default";
     favToggle.classList.remove("active");
     catChips.querySelectorAll(".chip.active").forEach((c) => c.classList.remove("active"));
     apply();
@@ -304,7 +340,8 @@
   function startRender() {
     masonry.innerHTML = "";
     const cols = columnCount();
-    colEls = []; colHeights = [];
+    colEls = [];
+    colHeights = [];
     for (let c = 0; c < cols; c++) {
       const col = document.createElement("div");
       col.className = "mcol";
@@ -317,7 +354,10 @@
   }
 
   function renderNextBatch() {
-    if (!DATA || rendered >= filtered.length) { loadingMore.hidden = true; return; }
+    if (!DATA || rendered >= filtered.length) {
+      loadingMore.hidden = true;
+      return;
+    }
     const end = Math.min(rendered + BATCH, filtered.length);
     for (let i = rendered; i < end; i++) {
       const card = buildCard(filtered[i]);
@@ -360,8 +400,8 @@
     meta.innerHTML =
       `<span class="card-book">${escapeHTML(b[0])}</span>` +
       `<span class="card-byline">` +
-        (author ? `<span>${escapeHTML(author)}</span>` : "") +
-        `<span class="card-cat">${escapeHTML(DATA.categories[b[2]])}</span>` +
+      (author ? `<span>${escapeHTML(author)}</span>` : "") +
+      `<span class="card-cat">${escapeHTML(DATA.categories[b[2]])}</span>` +
       `</span>`;
 
     card.innerHTML = favMark;
@@ -379,8 +419,10 @@
     const author = DATA.authors[b[1]] || "";
     $("spotQuote").textContent = h[0];
     const noteEl = $("spotNote");
-    if (h[4]) { noteEl.textContent = h[4]; noteEl.hidden = false; }
-    else noteEl.hidden = true;
+    if (h[4]) {
+      noteEl.textContent = h[4];
+      noteEl.hidden = false;
+    } else noteEl.hidden = true;
     $("spotBook").textContent = b[0];
     $("spotAuthor").textContent = author;
     $("spotCat").textContent = DATA.categories[b[2]];
@@ -400,10 +442,14 @@
     if ($("flash").hidden) document.body.style.overflow = "";
   }
   function copySpotlight() {
-    const txt = `“${$("spotQuote").textContent}”\n— ${$("spotBook").textContent}${$("spotAuthor").textContent ? ", " + $("spotAuthor").textContent : ""}`;
+    const txt = `“${$("spotQuote").textContent}”\nFrom ${$("spotBook").textContent}${
+      $("spotAuthor").textContent ? ", " + $("spotAuthor").textContent : ""
+    }`;
     navigator.clipboard.writeText(txt).then(() => {
-      const btn = $("spotCopy"); const old = btn.textContent;
-      btn.textContent = "✓ Copied"; setTimeout(() => (btn.textContent = old), 1400);
+      const btn = $("spotCopy");
+      const old = btn.textContent;
+      btn.textContent = "✓ Copied";
+      setTimeout(() => (btn.textContent = old), 1400);
     });
   }
 
@@ -446,7 +492,7 @@
     const b = DATA.books[h[1]];
     const author = DATA.authors[b[1]] || "";
     $("flashText").textContent = h[0];
-    $("flashBook").textContent = b[0] + (author ? " — " + author : "");
+    $("flashBook").textContent = b[0] + (author ? ": " + author : "");
     $("flashPos").textContent = Math.min(flashPos + 1, flashPool.length);
   }
   function flashStep(dir) {
@@ -485,11 +531,20 @@
     const flashOpen = !$("flash").hidden;
     const spotOpen = !$("spotlight").hidden;
     if (flashOpen) {
-      if (e.key === "ArrowRight") { e.preventDefault(); flashStep(1); }
-      else if (e.key === "ArrowLeft") { e.preventDefault(); flashStep(-1); }
-      else if (e.key === " ") { e.preventDefault(); flashStep(1); }
-      else if (e.key === "s" || e.key === "S") { flashShuffle(); }
-      else if (e.key === "Escape") { closeFlash(); }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        flashStep(1);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        flashStep(-1);
+      } else if (e.key === " ") {
+        e.preventDefault();
+        flashStep(1);
+      } else if (e.key === "s" || e.key === "S") {
+        flashShuffle();
+      } else if (e.key === "Escape") {
+        closeFlash();
+      }
       return;
     }
     if (spotOpen) {
@@ -500,7 +555,10 @@
     if (e.target === searchInput) return;
     if (e.key === "r" || e.key === "R") showRandom();
     else if (e.key === "f" || e.key === "F") openFlash();
-    else if (e.key === "/") { e.preventDefault(); searchInput.focus(); }
+    else if (e.key === "/") {
+      e.preventDefault();
+      searchInput.focus();
+    }
   }
 
   // ------- Theme -------
@@ -509,7 +567,9 @@
     const night = body.dataset.theme === "night";
     body.dataset.theme = night ? "day" : "night";
     $("themeToggle").querySelector(".theme-toggle-icon").textContent = night ? "☾" : "☀";
-    try { localStorage.setItem("rr-theme", body.dataset.theme); } catch (e) {}
+    try {
+      localStorage.setItem("rr-theme", body.dataset.theme);
+    } catch (e) {}
   }
   try {
     const saved = localStorage.getItem("rr-theme");
@@ -524,10 +584,16 @@
 
   // ------- Utils -------
   function debounce(fn, ms) {
-    let t; return function () { clearTimeout(t); const a = arguments, c = this; t = setTimeout(() => fn.apply(c, a), ms); };
+    let t;
+    return function () {
+      clearTimeout(t);
+      const a = arguments,
+        c = this;
+      t = setTimeout(() => fn.apply(c, a), ms);
+    };
   }
   function escapeHTML(s) {
-    return String(s).replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+    return String(s).replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[m]);
   }
   function highlightQuery(text, q) {
     const safe = escapeHTML(text);
@@ -536,7 +602,9 @@
     if (idx === -1) return safe;
     // rebuild with escaping, marking each occurrence
     const lower = text.toLowerCase();
-    let res = "", from = 0, pos;
+    let res = "",
+      from = 0,
+      pos;
     while ((pos = lower.indexOf(q, from)) !== -1) {
       res += escapeHTML(text.slice(from, pos));
       res += '<mark class="hit">' + escapeHTML(text.slice(pos, pos + q.length)) + "</mark>";
@@ -545,16 +613,20 @@
     res += escapeHTML(text.slice(from));
     return res;
   }
-  function truncate(s, n) { return s.length > n ? s.slice(0, n - 1) + "…" : s; }
+  function truncate(s, n) {
+    return s.length > n ? s.slice(0, n - 1) + "…" : s;
+  }
 
   // Time-seeded RNG (mulberry32). Reseeded from the clock on every shuffle /
   // random draw so the sequence is genuinely different each time.
   let rng = makeRng(seedNow());
   function seedNow() {
-    const perf = (typeof performance !== "undefined" && performance.now) ? performance.now() : 0;
-    return (((Date.now() >>> 0) ^ (Math.floor(perf * 1000) >>> 0) ^ ((Math.random() * 0xffffffff) >>> 0)) >>> 0);
+    const perf = typeof performance !== "undefined" && performance.now ? performance.now() : 0;
+    return ((Date.now() >>> 0) ^ (Math.floor(perf * 1000) >>> 0) ^ ((Math.random() * 0xffffffff) >>> 0)) >>> 0;
   }
-  function reseed() { rng = makeRng(seedNow()); }
+  function reseed() {
+    rng = makeRng(seedNow());
+  }
   function makeRng(seed) {
     let a = seed >>> 0;
     return function () {
@@ -565,20 +637,25 @@
     };
   }
   // Draw a random highlight id from `pool` that is NOT `avoidHid` and, whenever
-  // possible, is from a different book — and (if a `seen` set is given) one not
+  // possible, is from a different book and (if a `seen` set is given) one not
   // shown yet this session. Guarantees no back-to-back highlights from the
   // same book unless the pool leaves no other choice.
   function pickDifferent(pool, avoidHid, seen) {
     if (pool.length <= 1) return pool[0];
     const avoidBook = avoidHid == null ? -1 : DATA.highlights[avoidHid][1];
-    let diffUnseen = null, diffBook = null, anyDiff = null;
+    let diffUnseen = null,
+      diffBook = null,
+      anyDiff = null;
     for (let i = 0; i < 64; i++) {
       const hid = pool[(rng() * pool.length) | 0];
       if (hid === avoidHid) continue;
       if (anyDiff === null) anyDiff = hid;
       if (DATA.highlights[hid][1] !== avoidBook) {
         if (diffBook === null) diffBook = hid;
-        if (!seen || !seen.has(hid)) { diffUnseen = hid; break; }
+        if (!seen || !seen.has(hid)) {
+          diffUnseen = hid;
+          break;
+        }
       }
     }
     if (diffUnseen != null) return diffUnseen;
@@ -587,7 +664,8 @@
     return pool[(rng() * pool.length) | 0];
   }
   function animateNum(el, target) {
-    const dur = 900, start = performance.now();
+    const dur = 900,
+      start = performance.now();
     function tick(now) {
       const p = Math.min(1, (now - start) / dur);
       const eased = 1 - Math.pow(1 - p, 3);

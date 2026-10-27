@@ -153,7 +153,7 @@
       '<div class="mc-title"><span>Four models, one scale</span></div>' +
       '<div class="mc-blurb">Drawn side by side with the same cell size. GPT-3 ' +
       "runs off the top of the screen at this framing, and nano-gpt is already " +
-      "smaller than a pixel &mdash; hence the logarithmic bar chart. Click a row " +
+      "smaller than a pixel, hence the logarithmic bar chart. Click a row " +
       "to fly to that model.</div>" +
       '<div class="cmp">' +
       rows +
@@ -358,8 +358,7 @@
         var note = document.createElement("div");
         note.className = "beat";
         note.innerHTML =
-          "<p><i>The walkthrough runs on nano-gpt, where every value is real. " +
-          "Pick <b>nano-gpt</b> in the top bar to follow along.</i></p>";
+          "<p><i>The walkthrough runs on nano-gpt, where every value is real. " + "Pick <b>nano-gpt</b> in the top bar to follow along.</i></p>";
         body.appendChild(note);
       }
     }
@@ -538,7 +537,10 @@
    */
   function wireZoomControls() {
     var app = state.app;
-    [["zoom-in", 1 / 1.18], ["zoom-out", 1.18]].forEach(function (pair) {
+    [
+      ["zoom-in", 1 / 1.18],
+      ["zoom-out", 1.18],
+    ].forEach(function (pair) {
       var el = $(pair[0]);
       var factor = pair[1];
       var timer = null;

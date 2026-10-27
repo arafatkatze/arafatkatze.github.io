@@ -1,0 +1,57 @@
+name: Update GitHub Contributions
+
+on:
+  schedule:
+    - cron: "17 6 * * *" # daily, shortly after midnight US-Pacific
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  update-contributions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Refresh contribution snapshot
+        env:
+          # A PAT stored as CONTRIBUTIONS_TOKEN (scope: read:user) also reports
+          # private contributions; without it the public calendar is used.
+          GITHUB_TOKEN: ${{ secrets.CONTRIBUTIONS_TOKEN }}
+        run: python bin/update_github_contributions.py
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+
+      - name: Commit and push if changed
+        id: commit
+        run: |
+          git add assets/json/github_contributions.json
+          if git diff --staged --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ Contribution data unchanged." >> $GITHUB_STEP_SUMMARY
+          else
+            git commit -m "Update GitHub contribution graph data"
+            git push
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "✅ Contribution data updated." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Redeploy site
+        # Commits pushed with GITHUB_TOKEN do not trigger other workflows, so
+        # the deploy is dispatched explicitly.
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy.yml --ref ${{ github.ref_name }}

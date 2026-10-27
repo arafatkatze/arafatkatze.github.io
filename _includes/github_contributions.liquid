@@ -1,0 +1,52 @@
+{% comment %}
+  GitHub contribution heatmap for the trailing twelve months.
+
+  Renders from assets/json/github_contributions.json (refreshed daily by the
+  "Update GitHub Contributions" workflow) and then refreshes in the browser from
+  live GitHub data.
+
+  Parameters:
+    user  – GitHub login (defaults to site.github_username)
+    title – heading text (defaults to "GitHub Activity")
+    live  – set to false to render only the committed snapshot
+{% endcomment %}
+
+{% assign contrib_user = include.user | default: site.github_username %}
+{% assign contrib_title = include.title | default: 'GitHub Activity' %}
+{% if include.live == false %}
+  {% assign contrib_live = 'false' %}
+{% else %}
+  {% assign contrib_live = 'true' %}
+{% endif %}
+
+{% if contrib_user %}
+  <a class="anchor" id="{{ contrib_title }}"></a>
+  <div class="card mt-3 p-3">
+    <h3 class="card-title font-weight-medium">{{ contrib_title }}</h3>
+    <section
+      class="contrib-graph"
+      data-github-contributions
+      data-user="{{ contrib_user }}"
+      data-live="{{ contrib_live }}"
+      data-snapshot="{{ '/assets/json/github_contributions.json' | relative_url }}"
+    >
+      <div class="contrib-graph__header">
+        <p class="contrib-graph__subtitle">Commits, issues, reviews and pull requests over the last 12 months.</p>
+        <a
+          class="contrib-graph__profile"
+          href="https://github.com/{{ contrib_user }}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="fa-brands fa-github"></i>@{{ contrib_user }}
+        </a>
+      </div>
+
+      <div class="contrib-graph__body">
+        <p class="contrib-graph__status">Loading contribution activity&hellip;</p>
+      </div>
+    </section>
+  </div>
+
+  <script defer src="{{ '/assets/js/github-contributions.js' | relative_url | bust_file_cache }}"></script>
+{% endif %}

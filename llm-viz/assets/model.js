@@ -3,7 +3,7 @@
  *
  * Holds the shapes of the four models on display, and a complete forward pass
  * of the trained nano-GPT written in plain JS. The forward pass keeps every
- * intermediate tensor around — that is the whole point, since the renderer
+ * intermediate tensor around. That is the whole point, since the renderer
  * draws them.
  */
 (function (global) {
@@ -133,18 +133,11 @@
   // ------------------------------------------------------------- math bits
 
   function erf(x) {
-    // Abramowitz & Stegun 7.1.26 — good to ~1.5e-7, plenty for display.
+    // Abramowitz & Stegun 7.1.26: good to ~1.5e-7, plenty for display.
     var s = x < 0 ? -1 : 1;
     x = Math.abs(x);
     var t = 1 / (1 + 0.3275911 * x);
-    var y =
-      1 -
-      ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t -
-        0.284496736) *
-        t +
-        0.254829592) *
-        t *
-        Math.exp(-x * x);
+    var y = 1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
     return s * y;
   }
 

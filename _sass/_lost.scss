@@ -1,5 +1,5 @@
 /*******************************************************************************
- * 404 — "You've wandered off the trail."
+ * 404: "You've wandered off the trail."
  * A lone wanderer with a lantern, under a real night sky.
  ******************************************************************************/
 
@@ -15,7 +15,7 @@ $lost-lantern-warm: #ff9d4d;
 $lost-violet: #c084fc;
 $lost-pink: #f472b6;
 
-/* Hide the default page header — this page brings its own heading. */
+/* Hide the default page header: this page brings its own heading. */
 .post:has(.lost-404) .post-header {
   display: none;
 }
@@ -79,8 +79,15 @@ $lost-pink: #f472b6;
 }
 
 @keyframes lost-twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(0.8); }
-  50%      { opacity: 1;   transform: scale(1.15); }
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
 }
 
 /* the moon */
@@ -115,11 +122,24 @@ $lost-pink: #f472b6;
 }
 
 @keyframes lost-shoot {
-  0%   { opacity: 0; transform: translate(0, 0) rotate(18deg); }
-  3%   { opacity: 1; }
-  12%  { opacity: 1; }
-  16%  { opacity: 0; transform: translate(70vw, 22vh) rotate(18deg); }
-  100% { opacity: 0; transform: translate(70vw, 22vh) rotate(18deg); }
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(18deg);
+  }
+  3% {
+    opacity: 1;
+  }
+  12% {
+    opacity: 1;
+  }
+  16% {
+    opacity: 0;
+    transform: translate(70vw, 22vh) rotate(18deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(70vw, 22vh) rotate(18deg);
+  }
 }
 
 /* the giant, faint 404 hanging in the sky */
@@ -145,8 +165,13 @@ $lost-pink: #f472b6;
 }
 
 @keyframes lost-breathe {
-  0%, 100% { opacity: 0.18; }
-  50%      { opacity: 0.28; }
+  0%,
+  100% {
+    opacity: 0.18;
+  }
+  50% {
+    opacity: 0.28;
+  }
 }
 
 /* the hills + wanderer live in one SVG that hugs the bottom */
@@ -160,10 +185,18 @@ $lost-pink: #f472b6;
   display: block;
 }
 
-.lost-hill-back  { fill: #{$lost-hill-back}; }
-.lost-hill-mid   { fill: #{$lost-hill-mid}; }
-.lost-hill-front { fill: #{$lost-hill-front}; }
-.lost-tree       { fill: #{$lost-hill-front}; }
+.lost-hill-back {
+  fill: #{$lost-hill-back};
+}
+.lost-hill-mid {
+  fill: #{$lost-hill-mid};
+}
+.lost-hill-front {
+  fill: #{$lost-hill-front};
+}
+.lost-tree {
+  fill: #{$lost-hill-front};
+}
 
 /* the wanderer's silhouette */
 .lost-figure {
@@ -172,19 +205,31 @@ $lost-pink: #f472b6;
   stroke-linejoin: round;
   fill: none;
 }
-.lost-figure-fill { fill: #04020a; stroke: none; }
+.lost-figure-fill {
+  fill: #04020a;
+  stroke: none;
+}
 
 /* lantern + its warm pool of light */
 .lost-lantern-glow {
   animation: lost-flicker 3.5s ease-in-out infinite;
   transform-origin: center;
 }
-.lost-lantern-core { fill: #{$lost-lantern}; }
+.lost-lantern-core {
+  fill: #{$lost-lantern};
+}
 
 @keyframes lost-flicker {
-  0%, 100% { opacity: 0.95; }
-  45%      { opacity: 0.7; }
-  70%      { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.95;
+  }
+  45% {
+    opacity: 0.7;
+  }
+  70% {
+    opacity: 1;
+  }
 }
 
 /* ------------------------------- the copy -------------------------------- */
@@ -232,7 +277,11 @@ $lost-pink: #f472b6;
   color: #e9e4ff;
   border: 1px solid rgba(192, 132, 252, 0.35);
   background: rgba(192, 132, 252, 0.06);
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -259,20 +308,43 @@ $lost-pink: #f472b6;
 .lost-copy > * {
   animation: lost-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-.lost-copy > *:nth-child(1) { animation-delay: 0.05s; }
-.lost-copy > *:nth-child(2) { animation-delay: 0.15s; }
-.lost-copy > *:nth-child(3) { animation-delay: 0.25s; }
-.lost-copy > *:nth-child(4) { animation-delay: 0.35s; }
-.lost-copy > *:nth-child(5) { animation-delay: 0.45s; }
+.lost-copy > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.lost-copy > *:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.lost-copy > *:nth-child(3) {
+  animation-delay: 0.25s;
+}
+.lost-copy > *:nth-child(4) {
+  animation-delay: 0.35s;
+}
+.lost-copy > *:nth-child(5) {
+  animation-delay: 0.45s;
+}
 
 @keyframes lost-rise {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 576px) {
-  .lost-moon { width: 46px; height: 46px; top: 9%; right: 10%; }
-  .lost-copy { padding-bottom: 2rem; }
+  .lost-moon {
+    width: 46px;
+    height: 46px;
+    top: 9%;
+    right: 10%;
+  }
+  .lost-copy {
+    padding-bottom: 2rem;
+  }
 }
 
 /* respect those who'd rather hold still */
@@ -284,5 +356,7 @@ $lost-pink: #f472b6;
   .lost-copy > * {
     animation: none !important;
   }
-  .lost-number { opacity: 0.24; }
+  .lost-number {
+    opacity: 0.24;
+  }
 }
