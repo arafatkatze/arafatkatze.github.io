@@ -330,6 +330,11 @@ ninja.data = [{
           description: "",
           section: "Projects",handler: () => {
               window.location.href = "/projects/mathmaking/";
+            },},{id: "projects-11-840-tps-on-a-single-gpu",
+          title: '11,840 TPS on a single GPU',
+          description: "Nearly doubling Nemotron throughput on one GB300, with interactive explainers for speculative decoding, scheduling, and self-tuning inference.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/nemotronInference/";
             },},{id: "projects-stories-from-my-night-sky",
           title: 'Stories from my night sky',
           description: "a small constellation of the people who shaped me — hover any star, read their story.",

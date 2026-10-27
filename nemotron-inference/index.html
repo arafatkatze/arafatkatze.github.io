@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f7f9fc" />
+    <title>11,840 TPS on a single GPU | Ara Khan</title>
+    <meta
+      name="description"
+      content="How we nearly doubled Nemotron 3.5 Super VL throughput on one DGX Station GB300: MTP, async scheduling, FlashInfer, and FP16 recurrent state. With interactive explainers."
+    />
+    <link rel="canonical" href="https://arafatkatze.com/nemotron-inference/" />
+    <meta property="og:title" content="11,840 TPS on a single GPU" />
+    <meta property="og:description" content="Five configuration changes. One DGX Station GB300. Interactive notes from tuning Nemotron inference." />
+    <meta property="og:image" content="https://arafatkatze.com/nemotron-inference/assets/intelligence-speed-solar-best-run.png" />
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #18385f;
+        --body: #344763;
+        --muted: #72829a;
+        --blue: #2167e5;
+        --line: #dfe7f1;
+        --paper: #f7f9fc;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 24px;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--body);
+        font:
+          18px/1.8 ui-sans-serif,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: var(--blue);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid #d49454;
+        outline-offset: 5px;
+      }
+      .nav {
+        max-width: 1120px;
+        margin: auto;
+        padding: 30px 32px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        font-size: 14px;
+      }
+      .nav a {
+        color: var(--ink);
+        text-decoration: none;
+      }
+      .nav a:last-child {
+        color: var(--muted);
+      }
+      main {
+        max-width: 1000px;
+        margin: auto;
+        padding: 70px 32px 72px;
+      }
+      .eyebrow {
+        font:
+          600 11px/1.4 ui-monospace,
+          monospace;
+        color: var(--blue);
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        margin: 0 0 24px;
+      }
+      h1 {
+        max-width: 900px;
+        color: var(--ink);
+        font-size: clamp(40px, 6.5vw, 76px);
+        line-height: 1.04;
+        letter-spacing: -0.055em;
+        margin: 0 0 26px;
+        font-weight: 750;
+      }
+      h1 span {
+        color: var(--blue);
+      }
+      .dek {
+        max-width: 700px;
+        font-size: 21px;
+        line-height: 1.55;
+        color: var(--muted);
+        margin: 0 0 24px;
+      }
+      .byline {
+        font-size: 13px;
+        color: var(--muted);
+        margin-bottom: 36px;
+      }
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 22px 0;
+        margin: 0 0 52px;
+        gap: 20px;
+      }
+      .metric strong {
+        display: block;
+        font-size: 26px;
+        line-height: 1.3;
+        font-weight: 650;
+        color: var(--ink);
+        letter-spacing: -0.035em;
+      }
+      .metric span {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      article {
+        max-width: 760px;
+        margin: auto;
+      }
+      article > p {
+        margin: 0 0 24px;
+      }
+      h2,
+      h3 {
+        color: var(--ink);
+        letter-spacing: -0.035em;
+        line-height: 1.23;
+      }
+      h3 {
+        margin: 62px 0 20px;
+        font-size: 29px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
+      }
+      h2 {
+        font-size: 34px;
+        margin: 64px 0 24px;
+      }
+      b,
+      strong {
+        font-weight: 650;
+        color: var(--ink);
+      }
+      code {
+        font-size: 0.78em;
+        background: #eaf0f8;
+        padding: 3px 6px;
+        border-radius: 4px;
+        overflow-wrap: anywhere;
+      }
+      figure {
+        margin: 36px -48px;
+      }
+      figure img,
+      figure video {
+        display: block;
+        max-width: 100%;
+        border-radius: 12px;
+        background: white;
+        border: 1px solid var(--line);
+      }
+      iframe {
+        max-width: 100%;
+        background: #fff;
+        border: 1px solid var(--line) !important;
+        box-shadow: 0 8px 30px #18385f05;
+        margin: 28px 0 32px;
+      }
+      .note {
+        border-left: 3px solid var(--blue);
+        background: #edf3fc;
+        border-radius: 0 10px 10px 0;
+        padding: 18px 22px;
+        margin: 32px 0;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .note p {
+        margin: 5px 0 0;
+      }
+      ol {
+        padding-left: 25px;
+      }
+      li {
+        padding-left: 6px;
+        margin: 24px 0;
+      }
+      .end {
+        max-width: 760px;
+        margin: 64px auto 0;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .end a {
+        color: var(--ink);
+      }
+      @media (max-width: 650px) {
+        body {
+          font-size: 16px;
+          line-height: 1.75;
+        }
+        .nav {
+          padding: 20px;
+        }
+        .nav a:last-child {
+          display: none;
+        }
+        main {
+          padding: 44px 20px;
+        }
+        .dek {
+          font-size: 18px;
+        }
+        h1 {
+          font-size: 46px;
+        }
+        .metrics {
+          gap: 12px;
+          margin-bottom: 36px;
+        }
+        .metric strong {
+          font-size: 21px;
+        }
+        .metric span {
+          font-size: 11px;
+        }
+        figure {
+          margin: 28px 0;
+        }
+        h3 {
+          font-size: 25px;
+          margin-top: 44px;
+        }
+        h2 {
+          font-size: 29px;
+        }
+        iframe {
+          height: 400px !important;
+        }
+        iframe[title="self-tuning-inference-compact.html"] {
+          height: 410px !important;
+        }
+        .end {
+          flex-wrap: wrap;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Article navigation"><a href="/projects/">← All projects</a><a href="/">Ara Khan</a></nav>
+    <main>
+      <header>
+        <p class="eyebrow">Inference engineering · field notes</p>
+        <h1>11,840 tokens per second.<br /><span>One GPU.</span></h1>
+        <p class="dek">Five configuration changes that nearly doubled Nemotron 3.5 Super VL throughput on a DGX Station GB300.</p>
+        <p class="byline">Ara Khan · October 2026 · Interactive walkthrough</p>
+        <div class="metrics" aria-label="Benchmark conditions">
+          <div class="metric"><strong>11,840</strong><span>aggregate output tokens / sec</span></div>
+          <div class="metric"><strong>256</strong><span>concurrent requests</span></div>
+          <div class="metric"><strong>512 → 512</strong><span>input → output tokens per request</span></div>
+        </div>
+      </header>
+      <article>
+        <p>
+          NVIDIA released
+          <a href="https://developer.nvidia.com/blog/nvidia-nemotron-3-5-super-vl-powers-specialized-agents-with-multimodal-reasoning/"
+            >Nemotron 3.5 Super VL</a
+          >
+          on October 15, and we reached <b>11,840 aggregate output tokens/sec</b> on one GB300 with <b>256 concurrent requests</b>. This blog post is
+          a walkthrough of all the tricks we used to get there.
+        </p>
+        <p>
+          For context, this model is specifically designed to be a really fast, locally hosted model that can perform reasonably well across domains
+          like document intelligence, coding, financial accounting, etc.
+        </p>
+        <figure>
+          <img src="assets/intelligence-speed-solar-best-run.png" alt="Intelligence and output speed comparison" style="width: 100%; height: auto" />
+        </figure>
+        <p>
+          For the cluster of models in the same category, it turns out to be much, much faster than the others. And the benefit of having such a
+          small, fast model is that you can post train it for special use cases.
+        </p>
+        <p>
+          At Cline, we are especially excited about easy to host open weight models, and we try to get the best inference config for fast and highly
+          concurrent inference. Much like our <a href="https://cline.bot/blog/open-sourcing-evals-for-open-weight-agents">work on AI Evals</a>, we
+          find that there are tons of nuances in inference engineering around choosing the particular thing you want to optimize for.
+        </p>
+        <p>
+          Thanks to our collaboration with the NVIDIA team, we got to play with an
+          <a href="https://www.nvidia.com/en-us/products/workstations/dgx-station/">NVIDIA DGX Station</a> and we wanted to maximize the model
+          throughput on it. This GPU has a very powerful config for a single machine with a 252 GB GPU memory budget.
+        </p>
+        <p>
+          Starting out with the base config of vLLM <code>0.32.0rc1.dev190+g3f1bcfd82</code>, which took <b>67 GB</b> of memory, we were already
+          getting <b>6,058 aggregate tokens per second</b> on a test of 512 input/output tokens with 256 concurrent streams. It's interesting to note
+          that even the base config of the model is VERY strong and already tuned for high throughput inference.
+        </p>
+        <aside class="note">
+          <strong>Reading the numbers</strong>
+          <p>
+            These are cumulative configurations, not isolated measurements of each optimization. The headline is aggregate output across 256 requests,
+            including reasoning tokens—not one user’s streaming speed.
+          </p>
+        </aside>
+        <p>
+          Here are a few tricks we applied to raise the throughput(See
+          <a href="https://github.com/arafatkatze/nemotron-3.5-gb300-recipes">Code here</a>):
+        </p>
+        <h3 id="step-1">1. MTP Decoding</h3>
+        <p>
+          The very first trick we applied was the standard one, which is the MTP decoding head that came packed with the model. This is the simplest
+          optimization, and it can be done a few different ways, so we tried MTP3, which got us to roughly <b>7,000 tokens per second</b>. We used the
+          OMP1 config because single threading is more convenient here, as multiple threads lead to coordination overhead.
+        </p>
+        <iframe
+          title="01-mtp.html"
+          src="embeds/01-mtp.html"
+          sandbox="allow-scripts allow-same-origin"
+          loading="eager"
+          style="display: block; width: 100%; height: 360px; border: 0; border-radius: 8px"
+        ></iframe>
+        <h3 id="step-2">2. Async Scheduling</h3>
+        <p>
+          When scaling to multiple concurrent outputs, especially in a case like ours, the GPU does a lot of kernel work, but the CPU does a lot of
+          scheduling work. So by using asynchronous scheduling, you aren’t blocked all the time while the GPU is processing.
+        </p>
+        <iframe
+          title="02-async.html"
+          src="embeds/02-async.html"
+          sandbox="allow-scripts allow-same-origin"
+          loading="eager"
+          style="display: block; width: 100%; height: 360px; border: 0; border-radius: 8px"
+        ></iframe>
+        <h3 id="step-3">3. Switching the Mamba kernel back to FlashInfer</h3>
+        <p>This model supports both KV cache and Mamba backend layers.</p>
+        <p>
+          Attention layers use KV cache and Mamba layers use recurrent state and short convolution history. In this use case, since we just wanted to
+          hill climb on throughput, we tried the FlashInfer kernel, which gave us a jump to <b>7,800 tokens per second</b>. Again, it's not really
+          clear to us why this worked but it worked as one of the large set of experiments we threw at the GPU. It's plausible that for certain GPU
+          config this doesn’t work and that’s okay.
+        </p>
+        <h3 id="step-4">4. Switching the lookahead from MTP 3 to MTP 1</h3>
+        <p>
+          This one seems counterintuitive, as you would think that if more draft tokens are predicted, then throughput would increase, but sadly,
+          that’s not the case. We don’t just need to predict tokens; we need to verify them, and if the verification fails, we waste model time. Since
+          the GPU already has plenty of useful work to do at 256 concurrent threads, the extra overhead actually isn’t worth it.
+        </p>
+        <p>This actually raised our throughput to <b>9.5K</b> with MTP 1.</p>
+        <h3 id="step-5">5. Switching Mamba state to FP16 from FP32</h3>
+        <p>
+          The final step was an add on to Step 3, where we switched the Mamba state to FP16 with stochastic rounding. This reduces the precision of
+          the stored recurrent state. Stochastic rounding helps avoid systematic rounding bias. It does not by itself establish a measured drop in
+          model quality; that needs separate evaluation.
+        </p>
+        <h2 id="conclusion">What this taught us</h2>
+        <p>
+          We learned a few things from this experiment that we sort of already knew. The first is that
+          <b>inference engineering is extremely contextual</b>, and your capacity to scale very much depends on the traffic shape you are getting. We
+          used a few tricks here, like using MTP 1 instead of MTP 3, or switching the Mamba kernel to FlashInfer, that worked perfectly well to give
+          us the throughput rise, but they could have just as easily hurt the throughput in other sorts of load tests. Also, using a trick like FP16
+          could potentially lower the eval score.
+        </p>
+        <p color="yellow_bg">
+          <b>In general we recommend that people figure out the best traffic shape and do inference for that traffic shape alone.</b>
+        </p>
+        <p>We have a few long term predictions:</p>
+        <ol>
+          <li>
+            People will be able to self host and run dozens of parallel local agentic threads. This video replays recorded output from 32 parallel
+            Cline sessions using Nemotron 3.5 Super VL on one DGX Station, preserving the original stream timing at 1× speed. Each session has four
+            turns; tool use was disabled for this conversation demo.
+          </li>
+        </ol>
+        <figure>
+          <video
+            controls=""
+            playsinline=""
+            preload="metadata"
+            src="assets/nemotron32-gb300-solar-4k.mp4"
+            style="width: 100%; height: auto"
+            poster="assets/cline32-poster.jpg"
+          ></video>
+        </figure>
+        <ol start="2">
+          <li>
+            It will be cheaper to run a set of self hosted models compared to paying for inference. In this case, our rough comparison suggested about
+            66% lower compute cost at full utilization, assuming $7 per GPU-hour and the benchmark throughput; the result depends on the API pricing
+            and workload being compared. This means that it's cheaper for you to use our inference recipe and pay for a GPU rather than hit a model
+            router and pay per API call provided you are fully utilizing the GPU.
+          </li>
+          <li>
+            Autoscaling models will be like a self healing task where agents will figure out the best possible config for a given traffic shape.
+            Imagine if an agent had full access to Grafana metrics; then the agent could automagically run load tests on a held out GPU (one that
+            doesn’t affect the real traffic), iteratively figure out the best possible config for any traffic coming to a certain endpoint, and then
+            safely autoscale and migrate the traffic to the new configuration. This way, we could have self healing autoscale configs for inference
+            endpoints that automagically understand their own role and optimize costs and scale to just the right amount of GPU usage as a function of
+            time. Since agents are very good at end to end testing in a loop and monitoring a careful migration we believe that
+            <b>the future of Inference engineering autoscaling is Agentic</b>.
+          </li>
+        </ol>
+        <iframe
+          title="self-tuning-inference-compact.html"
+          src="embeds/self-tuning-inference-compact.html"
+          sandbox="allow-scripts allow-same-origin"
+          loading="eager"
+          style="display: block; width: 100%; height: 420px; border: 0; border-radius: 8px"
+        ></iframe>
+        <readwise-tooltip-container></readwise-tooltip-container>
+      </article>
+      <footer class="end">
+        <a href="/projects/">← Back to projects</a
+        ><a href="https://github.com/arafatkatze/nemotron-3.5-gb300-recipes">Code, recipes &amp; benchmark evidence ↗</a>
+      </footer>
+    </main>
+  </body>
+</html>

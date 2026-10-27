@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Async: keep the GPU moving</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 14px;
+        background: #fff;
+        color: #20313a;
+        font-family:
+          ui-sans-serif,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        font-size: 13px;
+      }
+      main {
+        max-width: 760px;
+        margin: auto;
+      }
+      h1 {
+        font-size: 14px;
+        letter-spacing: -0.02em;
+        margin: 0 0 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      h1 span {
+        font-size: 10px;
+        font-weight: 500;
+        color: #65747b;
+        letter-spacing: 0;
+      }
+      svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      svg text {
+        font-family: inherit;
+        fill: #20313a;
+        font-size: 13px;
+      }
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin-top: 9px;
+      }
+      button {
+        font: inherit;
+        font-size: 12px;
+        padding: 7px 11px;
+        border: 1px solid #d9e2df;
+        border-radius: 7px;
+        background: #f4f7f5;
+        color: #20313a;
+        cursor: pointer;
+      }
+      button.active,
+      button.primary {
+        background: #20313a;
+        color: #fff;
+        border-color: #20313a;
+      }
+      button:focus-visible,
+      input:focus-visible {
+        outline: 3px solid #5a83ce;
+        outline-offset: 2px;
+      }
+      label {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        font-size: 12px;
+      }
+      input[type="range"] {
+        width: 110px;
+        accent-color: #28765e;
+      }
+      output {
+        font-variant-numeric: tabular-nums;
+        min-width: 38px;
+      }
+      .note {
+        font-size: 11px;
+        line-height: 1.5;
+        color: #64737a;
+        margin: 9px 0 0;
+      }
+      .result {
+        font-size: 12px;
+        line-height: 1.5;
+        margin-top: 8px;
+      }
+      .muted {
+        fill: #65747b;
+        font-size: 11px;
+      }
+      .mono {
+        font-family: ui-monospace, monospace;
+        font-size: 13px;
+      }
+      .bold {
+        font-weight: 650;
+      }
+      .pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .mini {
+        background: #f4f7f5;
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      @media (max-width: 440px) {
+        body {
+          padding: 10px;
+        }
+        .note {
+          font-size: 10px;
+        }
+        h1 span {
+          display: none;
+        }
+        svg text {
+          font-size: 14px;
+        }
+        .controls {
+          gap: 7px;
+        }
+        input[type="range"] {
+          width: 90px;
+        }
+        .pair {
+          gap: 7px;
+        }
+        .mini {
+          padding: 7px;
+        }
+      }
+      .stream {
+        display: flex;
+        gap: 4px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 35px;
+        margin: 7px 0;
+      }
+      .token {
+        animation: pop 0.65s ease;
+        background: #e6f4ed;
+        border-radius: 5px;
+        padding: 5px 8px;
+        white-space: nowrap;
+        font:
+          12px ui-monospace,
+          monospace;
+      }
+      .live {
+        color: #28765e !important;
+      }
+      .controls {
+        margin-top: 4px;
+      }
+      button.primary {
+        background: #176fab;
+        border-color: #176fab;
+      }
+      svg rect,
+      svg circle {
+        transition: all 0.35s ease;
+      }
+      .pulse {
+        animation: pulse 1s infinite;
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes pulse {
+        50% {
+          opacity: 0.5;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Prepare the next token while the GPU runs <span class="live">Playing · pause or step</span></h1>
+      <div id="diagram"></div>
+      <div class="stream" id="stream"></div>
+      <div class="controls">
+        <button id="next" class="primary">Next token →</button><button id="play">❚❚ Pause</button><button id="reset">↺ Reset</button
+        ><label>CPU prep <input id="prep" type="range" min="1" max="5" value="3" /></label>
+      </div>
+      <div id="status" class="result" aria-live="polite"></div>
+      <p class="note">Illustrative timing, not a measured speedup. Gray = CPU; blue = GPU. OMP1 limits OpenMP workers.</p>
+    </main>
+    <script>
+      const TITLE = "Async: keep the GPU moving";
+      const $ = (id) => document.getElementById(id);
+      function box(x, y, w, h, fill) {
+        return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="${fill}"/>`;
+      }
+      function txt(x, y, t, cl = "", extra = "") {
+        return `<text x="${x}" y="${y}" class="${cl}" ${extra}>${t}</text>`;
+      }
+      function svg(s, h = 140) {
+        $("diagram").innerHTML = `<svg viewBox="0 0 560 ${h}" role="img" aria-label="${TITLE}">${s}</svg>`;
+      }
+      let tick = 0;
+      function reset() {
+        tick = 0;
+      }
+      function draw() {
+        const p = +$("prep").value,
+          g = 5,
+          k = 400 / 40,
+          now = Math.min(tick, p + 20);
+        let s = txt(5, 27, "Sync", "bold") + txt(5, 51, "Async", "bold") + txt(5, 74, "CPU prep", "muted") + txt(5, 100, "GPU compute", "muted");
+        for (let i = 0; i < 4; i++) {
+          let x = 135 + i * (p + g) * k;
+          s += box(x, 10, p * k - 1, 23, "#dce5e9") + box(x + p * k, 10, g * k - 1, 23, "#176fab");
+          let cpu = i ? p + (i - 1) * g : 0,
+            gpu = p + i * g;
+          s +=
+            box(135 + cpu * k, 61, p * k - 1, 17, "#dce5e9") +
+            box(135 + gpu * k, 82, g * k - 1, 23, "#176fab") +
+            txt(143 + gpu * k, 98, "T" + (i + 1), "", 'style="fill:white;font-size:10px"');
+        }
+        s +=
+          `<line x1="${135 + now * k}" y1="4" x2="${135 + now * k}" y2="109" stroke="#ef955b" stroke-width="2"/>` +
+          txt(135, 49, 4 * (p + g) + " units", "muted") +
+          txt(135, 123, p + 20 + " units · " + 3 * p + " idle units avoided", "muted");
+        svg(s, 128);
+        let done = Math.max(0, Math.min(4, Math.floor((now - p) / g)));
+        stream(Array.from({ length: done }, (_, i) => "token " + (i + 1)));
+        $("status").textContent = now < p ? "CPU prepares the first batch." : "CPU prepares upcoming work while the GPU decodes.";
+      }
+      function step() {
+        tick++;
+        draw();
+        if (tick >= +$("prep").value + 20) {
+          playing = false;
+          schedule();
+          $("status").textContent = "All four tokens are streamed. Reset to replay.";
+        }
+      }
+      $("next").textContent = "Next token →";
+      $("prep").oninput = () => {
+        tick = 0;
+        draw();
+      };
+      let playing = !matchMedia("(prefers-reduced-motion: reduce)").matches,
+        timer;
+      function schedule() {
+        clearInterval(timer);
+        $("play").textContent = playing ? "❚❚ Pause" : "▶ Play";
+        if (playing) timer = setInterval(step, 550);
+      }
+      $("play").onclick = () => {
+        playing = !playing;
+        schedule();
+      };
+      $("next").onclick = () => {
+        playing = false;
+        schedule();
+        tick = Math.min(tick + 5, +$("prep").value + 20);
+        draw();
+      };
+      $("reset").onclick = () => {
+        reset();
+        draw();
+      };
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) clearInterval(timer);
+        else schedule();
+      });
+      function stream(words) {
+        const el = $("stream");
+        if (words.length < el.children.length) el.replaceChildren();
+        for (let i = el.children.length; i < words.length; i++) {
+          const token = document.createElement("span");
+          token.className = "token";
+          token.textContent = words[i];
+          el.appendChild(token);
+        }
+      }
+      draw();
+      schedule();
+    </script>
+  </body>
+</html>
