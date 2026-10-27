@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Async: keep the GPU moving</title>
     <style>
       * {
@@ -17,7 +17,7 @@
           ui-sans-serif,
           -apple-system,
           BlinkMacSystemFont,
-          "Segoe UI",
+          'Segoe UI',
           sans-serif;
         font-size: 13px;
       }
@@ -83,7 +83,7 @@
         align-items: center;
         font-size: 12px;
       }
-      input[type="range"] {
+      input[type='range'] {
         width: 110px;
         accent-color: #28765e;
       }
@@ -141,7 +141,7 @@
         .controls {
           gap: 7px;
         }
-        input[type="range"] {
+        input[type='range'] {
           width: 90px;
         }
         .pair {
@@ -210,97 +210,97 @@
       <div class="stream" id="stream"></div>
       <div class="controls">
         <button id="next" class="primary">Next token →</button><button id="play">❚❚ Pause</button><button id="reset">↺ Reset</button
-        ><label>CPU prep <input id="prep" type="range" min="1" max="5" value="3" /></label>
+        ><label>CPU prep <input id="prep" type="range" min="1" max="5" value="3"></label>
       </div>
       <div id="status" class="result" aria-live="polite"></div>
       <p class="note">Illustrative timing, not a measured speedup. Gray = CPU; blue = GPU. OMP1 limits OpenMP workers.</p>
     </main>
     <script>
-      const TITLE = "Async: keep the GPU moving";
+      const TITLE = 'Async: keep the GPU moving';
       const $ = (id) => document.getElementById(id);
       function box(x, y, w, h, fill) {
         return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="${fill}"/>`;
       }
-      function txt(x, y, t, cl = "", extra = "") {
+      function txt(x, y, t, cl = '', extra = '') {
         return `<text x="${x}" y="${y}" class="${cl}" ${extra}>${t}</text>`;
       }
       function svg(s, h = 140) {
-        $("diagram").innerHTML = `<svg viewBox="0 0 560 ${h}" role="img" aria-label="${TITLE}">${s}</svg>`;
+        $('diagram').innerHTML = `<svg viewBox="0 0 560 ${h}" role="img" aria-label="${TITLE}">${s}</svg>`;
       }
       let tick = 0;
       function reset() {
         tick = 0;
       }
       function draw() {
-        const p = +$("prep").value,
+        const p = +$('prep').value,
           g = 5,
           k = 400 / 40,
           now = Math.min(tick, p + 20);
-        let s = txt(5, 27, "Sync", "bold") + txt(5, 51, "Async", "bold") + txt(5, 74, "CPU prep", "muted") + txt(5, 100, "GPU compute", "muted");
+        let s = txt(5, 27, 'Sync', 'bold') + txt(5, 51, 'Async', 'bold') + txt(5, 74, 'CPU prep', 'muted') + txt(5, 100, 'GPU compute', 'muted');
         for (let i = 0; i < 4; i++) {
           let x = 135 + i * (p + g) * k;
-          s += box(x, 10, p * k - 1, 23, "#dce5e9") + box(x + p * k, 10, g * k - 1, 23, "#176fab");
+          s += box(x, 10, p * k - 1, 23, '#dce5e9') + box(x + p * k, 10, g * k - 1, 23, '#176fab');
           let cpu = i ? p + (i - 1) * g : 0,
             gpu = p + i * g;
           s +=
-            box(135 + cpu * k, 61, p * k - 1, 17, "#dce5e9") +
-            box(135 + gpu * k, 82, g * k - 1, 23, "#176fab") +
-            txt(143 + gpu * k, 98, "T" + (i + 1), "", 'style="fill:white;font-size:10px"');
+            box(135 + cpu * k, 61, p * k - 1, 17, '#dce5e9') +
+            box(135 + gpu * k, 82, g * k - 1, 23, '#176fab') +
+            txt(143 + gpu * k, 98, 'T' + (i + 1), '', 'style="fill:white;font-size:10px"');
         }
         s +=
           `<line x1="${135 + now * k}" y1="4" x2="${135 + now * k}" y2="109" stroke="#ef955b" stroke-width="2"/>` +
-          txt(135, 49, 4 * (p + g) + " units", "muted") +
-          txt(135, 123, p + 20 + " units · " + 3 * p + " idle units avoided", "muted");
+          txt(135, 49, 4 * (p + g) + ' units', 'muted') +
+          txt(135, 123, p + 20 + ' units · ' + 3 * p + ' idle units avoided', 'muted');
         svg(s, 128);
         let done = Math.max(0, Math.min(4, Math.floor((now - p) / g)));
-        stream(Array.from({ length: done }, (_, i) => "token " + (i + 1)));
-        $("status").textContent = now < p ? "CPU prepares the first batch." : "CPU prepares upcoming work while the GPU decodes.";
+        stream(Array.from({ length: done }, (_, i) => 'token ' + (i + 1)));
+        $('status').textContent = now < p ? 'CPU prepares the first batch.' : 'CPU prepares upcoming work while the GPU decodes.';
       }
       function step() {
         tick++;
         draw();
-        if (tick >= +$("prep").value + 20) {
+        if (tick >= +$('prep').value + 20) {
           playing = false;
           schedule();
-          $("status").textContent = "All four tokens are streamed. Reset to replay.";
+          $('status').textContent = 'All four tokens are streamed. Reset to replay.';
         }
       }
-      $("next").textContent = "Next token →";
-      $("prep").oninput = () => {
+      $('next').textContent = 'Next token →';
+      $('prep').oninput = () => {
         tick = 0;
         draw();
       };
-      let playing = !matchMedia("(prefers-reduced-motion: reduce)").matches,
+      let playing = !matchMedia('(prefers-reduced-motion: reduce)').matches,
         timer;
       function schedule() {
         clearInterval(timer);
-        $("play").textContent = playing ? "❚❚ Pause" : "▶ Play";
+        $('play').textContent = playing ? '❚❚ Pause' : '▶ Play';
         if (playing) timer = setInterval(step, 550);
       }
-      $("play").onclick = () => {
+      $('play').onclick = () => {
         playing = !playing;
         schedule();
       };
-      $("next").onclick = () => {
+      $('next').onclick = () => {
         playing = false;
         schedule();
-        tick = Math.min(tick + 5, +$("prep").value + 20);
+        tick = Math.min(tick + 5, +$('prep').value + 20);
         draw();
       };
-      $("reset").onclick = () => {
+      $('reset').onclick = () => {
         reset();
         draw();
       };
-      document.addEventListener("visibilitychange", () => {
+      document.addEventListener('visibilitychange', () => {
         if (document.hidden) clearInterval(timer);
         else schedule();
       });
       function stream(words) {
-        const el = $("stream");
+        const el = $('stream');
         if (words.length < el.children.length) el.replaceChildren();
         for (let i = el.children.length; i < words.length; i++) {
-          const token = document.createElement("span");
-          token.className = "token";
+          const token = document.createElement('span');
+          token.className = 'token';
           token.textContent = words[i];
           el.appendChild(token);
         }

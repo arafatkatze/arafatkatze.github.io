@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Self-tuning inference · compact loop</title>
     <style>
       * {
@@ -17,7 +17,7 @@
           12px ui-sans-serif,
           -apple-system,
           BlinkMacSystemFont,
-          "Segoe UI",
+          'Segoe UI',
           sans-serif;
       }
       main {
@@ -355,57 +355,57 @@
     <script>
       const $ = (id) => document.getElementById(id);
       let stage = 0,
-        playing = !matchMedia("(prefers-reduced-motion: reduce)").matches,
+        playing = !matchMedia('(prefers-reduced-motion: reduce)').matches,
         failed = false,
         t = 0;
       const stages = [
-        ["Observe live traffic", ["production", "metrics"], [0]],
-        ["Capture a representative workload", ["metrics", "agent"], [1]],
-        ["Replay on the isolated test GPU", ["agent", "lab"], [2]],
-        ["Compare candidate recipes", ["agent", "lab"], [2]],
-        ["Check held-out quality and latency", ["lab", "gate"], [3]],
-        ["Canary: send only 5% of live traffic", ["gate", "router", "production"], [4, 5]],
-        ["Expand traffic only while healthy", ["router", "production"], [5]],
-        ["Keep monitoring; tune again", ["production", "metrics", "agent"], [0, 1]],
+        ['Observe live traffic', ['production', 'metrics'], [0]],
+        ['Capture a representative workload', ['metrics', 'agent'], [1]],
+        ['Replay on the isolated test GPU', ['agent', 'lab'], [2]],
+        ['Compare candidate recipes', ['agent', 'lab'], [2]],
+        ['Check held-out quality and latency', ['lab', 'gate'], [3]],
+        ['Canary: send only 5% of live traffic', ['gate', 'router', 'production'], [4, 5]],
+        ['Expand traffic only while healthy', ['router', 'production'], [5]],
+        ['Keep monitoring; tune again', ['production', 'metrics', 'agent'], [0, 1]],
       ];
       function draw() {
         const s = stages[stage],
           rollback = failed && stage >= 6;
-        for (const id of ["production", "metrics", "agent", "lab", "gate", "router"]) $(id).classList.toggle("active", s[1].includes(id));
+        for (const id of ['production', 'metrics', 'agent', 'lab', 'gate', 'router']) $(id).classList.toggle('active', s[1].includes(id));
         for (let i = 0; i < 6; i++) {
-          $("f" + i).classList.toggle("on", s[2].includes(i));
-          $("orb" + i).classList.toggle("on", s[2].includes(i));
+          $('f' + i).classList.toggle('on', s[2].includes(i));
+          $('orb' + i).classList.toggle('on', s[2].includes(i));
         }
         const share = rollback ? 0 : stage < 5 ? 0 : stage === 5 ? 5 : stage === 6 ? [5, 25, 50, 100][Math.min(3, Math.floor(t / 625))] : 100;
-        $("routerSub").textContent = `Old ${100 - share}% · new ${share}%`;
-        $("trafficBar").setAttribute("width", (96 * share) / 100);
-        $("status").textContent = `${stage + 1}/8 · ` + (rollback ? "Canary failed → restore the known-good recipe." : s[0] + ".");
-        $("play").textContent = playing ? "❚❚ Pause" : "▶ Play";
-        document.querySelector("main").classList.toggle("paused", !playing);
-        const svg = document.querySelector("svg");
+        $('routerSub').textContent = `Old ${100 - share}% · new ${share}%`;
+        $('trafficBar').setAttribute('width', (96 * share) / 100);
+        $('status').textContent = `${stage + 1}/8 · ` + (rollback ? 'Canary failed → restore the known-good recipe.' : s[0] + '.');
+        $('play').textContent = playing ? '❚❚ Pause' : '▶ Play';
+        document.querySelector('main').classList.toggle('paused', !playing);
+        const svg = document.querySelector('svg');
         if (svg.pauseAnimations) {
           if (playing) svg.unpauseAnimations();
           else svg.pauseAnimations();
         }
       }
-      $("play").onclick = () => {
+      $('play').onclick = () => {
         playing = !playing;
         draw();
       };
-      $("next").onclick = () => {
+      $('next').onclick = () => {
         playing = false;
         stage = (stage + 1) % 8;
         t = 0;
         draw();
       };
-      $("reset").onclick = () => {
+      $('reset').onclick = () => {
         stage = 0;
         t = 0;
         failed = false;
         playing = true;
         draw();
       };
-      $("fail").onclick = () => {
+      $('fail').onclick = () => {
         failed = true;
         stage = 5;
         t = 0;

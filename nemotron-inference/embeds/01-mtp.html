@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>MTP3: draft three, verify, stream</title>
     <style>
       * {
@@ -17,7 +17,7 @@
           ui-sans-serif,
           -apple-system,
           BlinkMacSystemFont,
-          "Segoe UI",
+          'Segoe UI',
           sans-serif;
         font-size: 13px;
       }
@@ -83,7 +83,7 @@
         align-items: center;
         font-size: 12px;
       }
-      input[type="range"] {
+      input[type='range'] {
         width: 110px;
         accent-color: #28765e;
       }
@@ -141,7 +141,7 @@
         .controls {
           gap: 7px;
         }
-        input[type="range"] {
+        input[type='range'] {
           width: 90px;
         }
         .pair {
@@ -219,23 +219,23 @@
       </p>
     </main>
     <script>
-      const TITLE = "MTP3: draft three, verify, stream";
+      const TITLE = 'MTP3: draft three, verify, stream';
       const $ = (id) => document.getElementById(id);
       function box(x, y, w, h, fill) {
         return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="${fill}"/>`;
       }
-      function txt(x, y, t, cl = "", extra = "") {
+      function txt(x, y, t, cl = '', extra = '') {
         return `<text x="${x}" y="${y}" class="${cl}" ${extra}>${t}</text>`;
       }
       function svg(s, h = 140) {
-        $("diagram").innerHTML = `<svg viewBox="0 0 560 ${h}" role="img" aria-label="${TITLE}">${s}</svg>`;
+        $('diagram').innerHTML = `<svg viewBox="0 0 560 ${h}" role="img" aria-label="${TITLE}">${s}</svg>`;
       }
       let phase = 0,
         n = 0,
         start = 0,
         wrong = false,
         out = [];
-      const words = ["The", "sky", "is", "blue", "today", ".", "We", "can", "see", "the", "sun", "."];
+      const words = ['The', 'sky', 'is', 'blue', 'today', '.', 'We', 'can', 'see', 'the', 'sun', '.'];
       function word(i) {
         return words[i % words.length];
       }
@@ -248,33 +248,33 @@
       }
       function draw() {
         let s =
-          txt(5, 16, "1 · Draft 3 tokens", "muted") + txt(201, 16, "2 · Main model verifies", "muted") + txt(397, 16, "3 · Stream output", "muted");
+          txt(5, 16, '1 · Draft 3 tokens', 'muted') + txt(201, 16, '2 · Main model verifies', 'muted') + txt(397, 16, '3 · Stream output', 'muted');
         for (let i = 0; i < 3; i++) {
           const x = 5 + i * 52,
             valid = !wrong || i === 0;
-          const color = phase === 0 ? "#eeeaff" : phase > 0 && wrong && i === 1 ? "#ffe2d6" : phase > 0 && wrong && i === 2 ? "#eff2ef" : "#e2f1e9";
+          const color = phase === 0 ? '#eeeaff' : phase > 0 && wrong && i === 1 ? '#ffe2d6' : phase > 0 && wrong && i === 2 ? '#eff2ef' : '#e2f1e9';
           s +=
             box(x, 30, 48, 35, color) +
-            txt(x + 24, 52, wrong && i === 1 ? "rain" : word(start + i), "mono", 'text-anchor="middle" style="font-size:11px"');
+            txt(x + 24, 52, wrong && i === 1 ? 'rain' : word(start + i), 'mono', 'text-anchor="middle" style="font-size:11px"');
           s +=
-            box(201 + i * 52, 30, 48, 35, phase === 0 ? "#f2f4f2" : valid ? "#dbf0e5" : i === 1 ? "#ffe2d6" : "#eff2ef") +
-            txt(225 + i * 52, 52, phase === 0 ? "?" : valid ? "✓" : i === 1 ? "×" : "—", "bold", 'text-anchor="middle"');
+            box(201 + i * 52, 30, 48, 35, phase === 0 ? '#f2f4f2' : valid ? '#dbf0e5' : i === 1 ? '#ffe2d6' : '#eff2ef') +
+            txt(225 + i * 52, 52, phase === 0 ? '?' : valid ? '✓' : i === 1 ? '×' : '—', 'bold', 'text-anchor="middle"');
         }
         s +=
-          txt(174, 52, "→") +
-          txt(369, 52, "→") +
-          box(397, 30, 158, 35, phase === 2 ? "#dbf0e5" : "#f2f4f2") +
-          txt(410, 52, phase === 2 ? (wrong ? "2 output tokens" : "4 output tokens") : "waiting", "bold");
+          txt(174, 52, '→') +
+          txt(369, 52, '→') +
+          box(397, 30, 158, 35, phase === 2 ? '#dbf0e5' : '#f2f4f2') +
+          txt(410, 52, phase === 2 ? (wrong ? '2 output tokens' : '4 output tokens') : 'waiting', 'bold');
         s +=
-          txt(5, 82, "Sequential lookahead", "muted") +
-          txt(201, 82, phase === 0 ? "Not committed yet" : wrong ? "Accept 1 · reject 2–3" : "All 3 accepted", "muted") +
-          txt(397, 82, phase === 2 ? (wrong ? "1 accepted + correction" : "3 accepted + bonus") : "Verified tokens only", "muted");
+          txt(5, 82, 'Sequential lookahead', 'muted') +
+          txt(201, 82, phase === 0 ? 'Not committed yet' : wrong ? 'Accept 1 · reject 2–3' : 'All 3 accepted', 'muted') +
+          txt(397, 82, phase === 2 ? (wrong ? '1 accepted + correction' : '3 accepted + bonus') : 'Verified tokens only', 'muted');
         svg(s, 91);
         stream(out);
-        $("status").textContent = [
-          "MTP proposes three future tokens. None are output yet.",
-          wrong ? "Token 2 is wrong: keep token 1, discard tokens 2 and 3." : "The main model verifies all three proposed tokens.",
-          wrong ? "Stream the accepted first token and the main-model correction." : "Stream three accepted tokens plus one main-model bonus token.",
+        $('status').textContent = [
+          'MTP proposes three future tokens. None are output yet.',
+          wrong ? 'Token 2 is wrong: keep token 1, discard tokens 2 and 3.' : 'The main model verifies all three proposed tokens.',
+          wrong ? 'Stream the accepted first token and the main-model correction.' : 'Stream three accepted tokens plus one main-model bonus token.',
         ][phase];
       }
       function step() {
@@ -290,7 +290,7 @@
         }
         draw();
       }
-      $("bad").onclick = () => {
+      $('bad').onclick = () => {
         playing = false;
         schedule();
         wrong = true;
@@ -298,36 +298,36 @@
         start = n;
         draw();
       };
-      let playing = !matchMedia("(prefers-reduced-motion: reduce)").matches,
+      let playing = !matchMedia('(prefers-reduced-motion: reduce)').matches,
         timer;
       function schedule() {
         clearInterval(timer);
-        $("play").textContent = playing ? "❚❚ Pause" : "▶ Play";
+        $('play').textContent = playing ? '❚❚ Pause' : '▶ Play';
         if (playing) timer = setInterval(step, 2200);
       }
-      $("play").onclick = () => {
+      $('play').onclick = () => {
         playing = !playing;
         schedule();
       };
-      $("next").onclick = () => {
+      $('next').onclick = () => {
         playing = false;
         schedule();
         step();
       };
-      $("reset").onclick = () => {
+      $('reset').onclick = () => {
         reset();
         draw();
       };
-      document.addEventListener("visibilitychange", () => {
+      document.addEventListener('visibilitychange', () => {
         if (document.hidden) clearInterval(timer);
         else schedule();
       });
       function stream(words) {
-        const el = $("stream");
+        const el = $('stream');
         if (words.length < el.children.length) el.replaceChildren();
         for (let i = el.children.length; i < words.length; i++) {
-          const token = document.createElement("span");
-          token.className = "token";
+          const token = document.createElement('span');
+          token.className = 'token';
           token.textContent = words[i];
           el.appendChild(token);
         }
