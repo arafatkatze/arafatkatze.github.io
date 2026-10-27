@@ -14,9 +14,12 @@ photography: true
   directly to a project.
 -->
 
+<div class="blog-hero">
+  <h1>photography.</h1>
+</div>
+
 <section class="photo-gallery" aria-label="Photography projects">
   <header class="photo-gallery__intro">
-    <p class="photo-gallery__eyebrow">Photographs</p>
     <h1 class="photo-gallery__title" id="photo-gallery-title">{{ site.data.photography.projects[0].title }}</h1>
     <p class="photo-gallery__caption" id="photo-gallery-caption" hidden></p>
   </header>
@@ -51,12 +54,15 @@ photography: true
       tabindex="-1"
       hidden
     >&#8250;</button>
+
   </div>
 
   <!-- First project is rendered at build time so the grid is visible before
        JS runs; photography.js skips re-rendering when data-rendered-slug
        already matches the active project. -->
-  {% assign first_project = site.data.photography.projects[0] %}
+
+{% assign first_project = site.data.photography.projects[0] %}
+
   <div class="photo-gallery__stack" id="photo-gallery-stack" aria-live="polite" data-rendered-slug="{{ first_project.slug }}">
     {% for url in first_project.images %}
       <figure

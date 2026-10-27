@@ -2,7 +2,7 @@
  * llm-viz layout: turns a GPT of a given shape into 3D geometry.
  *
  * The model is drawn as a tower that you descend. Activations are horizontal
- * slabs — one row per token (Z), one column per channel (X) — and weight
+ * slabs: one row per token (Z) and one column per channel (X). Weight
  * matrices are the vertical walls standing between them, so that every matmul
  * reads as "the row above times the column of the wall lands in the cell
  * below". Aggregates (means, maxes, sums) are thin columns beside their slab.
@@ -485,8 +485,19 @@
         formula: "qkv[t, j] = sum_c n[t, c] * Wqkv[c, j] + bqkv[j]",
         about:
           "Three projections of every token, computed in one matmul. Columns " +
-          "0-" + (C - 1) + " are Q, " + C + "-" + (2 * C - 1) + " are K, " +
-          (2 * C) + "-" + (3 * C - 1) + " are V; each splits again into " + H + " heads.",
+          "0-" +
+          (C - 1) +
+          " are Q, " +
+          C +
+          "-" +
+          (2 * C - 1) +
+          " are K, " +
+          2 * C +
+          "-" +
+          (3 * C - 1) +
+          " are V; each splits again into " +
+          H +
+          " heads.",
         dividers: { xMajor: C, xMinor: A },
       });
       scene.label("Q, K, V", [0, y - 5, T / 2 + 5], { tier: 1, blockId: p + "qkv" });
@@ -700,9 +711,7 @@
         tensor: w[wp + "attn.proj.w"] || null,
         section: "projection",
         formula: "Wproj[c, j]",
-        about:
-          "Its rows are the concatenated head outputs, so the rules mark which " +
-          "band of rows belongs to which head.",
+        about: "Its rows are the concatenated head outputs, so the rules mark which " + "band of rows belongs to which head.",
         dividers: { yMajor: A },
       });
       down(GAP);
@@ -1143,11 +1152,7 @@
       if (detail !== "full") return;
       if (b.form === "bar" || b.form === "column") return;
       if (labelled[b.id]) return;
-      scene.label(b.name, [
-        b.pos[0] + b.size[0] / 2,
-        b.pos[1] + b.size[1] + 2.5,
-        b.pos[2] + b.size[2] + 3.5,
-      ], { tier: 2, blockId: b.id, cls: "sub" });
+      scene.label(b.name, [b.pos[0] + b.size[0] / 2, b.pos[1] + b.size[1] + 2.5, b.pos[2] + b.size[2] + 3.5], { tier: 2, blockId: b.id, cls: "sub" });
     });
     return scene;
   };
@@ -1187,11 +1192,10 @@
       var counts = LV.paramCount(m);
       // each label rides the top of its own tower, which spreads them out
       // vertically by exactly the amount the models differ in size
-      merged.label(m.name + "  \u00b7  " + LV.formatCount(counts.total) + " parameters", [
-        cursor + w / 2,
-        dy + Math.max(w * 0.35, 30),
-        0,
-      ], { tier: 0, cls: "big" });
+      merged.label(m.name + "  \u00b7  " + LV.formatCount(counts.total) + " parameters", [cursor + w / 2, dy + Math.max(w * 0.35, 30), 0], {
+        tier: 0,
+        cls: "big",
+      });
       placements.push({
         model: m,
         id: prefix,

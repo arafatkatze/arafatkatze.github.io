@@ -41,14 +41,31 @@ on:
 jobs:
   link-checker:
     runs-on: ubuntu-latest
-    # only run on the main repo
-    if: github.repository == 'alshedivat/al-folio'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find changed content
+        id: changed-content
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          files=""
+          while IFS= read -r file; do
+            if [[ ! "$file" =~ ^[A-Za-z0-9_./-]+$ ]]; then
+              echo "Unsupported filename for link checking: $file" >&2
+              exit 1
+            fi
+            files+=" ./$file"
+          done < <(git diff --name-only --diff-filter=ACMR "$BASE_SHA" "$GITHUB_SHA" -- '*.md' '*.html')
+          echo "files=${files# }" >> "$GITHUB_OUTPUT"
 
       - name: Link Checker 🔗
+        if: steps.changed-content.outputs.files != ''
         uses: lycheeverse/lychee-action@v2.0.2
         with:
           fail: true
-          # removed md files that include liquid tags
-          args: --user-agent 'curl/7.54' --exclude-path README.md --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --exclude-path _books/the_godfather.md --verbose --no-progress './**/*.md' './**/*.html'
+          failIfEmpty: false
+          # These source templates contain Liquid-generated links. The rendered-site check validates their output instead.
+          args: --user-agent 'curl/7.54' --exclude-path blog/index.html --exclude-path README.md --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --exclude-path _books/the_godfather.md --verbose --no-progress ${{ steps.changed-content.outputs.files }}

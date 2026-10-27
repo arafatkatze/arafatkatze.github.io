@@ -16,7 +16,7 @@
 //
 // The board is full-bleed and can be any shape. Rather than a fixed
 // viewBox we measure the stage's pixel size and set the viewBox to match
-// it 1:1 — so circles stay round, stars spread to the full width, and
+// it 1:1 so circles stay round, stars spread to the full width, and
 // nothing letterboxes whatever the aspect ratio. On resize we re-measure
 // and rebuild.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -47,16 +47,16 @@
   const NAMED_PROXIMITY_WARN = 60;
 
   // Star color palette (mostly cool white, with a few yellow + blue accents).
-  const COLOR_COOL  = "#eef2ff";
-  const COLOR_WARM  = "#fff1d2";
-  const COLOR_BLUE  = "#bdd0ff";
+  const COLOR_COOL = "#eef2ff";
+  const COLOR_WARM = "#fff1d2";
+  const COLOR_BLUE = "#bdd0ff";
   const COLOR_AMBER = "#ffd9a8";
 
   // ── Tiny seeded PRNG ──────────────────────────────────────────────────
   function mulberry32(seed) {
     let t = seed >>> 0;
     return function () {
-      t = (t + 0x6D2B79F5) >>> 0;
+      t = (t + 0x6d2b79f5) >>> 0;
       let r = Math.imul(t ^ (t >>> 15), 1 | t);
       r = (r + Math.imul(r ^ (r >>> 7), 61 | r)) ^ r;
       return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
@@ -83,30 +83,41 @@
         else if (attrs[k] !== undefined && attrs[k] !== null) node.setAttribute(k, attrs[k]);
       }
     }
-    if (children) children.forEach(function (c) { if (c) node.appendChild(c); });
+    if (children)
+      children.forEach(function (c) {
+        if (c) node.appendChild(c);
+      });
     return node;
   }
 
   function initials(name) {
     if (!name) return "·";
     const parts = name.trim().split(/\s+/);
-    return ((parts[0] || "")[0] || "").toUpperCase()
-      + ((parts[1] || "")[0] || "").toUpperCase();
+    return ((parts[0] || "")[0] || "").toUpperCase() + ((parts[1] || "")[0] || "").toUpperCase();
   }
 
   function paragraphs(story) {
     if (!story) return [];
-    return String(story).trim().split(/\n\s*\n/).map(function (p) { return p.trim(); });
+    return String(story)
+      .trim()
+      .split(/\n\s*\n/)
+      .map(function (p) {
+        return p.trim();
+      });
   }
 
   // Distance from point (px, py) to the diagonal Milky-Way band line.
   // Band line goes from (0, 0.78*H) → (W, 0.22*H) (115° feel).
   function bandDistance(px, py) {
-    const x1 = 0,    y1 = VB_H * 0.78;
-    const x2 = VB_W, y2 = VB_H * 0.22;
-    const dx = x2 - x1, dy = y2 - y1;
+    const x1 = 0,
+      y1 = VB_H * 0.78;
+    const x2 = VB_W,
+      y2 = VB_H * 0.22;
+    const dx = x2 - x1,
+      dy = y2 - y1;
     const t = ((px - x1) * dx + (py - y1) * dy) / (dx * dx + dy * dy);
-    const tx = x1 + dx * t, ty = y1 + dy * t;
+    const tx = x1 + dx * t,
+      ty = y1 + dy * t;
     return Math.hypot(px - tx, py - ty);
   }
 
@@ -123,19 +134,23 @@
     if (!dataEl) return;
 
     let raw;
-    try { raw = JSON.parse(dataEl.textContent); }
-    catch (err) { console.warn("[nightsky] could not parse data island", err); return; }
+    try {
+      raw = JSON.parse(dataEl.textContent);
+    } catch (err) {
+      console.warn("[nightsky] could not parse data island", err);
+      return;
+    }
 
     const people = Array.isArray(raw.people) ? raw.people : [];
     const constellations = Array.isArray(raw.constellations) ? raw.constellations : [];
     const showConstellations = !!raw.show_constellations;
     if (!people.length) return;
 
-    const stage     = document.getElementById("nightsky-stage");
-    const svg       = document.getElementById("nightsky-svg");
-    const tooltip   = document.getElementById("nightsky-tooltip");
-    const resetBtn  = document.getElementById("nightsky-reset");
-    const modal     = document.getElementById("nightsky-modal");
+    const stage = document.getElementById("nightsky-stage");
+    const svg = document.getElementById("nightsky-svg");
+    const tooltip = document.getElementById("nightsky-tooltip");
+    const resetBtn = document.getElementById("nightsky-reset");
+    const modal = document.getElementById("nightsky-modal");
     const modalCard = document.getElementById("nightsky-modal-card");
     if (!stage || !svg) return;
 
@@ -162,9 +177,10 @@
     // Computed once (fixed seed) and stored as fractions so the layout is
     // stable across resizes and unaffected by the reshuffle button.
     function computeScatter() {
-      const rand = mulberry32(0x5EED5);
+      const rand = mulberry32(0x5eed5);
       const n = people.length;
-      const margX = 0.045, margY = 0.09;
+      const margX = 0.045,
+        margY = 0.09;
       const usableW = VB_W * (1 - 2 * margX);
       const usableH = VB_H * (1 - 2 * margY);
       let minD = 0.46 * Math.sqrt((usableW * usableH) / n);
@@ -177,11 +193,16 @@
         const cy = VB_H * margY + rand() * usableH;
         let ok = true;
         for (let k = 0; k < pts.length; k++) {
-          if (Math.hypot(cx - pts[k][0], cy - pts[k][1]) < minD) { ok = false; break; }
+          if (Math.hypot(cx - pts[k][0], cy - pts[k][1]) < minD) {
+            ok = false;
+            break;
+          }
         }
         if (ok) pts.push([cx, cy]);
       }
-      scatter = pts.map(function (p) { return { fx: p[0] / VB_W, fy: p[1] / VB_H }; });
+      scatter = pts.map(function (p) {
+        return { fx: p[0] / VB_W, fy: p[1] / VB_H };
+      });
     }
 
     // ── Resolve each person's SVG-space center for the current size ──────
@@ -210,7 +231,7 @@
     function pickColor(rand) {
       const r = rand();
       if (r < 0.78) return COLOR_COOL;
-      if (r < 0.90) return COLOR_WARM;
+      if (r < 0.9) return COLOR_WARM;
       if (r < 0.97) return COLOR_BLUE;
       return COLOR_AMBER;
     }
@@ -227,7 +248,8 @@
 
       // ── Tier 1: dust (band-biased, plain dots) ────────────────────────
       const T1_BAND_HALF = Math.max(180, VB_H * 0.36);
-      let placed = 0, attempts = 0;
+      let placed = 0,
+        attempts = 0;
       while (placed < counts.t1 && attempts < counts.t1 * 4) {
         attempts++;
         const cx = rand() * VB_W;
@@ -240,20 +262,23 @@
         const delay = -rand() * dur;
         const c = svgEl("circle", {
           class: "ns-ambient",
-          cx: cx.toFixed(2), cy: cy.toFixed(2), r: r.toFixed(2),
+          cx: cx.toFixed(2),
+          cy: cy.toFixed(2),
+          r: r.toFixed(2),
           fill: pickColor(rand),
         });
         c.style.setProperty("--ns-op", op.toFixed(2));
         c.style.opacity = op.toFixed(2);
         c.style.animationDuration = dur.toFixed(2) + "s";
-        c.style.animationDelay    = delay.toFixed(2) + "s";
+        c.style.animationDelay = delay.toFixed(2) + "s";
         ambientT1.appendChild(c);
         placed++;
       }
 
       // ── Tier 2: field stars (mid brightness, slight twinkle) ──────────
       const T2_BAND_HALF = Math.max(210, VB_H * 0.42);
-      placed = 0; attempts = 0;
+      placed = 0;
+      attempts = 0;
       while (placed < counts.t2 && attempts < counts.t2 * 4) {
         attempts++;
         const cx = rand() * VB_W;
@@ -266,19 +291,22 @@
         const delay = -rand() * dur;
         const c = svgEl("circle", {
           class: "ns-ambient",
-          cx: cx.toFixed(2), cy: cy.toFixed(2), r: r.toFixed(2),
+          cx: cx.toFixed(2),
+          cy: cy.toFixed(2),
+          r: r.toFixed(2),
           fill: pickColor(rand),
         });
         c.style.setProperty("--ns-op", op.toFixed(2));
         c.style.opacity = op.toFixed(2);
         c.style.animationDuration = dur.toFixed(2) + "s";
-        c.style.animationDelay    = delay.toFixed(2) + "s";
+        c.style.animationDelay = delay.toFixed(2) + "s";
         ambientT2.appendChild(c);
         placed++;
       }
 
       // ── Tier 3: bright field stars (halo + diffraction spike) ─────────
-      placed = 0; attempts = 0;
+      placed = 0;
+      attempts = 0;
       const placedT3 = [];
       while (placed < counts.t3 && attempts < counts.t3 * 8) {
         attempts++;
@@ -288,7 +316,10 @@
         // Avoid clustering bright field stars.
         let tooClose = false;
         for (let i = 0; i < placedT3.length; i++) {
-          if (Math.hypot(cx - placedT3[i][0], cy - placedT3[i][1]) < 70) { tooClose = true; break; }
+          if (Math.hypot(cx - placedT3[i][0], cy - placedT3[i][1]) < 70) {
+            tooClose = true;
+            break;
+          }
         }
         if (tooClose) continue;
         placedT3.push([cx, cy]);
@@ -304,30 +335,51 @@
           transform: "translate(" + cx.toFixed(2) + "," + cy.toFixed(2) + ")",
         });
         // Halo
-        g.appendChild(svgEl("circle", {
-          class: "ns-field-halo",
-          cx: 0, cy: 0, r: haloR.toFixed(2),
-          fill: "url(#ns-field-glow)",
-          opacity: (0.4 + rand() * 0.4).toFixed(2),
-        }));
+        g.appendChild(
+          svgEl("circle", {
+            class: "ns-field-halo",
+            cx: 0,
+            cy: 0,
+            r: haloR.toFixed(2),
+            fill: "url(#ns-field-glow)",
+            opacity: (0.4 + rand() * 0.4).toFixed(2),
+          })
+        );
         // Diffraction spikes
         const sg = svgEl("g", { class: "ns-spike" });
-        sg.appendChild(svgEl("line", {
-          class: "ns-spike-line",
-          x1: -spikeLen.toFixed(1), y1: 0, x2: spikeLen.toFixed(1), y2: 0,
-          stroke: "url(#ns-spike-h)", "stroke-width": "0.6",
-        }));
-        sg.appendChild(svgEl("line", {
-          class: "ns-spike-line",
-          x1: 0, y1: -spikeLen.toFixed(1), x2: 0, y2: spikeLen.toFixed(1),
-          stroke: "url(#ns-spike-v)", "stroke-width": "0.6",
-        }));
+        sg.appendChild(
+          svgEl("line", {
+            class: "ns-spike-line",
+            x1: -spikeLen.toFixed(1),
+            y1: 0,
+            x2: spikeLen.toFixed(1),
+            y2: 0,
+            stroke: "url(#ns-spike-h)",
+            "stroke-width": "0.6",
+          })
+        );
+        sg.appendChild(
+          svgEl("line", {
+            class: "ns-spike-line",
+            x1: 0,
+            y1: -spikeLen.toFixed(1),
+            x2: 0,
+            y2: spikeLen.toFixed(1),
+            stroke: "url(#ns-spike-v)",
+            "stroke-width": "0.6",
+          })
+        );
         sg.style.opacity = (0.55 + rand() * 0.35).toFixed(2);
         g.appendChild(sg);
         // Core
-        g.appendChild(svgEl("circle", {
-          cx: 0, cy: 0, r: r.toFixed(2), fill: fill,
-        }));
+        g.appendChild(
+          svgEl("circle", {
+            cx: 0,
+            cy: 0,
+            r: r.toFixed(2),
+            fill: fill,
+          })
+        );
         g.style.opacity = op.toFixed(2);
         ambientT3.appendChild(g);
         placed++;
@@ -338,13 +390,13 @@
     function buildSky() {
       while (svg.firstChild) svg.removeChild(svg.firstChild);
 
-      defs           = svgEl("defs");
-      ambientT1      = svgEl("g", { class: "ns-ambient-layer ns-tier-1" });
-      ambientT2      = svgEl("g", { class: "ns-ambient-layer ns-tier-2" });
-      ambientT3      = svgEl("g", { class: "ns-ambient-layer ns-tier-3" });
+      defs = svgEl("defs");
+      ambientT1 = svgEl("g", { class: "ns-ambient-layer ns-tier-1" });
+      ambientT2 = svgEl("g", { class: "ns-ambient-layer ns-tier-2" });
+      ambientT3 = svgEl("g", { class: "ns-ambient-layer ns-tier-3" });
       constellationG = svgEl("g", { class: "ns-constellation-layer" });
-      shootingG      = svgEl("g", { class: "ns-shooting-layer" });
-      namedGroup     = svgEl("g", { class: "ns-named-layer" });
+      shootingG = svgEl("g", { class: "ns-shooting-layer" });
+      namedGroup = svgEl("g", { class: "ns-named-layer" });
 
       svg.appendChild(defs);
       svg.appendChild(ambientT1);
@@ -369,9 +421,9 @@
       // Generic horizontal & vertical spike gradients (white → transparent ends)
       function spikeGrad(id, x1, y1, x2, y2) {
         const g = svgEl("linearGradient", { id: id, x1: x1, y1: y1, x2: x2, y2: y2, gradientUnits: "objectBoundingBox" });
-        g.appendChild(svgEl("stop", { offset: "0%",   "stop-color": "#ffffff", "stop-opacity": "0"   }));
-        g.appendChild(svgEl("stop", { offset: "50%",  "stop-color": "#ffffff", "stop-opacity": "0.95"}));
-        g.appendChild(svgEl("stop", { offset: "100%", "stop-color": "#ffffff", "stop-opacity": "0"   }));
+        g.appendChild(svgEl("stop", { offset: "0%", "stop-color": "#ffffff", "stop-opacity": "0" }));
+        g.appendChild(svgEl("stop", { offset: "50%", "stop-color": "#ffffff", "stop-opacity": "0.95" }));
+        g.appendChild(svgEl("stop", { offset: "100%", "stop-color": "#ffffff", "stop-opacity": "0" }));
         return g;
       }
       defs.appendChild(spikeGrad("ns-spike-h", "0%", "50%", "100%", "50%"));
@@ -380,9 +432,9 @@
       // Generic small-star halo gradient (white → transparent)
       {
         const g = svgEl("radialGradient", { id: "ns-field-glow", cx: "50%", cy: "50%", r: "50%" });
-        g.appendChild(svgEl("stop", { offset: "0%",   "stop-color": "#ffffff", "stop-opacity": "0.85" }));
-        g.appendChild(svgEl("stop", { offset: "60%",  "stop-color": "#ffffff", "stop-opacity": "0.18" }));
-        g.appendChild(svgEl("stop", { offset: "100%", "stop-color": "#ffffff", "stop-opacity": "0"    }));
+        g.appendChild(svgEl("stop", { offset: "0%", "stop-color": "#ffffff", "stop-opacity": "0.85" }));
+        g.appendChild(svgEl("stop", { offset: "60%", "stop-color": "#ffffff", "stop-opacity": "0.18" }));
+        g.appendChild(svgEl("stop", { offset: "100%", "stop-color": "#ffffff", "stop-opacity": "0" }));
         defs.appendChild(g);
       }
 
@@ -390,12 +442,14 @@
       enriched.forEach(function (p) {
         const grad = svgEl("radialGradient", {
           id: "ns-glow-" + safeId(p.id),
-          cx: "50%", cy: "50%", r: "50%",
+          cx: "50%",
+          cy: "50%",
+          r: "50%",
         });
-        grad.appendChild(svgEl("stop", { offset: "0%",   "stop-color": "#ffffff", "stop-opacity": "0.95" }));
-        grad.appendChild(svgEl("stop", { offset: "30%",  "stop-color": p.color,    "stop-opacity": "0.55" }));
-        grad.appendChild(svgEl("stop", { offset: "70%",  "stop-color": p.color,    "stop-opacity": "0.18" }));
-        grad.appendChild(svgEl("stop", { offset: "100%", "stop-color": p.color,    "stop-opacity": "0" }));
+        grad.appendChild(svgEl("stop", { offset: "0%", "stop-color": "#ffffff", "stop-opacity": "0.95" }));
+        grad.appendChild(svgEl("stop", { offset: "30%", "stop-color": p.color, "stop-opacity": "0.55" }));
+        grad.appendChild(svgEl("stop", { offset: "70%", "stop-color": p.color, "stop-opacity": "0.18" }));
+        grad.appendChild(svgEl("stop", { offset: "100%", "stop-color": p.color, "stop-opacity": "0" }));
         defs.appendChild(grad);
       });
 
@@ -404,7 +458,9 @@
       // ── Constellations (only if explicitly opted in) ─────────────────
       if (showConstellations) {
         const byId = {};
-        enriched.forEach(function (p) { byId[p.id] = p; });
+        enriched.forEach(function (p) {
+          byId[p.id] = p;
+        });
         constellations.forEach(function (group) {
           if (!Array.isArray(group) || group.length < 2) return;
           const pts = [];
@@ -413,10 +469,12 @@
             if (p) pts.push(p.cx.toFixed(1) + "," + p.cy.toFixed(1));
           }
           if (pts.length < 2) return;
-          constellationG.appendChild(svgEl("polyline", {
-            class: "ns-constellation",
-            points: pts.join(" "),
-          }));
+          constellationG.appendChild(
+            svgEl("polyline", {
+              class: "ns-constellation",
+              points: pts.join(" "),
+            })
+          );
         });
       }
 
@@ -426,45 +484,60 @@
       // halo blooms, spikes extend and the label appears only on hover.
       const namedRand = mulberry32(0x1357);
       enriched.forEach(function (p) {
-        const haloR  = 22 + p.magnitude * 18;
-        const coreR  = 1.5 + p.magnitude * 1.6;
+        const haloR = 22 + p.magnitude * 18;
+        const coreR = 1.5 + p.magnitude * 1.6;
         const spikeLen = 32 + p.magnitude * 22;
 
         const g = svgEl("g", { class: "ns-named", "data-id": p.id });
 
         const halo = svgEl("circle", {
           class: "ns-halo",
-          cx: p.cx, cy: p.cy, r: haloR,
+          cx: p.cx,
+          cy: p.cy,
+          r: haloR,
           fill: "url(#ns-glow-" + safeId(p.id) + ")",
           filter: "url(#ns-bloom)",
         });
 
-        const spike = svgEl("g", { class: "ns-spike",
-          transform: "translate(" + p.cx + "," + p.cy + ")" });
-        spike.appendChild(svgEl("line", {
-          class: "ns-spike-line",
-          x1: -spikeLen.toFixed(1), y1: 0, x2: spikeLen.toFixed(1), y2: 0,
-          stroke: "url(#ns-spike-h)", "stroke-width": "0.9",
-        }));
-        spike.appendChild(svgEl("line", {
-          class: "ns-spike-line",
-          x1: 0, y1: -spikeLen.toFixed(1), x2: 0, y2: spikeLen.toFixed(1),
-          stroke: "url(#ns-spike-v)", "stroke-width": "0.9",
-        }));
+        const spike = svgEl("g", { class: "ns-spike", transform: "translate(" + p.cx + "," + p.cy + ")" });
+        spike.appendChild(
+          svgEl("line", {
+            class: "ns-spike-line",
+            x1: -spikeLen.toFixed(1),
+            y1: 0,
+            x2: spikeLen.toFixed(1),
+            y2: 0,
+            stroke: "url(#ns-spike-h)",
+            "stroke-width": "0.9",
+          })
+        );
+        spike.appendChild(
+          svgEl("line", {
+            class: "ns-spike-line",
+            x1: 0,
+            y1: -spikeLen.toFixed(1),
+            x2: 0,
+            y2: spikeLen.toFixed(1),
+            stroke: "url(#ns-spike-v)",
+            "stroke-width": "0.9",
+          })
+        );
 
         const core = svgEl("circle", {
           class: "ns-core",
-          cx: p.cx, cy: p.cy, r: coreR,
+          cx: p.cx,
+          cy: p.cy,
+          r: coreR,
         });
         // Vary each star's twinkle so they don't pulse in unison.
         const tdur = 4 + namedRand() * 4;
         core.style.animationDuration = tdur.toFixed(2) + "s";
-        core.style.animationDelay    = (-namedRand() * tdur).toFixed(2) + "s";
+        core.style.animationDelay = (-namedRand() * tdur).toFixed(2) + "s";
 
         const labelOnLeft = p.cx > VB_W * 0.62;
         const label = svgEl("text", {
           class: "ns-label",
-          x: p.cx + (labelOnLeft ? -(haloR + 8) : (haloR + 8)),
+          x: p.cx + (labelOnLeft ? -(haloR + 8) : haloR + 8),
           y: p.cy + 4,
           "text-anchor": labelOnLeft ? "end" : "start",
         });
@@ -472,7 +545,9 @@
 
         const hit = svgEl("circle", {
           class: "ns-hit",
-          cx: p.cx, cy: p.cy, r: 26,
+          cx: p.cx,
+          cy: p.cy,
+          r: 26,
           tabindex: "0",
           role: "button",
           "aria-label": "Read story of " + (p.name || p.id),
@@ -502,8 +577,10 @@
         hit.addEventListener("mouseenter", activate);
         hit.addEventListener("mouseleave", deactivate);
         hit.addEventListener("focus", activate);
-        hit.addEventListener("blur",  deactivate);
-        hit.addEventListener("click", function () { openModal(p); });
+        hit.addEventListener("blur", deactivate);
+        hit.addEventListener("click", function () {
+          openModal(p);
+        });
         hit.addEventListener("keydown", function (e) {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
@@ -527,19 +604,21 @@
       if (!shootingG) return;
       // Bias the streaks roughly along the milky-way direction (115° feel),
       // so they feel like they belong to the scene.
-      const angle = (-25 + (Math.random() * 50)) * (Math.PI / 180); // ~ -25° to +25° from horizontal
+      const angle = (-25 + Math.random() * 50) * (Math.PI / 180); // ~ -25° to +25° from horizontal
       const len = 90 + Math.random() * 70;
 
       // Random start point on the upper-left half of the sky.
       const startX = Math.random() * VB_W * 0.65;
       const startY = Math.random() * VB_H * 0.55;
       const endX = startX + Math.cos(angle) * len;
-      const endY = startY + Math.sin(angle) * len + (len * 0.35); // slight downward slope
+      const endY = startY + Math.sin(angle) * len + len * 0.35; // slight downward slope
 
       const line = svgEl("line", {
         class: "ns-shooting",
-        x1: startX.toFixed(1), y1: startY.toFixed(1),
-        x2: startX.toFixed(1), y2: startY.toFixed(1),
+        x1: startX.toFixed(1),
+        y1: startY.toFixed(1),
+        x2: startX.toFixed(1),
+        y2: startY.toFixed(1),
       });
       const layer = shootingG;
       layer.appendChild(line);
@@ -555,13 +634,13 @@
         const cy = startY + (endY - startY) * ease;
         const tailLen = 30 + 50 * Math.min(1, ease * 1.3);
         const tx = cx - Math.cos(angle) * tailLen;
-        const ty = cy - Math.sin(angle) * tailLen - (tailLen * 0.35);
+        const ty = cy - Math.sin(angle) * tailLen - tailLen * 0.35;
         line.setAttribute("x1", tx.toFixed(1));
         line.setAttribute("y1", ty.toFixed(1));
         line.setAttribute("x2", cx.toFixed(1));
         line.setAttribute("y2", cy.toFixed(1));
         // Fade in then out
-        const alpha = t < 0.2 ? (t / 0.2) : (1 - (t - 0.2) / 0.8);
+        const alpha = t < 0.2 ? t / 0.2 : 1 - (t - 0.2) / 0.8;
         line.setAttribute("stroke", "rgba(255,255,255," + Math.max(0, alpha).toFixed(2) + ")");
         if (t < 1) {
           requestAnimationFrame(step);
@@ -627,7 +706,7 @@
 
       tooltip.style.transform = "none";
       tooltip.style.left = left.toFixed(1) + "px";
-      tooltip.style.top  = top.toFixed(1)  + "px";
+      tooltip.style.top = top.toFixed(1) + "px";
     }
 
     function hideTooltip() {
@@ -657,12 +736,14 @@
       const head = el("div", { class: "ns-modal-head" });
       head.appendChild(avatar(p, "ns-modal-avatar", "ns-modal-avatar-placeholder"));
       const heading = el("div");
-      heading.appendChild(el("h2", {
-        class: "ns-modal-name",
-        id: "nightsky-modal-title",
-        text: p.name || p.id,
-      }));
-      if (p.role)  heading.appendChild(el("p", { class: "ns-modal-role", text: p.role }));
+      heading.appendChild(
+        el("h2", {
+          class: "ns-modal-name",
+          id: "nightsky-modal-title",
+          text: p.name || p.id,
+        })
+      );
+      if (p.role) heading.appendChild(el("p", { class: "ns-modal-role", text: p.role }));
       const metaBits = [];
       if (p.star_meaning) metaBits.push(p.star_meaning);
       if (p.since) metaBits.push("since " + p.since);
@@ -688,7 +769,9 @@
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
 
-      setTimeout(function () { modalCard.focus(); }, 30);
+      setTimeout(function () {
+        modalCard.focus();
+      }, 30);
     }
 
     function closeModal() {
@@ -710,7 +793,7 @@
     // ── Reset reshuffles ambient layer (named stars stay put) ──────────
     if (resetBtn) {
       resetBtn.addEventListener("click", function () {
-        seed = (seed + 0x9E3779B1) >>> 0;
+        seed = (seed + 0x9e3779b1) >>> 0;
         renderAmbient();
       });
     }
@@ -729,7 +812,8 @@
       hideTooltip();
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
-        const prevW = VB_W, prevH = VB_H;
+        const prevW = VB_W,
+          prevH = VB_H;
         measure();
         if (Math.abs(VB_W - prevW) > 2 || Math.abs(VB_H - prevH) > 2) {
           computeEnriched();
@@ -757,10 +841,14 @@
     return ph;
   }
 
-  function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
+  function clamp(n, lo, hi) {
+    return Math.max(lo, Math.min(hi, n));
+  }
   function toNum(n, fallback) {
     const v = Number(n);
     return Number.isFinite(v) ? v : fallback;
   }
-  function safeId(id) { return String(id || "").replace(/[^a-zA-Z0-9_-]/g, "_"); }
+  function safeId(id) {
+    return String(id || "").replace(/[^a-zA-Z0-9_-]/g, "_");
+  }
 })();

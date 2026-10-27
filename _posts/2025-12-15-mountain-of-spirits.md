@@ -41,7 +41,7 @@ Maybe that's the transcendence.
 
 That reversed the causality.
 
-I was trying to _become_ a certain kind of person in order to be happy. But the real move is to _be happy_ and let the person I become emerge from that.
+I was trying to _become_ a certain kind of person in order to be happy. I had the order backward. Happiness could shape the person I became.
 
 When you're happy, you don't even think about it. Joy shifts your worldview. The rumination stops because there's no space for it. You're too busy _living_.
 

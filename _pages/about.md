@@ -87,14 +87,7 @@ bento_tiles:
     image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
     type: image
 
-  # Row 4: brazil tall + pixel board + on looking inwards + into the wild
-  - title: Brazil
-    label: Projects · Fun
-    link: /projects/Brazil/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417805/site/brazil_1.png
-    type: image
-    span: tall
-
+  # Row 4: pixel board + on looking inwards + into the wild
   - title: Pixel Board
     label: Pixels · Art
     link: /pixels/
@@ -109,7 +102,7 @@ bento_tiles:
     excerpt: "I have been looking outwards for too long. It's time to look inwards."
     bg: warm
 
-  # Row 5: into the wild + matchmaking + sapiens
+  # Row 5: into the wild + love in the void
   - title: Into the Wild
     label: Reading · Books
     link: /reading/
@@ -118,11 +111,20 @@ bento_tiles:
     author: Jon Krakauer
     badge: Read
 
+  - title: Love in the Void
+    label: Reading · Books
+    link: /reading/
+    image: assets/img/book_covers/love_in_the_void.jpg
+    type: book
+    author: Simone Weil
+    badge: Read
+
+  # Row 6: messages + the stranger + reading map
   - title: Messages to 24 People I Know
     label: Writing · Letters
     link: /philosophy/2025/03/05/messages-to-24-people
     type: text
-    excerpt: "24 honest, unfiltered messages to people who shaped my life — some will never read theirs."
+    excerpt: "24 honest, unfiltered messages to people who shaped my life. Some will never read theirs."
     span: wide
 
   - title: The Stranger
@@ -132,6 +134,12 @@ bento_tiles:
     type: book
     author: Albert Camus
     badge: Read
+
+  - title: The Reading Map
+    label: Projects · Art
+    link: /reading-highlights/
+    image: assets/img/reading_map.webp
+    type: image
 
 announcements:
   enabled: false
@@ -148,8 +156,8 @@ This is Ara (pronounced era like the beginning of an era). I live at the interse
 
 I like to find art and [beauty](projects/communalArt/) wherever I go and whatever I do, sometimes it's staring at an art piece, other times it's in the delight of seeing an old friend. In the past, I had been a wandering spirit so I travelled a lot and after fulfilling this rite of passage I have settled down in the Bay Area to build lifelong relationships.
 
-As a Canadian, I am a huge fan of adventures in nature and I am always up for a hike, surf or skiing trip. If you ask nicely, I can teach you any of those things. 
+As a Canadian, I am a huge fan of adventures in nature and I am always up for a hike, surf or skiing trip. If you ask nicely, I can teach you any of those things.
 
 I'm documenting more of my adventures and creative process these days. If you're curious about seeing life through my lens, here's a few links...
 
-*Psst, this whole site also runs as a tiny [desktop operating system](/desktop/). Go play.*
+_Psst, this whole site also runs as a tiny [desktop operating system](/desktop/). Go play._

@@ -29,7 +29,7 @@ OUT_PATH = sys.argv[2] if len(sys.argv) > 2 else os.path.join(_HERE, "highlights
 
 # Kindle inserts a "clipping limit" notice when you highlight too much; it is
 # noise that should never appear in the library. Some rows are *entirely* this
-# marker, others append it to a real highlight — strip it either way.
+# marker, others append it to a real highlight: strip it either way.
 CLIPPING_RE = re.compile(
     r"\s*<?\s*you have reached the clipping limit(?: for this item)?\.?\s*>?\s*",
     re.IGNORECASE,
