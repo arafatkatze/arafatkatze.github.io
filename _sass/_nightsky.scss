@@ -32,7 +32,8 @@ html:has(.nightsky-page) {
   // Gradients stay anchored to the viewport for a steady nebula glow, while
   // the star tile repeats down the full length of the page.
   background-image: radial-gradient(ellipse at 18% 16%, rgba(120, 80, 200, 0.28) 0%, transparent 55%),
-    radial-gradient(ellipse at 84% 84%, rgba(40, 110, 200, 0.26) 0%, transparent 60%), url("https://res.cloudinary.com/dozxd4znm/image/upload/v1794860186/site/nightsky/starfield.png"),
+    radial-gradient(ellipse at 84% 84%, rgba(40, 110, 200, 0.26) 0%, transparent 60%),
+    url("https://res.cloudinary.com/dozxd4znm/image/upload/v1794860186/site/nightsky/starfield.png"),
     radial-gradient(ellipse at top, #1c1f3d 0%, #0a0d1f 55%, #04050b 100%);
   background-repeat: no-repeat, no-repeat, repeat, no-repeat;
   background-size:
