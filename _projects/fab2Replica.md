@@ -2,7 +2,7 @@
 layout: page
 title: Scroll-to-Fly Effect
 description: An homage to fab2.com's flying camera — scroll and the page lifts off, twists, glides, and dives to the next stop. Rebuilt from scratch, phones included; content is placeholder for now.
-img: assets/img/fab2_replica.webp
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/projects/fab2-replica.webp
 importance: 1
 category: art
 hidden: true

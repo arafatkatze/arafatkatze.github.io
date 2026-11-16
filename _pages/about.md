@@ -27,14 +27,14 @@ bento_tiles:
   - title: Travel
     label: Explore · Globe
     link: /travel/
-    image: assets/img/travel/earth-day-from-iss.jpg
-    image_dark: assets/img/travel/earth-night-from-iss.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/about/earth-day-from-iss.jpg
+    image_dark: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/about/earth-night-from-iss.jpg
     type: image
 
   - title: arOS
     label: Play · Desktop
     link: /desktop/
-    image: assets/img/aros-tile.png
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/about/aros-tile.png
     type: card
     excerpt: "This whole site, reimagined as a tiny desktop operating system. Click to boot it up."
 
@@ -48,7 +48,7 @@ bento_tiles:
   - title: Letters to a Young Poet
     label: Reading · Books
     link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0393310396-L.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/book-covers/isbn-0393310396.jpg
     type: book
     author: Rainer Maria Rilke
     badge: Read
@@ -70,7 +70,7 @@ bento_tiles:
   - title: The Kite Runner
     label: Reading · Books
     link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/159463193X-L.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/book-covers/isbn-159463193X.jpg
     type: book
     author: Khaled Hosseini
     badge: Read
@@ -106,7 +106,7 @@ bento_tiles:
   - title: Into the Wild
     label: Reading · Books
     link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0385486804-L.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/book-covers/isbn-0385486804.jpg
     type: book
     author: Jon Krakauer
     badge: Read
@@ -114,7 +114,7 @@ bento_tiles:
   - title: Love in the Void
     label: Reading · Books
     link: /reading/
-    image: assets/img/book_covers/love_in_the_void.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/book-covers/love-in-the-void.jpg
     type: book
     author: Simone Weil
     badge: Read
@@ -130,7 +130,7 @@ bento_tiles:
   - title: The Stranger
     label: Reading · Books
     link: /reading/
-    image: https://covers.openlibrary.org/b/isbn/0679720200-L.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/book-covers/isbn-0679720200.jpg
     type: book
     author: Albert Camus
     badge: Read
@@ -138,7 +138,7 @@ bento_tiles:
   - title: The Reading Map
     label: Projects · Art
     link: /reading-highlights/
-    image: assets/img/reading_map.webp
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/projects/reading-map.webp
     type: image
 
 announcements:
