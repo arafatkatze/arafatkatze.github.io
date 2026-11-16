@@ -1,4 +1,8 @@
-const PAPERS = ["https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-1.png", "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-2.png", "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-3.png"];
+const PAPERS = [
+  "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-1.png",
+  "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-2.png",
+  "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-3.png",
+];
 
 // Choices + phrases live in sequences.txt (easy to edit). Loaded at runtime.
 let SEQUENCES = {};
@@ -31,9 +35,7 @@ const nextBtn = document.getElementById("next");
 const bgEl = document.getElementById("bg");
 
 // boil filters whose displacement we ramp up as the sequence deepens
-const dispMaps = Array.from(
-  document.querySelectorAll("#boil0 feDisplacementMap, #boil1 feDisplacementMap, #boil2 feDisplacementMap")
-);
+const dispMaps = Array.from(document.querySelectorAll("#boil0 feDisplacementMap, #boil1 feDisplacementMap, #boil2 feDisplacementMap"));
 const baseScales = dispMaps.map(function (m) {
   return parseFloat(m.getAttribute("scale"));
 });
@@ -199,16 +201,13 @@ function buildRings(stage) {
     r.style.bottom = inset + "px";
     r.style.left = inset + "px";
     // faint chromatic split between neighbouring rings
-    r.style.borderColor =
-      i % 2 === 0 ? "rgba(90, 70, 170, 0.30)" : "rgba(70, 150, 190, 0.26)";
+    r.style.borderColor = i % 2 === 0 ? "rgba(90, 70, 170, 0.30)" : "rgba(70, 150, 190, 0.26)";
     rings.appendChild(r);
   }
   // keep the text comfortably inside the innermost frame
   const safe = maxInner + 36;
-  seqLine.style.maxWidth =
-    Math.max(180, window.innerWidth - 2 * safe) + "px";
-  seqLine.style.maxHeight =
-    Math.max(120, window.innerHeight - 2 * safe) + "px";
+  seqLine.style.maxWidth = Math.max(180, window.innerWidth - 2 * safe) + "px";
+  seqLine.style.maxHeight = Math.max(120, window.innerHeight - 2 * safe) + "px";
 }
 
 function setIntensity(stage) {
@@ -218,8 +217,7 @@ function setIntensity(stage) {
   });
   seqGrain.style.opacity = Math.min(0.05 + stage * 0.018, 0.26).toFixed(3);
   const off = (0.6 + stage * 0.25).toFixed(2);
-  seqLine.style.textShadow =
-    off + "px 0 rgba(190, 40, 90, 0.4), -" + off + "px 0 rgba(40, 80, 200, 0.4)";
+  seqLine.style.textShadow = off + "px 0 rgba(190, 40, 90, 0.4), -" + off + "px 0 rgba(40, 80, 200, 0.4)";
 }
 
 function renderSeq() {
@@ -258,10 +256,7 @@ function randomGradient() {
   const l1 = 60 + Math.floor(Math.random() * 18);
   const l2 = 58 + Math.floor(Math.random() * 18);
   const ang = Math.floor(Math.random() * 360);
-  return (
-    "linear-gradient(" + ang + "deg, hsl(" + h1 + "," + s + "%," + l1 + "%), hsl(" +
-    h2 + "," + s + "%," + l2 + "%))"
-  );
+  return "linear-gradient(" + ang + "deg, hsl(" + h1 + "," + s + "%," + l1 + "%), hsl(" + h2 + "," + s + "%," + l2 + "%))";
 }
 
 function makePanel(depth) {
