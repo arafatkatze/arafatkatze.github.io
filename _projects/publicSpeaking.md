@@ -2,7 +2,7 @@
 layout: page
 title: Public Speaking
 description: Talks and conference videos on AI agents, evals, and machine learning
-img: https://img.youtube.com/vi/QuuIywMG4s8/maxresdefault.jpg
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/public-speaking/thumbnail.jpg
 importance: 1
 category: work
 ---

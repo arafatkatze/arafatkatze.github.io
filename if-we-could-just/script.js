@@ -1,4 +1,4 @@
-const PAPERS = ["img/paper-1.png", "img/paper-2.png", "img/paper-3.png"];
+const PAPERS = ["https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-1.png", "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-2.png", "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-3.png"];
 
 // Choices + phrases live in sequences.txt (easy to edit). Loaded at runtime.
 let SEQUENCES = {};

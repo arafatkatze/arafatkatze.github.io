@@ -79,7 +79,7 @@ The human row is two different medians: 16/42 is the median of contestants' tota
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="assets/img/deepseek-imo-gold/score-vs-cost.webp"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041688/site/deepseek-imo-gold/score-vs-cost.webp"
     alt="IMO 2026 score versus cost for each model"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -92,7 +92,7 @@ In 2025, an advanced version of Gemini Deep Think achieved a gold medal score wo
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="assets/img/deepseek-imo-gold/gemini-imo-gold.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041688/site/deepseek-imo-gold/gemini-imo-gold.jpg"
     alt="Gemini achieved gold medal level in the International Mathematical Olympiad"
     class="img-fluid rounded z-depth-1" %}
 </div>
