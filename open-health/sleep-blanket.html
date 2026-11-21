@@ -225,17 +225,32 @@ cv.addEventListener("mousemove",e=>{
   if(!hover||hover.key!==found.key){hover=found; draw();}
   const n=byDate.get(found.key), r2=daily.get(found.key)||{};
   const title=found.dt.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"long",year:"numeric",timeZone:"UTC"});
-  let h=`<div class="d">Night of ${title}</div>`;
-  if(n){
-    const first=n.s.search(/[2-5]/), last=n.s.length-1-[...n.s].reverse().join("").search(/[2-5]/);
-    h+=`<div class="big">${fmtH(n.a)}</div><div>asleep, ${clock(first)} to ${clock(last+1)}</div>`;
-    const tot=n.a+(n.st[1]||0);
-    h+=`<div class="mini">${[4,3,2,5,1].filter(k=>n.st[k]).map(k=>`<span style="flex:${n.st[k]};background:var(${STAGES[k][1]})"></span>`).join("")}</div>`;
-    h+=[4,3,2,1,5].filter(k=>n.st[k]).map(k=>`<div class="row"><span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(${STAGES[k][1]});margin-right:6px"></i>${STAGES[k][0]}</span><b>${fmtH(n.st[k])}</b></div>`).join("");
-    const hrs=n.hr.filter(v=>v>0); if(hrs.length) h+=`<div class="row" style="margin-top:8px"><span>Lowest night HR</span><b>${Math.min(...hrs)} bpm</b></div>`;
-  } else h+=`<div style="margin:6px 0">No sleep recorded this night.</div>`;
-  if(r2.rhr) h+=`<div class="row"><span>Resting HR</span><b>${r2.rhr} bpm</b></div>`;
-  if(r2.steps) h+=`<div class="row"><span>Steps that day</span><b>${r2.steps.toLocaleString()}</b></div>`;
+  const day=found.dt.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"long",year:"numeric",timeZone:"UTC"});
+  let h="";
+  if(mode==="stage"){
+    h=`<div class="d">Night of ${title}</div>`;
+    if(n){
+      const first=n.s.search(/[2-5]/), last=n.s.length-1-[...n.s].reverse().join("").search(/[2-5]/);
+      h+=`<div class="big">${fmtH(n.a)}</div><div>asleep, ${clock(first)} to ${clock(last+1)}</div>`;
+      h+=`<div class="mini">${[4,3,2,5,1].filter(k=>n.st[k]).map(k=>`<span style="flex:${n.st[k]};background:var(${STAGES[k][1]})"></span>`).join("")}</div>`;
+      h+=[4,3,2,1,5].filter(k=>n.st[k]).map(k=>`<div class="row"><span><i style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(${STAGES[k][1]});margin-right:6px"></i>${STAGES[k][0]}</span><b>${fmtH(n.st[k])}</b></div>`).join("");
+    } else h+=`<div style="margin:6px 0">No sleep recorded this night.</div>`;
+  } else if(mode==="hr"){
+    h=`<div class="d">Night of ${title}</div>`;
+    const hrs=n?n.hr.filter(v=>v>0):[];
+    if(hrs.length){
+      const m=MODES.hr, avg=Math.round(hrs.reduce((a,b)=>a+b,0)/hrs.length);
+      h+=`<div class="big">${avg} bpm</div><div>average heart rate overnight</div>`;
+      h+=`<div class="mini">${n.hr.map(v=>`<span style="flex:1;background:${v>0?rgb(ramp(m.stops,(v-m.lo)/(m.hi-m.lo))):"transparent"}"></span>`).join("")}</div>`;
+      h+=`<div class="row"><span>Lowest</span><b>${Math.min(...hrs)} bpm</b></div><div class="row"><span>Highest</span><b>${Math.max(...hrs)} bpm</b></div>`;
+    } else h+=`<div style="margin:6px 0">No heart rate recorded this night.</div>`;
+  } else if(mode==="rhr"){
+    h=`<div class="d">${day}</div>`;
+    h+= r2.rhr ? `<div class="big">${r2.rhr} bpm</div><div>resting heart rate</div>` : `<div style="margin:6px 0">No resting heart rate recorded this day.</div>`;
+  } else {
+    h=`<div class="d">${day}</div>`;
+    h+= r2.steps ? `<div class="big">${r2.steps.toLocaleString()}</div><div>steps that day</div>` : `<div style="margin:6px 0">No steps recorded this day.</div>`;
+  }
   tip.innerHTML=h; tip.style.opacity=1;
   const tw=tip.offsetWidth, th=tip.offsetHeight;
   let tx=e.clientX+18, ty=e.clientY-20; if(tx+tw>innerWidth-12) tx=e.clientX-tw-18; if(ty+th>innerHeight-12) ty=innerHeight-th-12; if(ty<12) ty=12;

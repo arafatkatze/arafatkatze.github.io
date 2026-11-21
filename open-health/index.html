@@ -203,7 +203,7 @@
 
       <p>
         For eight years my health data sat in separate places: a 23andMe genotype file, an Apple Watch export, a DEXA report, and blood test PDFs from
-        four labs in India and Canada. I had never looked at most of it.
+        four labs. I had never looked at most of it.
       </p>
       <p>
         So I put it all in one folder, parsed it on my laptop and drew three pictures from it. Each one is an interactive page. Hover anything to read
@@ -243,35 +243,6 @@
           </div>
         </a>
       </div>
-
-      <h2>The data</h2>
-      <p>Each page is a single HTML file that makes no network requests. The data sits inside it. You can also download it as JSON:</p>
-      <ul>
-        <li>
-          <a href="data/genome.json"><code>genome.json</code></a
-          >: marker counts per 2 Mb window for each chromosome, and ancestry segments
-        </li>
-        <li>
-          <a href="data/blood-and-days.json"><code>blood-and-days.json</code></a
-          >: every lab value with its reference range, the DEXA scan, and daily steps, sleep and workouts
-        </li>
-        <li>
-          <a href="data/sleep.json"><code>sleep.json</code></a
-          >: sleep stages in ten-minute steps, overnight heart rate, resting heart rate and steps
-        </li>
-      </ul>
-
-      <h2>What's left out</h2>
-      <p>
-        I removed date of birth, health card numbers and lab IDs from the reports, along with individual genetic variants, workout routes and other
-        location data. No one else's records are here. A place shows up on the timeline only where a lab or scan puts me there.
-      </p>
-
-      <h2>How it was made</h2>
-      <p>
-        A small Python script turns the parsed exports into SVG and canvas drawings. I made the video in code with Remotion from captures of the
-        pages, and generated the music with ElevenLabs.
-      </p>
 
       <div class="sign">Ara · November 2026</div>
     </div>
