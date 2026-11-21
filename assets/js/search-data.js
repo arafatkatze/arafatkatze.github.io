@@ -340,6 +340,11 @@ ninja.data = [{
           description: "a small constellation of the people who shaped me — hover any star, read their story.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/nightsky/";
+            },},{id: "projects-open-sourcing-my-health",
+          title: 'Open-sourcing my health',
+          description: "Eight years of my own health data, from genome to blood tests to sleep, drawn as three interactive pages, with a short film and the data behind each one.",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/openHealth/";
             },},{id: "projects-open-sourcing-evals-for-open-weight-agents",
           title: 'Open-sourcing evals for open-weight agents',
           description: "The Hill Climber&#39;s Checklist for evaluating open-weight agents, with scores, tradeoffs, and public traces.",
