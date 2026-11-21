@@ -8,7 +8,7 @@
 <meta property="og:title" content="Open-sourcing my health">
 <meta property="og:description" content="Eight years of my own health data, drawn as three interactive pages, with the data behind each one.">
 <meta property="og:image" content="https://arafatkatze.com/open-health/media/poster.jpg">
-<meta property="og:video" content="https://arafatkatze.com/open-health/media/open-health.mp4">
+<meta property="og:video" content="https://www.youtube.com/watch?v=kobrwfQNfHQ">
 <meta property="og:type" content="video.other">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f3eee3'/%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='%23c96a48' stroke-width='5'/%3E%3C/svg%3E">
@@ -31,7 +31,8 @@ h1 i{color:var(--clay)}
 h2{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--mute);font-weight:500;margin:56px 0 14px}
 p{font-size:19px;color:var(--ink2);margin:0 0 18px}
 .film{margin:0 -24px 36px;background:#14110f}
-.film video{display:block;width:100%;height:auto;aspect-ratio:16/9}
+.film iframe{display:block;width:100%;height:auto;aspect-ratio:16/9;border:0}
+.alt{font-family:var(--sans);font-size:13px;color:var(--mute);margin:-24px 0 32px}
 @media(min-width:900px){.film{margin:0 -120px 40px;border-radius:6px;overflow:hidden;box-shadow:0 24px 60px rgba(42,37,31,.18)}}
 .pages{display:grid;gap:28px;margin-top:8px}
 .page{display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:start;text-decoration:none}
@@ -55,11 +56,9 @@ code{font-family:ui-monospace,Menlo,monospace;font-size:.88em}
   <h1>Open-sourcing my <i>health</i></h1>
 
   <div class="film">
-    <video controls playsinline preload="metadata" poster="media/poster.jpg">
-      <source src="media/open-health.mp4" type="video/mp4">
-      <a href="media/open-health.mp4">Download the video (MP4, 37 s)</a>
-    </video>
+    <iframe src="https://www.youtube-nocookie.com/embed/kobrwfQNfHQ?rel=0&amp;modestbranding=1&amp;playsinline=1" title="Open-sourcing my health" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
   </div>
+  <p class="alt"><a href="https://youtu.be/kobrwfQNfHQ">Watch on YouTube</a> · <a href="media/open-health.mp4">Download the MP4</a></p>
 
   <p>For eight years my health data sat in separate places: a 23andMe genotype file, an Apple Watch export, a DEXA report, and blood test PDFs from four labs in India and Canada. I had never looked at most of it.</p>
   <p>So I put it all in one folder, parsed it on my laptop and drew three pictures from it. Each one is an interactive page. Hover anything to read the number underneath.</p>
