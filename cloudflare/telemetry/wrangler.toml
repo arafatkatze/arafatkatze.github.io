@@ -2,17 +2,19 @@ name = "ara-site-telemetry"
 main = "src/index.js"
 compatibility_date = "2026-11-01"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = false
+preview_urls = false
 
 # Runs in front of the whole site. Requests pass straight through.
 routes = [{ pattern = "arafatkatze.com/*", zone_name = "arafatkatze.com" }]
 
 # If the Worker ever errors, Cloudflare serves the site without it.
-# (Set in the dashboard too: Workers Routes > Request limit failure mode > Fail open.)
+# (Set in the dashboard: Workers Routes > Request limit failure mode > Fail open. Done.)
 
 [[d1_databases]]
 binding = "DB"
 database_name = "ara-site-telemetry"
-database_id = "REPLACE_AFTER_wrangler_d1_create"
+database_id = "a697e7b7-a09c-45d2-b0c5-18e4fbb91aa2"
 
 [triggers]
 # Daily at 14:00 UTC: log retention + AI-mention monitor.
