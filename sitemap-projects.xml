@@ -1,0 +1,10 @@
+---
+permalink: /sitemap-projects.xml
+sitemap: false
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Write-ups published from their own repositories under this domain. jekyll-sitemap only lists pages built here. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{ site.url }}/inference-math/</loc></url>
+  <url><loc>{{ site.url }}/nemotron-3.5-gb300-recipes/</loc></url>
+</urlset>
