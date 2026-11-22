@@ -5,10 +5,10 @@
 //             visitors never wait on logging.
 // markdown:   requests with Accept: text/markdown get the page's .md copy.
 // /_stats:    private dashboard (needs ?key=STATS_KEY once; sets a cookie).
-// scheduled:  daily AI-mention monitor + log retention.
+// scheduled:  daily log retention. (The AI-mention check runs locally:
+//             scripts/check-mentions.mjs.)
 
 import { classify, aiReferrer } from "./classify.js";
-import { runMonitor } from "./monitor.js";
 import { renderDashboard } from "./dashboard.js";
 
 const ASSET = /\.(css|js|mjs|map|png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|otf|eot|mp4|webm|mp3|wav|ogg|ply|glb|gltf|wasm|zip|csv)$/i;
@@ -37,7 +37,6 @@ export default {
     ctx.waitUntil(
       (async () => {
         await env.DB.prepare(`DELETE FROM hits WHERE day < date('now', ?)`).bind(`-${RETENTION_DAYS} days`).run();
-        await runMonitor(env);
       })()
     );
   },
@@ -134,10 +133,6 @@ async function stats(request, env, ctx, url) {
     headers["set-cookie"] = `stats_key=${encodeURIComponent(env.STATS_KEY)}; Path=/_stats; Max-Age=31536000; HttpOnly; Secure; SameSite=Strict`;
   }
 
-  if (url.pathname === "/_stats/run-monitor" && request.method === "POST") {
-    const result = await runMonitor(env);
-    return Response.json(result, { headers });
-  }
   if (url.pathname === "/_stats/data.json") {
     const days = clampDays(url.searchParams.get("days"));
     const rows = await env.DB.prepare(`SELECT * FROM hits WHERE day >= date('now', ?) ORDER BY id DESC LIMIT 5000`).bind(`-${days} days`).all();

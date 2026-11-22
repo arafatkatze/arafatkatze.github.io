@@ -119,13 +119,13 @@ nav a{margin-right:10px}
     .join("")}</div>
 <div class="legend"><span><i class="a"></i>assistant</span><span><i class="s"></i>search</span><span><i class="t"></i>training</span></div>
 
-<h2>Do AI assistants mention you? (latest daily run${lastRun[0] ? `, ${esc(lastRun[0].run_id.slice(0, 16).replace("T", " "))} UTC` : ""})</h2>
+<h2>Do AI assistants mention you? (latest check${lastRun[0] ? `, ${esc(lastRun[0].run_id.slice(0, 16).replace("T", " "))} UTC` : ""})</h2>
 ${
   questions.length
     ? `<table><tr><th>Question</th>${providers.map((p) => `<th>${esc(p)}</th>`).join("")}</tr>${questions
         .map((qq) => `<tr><td>${esc(qq)}</td>${providers.map((p) => cell(qq, p)).join("")}</tr>`)
         .join("")}</table>`
-    : `<p class="empty">No monitor runs yet. The first runs on the next daily schedule.</p>`
+    : `<p class="empty">No checks yet. Run <code>npm run check</code> in cloudflare/telemetry on your Mac.</p>`
 }
 
 <h2>Mentions over time</h2>
