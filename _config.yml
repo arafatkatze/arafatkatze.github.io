@@ -294,6 +294,7 @@ jekyll-minifier:
       "computer-use-field-notes/index.html",
       "llm-viz/index.html",
       "llm-viz/assets/styles.css",
+      "open-health/*.html",
     ]
 
 # -----------------------------------------------------------------------------

@@ -2,14 +2,14 @@
 layout: page
 title: A Practical Guide to Hill Climbing
 description: Iterative improvement for AI coding agents
-img: https://cline.ghost.io/content/images/2026/02/Juan_P_Flores_mountains_and_river_with__hundreds_of_four-poin_c036eec3-370e-4542-996a-80eb18f5fd8a_0.png
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/hero.png
 importance: 2
 category: work
 ---
 
 <div class="col-sm mt-3 mt-md-0 mx-auto">
     {% include figure.liquid
-    path="https://cline.ghost.io/content/images/2026/02/Juan_P_Flores_mountains_and_river_with__hundreds_of_four-poin_c036eec3-370e-4542-996a-80eb18f5fd8a_0.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/hero.png"
     alt="A practical guide to hill climbing"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -26,7 +26,7 @@ Most coding agent evaluations are either single-turn or too saturated. However, 
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 700px;">
     {% include figure.liquid
-    path="https://cline.ghost.io/content/images/2026/02/data-src-image-72f8a2a6-5646-4239-b103-f0cbab3a64a3.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/figure-1.png"
     alt="Comparison: Single-Turn vs Agent Evaluations"
     caption="Source: Demystifying evals for AI agents"
     class="img-fluid rounded z-depth-1" %}
@@ -46,7 +46,7 @@ We run harbor locally which downloads the entire terminal bench dataset then spi
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 700px;">
     {% include figure.liquid
-    path="https://cline.ghost.io/content/images/2026/02/data-src-image-96be27ec-c32d-4218-a7ea-8eef56125f37.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/figure-2.png"
     alt="Harbor architecture: dataset download, parallel container runs on Modal"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -209,7 +209,7 @@ As an example we followed the steps above and our scores for Opus 4.5 out of the
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 700px;">
     {% include figure.liquid
-    path="https://cline.ghost.io/content/images/2026/02/data-src-image-f3dbe96f-7c0e-41d9-ba03-40dcc20b8c7e.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/figure-3.png"
     alt="Cline Evals score on Terminal Bench (Opus 4.5): progression from 43% to 57%"
     caption="Cline Evals score on Terminal Bench (Opus 4.5)"
     class="img-fluid rounded z-depth-1" %}

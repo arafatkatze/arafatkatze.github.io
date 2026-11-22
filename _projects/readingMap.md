@@ -2,7 +2,7 @@
 layout: page
 title: The Reading Map
 description: An interactive galaxy of 10,000+ reading highlights, placed by meaning (sentence embeddings → UMAP) and clustered into themes like love, money, fear, and writing. Hover a point to read the quote and where it's from; zoom, pan, and isolate a theme. Fast, self-contained, and mobile-friendly — with a banner back to the full quotes list and flashcards.
-img: assets/img/reading_map.webp
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/projects/reading-map.webp
 importance: 1
 category: art
 redirect: /reading-highlights/

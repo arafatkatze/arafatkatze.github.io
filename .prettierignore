@@ -16,6 +16,11 @@ _data/citations.yml
 _includes/cv/list_groups.html
 _includes/projects_horizontal.html
 _includes/projects.html
+# Generated standalone pages and minified data for /open-health/ (rebuilt from templates; keep byte-identical)
+open-health/data/*.json
+open-health/dna-portrait.html
+open-health/life-timeline.html
+open-health/sleep-blanket.html
 
 # Liquid inside Markdown: Prettier breaks the loops
 _includes/ai_profile.md

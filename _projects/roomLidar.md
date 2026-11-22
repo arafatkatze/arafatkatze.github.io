@@ -2,7 +2,7 @@
 layout: page
 title: My room, scanned
 description: iPhone LiDAR → interactive photoreal 3D room, LiteReality-style
-img: /room/media/dollhouse_a_tex.jpg
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/room/dollhouse-a-tex.jpg
 importance: 2
 category: fun
 redirect: /room/

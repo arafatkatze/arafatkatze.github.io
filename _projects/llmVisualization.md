@@ -2,7 +2,7 @@
 layout: page
 title: LLM Visualization
 description: A GPT drawn at full resolution — all 85,728 parameters, every activation, and a guided walkthrough from tokens to output probabilities. Runs the model live in your browser.
-img: assets/img/llm_viz.webp
+img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/projects/llm-viz.webp
 importance: 1
 category: work
 redirect: /llm-viz/

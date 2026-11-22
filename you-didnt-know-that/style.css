@@ -3,9 +3,12 @@
   --ink-soft: rgba(74, 59, 34, 0.62);
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -28,7 +31,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image: url(img/paper-1.png);
+  background-image: url(https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/if-we-could-just/paper-1.png);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -55,11 +58,21 @@ body {
 }
 
 @keyframes grain {
-  0%   { transform: translate(0, 0); }
-  25%  { transform: translate(-3%, 2%); }
-  50%  { transform: translate(2%, -2%); }
-  75%  { transform: translate(-2%, -3%); }
-  100% { transform: translate(3%, 2%); }
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-3%, 2%);
+  }
+  50% {
+    transform: translate(2%, -2%);
+  }
+  75% {
+    transform: translate(-2%, -3%);
+  }
+  100% {
+    transform: translate(3%, 2%);
+  }
 }
 
 .defs {
@@ -90,7 +103,9 @@ body {
   letter-spacing: 0.01em;
   color: var(--ink);
   /* static print fringe so the anchor never jitters or clips */
-  text-shadow: 0.5px 0 rgba(150, 40, 40, 0.16), -0.5px 0 rgba(40, 70, 150, 0.16);
+  text-shadow:
+    0.5px 0 rgba(150, 40, 40, 0.16),
+    -0.5px 0 rgba(40, 70, 150, 0.16);
 }
 
 .frame {
@@ -111,20 +126,28 @@ body {
 
 .line span {
   /* faint analog chromatic-print fringing */
-  text-shadow: 0.6px 0 rgba(150, 40, 40, 0.18), -0.6px 0 rgba(40, 70, 150, 0.18);
+  text-shadow:
+    0.6px 0 rgba(150, 40, 40, 0.18),
+    -0.6px 0 rgba(40, 70, 150, 0.18);
   text-decoration: none;
   text-decoration-thickness: 0.06em;
   text-underline-offset: 0.18em;
-  transition: color 0.2s ease, text-shadow 0.2s ease;
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
 }
 
 /* underline the words ONLY while hovering the frame */
 .frame:hover .line span {
   color: #3a2c12;
   text-decoration: underline;
-  text-shadow: 1px 0 rgba(150, 40, 40, 0.3), -1px 0 rgba(40, 70, 150, 0.3);
+  text-shadow:
+    1px 0 rgba(150, 40, 40, 0.3),
+    -1px 0 rgba(40, 70, 150, 0.3);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .grain { animation: none; }
+  .grain {
+    animation: none;
+  }
 }

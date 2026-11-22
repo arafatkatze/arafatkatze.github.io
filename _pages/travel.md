@@ -316,7 +316,7 @@ nav_order: 6
 
 </style>
 
-*The globe takes a few seconds to load.*
+_The globe takes a few seconds to load._
 
 I [used to travel](https://arafatkatze.github.io/philosophy/2026/01/05/travelling.html) full-time with just a carry-on. 30+ countries, one 18kg suitcase. If you're curious how I fit my entire life into a single bag, [try packing it yourself](/pack/).
 
@@ -457,15 +457,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   var preloadDay = new Image();
-  preloadDay.src = '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg';
+  preloadDay.src = 'https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860190/site/travel/earth-blue-marble.jpg';
   var preloadNight = new Image();
-  preloadNight.src = '//unpkg.com/three-globe/example/img/earth-night.jpg';
+  preloadNight.src = 'https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860190/site/travel/earth-night.jpg';
 
-  var nightSkyUrl = '//unpkg.com/three-globe/example/img/night-sky.png';
+  var nightSkyUrl = 'https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860191/site/travel/night-sky.png';
 
   var themes = {
     dark: {
-      globeImage: '//unpkg.com/three-globe/example/img/earth-night.jpg',
+      globeImage: 'https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860190/site/travel/earth-night.jpg',
       pointColor: '#e8a6a6',
       labelColor: 'rgba(232, 166, 166, 0.75)',
       arcColor: 'rgba(232, 166, 166, 0.3)',
@@ -473,7 +473,7 @@ document.addEventListener("DOMContentLoaded", function () {
       atmosphereAltitude: 0.2
     },
     light: {
-      globeImage: '//unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
+      globeImage: 'https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860190/site/travel/earth-blue-marble.jpg',
       pointColor: '#e8a6a6',
       labelColor: 'rgba(232, 166, 166, 0.75)',
       arcColor: 'rgba(232, 166, 166, 0.3)',
