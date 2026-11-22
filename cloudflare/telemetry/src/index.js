@@ -3,6 +3,7 @@
 // fetch:      passes every request straight through (Cloudflare's cache still
 //             applies), then logs it to D1 after the response is sent, so
 //             visitors never wait on logging.
+// markdown:   requests with Accept: text/markdown get the page's .md copy.
 // /_stats:    private dashboard (needs ?key=STATS_KEY once; sets a cookie).
 // scheduled:  daily AI-mention monitor + log retention.
 
@@ -21,6 +22,12 @@ export default {
       return stats(request, env, ctx, url);
     }
 
+    const md = await markdownFor(request, url);
+    if (md) {
+      ctx.waitUntil(log(request, md.response, env, url, md.path).catch(() => {}));
+      return md.response;
+    }
+
     const response = await fetch(request);
     ctx.waitUntil(log(request, response, env, url).catch(() => {}));
     return response;
@@ -36,7 +43,25 @@ export default {
   },
 };
 
-async function log(request, response, env, url) {
+// Markdown for agents: a request that asks for text/markdown gets the
+// Markdown copy the site build publishes next to each page (the homepage
+// gets the AI profile). Anything without a copy falls back to HTML.
+async function markdownFor(request, url) {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const accept = request.headers.get("accept") || "";
+  if (!/text\/markdown/i.test(accept) || ASSET.test(url.pathname) || /\.(md|txt)$/i.test(url.pathname)) return null;
+  const p = url.pathname;
+  const path = p === "/" ? "/ai.md" : p.endsWith("/") ? `${p}index.md` : p.endsWith(".html") ? p.replace(/\.html$/, ".md") : `${p}.md`;
+  const res = await fetch(new Request(new URL(path, url), { method: request.method, headers: request.headers }));
+  if (!res.ok) return null;
+  const response = new Response(res.body, res);
+  response.headers.set("content-type", "text/markdown; charset=utf-8");
+  response.headers.set("vary", "Accept");
+  response.headers.set("link", `<${url.origin}${p}>; rel="canonical"`);
+  return { response, path };
+}
+
+async function log(request, response, env, url, servedPath) {
   if (request.method !== "GET" && request.method !== "HEAD") return;
   if (url.pathname.startsWith("/cdn-cgi/")) return;
 
@@ -64,7 +89,7 @@ async function log(request, response, env, url) {
     .bind(
       now.toISOString(),
       day,
-      url.pathname.slice(0, 300),
+      (servedPath || url.pathname).slice(0, 300),
       response.status,
       response.headers.get("cf-cache-status") || null,
       ua.slice(0, 400),

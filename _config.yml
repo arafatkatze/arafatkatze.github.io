@@ -208,6 +208,7 @@ kramdown:
 include: ["_pages", "_scripts"]
 exclude:
   - bin/
+  - AGENTS.md
   - cloudflare/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
