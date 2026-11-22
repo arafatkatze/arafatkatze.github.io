@@ -1,8 +1,9 @@
-// Daily check: do AI assistants mention Ara when asked the questions a
+// Check: do AI assistants mention Ara when asked the questions a
 // recruiter, founder or conference organizer would ask?
 //
 // Each provider runs with live web search, like the consumer products do.
-// A provider is skipped when its API key secret is not set.
+// A provider is skipped when its API key is not set.
+// Runs locally from scripts/check-mentions.mjs; nothing here touches Cloudflare.
 
 import Anthropic from "@anthropic-ai/sdk";
 
@@ -48,35 +49,19 @@ export async function runMonitor(env, { questions = QUESTIONS, providers } = {})
   }
   const results = await Promise.all(jobs);
 
-  const stmt = env.DB.prepare(
-    `INSERT INTO mentions (ts, day, run_id, provider, model, question, mentioned, linked_site, citations, answer, error)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  );
-  await env.DB.batch(
-    results.map((r) => {
-      const cites = [...new Set(r.citations || [])].slice(0, 40);
-      const mentioned = NAME_RE.test(r.text || "") ? 1 : 0;
-      const linked = SITE_RE.test(r.text || "") || cites.some((c) => SITE_RE.test(c)) ? 1 : 0;
-      return stmt.bind(
-        new Date().toISOString(),
-        day,
-        runId,
-        r.provider,
-        r.model,
-        r.question,
-        mentioned,
-        linked,
-        JSON.stringify(cites),
-        (r.text || "").slice(0, 6000),
-        r.error || null
-      );
-    })
-  );
   return {
     runId,
-    asked: results.length,
-    mentioned: results.filter((r) => NAME_RE.test(r.text || "")).length,
-    errors: results.filter((r) => r.error).map((r) => `${r.provider}: ${r.error}`),
+    day,
+    results: results.map((r) => {
+      const citations = [...new Set(r.citations || [])].slice(0, 40);
+      return {
+        ...r,
+        citations,
+        text: (r.text || "").slice(0, 6000),
+        mentioned: NAME_RE.test(r.text || "") ? 1 : 0,
+        linked: SITE_RE.test(r.text || "") || citations.some((c) => SITE_RE.test(c)) ? 1 : 0,
+      };
+    }),
   };
 }
 

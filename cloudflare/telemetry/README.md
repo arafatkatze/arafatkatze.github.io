@@ -12,35 +12,42 @@ A Cloudflare Worker that sits in front of arafatkatze.com.
   best signal), `ai_search`, `ai_training`, `search`, `social`, `other_bot`,
   `suspect` (a "browser" coming from a cloud network or with ancient Chrome),
   `human`. See `src/classify.js`.
-- **Daily monitor.** At 14:00 UTC it asks Claude, ChatGPT, Perplexity and
-  Gemini (each with live web search) eight questions a recruiter or
-  conference organizer might ask, and records whether Ara is named and whether
-  arafatkatze.com is cited. See `src/monitor.js`. Providers without a key are
-  skipped.
+- **AI-mention check (runs on your Mac).** `npm run check` asks Claude,
+  ChatGPT, Perplexity and Gemini (each with live web search) eight questions a
+  recruiter or conference organizer might ask, prints whether Ara is named and
+  whether arafatkatze.com is cited, and saves the answers to the same database
+  so they appear on the dashboard. API keys come from 1Password and never go to
+  Cloudflare. See `scripts/check-mentions.mjs`.
 - **Dashboard.** `https://arafatkatze.com/_stats?key=STATS_KEY` (sets a cookie,
   so later visits need no key). Anyone else gets a 404. Raw data at
-  `/_stats/data.json`. Run the monitor now with
-  `curl -X POST "https://arafatkatze.com/_stats/run-monitor?key=STATS_KEY"`.
+  `/_stats/data.json`. The key is in the macOS Keychain:
+  `security find-generic-password -s arafatkatze-stats-key -w | pbcopy`.
 
-## Deploy
-
-Needs Workers Paid ($5/month): the monitor runs well past the free plan's
-10 ms CPU limit, and Paid also lifts the 100k requests/day cap.
+## Run the AI-mention check
 
 ```sh
 cd cloudflare/telemetry
 npm install
-npx wrangler login
-npx wrangler d1 create ara-site-telemetry   # paste the id into wrangler.toml
-npm run db:init
-npx wrangler secret put STATS_KEY
-npx wrangler secret put HASH_SALT
-npx wrangler secret put ANTHROPIC_API_KEY   # and the other provider keys you want
-npm run deploy
+npm run check -- --dry-run      # free: lists the questions and which keys were found
+secrets-run --provider anthropic --provider openai-default --provider gemini -- npm run check
 ```
 
-Then in the Cloudflare dashboard, Workers Routes, set the route's failure mode
-to **Fail open** so the site keeps working if the Worker hits a limit.
+Add `--questions 2` for a cheap test, `--providers anthropic` for one
+provider, or `--no-save` to print without saving. Saving uses Wrangler's
+login (`npx wrangler login`).
+
+## Deploy the Worker
+
+Already deployed (free plan). To redeploy after changes:
+
+```sh
+cd cloudflare/telemetry
+npx wrangler deploy
+```
+
+First-time setup was: `wrangler d1 create ara-site-telemetry` (id in
+`wrangler.toml`), `npm run db:init`, `wrangler secret put STATS_KEY` and
+`HASH_SALT`, and setting the route to **Fail open** in the dashboard.
 
 ## Cache purge on deploy
 
