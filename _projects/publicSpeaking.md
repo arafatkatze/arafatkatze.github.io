@@ -9,9 +9,17 @@ category: work
 
 I love getting on stage to share lessons from building production AI systems and open-source machine learning tools. These are my talks over the years, from AI agents and evals to bringing machine learning to the Ruby and Go communities.
 
+## AI Engineer: Pick Problems That Survive When AI Solves Coding (2026)
+
+My most recent talk asks what to work on once frontier labs solve coding. I trace how coding agents got here and where recursive self-improvement takes them next, connecting the feedback loops across evals, agent harnesses, inference and training, and separate measured progress from hype so you can find the real bottlenecks and pick problems that will last.
+
+<div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 800px;">
+    {% include video.liquid path="https://www.youtube.com/embed/iK9gmxXyBR0" class="img-fluid rounded z-depth-1" width="100%" height="450px" title="Pick Problems That Survive When AI Solves Coding - Ara Khan, Cline" %}
+</div>
+
 ## AI Engineer World's Fair: Evals Are Broken, Use Them Anyway (2026)
 
-My most recent talk argues that benchmark numbers deserve skepticism, and so does judging models on "vibes" alone. I walk through a three-zone failure-analysis framework for pulling concrete improvements out of broken benchmarks. Cline climbed from 43% to 57% on Terminal Bench through harness fixes and prompt engineering, all while keeping the same model.
+This talk argues that benchmark numbers deserve skepticism, and so does judging models on "vibes" alone. I walk through a three-zone failure-analysis framework for pulling concrete improvements out of broken benchmarks. Cline climbed from 43% to 57% on Terminal Bench through harness fixes and prompt engineering, all while keeping the same model.
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 800px;">
     {% include video.liquid path="https://www.youtube.com/embed/QuuIywMG4s8" class="img-fluid rounded z-depth-1" width="100%" height="450px" title="Evals Are Broken, Use Them Anyway - Ara Khan, Cline" %}
@@ -35,6 +43,8 @@ At Europe's largest Ruby conference in Budapest, I introduced [tensorflow.rb](ht
 
 Over the years I've spoken at conferences across Europe and North America on machine learning, algorithm visualization, and life as a digital nomad in tech:
 
+- **ODSC AI West (2026):** Recursive self-improvement for coding agents: the agent that fixed its own harness, [talk](https://odsc.ai/speakers-portfolio/recursive-self-improvement-for-coding-agents-the-agent-that-fixed-its-own-harness/)
+- **AI Dev 26 x SF, DeepLearning.AI (2026):** Evals are broken, use them anyway, [video](https://www.youtube.com/watch?v=fAfuQN0WwFE)
 - **DevOpsDays Recife (2022):** Digital nomading in tech, [talk](https://devopsdays.org/events/2022-recife/program/arafat-khan/)
 - **GopherCon India (2019):** Algorithm visualizations in Go, [project](https://github.com/Arafatk/DataViz)
 - **Google Developers Windsor (2019):** TensorFlow Ruby, [event](https://gdg.community.dev/events/details/google-gdg-windsor-presents-the-windsor-essex-devfest-sold-out/)
