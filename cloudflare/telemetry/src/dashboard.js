@@ -168,10 +168,11 @@ ${table(referrals, [
 ])}
 
 <h2>Human page views</h2>
+<p class="empty">Visitor-days: a visitor counts once per day they visit. The hash changes daily, so no one is tracked across days.</p>
 ${table(humanPages, [
   ["Path", (r) => esc(r.path)],
   ["Views", (r) => r.n],
-  ["Visitors", (r) => r.visitors],
+  ["Visitor-days", (r) => r.visitors],
 ])}
 
 <h2>Disguised bots (browser user agent from a cloud network, or very old Chrome)</h2>
