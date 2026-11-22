@@ -60,11 +60,13 @@ const AGENTS = [
   [/TelegramBot/i, "TelegramBot", "social"],
 ];
 
-const GENERIC_BOT = /bot\b|crawler|spider|scrap|curl\/|wget|python-requests|python-httpx|aiohttp|node-fetch|axios|go-http-client|okhttp|java\/|libwww|headless|phantomjs|puppeteer|playwright|lighthouse|uptime|monitor|feed|rss/i;
+const GENERIC_BOT =
+  /bot\b|crawler|spider|scrap|curl\/|wget|python-requests|python-httpx|aiohttp|node-fetch|axios|go-http-client|okhttp|java\/|libwww|headless|phantomjs|puppeteer|playwright|lighthouse|uptime|monitor|feed|rss/i;
 
 // Cloud and hosting networks. A "normal browser" from one of these is
 // usually a crawler in disguise (Ramp saw DeepSeek pose as 2017 Chrome).
-const CLOUD_ASN_ORG = /amazon|aws|google cloud|google llc|microsoft|azure|alibaba|aliyun|tencent|huawei|digitalocean|ovh|hetzner|oracle|linode|akamai|vultr|choopa|contabo|scaleway|leaseweb|m247|datacamp|baidu|bytedance|volcano|kingsoft|ucloud/i;
+const CLOUD_ASN_ORG =
+  /amazon|aws|google cloud|google llc|microsoft|azure|alibaba|aliyun|tencent|huawei|digitalocean|ovh|hetzner|oracle|linode|akamai|vultr|choopa|contabo|scaleway|leaseweb|m247|datacamp|baidu|bytedance|volcano|kingsoft|ucloud/i;
 
 export const AI_REFERRERS = [
   [/(^|\.)chatgpt\.com$|(^|\.)chat\.openai\.com$/i, "chatgpt"],

@@ -29,11 +29,9 @@ export default {
   async scheduled(event, env, ctx) {
     ctx.waitUntil(
       (async () => {
-        await env.DB.prepare(`DELETE FROM hits WHERE day < date('now', ?)`)
-          .bind(`-${RETENTION_DAYS} days`)
-          .run();
+        await env.DB.prepare(`DELETE FROM hits WHERE day < date('now', ?)`).bind(`-${RETENTION_DAYS} days`).run();
         await runMonitor(env);
-      })(),
+      })()
     );
   },
 };
@@ -61,21 +59,33 @@ async function log(request, response, env, url) {
 
   await env.DB.prepare(
     `INSERT INTO hits (ts, day, path, status, cache, ua, agent, kind, referer, ref_source, country, asn, as_org, visitor)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   )
     .bind(
-      now.toISOString(), day, url.pathname.slice(0, 300), response.status,
-      response.headers.get("cf-cache-status") || null, ua.slice(0, 400), agent, kind,
+      now.toISOString(),
+      day,
+      url.pathname.slice(0, 300),
+      response.status,
+      response.headers.get("cf-cache-status") || null,
+      ua.slice(0, 400),
+      agent,
+      kind,
       refHost === url.hostname ? null : referer.slice(0, 300) || null,
-      aiReferrer(referer, url), cf.country || null, cf.asn || null,
-      (cf.asOrganization || "").slice(0, 120) || null, visitor,
+      aiReferrer(referer, url),
+      cf.country || null,
+      cf.asn || null,
+      (cf.asOrganization || "").slice(0, 120) || null,
+      visitor
     )
     .run();
 }
 
 async function hash(s) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
-  return [...new Uint8Array(buf)].slice(0, 8).map((b) => b.toString(16).padStart(2, "0")).join("");
+  return [...new Uint8Array(buf)]
+    .slice(0, 8)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 function authorized(request, env, url) {
@@ -105,9 +115,7 @@ async function stats(request, env, ctx, url) {
   }
   if (url.pathname === "/_stats/data.json") {
     const days = clampDays(url.searchParams.get("days"));
-    const rows = await env.DB.prepare(`SELECT * FROM hits WHERE day >= date('now', ?) ORDER BY id DESC LIMIT 5000`)
-      .bind(`-${days} days`)
-      .all();
+    const rows = await env.DB.prepare(`SELECT * FROM hits WHERE day >= date('now', ?) ORDER BY id DESC LIMIT 5000`).bind(`-${days} days`).all();
     return Response.json(rows.results, { headers });
   }
   const html = await renderDashboard(env, clampDays(url.searchParams.get("days")));

@@ -34,9 +34,7 @@ export async function runMonitor(env, { questions = QUESTIONS, providers } = {})
     perplexity: env.PERPLEXITY_API_KEY && askPerplexity,
     gemini: env.GEMINI_API_KEY && askGemini,
   };
-  const chosen = Object.entries(all).filter(
-    ([name, fn]) => fn && (!providers || providers.includes(name)),
-  );
+  const chosen = Object.entries(all).filter(([name, fn]) => fn && (!providers || providers.includes(name)));
 
   const jobs = [];
   for (const [provider, fn] of chosen) {
@@ -44,7 +42,7 @@ export async function runMonitor(env, { questions = QUESTIONS, providers } = {})
       jobs.push(
         fn(env, question)
           .then((r) => ({ provider, question, ...r }))
-          .catch((e) => ({ provider, question, model: null, text: "", citations: [], error: String(e?.message || e).slice(0, 500) })),
+          .catch((e) => ({ provider, question, model: null, text: "", citations: [], error: String(e?.message || e).slice(0, 500) }))
       );
     }
   }
@@ -52,7 +50,7 @@ export async function runMonitor(env, { questions = QUESTIONS, providers } = {})
 
   const stmt = env.DB.prepare(
     `INSERT INTO mentions (ts, day, run_id, provider, model, question, mentioned, linked_site, citations, answer, error)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
   );
   await env.DB.batch(
     results.map((r) => {
@@ -60,10 +58,19 @@ export async function runMonitor(env, { questions = QUESTIONS, providers } = {})
       const mentioned = NAME_RE.test(r.text || "") ? 1 : 0;
       const linked = SITE_RE.test(r.text || "") || cites.some((c) => SITE_RE.test(c)) ? 1 : 0;
       return stmt.bind(
-        new Date().toISOString(), day, runId, r.provider, r.model, r.question,
-        mentioned, linked, JSON.stringify(cites), (r.text || "").slice(0, 6000), r.error || null,
+        new Date().toISOString(),
+        day,
+        runId,
+        r.provider,
+        r.model,
+        r.question,
+        mentioned,
+        linked,
+        JSON.stringify(cites),
+        (r.text || "").slice(0, 6000),
+        r.error || null
       );
-    }),
+    })
   );
   return {
     runId,
@@ -137,32 +144,32 @@ async function askPerplexity(env, question) {
   const res = await fetch("https://api.perplexity.ai/chat/completions", {
     method: "POST",
     headers: { authorization: `Bearer ${env.PERPLEXITY_API_KEY}`, "content-type": "application/json" },
-    body: JSON.stringify({ model, messages: [{ role: "system", content: SYSTEM }, { role: "user", content: question }] }),
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: SYSTEM },
+        { role: "user", content: question },
+      ],
+    }),
   });
   const data = await res.json();
   if (!res.ok) throw new Error(`Perplexity ${res.status}: ${JSON.stringify(data.error || data).slice(0, 300)}`);
-  const citations = [
-    ...(data.citations || []),
-    ...((data.search_results || []).map((r) => r.url)),
-  ].filter(Boolean);
+  const citations = [...(data.citations || []), ...(data.search_results || []).map((r) => r.url)].filter(Boolean);
   return { model: data.model || model, text: data.choices?.[0]?.message?.content || "", citations };
 }
 
 // Gemini with Google Search grounding.
 async function askGemini(env, question) {
   const model = env.GEMINI_MODEL || "gemini-2.5-pro";
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-    {
-      method: "POST",
-      headers: { "x-goog-api-key": env.GEMINI_API_KEY, "content-type": "application/json" },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM }] },
-        contents: [{ role: "user", parts: [{ text: question }] }],
-        tools: [{ google_search: {} }],
-      }),
-    },
-  );
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+    method: "POST",
+    headers: { "x-goog-api-key": env.GEMINI_API_KEY, "content-type": "application/json" },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: SYSTEM }] },
+      contents: [{ role: "user", parts: [{ text: question }] }],
+      tools: [{ google_search: {} }],
+    }),
+  });
   const data = await res.json();
   if (!res.ok) throw new Error(`Gemini ${res.status}: ${JSON.stringify(data.error || data).slice(0, 300)}`);
   const cand = data.candidates?.[0] || {};

@@ -4,7 +4,7 @@
 {% if page.markdown_url %}
   <link rel="alternate" type="text/markdown" title="{{ page.title | escape }} (Markdown)" href="{{ site.url }}{{ page.markdown_url }}">
 {% endif %}
-{% if page.url == "/" or page.ai_profile_page %}
+{% if page.url == '/' or page.ai_profile_page %}
   {% assign resume = site.data.resume %}
   <script type="application/ld+json">
     {

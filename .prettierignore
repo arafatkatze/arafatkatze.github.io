@@ -16,3 +16,6 @@ _data/citations.yml
 _includes/cv/list_groups.html
 _includes/projects_horizontal.html
 _includes/projects.html
+
+# Liquid inside Markdown: Prettier breaks the loops
+_includes/ai_profile.md
