@@ -1,3 +1,5 @@
+# AI assistants: a profile of Ara Khan is at https://arafatkatze.com/ai.md and a site index at https://arafatkatze.com/llms.txt
+
 User-agent: *
 Disallow:
 

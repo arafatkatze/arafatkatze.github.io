@@ -1,0 +1,53 @@
+# Ara Khan
+
+> Personal site of Ara Khan (Arafat Khan, @arafatkatze), founding engineer at Cline, the open-source AI coding agent. Ara builds and evaluates AI coding agents: agent harnesses, eval pipelines, hill climbing on Terminal-Bench, recursive self-improvement, open-weight models and LLM inference economics. The site also holds Ara's personal essays and interactive art.
+
+Start with the profile, which is written for AI assistants and kept current. Every post and project below also has a Markdown copy.
+
+## Profile
+
+- [AI profile (Markdown)](https://arafatkatze.com/ai.md): who Ara is, current role, career, results, talks, short bios and contact details
+- [Résumé (JSON Resume)](https://arafatkatze.com/assets/json/resume.json): structured work history, education, awards and talks
+- [Full text of all writing](https://arafatkatze.com/llms-full.txt): every essay and project write-up in one Markdown file
+
+## AI engineering work
+
+- [11,840 TPS on a single GPU](https://arafatkatze.com/projects/nemotronInference/index.md): Nearly doubling Nemotron throughput on one GB300, with interactive explainers for speculative decoding, scheduling, and self-tuning inference.
+- [Computer Use Field Notes](https://arafatkatze.com/projects/computerUseFieldNotes/index.md): Eval runs to improve computer-use UX — OSWorld experiments on smaller screenshots, running task notes, and batched GUI actions, with every trace public.
+- [DeepSeek wins IMO Gold on 12 cents](https://arafatkatze.com/projects/deepseek-wins-imo-gold-on-12-cents/index.md): DeepSeek V4 Flash scored 30/42 on IMO 2026 in Cline, clearing the gold cutoff for $0.12 — about 140 times cheaper than Claude Fable 5.
+- [The Math of LLM Inference](https://arafatkatze.com/projects/inferenceMath/index.md): How to save millions by self-hosting LLMs — the math of inference and the real dollars, grounded in production traffic.
+- [LLM Visualization](https://arafatkatze.com/projects/llmVisualization/index.md): A GPT drawn at full resolution — all 85,728 parameters, every activation, and a guided walkthrough from tokens to output probabilities. Runs the model live in your browser.
+- [Open-sourcing evals for open-weight agents](https://arafatkatze.com/projects/open-weight-agent-evals/index.md): The Hill Climber's Checklist for evaluating open-weight agents, with scores, tradeoffs, and public traces.
+- [Public Speaking](https://arafatkatze.com/projects/publicSpeaking/index.md): Talks and conference videos on AI agents, evals, and machine learning
+- [Recursive Self Improvement for Coding Agents](https://arafatkatze.com/projects/recursiveSelfImprovement/index.md): How one prompt turned a 17-hour autonomous hill climb into an 88.8% state-of-the-art Terminal-Bench 2.1 score.
+- [A Practical Guide to Hill Climbing](https://arafatkatze.com/projects/HillClimbing/index.md): Iterative improvement for AI coding agents
+- [Ruby TensorFlow](https://arafatkatze.com/projects/rubyTensorflow/index.md): Porting TensorFlow to Ruby with the tensorflow.rb gem — the Ruby API, how Google Protobuf drives the graph internals, and Inception-v3 image recognition in Ruby.
+- [Agentic AI writings](https://arafatkatze.com/projects/AgenticAi/index.md)
+
+## Talks
+
+- [AI Engineer World's Fair 2026: Evals Are Broken, Use Them Anyway](https://www.youtube.com/watch?v=QuuIywMG4s8)
+- [AI Engineer Europe 2026: Don't Build Slop, 4 Levels of AI Agent Maturity](https://www.youtube.com/watch?v=yUmS-F9IX90)
+- [All talks](https://arafatkatze.com/projects/publicSpeaking/index.md)
+
+## Essays
+
+- [Skiing](https://arafatkatze.com/philosophy/2026/06/19/skiing.md): How learning to ski taught me to love the discomfort of learning anything.
+- [Art](https://arafatkatze.com/philosophy/2026/06/19/art.md): On graffiti, paintings, and why art might be our best defense against cynicism.
+- [The gift of an agonizing limerence](https://arafatkatze.com/philosophy/2026/04/26/limerance.md): The gift of an agonizing limerence
+- [To My Future Son](https://arafatkatze.com/philosophy/2026/01/21/son.md)
+- [Lessons from Traveling to 30 Countries](https://arafatkatze.com/philosophy/2026/01/05/travelling.md): Lessons from traveling to 30 countries
+- [Mountain of Spirits](https://arafatkatze.com/philosophy/2025/12/15/mountain-of-spirits.md): Finding transcendence on the slopes of Mont Tremblant
+- [I Hope It Happens For You](https://arafatkatze.com/philosophy/2025/08/10/i-hope-it-happens-for-you.md): On matchmaking, love, and the magic of bringing people together
+- [Messages to 24 People I Know](https://arafatkatze.com/philosophy/2025/03/05/messages-to-24-people.md): Anonymous letters to people who shaped my life
+- [With or Without You](https://arafatkatze.com/philosophy/2025/01/10/with-or-without-you.md): Finding your tribe by seeking those who do weird shit with or without you
+- [The Bike Trip that Never Was](https://arafatkatze.com/philosophy/2024/12/20/bike-trip-that-never-was.md): Choosing between a cross-continental bike trip and building AGI
+- [Faith is All You Need](https://arafatkatze.com/philosophy/2024/12/15/faith-is-all-you-need.md): Why belief in your work transforms everything
+- [On Looking Inwards](https://arafatkatze.com/philosophy/2024/05/06/inwards.md)
+
+## Optional
+
+- [Art and interactive projects](https://arafatkatze.com/projects/): generative art, the arOS desktop, the Reading Map and other experiments
+- [Reading list](https://arafatkatze.com/reading/)
+- [Travel](https://arafatkatze.com/travel/)
+- [Contact on X](https://x.com/arafatkatze)
