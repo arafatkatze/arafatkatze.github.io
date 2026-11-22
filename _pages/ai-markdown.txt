@@ -1,0 +1,6 @@
+---
+permalink: /ai.md
+layout: null
+sitemap: false
+---
+{% include ai_profile.md %}

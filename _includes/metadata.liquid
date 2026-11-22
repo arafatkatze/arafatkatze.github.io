@@ -235,8 +235,8 @@
         },
         "url": "{{ page.url | prepend: site.baseurl | prepend: site.url }}",
         "@type": "{% if is_blog_post %}BlogPosting{% else %}WebSite{% endif %}",
-        "description": "{% if page.description %}{{ page.description }}{% else if site.description %}{{ site.description }}{% endif %}",
-        "headline": "{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}",
+        "description": {% if page.description %}{{ page.description | strip_newlines | strip | jsonify }}{% else %}{{ site.description | strip_newlines | strip | jsonify }}{% endif %},
+        "headline": {% if page.title %}{{ page.title | jsonify }}{% else %}{{ site.title | jsonify }}{% endif %},
         {% if sameaslinks != blank %}
         "sameAs": {{ sameaslinks | jsonify }},
         {% endif %}

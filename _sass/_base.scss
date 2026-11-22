@@ -2985,3 +2985,46 @@ html[data-theme="dark"] .bento-tile.image {
   color: var(--global-text-color-light);
   margin-top: 1px;
 }
+
+// Footer pointer to the AI-readable profile (/ai, /ai.md, /llms.txt)
+.ai-footer-note {
+  display: block;
+  color: inherit !important;
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  opacity: 0.65;
+}
+
+// /ai/ profile page
+.ai-profile {
+  max-width: 46rem;
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+    margin-top: 2.2rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--global-divider-color);
+  }
+  blockquote {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    border-left: 3px solid var(--global-theme-color);
+    padding: 0.6rem 1rem;
+    background: var(--global-code-bg-color);
+    border-radius: 0 6px 6px 0;
+    margin: 1rem 0 1.4rem;
+  }
+  ul {
+    padding-left: 1.2rem;
+  }
+  li {
+    margin-bottom: 0.45rem;
+    line-height: 1.55;
+  }
+  code {
+    font-size: 0.9em;
+  }
+}

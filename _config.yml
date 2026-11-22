@@ -208,6 +208,7 @@ kramdown:
 include: ["_pages", "_scripts"]
 exclude:
   - bin/
+  - cloudflare/
   - CONTRIBUTING.md
   - CUSTOMIZE.md
   - Dockerfile
@@ -281,6 +282,8 @@ jekyll-minifier:
   exclude:
     [
       "robots.txt",
+      "llms.txt",
+      "ai.md",
       "assets/js/search/*.js",
       "assets/navigation-cues/css/*.css",
       "html-review-replica/index.html",

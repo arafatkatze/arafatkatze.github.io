@@ -1,0 +1,40 @@
+name = "ara-site-telemetry"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Runs in front of the whole site. Requests pass straight through.
+routes = [{ pattern = "arafatkatze.com/*", zone_name = "arafatkatze.com" }]
+
+# If the Worker ever errors, Cloudflare serves the site without it.
+# (Set in the dashboard too: Workers Routes > Request limit failure mode > Fail open.)
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ara-site-telemetry"
+database_id = "REPLACE_AFTER_wrangler_d1_create"
+
+[triggers]
+# Daily at 14:00 UTC: log retention + AI-mention monitor.
+crons = ["0 14 * * *"]
+
+[limits]
+# Monitor calls 4 providers x 8 questions with web search; needs Workers Paid.
+cpu_ms = 300000
+
+[observability]
+enabled = true
+
+[vars]
+ANTHROPIC_MODEL = "claude-opus-5-5"
+OPENAI_MODEL = "gpt-5"
+PERPLEXITY_MODEL = "sonar-pro"
+GEMINI_MODEL = "gemini-2.5-pro"
+
+# Secrets (wrangler secret put NAME), never committed:
+#   STATS_KEY            password for /_stats
+#   HASH_SALT            random string for visitor hashing
+#   ANTHROPIC_API_KEY    optional, enables Claude in the monitor
+#   OPENAI_API_KEY       optional, enables ChatGPT
+#   PERPLEXITY_API_KEY   optional, enables Perplexity
+#   GEMINI_API_KEY       optional, enables Gemini
