@@ -1,6 +1,8 @@
 ---
 permalink: /robots.txt
 ---
+# AI assistants: a profile of Ara Khan is at {{ site.url }}/ai.md and a site index at {{ site.url }}/llms.txt
+
 User-agent: *
 Disallow:
 

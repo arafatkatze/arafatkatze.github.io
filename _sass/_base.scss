@@ -770,18 +770,35 @@ html[data-theme="dark"] {
 }
 
 @keyframes contrib-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes contrib-avatarGlow {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(var(--contrib-accent-rgb), 0.12), 0 0 20px rgba(var(--contrib-accent-rgb), 0.06); }
-  50% { box-shadow: 0 0 0 6px rgba(var(--contrib-accent-rgb), 0.18), 0 0 30px rgba(var(--contrib-accent-rgb), 0.1); }
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 4px rgba(var(--contrib-accent-rgb), 0.12),
+      0 0 20px rgba(var(--contrib-accent-rgb), 0.06);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(var(--contrib-accent-rgb), 0.18),
+      0 0 30px rgba(var(--contrib-accent-rgb), 0.1);
+  }
 }
 
 @keyframes contrib-langBarGrow {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 // Page container
@@ -801,7 +818,7 @@ html[data-theme="dark"] {
   border-radius: 16px;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: var(--contrib-hero-bg);
@@ -917,7 +934,9 @@ html[data-theme="dark"] {
   background: var(--contrib-stat-bg);
   border: 1px solid var(--contrib-stat-border);
   border-radius: 12px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   cursor: default;
 
   &:hover {
@@ -979,7 +998,9 @@ html[data-theme="dark"] {
 
   .lang-segment {
     height: 100%;
-    transition: flex-basis 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+    transition:
+      flex-basis 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.3s ease;
     position: relative;
     cursor: pointer;
     min-width: 3px;
@@ -1060,9 +1081,10 @@ html[data-theme="dark"] {
   text-decoration: none !important;
   color: var(--global-text-color) !important;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-              border-color 0.3s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
   opacity: 0;
   animation: contrib-fadeInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: calc(var(--card-index, 0) * 0.07s);
@@ -2701,7 +2723,9 @@ html[data-theme="dark"] .about-content {
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
   background: var(--global-card-bg-color);
   border: 1px solid var(--global-divider-color);
 
@@ -2751,8 +2775,12 @@ html[data-theme="dark"] .about-content {
 
   // Theme-responsive image swap: show the light variant in light mode,
   // the dark variant in dark mode. Default (no data-theme set) acts as light.
-  .tile-img-dark { display: none; }
-  .tile-img-light { display: block; }
+  .tile-img-dark {
+    display: none;
+  }
+  .tile-img-light {
+    display: block;
+  }
 
   .bento-tile-overlay {
     position: absolute;
@@ -2760,13 +2788,7 @@ html[data-theme="dark"] .about-content {
     display: flex;
     flex-direction: column;
     padding: 14px;
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.35) 0%,
-      transparent 40%,
-      transparent 60%,
-      rgba(0, 0, 0, 0.45) 100%
-    );
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, transparent 40%, transparent 60%, rgba(0, 0, 0, 0.45) 100%);
 
     .bento-tile-label {
       color: rgba(255, 255, 255, 0.85);
@@ -2785,8 +2807,12 @@ html[data-theme="dark"] .about-content {
 }
 
 html[data-theme="dark"] .bento-tile.image {
-  .tile-img-dark { display: block; }
-  .tile-img-light { display: none; }
+  .tile-img-dark {
+    display: block;
+  }
+  .tile-img-light {
+    display: none;
+  }
 }
 
 // Card tile: image on top, text content below
@@ -2984,4 +3010,47 @@ html[data-theme="dark"] .bento-tile.image {
   font-size: 0.7rem;
   color: var(--global-text-color-light);
   margin-top: 1px;
+}
+
+// Footer pointer to the AI-readable profile (/ai, /ai.md, /llms.txt)
+.ai-footer-note {
+  display: block;
+  color: inherit !important;
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  opacity: 0.65;
+}
+
+// /ai/ profile page
+.ai-profile {
+  max-width: 46rem;
+  h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+    margin-top: 2.2rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--global-divider-color);
+  }
+  blockquote {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    border-left: 3px solid var(--global-theme-color);
+    padding: 0.6rem 1rem;
+    background: var(--global-code-bg-color);
+    border-radius: 0 6px 6px 0;
+    margin: 1rem 0 1.4rem;
+  }
+  ul {
+    padding-left: 1.2rem;
+  }
+  li {
+    margin-bottom: 0.45rem;
+    line-height: 1.55;
+  }
+  code {
+    font-size: 0.9em;
+  }
 }

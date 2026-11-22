@@ -21,3 +21,6 @@ open-health/data/*.json
 open-health/dna-portrait.html
 open-health/life-timeline.html
 open-health/sleep-blanket.html
+
+# Liquid inside Markdown: Prettier breaks the loops
+_includes/ai_profile.md

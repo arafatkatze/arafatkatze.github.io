@@ -1,0 +1,41 @@
+---
+permalink: /llms.txt
+layout: null
+sitemap: false
+---
+# Ara Khan
+
+> Personal site of Ara Khan (Arafat Khan, @arafatkatze), founding engineer at Cline, the open-source AI coding agent. Ara builds and evaluates AI coding agents: agent harnesses, eval pipelines, hill climbing on Terminal-Bench, recursive self-improvement, open-weight models and LLM inference economics. The site also holds Ara's personal essays and interactive art.
+
+Start with the profile, which is written for AI assistants and kept current. Every post and project below also has a Markdown copy.
+
+## Profile
+
+- [AI profile (Markdown)]({{ site.url }}/ai.md): who Ara is, current role, career, results, talks, short bios and contact details
+- [Résumé (JSON Resume)]({{ site.url }}/assets/json/resume.json): structured work history, education, awards and talks
+- [Full text of all writing]({{ site.url }}/llms-full.txt): every essay and project write-up in one Markdown file
+
+## AI engineering work
+{% assign work = site.projects | where: "category", "work" | sort: "importance" %}
+{% for p in work -%}
+{%- assign link = p.redirect | default: p.url -%}
+{%- unless link contains "://" %}{% assign link = link | prepend: site.url %}{% endunless -%}
+- [{{ p.title }}]({% if p.markdown_url %}{{ site.url }}{{ p.markdown_url }}{% else %}{{ link }}{% endif %}){% if p.description and p.description != "" %}: {{ p.description | strip_html | strip }}{% endif %}
+{% endfor %}
+## Talks
+
+- [AI Engineer World's Fair 2026: Evals Are Broken, Use Them Anyway](https://www.youtube.com/watch?v=QuuIywMG4s8)
+- [AI Engineer Europe 2026: Don't Build Slop, 4 Levels of AI Agent Maturity](https://www.youtube.com/watch?v=yUmS-F9IX90)
+- [All talks]({{ site.url }}/projects/publicSpeaking/index.md)
+
+## Essays
+{% for post in site.posts %}
+- [{{ post.title }}]({{ site.url }}{{ post.markdown_url | default: post.url }}){% if post.description and post.description != "" %}: {{ post.description | strip_html | strip }}{% endif %}
+{%- endfor %}
+
+## Optional
+
+- [Art and interactive projects]({{ site.url }}/projects/): generative art, the arOS desktop, the Reading Map and other experiments
+- [Reading list]({{ site.url }}/reading/)
+- [Travel]({{ site.url }}/travel/)
+- [Contact on X](https://x.com/arafatkatze)

@@ -1,5 +1,6 @@
 <!-- Metadata, OpenGraph and Schema.org -->
 {% include metadata.liquid %}
+{% include ai_discovery.liquid %}
 
 <!-- Bootstrap & MDB -->
 <link rel="stylesheet" href="{{ '/assets/css/bootstrap.min.css' | relative_url | bust_file_cache }}">
@@ -122,8 +123,10 @@
   >
 {% endif %}
 
-<!-- Photography gallery: render-blocking on purpose so the full-bleed layout
-     applies on the very first paint (prevents the first-load FOUC/jump). -->
+<!--
+  Photography gallery: render-blocking on purpose so the full-bleed layout
+  applies on the very first paint (prevents the first-load FOUC/jump).
+-->
 {% if page.photography %}
   <link rel="stylesheet" href="{{ '/assets/css/photography.css' | relative_url | bust_file_cache }}">
   <script defer src="{{ '/assets/js/photography.js' | relative_url | bust_file_cache }}"></script>

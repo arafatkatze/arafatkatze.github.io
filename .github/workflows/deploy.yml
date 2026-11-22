@@ -18,6 +18,8 @@ on:
       - "**.json"
       - "**.csv"
       - "**.liquid"
+      - "**.txt"
+      - "**.rb"
       - "**/*.md"
       - "**.yml"
       - "Gemfile"
@@ -52,6 +54,8 @@ on:
       - "**.json"
       - "**.csv"
       - "**.liquid"
+      - "**.txt"
+      - "**.rb"
       - "**/*.md"
       - "**.yml"
       - "Gemfile"
@@ -78,6 +82,9 @@ jobs:
   deploy:
     # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ZONE: ${{ secrets.CLOUDFLARE_ZONE_ID }}
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
@@ -113,3 +120,12 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: _site
+      - name: Purge Cloudflare cache ☁️
+        # Runs only when both repository secrets exist. GitHub Pages takes a
+        # minute or so to publish the new gh-pages commit, so wait first.
+        if: github.event_name != 'pull_request' && env.CF_TOKEN != '' && env.CF_ZONE != ''
+        run: |
+          sleep 90
+          curl -fsS -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE}/purge_cache" \
+            -H "Authorization: Bearer ${CF_TOKEN}" -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}' | grep -q '"success":true'

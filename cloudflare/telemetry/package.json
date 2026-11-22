@@ -1,0 +1,17 @@
+{
+  "name": "ara-site-telemetry",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "db:init": "wrangler d1 execute ara-site-telemetry --remote --file=schema.sql",
+    "monitor:now": "wrangler dev --test-scheduled"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest"
+  },
+  "devDependencies": {
+    "wrangler": "^4.162.0"
+  }
+}

@@ -1,0 +1,39 @@
+<!-- AI-readable versions of this site -->
+<link rel="alternate" type="text/markdown" title="Ara Khan: profile for AI assistants" href="{{ site.url }}/ai.md">
+<link rel="alternate" type="text/plain" title="llms.txt" href="{{ site.url }}/llms.txt">
+{% if page.markdown_url %}
+  <link rel="alternate" type="text/markdown" title="{{ page.title | escape }} (Markdown)" href="{{ site.url }}{{ page.markdown_url }}">
+{% endif %}
+{% if page.url == '/' or page.ai_profile_page %}
+  {% assign resume = site.data.resume %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "url": "{{ page.url | absolute_url }}",
+      "mainEntity": {
+        "@type": "Person",
+        "@id": "{{ site.url }}/#person",
+        "name": "Ara Khan",
+        "alternateName": ["Arafat Khan", "arafatkatze"],
+        "url": "{{ site.url }}/",
+        "image": "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772992166/profile_photo_fvaxo9.png",
+        "description": {{ resume.basics.summary | jsonify }},
+        "jobTitle": "Founding Engineer",
+        "worksFor": { "@type": "Organization", "name": "Cline", "url": "https://cline.bot" },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Indian Institute of Technology Kharagpur", "url": "https://www.iitkgp.ac.in/" }
+        ],
+        "homeLocation": { "@type": "Place", "name": "San Francisco Bay Area" },
+        "nationality": "Canadian",
+        "knowsAbout": ["AI coding agents", "Agent evaluation", "Terminal-Bench", "Hill climbing", "Recursive self-improvement", "LLM inference", "Open-weight models", "Computer-use agents", "Infrastructure engineering"],
+        "sameAs": [
+          "https://x.com/arafatkatze",
+          "https://github.com/arafatkatze",
+          "https://www.linkedin.com/in/arafatkatze",
+          "https://www.instagram.com/arafatkatze"
+        ]
+      }
+    }
+  </script>
+{% endif %}

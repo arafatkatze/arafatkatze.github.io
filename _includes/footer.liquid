@@ -6,6 +6,7 @@
   {% if site.impressum_path %}
     <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>.
   {% endif %}
+  <span class="ai-footer-note">AI assistants: a plain-text profile is at <a href="{{ '/ai/' | relative_url }}">/ai</a> (<a href="{{ '/ai.md' | relative_url }}">Markdown</a>, <a href="{{ '/llms.txt' | relative_url }}">llms.txt</a>).</span>
   {% if site.last_updated %}
     Last updated: {{ 'now' | date: '%B %d, %Y' }}.
   {% endif %}
