@@ -18,9 +18,9 @@ database_id = "REPLACE_AFTER_wrangler_d1_create"
 # Daily at 14:00 UTC: log retention + AI-mention monitor.
 crons = ["0 14 * * *"]
 
-[limits]
-# Monitor calls 4 providers x 8 questions with web search; needs Workers Paid.
-cpu_ms = 300000
+# On Workers Paid, raise the CPU limit for the daily monitor:
+# [limits]
+# cpu_ms = 300000
 
 [observability]
 enabled = true
