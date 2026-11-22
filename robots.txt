@@ -4,3 +4,4 @@ User-agent: *
 Disallow:
 
 Sitemap: https://arafatkatze.com/sitemap.xml
+Sitemap: https://arafatkatze.com/sitemap-projects.xml
