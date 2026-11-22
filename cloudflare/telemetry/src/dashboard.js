@@ -22,6 +22,14 @@ export async function renderDashboard(env, days) {
       .all()
       .then((r) => r.results);
 
+  const busy = await env.DB.prepare(
+    `SELECT visitor, day, agent, as_org, country, COUNT(*) n, COUNT(DISTINCT path) pages FROM hits
+     WHERE day >= date('now', ?) AND kind='human' GROUP BY visitor, day HAVING pages >= 25 ORDER BY n DESC LIMIT 15`
+  )
+    .bind(since)
+    .all()
+    .then((r) => r.results);
+
   const [byKind, aiAgents, aiPages, aiDaily, referrals, humanPages, suspects, recentAi, profileHits, lastRun, mentionTrend] = await Promise.all([
     q(`SELECT kind, COUNT(*) n FROM hits WHERE day >= date('now', ?) GROUP BY kind ORDER BY n DESC`),
     q(`SELECT agent, kind, COUNT(*) n, COUNT(DISTINCT path) pages, MAX(ts) last FROM hits
@@ -173,6 +181,16 @@ ${table(humanPages, [
   ["Path", (r) => esc(r.path)],
   ["Views", (r) => r.n],
   ["Visitor-days", (r) => r.visitors],
+])}
+
+<h2>Busiest "human" visitors (25+ pages in a day: probably a crawler or scraper)</h2>
+${table(busy, [
+  ["Day", (r) => r.day],
+  ["Network", (r) => esc(r.as_org || "?")],
+  ["Country", (r) => esc(r.country)],
+  ["Browser", (r) => esc(r.agent)],
+  ["Requests", (r) => r.n],
+  ["Pages", (r) => r.pages],
 ])}
 
 <h2>Disguised bots (browser user agent from a cloud network, or very old Chrome)</h2>

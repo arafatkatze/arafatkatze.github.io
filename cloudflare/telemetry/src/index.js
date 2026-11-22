@@ -14,12 +14,25 @@ import { renderDashboard } from "./dashboard.js";
 const ASSET = /\.(css|js|mjs|map|png|jpe?g|gif|webp|avif|svg|ico|woff2?|ttf|otf|eot|mp4|webm|mp3|wav|ogg|ply|glb|gltf|wasm|zip|csv)$/i;
 const RETENTION_DAYS = 400;
 
+// Old or guessed URLs that AI assistants have asked for (seen in the logs).
+const REDIRECTS = {
+  "/blog/ruby-tensorflow/": "/projects/rubyTensorflow/",
+  "/blog/ruby-tensorflow": "/projects/rubyTensorflow/",
+};
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
     if (url.pathname === "/_stats" || url.pathname.startsWith("/_stats/")) {
       return stats(request, env, ctx, url);
+    }
+
+    const to = REDIRECTS[url.pathname];
+    if (to) {
+      const response = Response.redirect(new URL(to, url).toString(), 301);
+      ctx.waitUntil(log(request, response, env, url).catch(() => {}));
+      return response;
     }
 
     const md = await markdownFor(request, url);
