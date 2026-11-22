@@ -22,6 +22,7 @@ Khan), @arafatkatze**. That one line is what lets an assistant join them up.
 > I'm a founding engineer at Cline, the open-source AI coding agent, where I work on the agent harness, evals and model performance.
 >
 > Things I'm known for:
+>
 > - 88.8% on Terminal-Bench 2.1 for $49.80, from a 17-hour recursive self-improvement run where the agent improved its own harness.
 > - The hill climbing playbook: taking Cline from 47% to 57% on Terminal-Bench by reading every failed trace, then publishing the method.
 > - Open-weight agent evals with public scores and traces.
