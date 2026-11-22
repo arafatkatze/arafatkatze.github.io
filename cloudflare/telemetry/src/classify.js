@@ -65,8 +65,9 @@ const GENERIC_BOT =
 
 // Cloud and hosting networks. A "normal browser" from one of these is
 // usually a crawler in disguise (Ramp saw DeepSeek pose as 2017 Chrome).
+// Also proxy and scraping networks seen crawling every page as "Chrome".
 const CLOUD_ASN_ORG =
-  /amazon|aws|google cloud|google llc|microsoft|azure|alibaba|aliyun|tencent|huawei|digitalocean|ovh|hetzner|oracle|linode|akamai|vultr|choopa|contabo|scaleway|leaseweb|m247|datacamp|baidu|bytedance|volcano|kingsoft|ucloud/i;
+  /amazon|aws|google cloud|google llc|microsoft|azure|alibaba|aliyun|tencent|huawei|digitalocean|ovh|hetzner|oracle|linode|akamai|vultr|choopa|contabo|scaleway|leaseweb|m247|datacamp|baidu|bytedance|volcano|kingsoft|ucloud|code200|techties|6 collyer quay|bright data|oxylabs|smartproxy|iproyal|netnut|soax/i;
 
 export const AI_REFERRERS = [
   [/(^|\.)chatgpt\.com$|(^|\.)chat\.openai\.com$/i, "chatgpt"],
