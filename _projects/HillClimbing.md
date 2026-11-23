@@ -9,7 +9,7 @@ category: work
 
 <div class="col-sm mt-3 mt-md-0 mx-auto">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/hero.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/hero.png" width="1232" height="928"
     alt="A practical guide to hill climbing"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -26,7 +26,7 @@ Most coding agent evaluations are either single-turn or too saturated. However, 
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 700px;">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/figure-1.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/figure-1.png" width="1600" height="989"
     alt="Comparison: Single-Turn vs Agent Evaluations"
     caption="Source: Demystifying evals for AI agents"
     class="img-fluid rounded z-depth-1" %}
@@ -46,7 +46,7 @@ We run harbor locally which downloads the entire terminal bench dataset then spi
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 700px;">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/figure-2.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/figure-2.png" width="1600" height="1430"
     alt="Harbor architecture: dataset download, parallel container runs on Modal"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -209,7 +209,7 @@ As an example we followed the steps above and our scores for Opus 4.5 out of the
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 700px;">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/figure-3.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/hill-climbing/figure-3.png" width="1600" height="1157"
     alt="Cline Evals score on Terminal Bench (Opus 4.5): progression from 43% to 57%"
     caption="Cline Evals score on Terminal Bench (Opus 4.5)"
     class="img-fluid rounded z-depth-1" %}

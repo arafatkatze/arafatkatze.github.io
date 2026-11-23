@@ -9,12 +9,12 @@ category: work
 
 <div class="col-sm mt-3 mt-md-0 mx-auto">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786167515/site/recursive-self-improvement/hero.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786167515/site/recursive-self-improvement/hero.png" width="1672" height="941"
     alt="A coding agent reaching toward recursive self-improvement"
     class="img-fluid rounded z-depth-1" %}
 </div>
 
-*Published July 24, 2026 · Originally published on the [Cline Blog](https://cline.bot/blog/recursive-self-improvement-for-coding-agents).*
+_Published July 24, 2026 · Originally published on the [Cline Blog](https://cline.bot/blog/recursive-self-improvement-for-coding-agents)._
 
 ## Preface
 
@@ -26,7 +26,7 @@ In the past few days, the response to Kimi K3 has been incredible. Building on t
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786167516/site/recursive-self-improvement/terminal-bench-comparison.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786167516/site/recursive-self-improvement/terminal-bench-comparison.png" width="1619" height="971"
     alt="Terminal-Bench 2.1 leaderboard comparing coding agents"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -59,17 +59,17 @@ The agent worked in different experiments and tried them one by one, maintaining
 
 **Experiment 1: retry the 429s.** Five baseline failures were the same story: OpenRouter returned a 429 and Cline just gave up. Healthy sessions, killed by a single rate limit, since at the time there was a single provider serving Kimi K3 and capacity was tight. This was a boring fix of raising the number of retries with exponential backoff. On the diagnostic slice, all five losses flipped to passes. Commit `cabfa9e`.
 
-**Experiment 2: smarter loop detection.** Two tasks died because Cline's loop detector killed agents that were *legitimately* polling long-running background work. Same command, but the output was changing so that's actual progress, not a loop. The model made the detector output-aware. Both tasks flipped. Commit `dbcdba8`.
+**Experiment 2: smarter loop detection.** Two tasks died because Cline's loop detector killed agents that were _legitimately_ polling long-running background work. Same command, but the output was changing so that's actual progress, not a loop. The model made the detector output-aware. Both tasks flipped. Commit `dbcdba8`.
 
 **Experiment 3: the 7.6-second ghost failure.** One task exited in 7.6 seconds with zero tokens and no session. The model reduced it to a wild root cause: any prompt containing `@a`-style tokens triggered a file-mention lookup on an unreferenced async worker, and the process legally exited before the model was ever called. This was a one-line liveness fix leading to a deterministic flip. Commit `289cb82`.
 
-**Experiment 4: stopping task suicides.** Two tasks failed because the agent ran `pkill -f` with a pattern that matched *its own harness command line*, so it terminated itself mid-task. The fix: tool guidance to track PIDs instead of broad pattern-kills. Both flipped. Commit `23d5970`.
+**Experiment 4: stopping task suicides.** Two tasks failed because the agent ran `pkill -f` with a pattern that matched _its own harness command line_, so it terminated itself mid-task. The fix: tool guidance to track PIDs instead of broad pattern-kills. Both flipped. Commit `23d5970`.
 
 **Then the full runs:** The combined candidate scored **77/89 (86.5%) at $65** now up 8 tasks from baseline. The confirmation run landed **79/89 (88.8%) at $49.8**. So we had a higher score and lower cost, with fewer wasted tokens on doomed retries and self-kills.
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786167517/site/recursive-self-improvement/score-progression.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786167517/site/recursive-self-improvement/score-progression.png" width="1568" height="1003"
     alt="Kimi K3 and Cline score progression on Terminal-Bench 2.1"
     class="img-fluid rounded z-depth-1" %}
 </div>

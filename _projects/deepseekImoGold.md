@@ -10,7 +10,7 @@ permalink: /projects/deepseek-wins-imo-gold-on-12-cents/
 
 <div class="col-sm mt-3 mt-md-0 mx-auto">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041687/site/deepseek-imo-gold/hero.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041687/site/deepseek-imo-gold/hero.png" width="1672" height="941"
     alt="DeepSeek wins IMO Gold on 12 cents"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -25,7 +25,7 @@ Frontier models scoring perfect runs has been covered extensively. Our interesti
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041688/site/deepseek-imo-gold/scores-and-selected-prices.webp"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041688/site/deepseek-imo-gold/scores-and-selected-prices.webp" width="1600" height="900"
     alt="IMO 2026 scores and selected prices across eight models"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -79,7 +79,7 @@ The human row is two different medians: 16/42 is the median of contestants' tota
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041688/site/deepseek-imo-gold/score-vs-cost.webp"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041688/site/deepseek-imo-gold/score-vs-cost.webp" width="1672" height="941"
     alt="IMO 2026 score versus cost for each model"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -92,7 +92,7 @@ In 2025, an advanced version of Gemini Deep Think achieved a gold medal score wo
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 760px;">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041688/site/deepseek-imo-gold/gemini-imo-gold.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788041688/site/deepseek-imo-gold/gemini-imo-gold.jpg" width="1200" height="675"
     alt="Gemini achieved gold medal level in the International Mathematical Olympiad"
     class="img-fluid rounded z-depth-1" %}
 </div>
