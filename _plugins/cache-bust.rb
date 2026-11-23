@@ -38,8 +38,16 @@ module Jekyll
       end
     end
 
+    # One value per build. The deploy runs purgecss over every stylesheet, so a
+    # deployed .css file depends on the whole site's HTML, not just on its own
+    # source. A source-only digest therefore stays the same while the deployed
+    # file changes, and CDNs keep serving the previous one. Stylesheets get
+    # this build stamp in their key so each deploy has its own URLs.
+    BUILD_STAMP = Time.now.to_i.to_s(36)
+
     def bust_file_cache(file_name)
-      CacheDigester.new(file_name: file_name, directory: nil).digest!
+      digested = CacheDigester.new(file_name: file_name, directory: nil).digest!
+      file_name.to_s.end_with?('.css') ? "#{digested}-#{BUILD_STAMP}" : digested
     end
 
     # The stylesheet is compiled from _sass/, so its cache key is a digest of
@@ -49,7 +57,7 @@ module Jekyll
       sources = Dir[File.join('_sass', '**', '*')].sort.reject { |f| File.directory?(f) }
       sources << File.join('assets', 'css', 'main.scss')
       digest = Digest::MD5.hexdigest(sources.map { |f| File.read(f) }.join)
-      [file_name, '?', digest].join
+      [file_name, '?', digest, '-', BUILD_STAMP].join
     end
   end
 end
