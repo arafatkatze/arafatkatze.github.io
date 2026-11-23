@@ -21,7 +21,7 @@ So I quit. Figured I had enough savings to travel for a couple years without wor
 
 <div class="row justify-content-sm-center">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1800/v1768165128/e0c8a625-0f24-4e43-a2ce-20a505302dea_cbiqbh.jpg" width="1024" height="1024" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1800/v1768165128/e0c8a625-0f24-4e43-a2ce-20a505302dea_cbiqbh.jpg" width="1024" height="1024" alt="Illustration of a smiling cyclist riding a loaded touring bike along a mountain trail" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 

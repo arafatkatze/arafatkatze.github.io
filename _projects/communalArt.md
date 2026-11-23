@@ -16,7 +16,7 @@ For me, the first dimension of art is looking at something that inspires a visce
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 800px;">
   {% include figure.html
      path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946943/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg_tudmz2.webp" width="960" height="760"
-     title="example image"
+     alt="Vincent van Gogh's The Starry Night"
      class="img-fluid rounded z-depth-1"
      max_width="250px" %}
 </div>
@@ -32,7 +32,7 @@ So when life gives you a pretty half-painted T-shirt, what do you do? You either
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 800px;">
   {% include figure.html
      path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg" width="1347" height="1293"
-     title="example image"
+     alt="White T-shirt covered in small hand-painted drawings, logos and names"
      class="img-fluid rounded z-depth-1"
      max_width="250px" %}
 </div>

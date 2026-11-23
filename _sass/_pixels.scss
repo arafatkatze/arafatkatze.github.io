@@ -35,10 +35,28 @@
   margin-right: 0.2rem;
 }
 
+// The swatches are added by script. Reserve the room they will take (11 x 28px
+// plus gaps) so the toolbar and board do not jump when they appear.
 .color-swatches {
   display: flex;
   gap: 0.4rem;
   flex-wrap: wrap;
+  flex: 0 0 372px;
+  max-width: 100%;
+  min-height: 28px;
+
+  @media (max-width: 480px) {
+    flex-basis: 100%;
+    min-height: 63px; // two rows on a phone
+  }
+}
+
+// On a phone the palette takes the whole toolbar row from the start, so the
+// info block is already on its own row before the swatches arrive.
+@media (max-width: 480px) {
+  .color-palette {
+    flex: 1 1 100%;
+  }
 }
 
 .color-swatch {
@@ -56,6 +74,12 @@
 
   &:hover {
     transform: scale(1.15);
+  }
+
+  &:focus-visible {
+    box-shadow:
+      0 0 0 2.5px var(--global-bg-color),
+      0 0 0 4.5px var(--global-theme-color);
   }
 
   &.selected {
