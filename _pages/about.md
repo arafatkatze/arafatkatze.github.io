@@ -6,7 +6,10 @@ subtitle:
 
 profile:
   align: right
-  image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772992166/profile_photo_fvaxo9.png
+  image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_800/v1772992166/profile_photo_fvaxo9.png
+  alt: Ara Khan smiling on a pebble beach at sunset
+  width: 800 # intrinsic size, so the browser reserves the space before the image loads
+  height: 1067
   image_circular: false
   more_info: >
     <p>  </p>
@@ -19,7 +22,7 @@ bento_tiles:
   - title: To My Future Son
     label: Writing · Philosophy
     link: /philosophy/2026/01/21/son
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1769234582/IMG_3229_1_k3ykmq.png
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1769234582/IMG_3229_1_k3ykmq.png
     excerpt: "I imagine myself sitting on a chair, working. You come running towards me, curve your tiny hand around my right hand..."
     type: card
     span: wide
@@ -27,14 +30,14 @@ bento_tiles:
   - title: Travel
     label: Explore · Globe
     link: /travel/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/about/earth-day-from-iss.jpg
-    image_dark: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/about/earth-night-from-iss.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1794860186/site/about/earth-day-from-iss.jpg
+    image_dark: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1794860186/site/about/earth-night-from-iss.jpg
     type: image
 
   - title: arOS
     label: Play · Desktop
     link: /desktop/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/about/aros-tile.png
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1794860186/site/about/aros-tile.png
     type: card
     excerpt: "This whole site, reimagined as a tiny desktop operating system. Click to boot it up."
 
@@ -42,13 +45,13 @@ bento_tiles:
   - title: Art
     label: Writing · Philosophy
     link: /philosophy/2026/06/19/art
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417818/site/art/7.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1772417818/site/art/7.jpg
     type: image
 
   - title: Letters to a Young Poet
     label: Reading · Books
     link: /reading/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/book-covers/isbn-0393310396.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1794860189/site/book-covers/isbn-0393310396.jpg
     type: book
     author: Rainer Maria Rilke
     badge: Read
@@ -56,7 +59,7 @@ bento_tiles:
   - title: Mathematics of Love
     label: Projects · Art
     link: /projects/mathmaking/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/v1766803299/59a8cbc7-95fc-5b34-8d83-53f7729a6786_vvlnqo.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1766803299/59a8cbc7-95fc-5b34-8d83-53f7729a6786_vvlnqo.jpg
     type: image
     span: wide
 
@@ -64,13 +67,13 @@ bento_tiles:
   - title: White Shirt Project
     label: Projects · Art
     link: /projects/communalArt/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg
     type: image
 
   - title: The Kite Runner
     label: Reading · Books
     link: /reading/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/book-covers/isbn-159463193X.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1794860189/site/book-covers/isbn-159463193X.jpg
     type: book
     author: Khaled Hosseini
     badge: Read
@@ -78,13 +81,13 @@ bento_tiles:
   - title: Agentic AI
     label: Projects · Work
     link: /projects/AgenticAi/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1768156022/GyuuViCXwAAsGci_e6ldvd.jpg
     type: image
 
   - title: Skiing
     label: Writing · Philosophy
     link: /philosophy/2026/06/19/skiing
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772417810/site/skiing/11.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1772417810/site/skiing/11.jpg
     type: image
 
   # Row 4: pixel board + on looking inwards + into the wild
@@ -106,7 +109,7 @@ bento_tiles:
   - title: Into the Wild
     label: Reading · Books
     link: /reading/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/book-covers/isbn-0385486804.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1794860189/site/book-covers/isbn-0385486804.jpg
     type: book
     author: Jon Krakauer
     badge: Read
@@ -114,7 +117,7 @@ bento_tiles:
   - title: Love in the Void
     label: Reading · Books
     link: /reading/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/book-covers/love-in-the-void.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1794860186/site/book-covers/love-in-the-void.jpg
     type: book
     author: Simone Weil
     badge: Read
@@ -130,7 +133,7 @@ bento_tiles:
   - title: The Stranger
     label: Reading · Books
     link: /reading/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/book-covers/isbn-0679720200.jpg
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1794860189/site/book-covers/isbn-0679720200.jpg
     type: book
     author: Albert Camus
     badge: Read
@@ -138,7 +141,7 @@ bento_tiles:
   - title: The Reading Map
     label: Projects · Art
     link: /reading-highlights/
-    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/projects/reading-map.webp
+    image: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_900/v1794860186/site/projects/reading-map.webp
     type: image
 
 announcements:

@@ -59,7 +59,11 @@
   >
 {% endif %}
 
-{% if site.icon.size <= 4 %}
+{% if site.icon == blank %}
+  {% comment %} The real icon files: /favicon.ico (16/32/48px) and the 180px PNG below. {% endcomment %}
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="180x180" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}">
+{% elsif site.icon.size <= 4 %}
   <link
     rel="shortcut icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>{{ site.icon }}</text></svg>"

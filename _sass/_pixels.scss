@@ -98,6 +98,9 @@
     0 0 60px rgba(111, 237, 214, 0.04);
   image-rendering: pixelated;
   max-width: 100%;
+  // Reserve the board's space before the script sizes it (avoids a layout jump).
+  width: min(100%, 700px);
+  aspect-ratio: 1 / 1;
 }
 
 .pixel-actions {
@@ -330,14 +333,7 @@
     width: 44px;
     height: 44px;
     margin: 0 auto 0.9rem;
-    background:
-      conic-gradient(
-        from 0deg,
-        #6fedd6 0 25%,
-        #f4d35e 0 50%,
-        #e84855 0 75%,
-        #7b6b8d 0 100%
-      );
+    background: conic-gradient(from 0deg, #6fedd6 0 25%, #f4d35e 0 50%, #e84855 0 75%, #7b6b8d 0 100%);
     border-radius: 6px;
     image-rendering: pixelated;
     box-shadow: 0 0 24px rgba(111, 237, 214, 0.3);
