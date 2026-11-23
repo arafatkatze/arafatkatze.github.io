@@ -34,7 +34,7 @@ This one has to be my favourite one ever, I like the myriad of colors and the co
 
 This reminds me of one of my favourite movies of all time(Concrete circus).
 
-<iframe width="800" height="480" src="https://www.youtube.com/embed/bFtY-uHt6oM" title="Danny MacAskill, Blue (Storm FreeRun), Kilian Martin, Keelan Phillips, Phil Doyle: Barbican Bolero" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="video-embed" src="https://www.youtube.com/embed/bFtY-uHt6oM" title="Danny MacAskill, Blue (Storm FreeRun), Kilian Martin, Keelan Phillips, Phil Doyle: Barbican Bolero" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Check it out if you wanna see the perfect mix of art, dance, skating and urban freeride biking.
 

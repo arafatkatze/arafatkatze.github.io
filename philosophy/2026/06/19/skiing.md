@@ -11,7 +11,7 @@
 
 Many moons ago I was doomscrolling on youtube when I came across this video
 
-<iframe width="800" height="480" src="https://www.youtube.com/embed/C-y70ZOSzE0" title="GoPro: Let Me Take You To The Mountain" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="video-embed" src="https://www.youtube.com/embed/C-y70ZOSzE0" title="GoPro: Let Me Take You To The Mountain" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 Something about this hypnotized me so much that I couldn't resist wanting to DO whatever it is that these people were doing. It took me a few years to get myself the finances to get to a point where I could actually afford to go skiing but the wait was well worth it.
 

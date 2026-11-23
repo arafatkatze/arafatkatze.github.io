@@ -29,7 +29,7 @@ Life used to be so selfish. It still is. But when I started thinking of you, I a
 
 I now see love for what it is, it is the greatest responsibility in the world.
 
-It doesn't happen often. It is incredibly rare. In tiny slivers, love is everywhere if you look for it. 
+It doesn't happen often. It is incredibly rare. In tiny slivers, love is everywhere if you look for it.
 
 ---
 
