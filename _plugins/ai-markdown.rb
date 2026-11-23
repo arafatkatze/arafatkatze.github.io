@@ -51,6 +51,11 @@ module AiMarkdown
       path ? "[Video: #{title}](#{path.sub('youtube.com/embed/', 'youtube.com/watch?v=')})" : ""
     end
     text.gsub!(/\{%\s*twitter\s+(\S+)\s*%\}/) { "[Post on X](#{Regexp.last_match(1)})" }
+    # Keep site links written as {{ '/path/' | relative_url }} instead of
+    # stripping them to an empty "()" target.
+    text.gsub!(/\{\{-?\s*["']([^"']+)["']\s*\|\s*(?:relative|absolute)_url\s*-?\}\}/) do
+      absolute(site, Regexp.last_match(1))
+    end
     text.gsub!(/\{%-?\s*raw\s*-?%\}|\{%-?\s*endraw\s*-?%\}/, "")
     text.gsub!(/\{%.*?%\}/m, "")
     text.gsub!(/\{\{.*?\}\}/m, "")

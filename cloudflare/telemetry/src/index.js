@@ -18,6 +18,11 @@ const RETENTION_DAYS = 400;
 const REDIRECTS = {
   "/blog/ruby-tensorflow/": "/projects/rubyTensorflow/",
   "/blog/ruby-tensorflow": "/projects/rubyTensorflow/",
+  // Images moved to Cloudinary in cebc8e2d; crawlers still ask for the old paths.
+  "/nemotron-inference/assets/intelligence-speed-solar-best-run.png":
+    "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860188/site/nemotron-inference/intelligence-speed-solar-best-run.png",
+  "/nemotron-inference/assets/cline32-poster.jpg":
+    "https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860187/site/nemotron-inference/cline32-poster.jpg",
 };
 
 export default {

@@ -38,7 +38,6 @@
     {
       "name": "ImmigrantFirst",
       "position": "Founder",
-      "url": "https://immigrantfirst.ai/",
       "startDate": "2023",
       "endDate": "2023",
       "highlights": ["Built an LLM-assisted workflow for preparing O-1 visa application materials"]
