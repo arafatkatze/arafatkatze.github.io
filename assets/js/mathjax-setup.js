@@ -1,10 +1,10 @@
 window.MathJax = {
   tex: {
     tags: "ams",
-    inlineMath: [
-      ["$", "$"],
-      ["\\(", "\\)"],
-    ],
+    // Inline math is \\( ... \\) only. A single "$" is not a delimiter: any
+    // sentence with two prices in it ("$49.8 ... $65") was being typeset as a
+    // formula. Display math ($$ ... $$) is unaffected.
+    inlineMath: [["\\(", "\\)"]],
   },
   options: {
     renderActions: {
