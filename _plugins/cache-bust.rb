@@ -42,8 +42,14 @@ module Jekyll
       CacheDigester.new(file_name: file_name, directory: nil).digest!
     end
 
+    # The stylesheet is compiled from _sass/, so its cache key is a digest of
+    # those sources and main.scss. (This used to point at assets/_sass, which does not exist,
+    # so every deploy produced the same key and CDNs kept serving stale CSS.)
     def bust_css_cache(file_name)
-      CacheDigester.new(file_name: file_name, directory: 'assets/_sass').digest!
+      sources = Dir[File.join('_sass', '**', '*')].sort.reject { |f| File.directory?(f) }
+      sources << File.join('assets', 'css', 'main.scss')
+      digest = Digest::MD5.hexdigest(sources.map { |f| File.read(f) }.join)
+      [file_name, '?', digest].join
     end
   end
 end
