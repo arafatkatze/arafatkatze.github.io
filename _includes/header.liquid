@@ -53,7 +53,19 @@
           <div class="pill-nav-actions">
             {% if site.search_enabled %}
               <button id="search-toggle" class="pill-nav-icon" title="Search" aria-label="Search" onclick="openSearchModal()">
-                <svg class="pill-nav-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <svg
+                  class="pill-nav-svg"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
                   <circle cx="10.5" cy="10.5" r="6.5" /><path d="M20 20l-4.8 -4.8" />
                 </svg>
               </button>
@@ -61,14 +73,53 @@
             {% if site.enable_darkmode %}
               <button id="light-toggle" class="pill-nav-icon" title="Change theme" aria-label="Change theme">
                 {% comment %} system: half-filled disc, dark: moon, light: sun {% endcomment %}
-                <svg class="pill-nav-svg" id="light-toggle-system" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <circle cx="12" cy="12" r="8" /><path class="pill-nav-svg-fill" d="M12 4a8 8 0 0 1 0 16z" />
+                <svg
+                  class="pill-nav-svg"
+                  id="light-toggle-system"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <circle cx="12" cy="12" r="8" /><path class="pill-nav-svg-fill" fill="currentColor" d="M12 4a8 8 0 0 1 0 16z" />
                 </svg>
-                <svg class="pill-nav-svg" id="light-toggle-dark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <path class="pill-nav-svg-fill" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" />
+                <svg
+                  class="pill-nav-svg"
+                  id="light-toggle-dark"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path class="pill-nav-svg-fill" fill="currentColor" d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" />
                 </svg>
-                <svg class="pill-nav-svg" id="light-toggle-light" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                  <circle class="pill-nav-svg-fill" cx="12" cy="12" r="4" />
+                <svg
+                  class="pill-nav-svg"
+                  id="light-toggle-light"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <circle class="pill-nav-svg-fill" fill="currentColor" cx="12" cy="12" r="4" />
                   <path d="M12 2.5v2.5M12 19v2.5M2.5 12h2.5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8 -1.8M16.9 7.1l1.8 -1.8" />
                 </svg>
               </button>
