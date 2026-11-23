@@ -8,7 +8,7 @@ category: work
 ---
 
 <div class="mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/tensorflow-ruby-cover.jpg" title="TensorFlow Ruby" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/tensorflow-ruby-cover.jpg" width="747" height="420" title="TensorFlow Ruby" class="img-fluid rounded z-depth-1" %}
 </div>
 
 Back in 2016 I spent a good chunk of my time porting TensorFlow to Ruby with the [tensorflow.rb](https://github.com/somaticio/tensorflow.rb) gem. I wrote three separate blog posts about it back then — an introduction to the Ruby API, a developer deep-dive into how Google Protobuf drives the graph internals, and a hands-on image recognition tutorial. This project stitches all three together into one, so the whole story lives in a single place.
@@ -161,13 +161,13 @@ This tutorial will teach you how to use Inception-v3 in tensorflow.rb. You'll le
 A few cool examples of using the image recognition tutorial. First let's try this out on a cute puppy.
 
 <div class="mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/puppy.jpg" title="A cute puppy" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/puppy.jpg" width="800" height="965" title="A cute puppy" class="img-fluid rounded z-depth-1" %}
 </div>
 
 A palace?
 
 <div class="mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/winter-palace.jpg" title="Winter Palace, St. Petersburg" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/winter-palace.jpg" width="1400" height="931" title="Winter Palace, St. Petersburg" class="img-fluid rounded z-depth-1" %}
 </div>
 <div class="caption">
     Winter Palace, St. Petersburg
@@ -176,13 +176,13 @@ A palace?
 A library?
 
 <div class="mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/library.jpg" title="A library" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/library.jpg" width="1400" height="933" title="A library" class="img-fluid rounded z-depth-1" %}
 </div>
 
 Or a bridge?
 
 <div class="mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/chain-bridge.jpg" title="Széchenyi Chain Bridge, Hungary" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/chain-bridge.jpg" width="1400" height="782" title="Széchenyi Chain Bridge, Hungary" class="img-fluid rounded z-depth-1" %}
 </div>
 <div class="caption">
     Széchenyi Chain Bridge, Hungary
@@ -191,7 +191,7 @@ Or a bridge?
 The results are interesting, and I encourage you to play with tensorflow.rb and try it out on your own images. The deep learning model in Inception-v3 is described in the arXiv preprint "Rethinking the Inception Architecture for Computer Vision" and can be visualized with this schematic diagram:
 
 <div class="mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/inception-v3-schematic.png" title="Inception-v3 schematic" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860186/site/tensorflow/inception-v3-schematic.png" width="1400" height="522" title="Inception-v3 schematic" class="img-fluid rounded z-depth-1" %}
 </div>
 
 As described in the preprint, this model achieves a 5.64% top-5 error while an ensemble of four of these models achieves a 3.58% top-5 error on the validation set of the ImageNet whole-image ILSVRC 2012 classification task. Furthermore, in the 2015 ImageNet Challenge, an ensemble of 4 of these models came in 2nd in the image classification task.

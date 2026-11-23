@@ -75,7 +75,7 @@ photography: true
         <img
           class="photo-gallery__image"
           src="{{ url }}"
-          alt="Photograph {{ forloop.index }}"
+          alt="{{ site.data.photography.projects[0].title }}, photograph {{ forloop.index }}"
           loading="lazy"
           decoding="async"
         />

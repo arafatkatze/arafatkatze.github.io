@@ -7,13 +7,11 @@ importance: 1
 category: art
 ---
 
-
 Some days, I lay in bed at night and feel this odd tinge of loneliness and I ask myself why did I do all of this? Why am I doing this and who am I doing this for?
 
 I do love working in AI. It's one of the most joyful endeavors I have ever pursued and I have given up many of my comforts, my home country, my undying love for traveling and snowboarding.
 
 But sometimes I deeply relate to this guy, who left his AI safety job at Anthropic to work on poetry and I can see how pursuing poetry can be a deeply soulful decision.
-
 
 For me, I don't want to leave AI just because of a few bad moments, but I do think that the answer to my angst is somewhere else. I like to think that the missing puzzle piece of doing great work in AI is to both be relentless in effort and execution and even more importantly not lose our humanity as everything we know about intelligence and humanity is going to change very fast.
 
@@ -27,7 +25,7 @@ Here's some of the analog art that's come out of [@cline](https://x.com/clooi): 
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412614/blog_poetry_ai/henna_hand_cline.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412614/blog_poetry_ai/henna_hand_cline.jpg" width="1060" height="1286"
     alt="The Cline logo and КЛИН (Cline in Russian Cyrillic) hand drawn in henna"
     caption="The Cline logo and \"КЛИН\" (Cline in Russian Cyrillic) hand drawn in henna"
     class="img-fluid rounded z-depth-1" %}
@@ -35,21 +33,21 @@ Here's some of the analog art that's come out of [@cline](https://x.com/clooi): 
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412614/blog_poetry_ai/black_tshirt_tech.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412614/blog_poetry_ai/black_tshirt_tech.jpg" width="1800" height="2006"
     alt="Black t-shirt with Cline logo, lambda symbol, Euler's equations, and tech references"
     class="img-fluid rounded z-depth-1" %}
 </div>
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412615/blog_poetry_ai/grey_tshirt_sun.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412615/blog_poetry_ai/grey_tshirt_sun.jpg" width="1800" height="1702"
     alt="Grey t-shirt with sunshine, guitars, and umbrellas"
     class="img-fluid rounded z-depth-1" %}
 </div>
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412617/blog_poetry_ai/blue_tshirt_faith.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412617/blog_poetry_ai/blue_tshirt_faith.jpg" width="1800" height="1823"
     alt="A contemplative design on black: a heart with a cross inside, a candle, a human figure, and a lightning bolt"
     caption="A contemplative design on black: a heart with a cross inside, a candle, a human figure, and a lightning bolt. Faith, light, humanity, and energy."
     class="img-fluid rounded z-depth-1" %}
@@ -57,7 +55,7 @@ Here's some of the analog art that's come out of [@cline](https://x.com/clooi): 
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412617/blog_poetry_ai/collab_tshirt_multilingual.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412617/blog_poetry_ai/collab_tshirt_multilingual.jpg" width="1347" height="1293"
     alt="Collaboration t-shirt with Cline written in Cyrillic, Korean, and Arabic"
     caption="The collaboration shirt: \"Cline\" written in Cyrillic (КЛИН), Korean (클라인), and Arabic (كلاين), surrounded by palm trees, pandas, butterflies, flowers, tech logos, \"1984,\" and a birthday message for Kara. A whole world on one tee. 7 different people worked on this."
     class="img-fluid rounded z-depth-1" %}
@@ -68,21 +66,21 @@ These next ones were drawn by a the kid of one of our teammates. He reimagined t
 <div class="row justify-content-sm-center">
     <div class="col-sm-4 mt-3 mt-md-0">
         {% include figure.html
-        path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412618/blog_poetry_ai/cline_baseball_drawing.jpg"
+        path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412618/blog_poetry_ai/cline_baseball_drawing.jpg" width="1536" height="2048"
         alt="Cline Baseball"
         caption="Cline Baseball"
         class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
         {% include figure.html
-        path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412619/blog_poetry_ai/cline_crown_drawing.jpg"
+        path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412619/blog_poetry_ai/cline_crown_drawing.jpg" width="1536" height="2048"
         alt="Cline with Crown"
         caption="Cline with Crown"
         class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
         {% include figure.html
-        path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412619/blog_poetry_ai/cline_biggie_drawing.jpg"
+        path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412619/blog_poetry_ai/cline_biggie_drawing.jpg" width="1536" height="2048"
         alt="Cline Biggie"
         caption="Cline Biggie"
         class="img-fluid rounded z-depth-1" %}
@@ -91,7 +89,7 @@ These next ones were drawn by a the kid of one of our teammates. He reimagined t
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412621/blog_poetry_ai/dj_cline_acrylic.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412621/blog_poetry_ai/dj_cline_acrylic.jpg" width="1536" height="2048"
     alt="DJ Cline laser-etched into acrylic"
     caption="DJ Cline laser-etched into acrylic"
     class="img-fluid rounded z-depth-1" %}
@@ -99,14 +97,14 @@ These next ones were drawn by a the kid of one of our teammates. He reimagined t
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412623/blog_poetry_ai/cline_enamel_pin.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412623/blog_poetry_ai/cline_enamel_pin.jpg" width="1536" height="2048"
     alt="Cline enamel pin"
     class="img-fluid rounded z-depth-1" %}
 </div>
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412623/blog_poetry_ai/3d_print_cline_a.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412623/blog_poetry_ai/3d_print_cline_a.jpg" width="1536" height="2048"
     alt="3D-printed Cline figure in full sunset colors"
     caption="3D print goes full sunset: bright orange body, glowing yellow eyes, pink heart on the belly, and little blue kicks."
     class="img-fluid rounded z-depth-1" %}
@@ -114,7 +112,7 @@ These next ones were drawn by a the kid of one of our teammates. He reimagined t
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412625/blog_poetry_ai/3d_print_cline_b.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412625/blog_poetry_ai/3d_print_cline_b.jpg" width="1536" height="2048"
     alt="Before and After: 3D-printed Cline figures"
     caption="Before and After"
     class="img-fluid rounded z-depth-1" %}
@@ -128,7 +126,7 @@ I want to stay "locked in". I don't regret all the things that I have given up t
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 600px;">
     {% include figure.html
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412611/blog_poetry_ai/poem_the_way_it_is.jpg"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1772412611/blog_poetry_ai/poem_the_way_it_is.jpg" width="1274" height="510"
     alt="The Way It Is by William Stafford"
     class="img-fluid rounded z-depth-1" %}
 </div>

@@ -1,3 +1,6 @@
+{% comment %} alt: the given text, else the title; the theme's placeholder title is not a description. {% endcomment %}
+{% assign fig_alt = include.alt | default: include.title %}
+{% if fig_alt == 'example image' %}{% assign fig_alt = '' %}{% endif %}
 {% assign img_path = include.path | remove: '.jpg' | remove: '.jpeg' | remove: '.png' | remove: '.tiff' | remove: '.gif' %}
 {% assign parts = include.path | split: '.' %}
 {% assign ext = parts.last %}
@@ -62,9 +65,7 @@
           {% endif %}
         "
       {% endif %}
-      {% if include.alt %}
-        alt="{{ include.alt }}"
-      {% endif %}
+      alt="{{ fig_alt | escape }}"
       {% if include.title %}
         title="{{ include.title }}"
       {% endif %}

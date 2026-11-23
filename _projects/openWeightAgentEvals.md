@@ -10,7 +10,7 @@ permalink: /projects/open-weight-agent-evals/
 
 <div class="col-sm mt-3 mt-md-0 mx-auto">
     {% include figure.liquid
-    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788040939/open-weight-agent-evals/hero.png"
+    path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1788040939/open-weight-agent-evals/hero.png" width="1672" height="941"
     alt="Open-sourcing evals for open-weight agents"
     class="img-fluid rounded z-depth-1" %}
 </div>
@@ -30,7 +30,7 @@ At Cline, we noticed an unusual rise in the token usage of open-weight models in
 After stack-ranking our usage, we saw that the five most-used models in Cline right now are all open-weight models.
 
 {% include figure.liquid
-  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168010/open-weight-agent-evals/usage-ranking.png"
+  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168010/open-weight-agent-evals/usage-ranking.png" width="640" height="600"
   alt="Cline model usage ranking showing the five most-used models are open-weight"
   class="img-fluid rounded z-depth-1"
 %}
@@ -50,7 +50,7 @@ We use [Harbor](https://github.com/laude-institute/harbor). It is a widely adopt
 Harbor lets you run tons of parallelized evals using Modal on the same 89-problem coding dataset, [Terminal Bench](https://www.tbench.ai/), so you can do long eval runs across different coding agent harnesses and quickly figure out aggregate eval run metrics like input tokens, cached tokens, output tokens, net price, tool calls used, etc.
 
 {% include figure.liquid
-  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168012/open-weight-agent-evals/harbor-eval-flow.png"
+  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168012/open-weight-agent-evals/harbor-eval-flow.png" width="1326" height="1187"
   alt="Harbor evaluation flow and aggregate metrics"
   class="img-fluid rounded z-depth-1"
 %}
@@ -69,7 +69,7 @@ Here are a few examples of conflicting targets:
 All the above are scenarios in which you would like to optimize both parts of a conflicting goal, but you must pick the right balance. I can easily score 91% on Terminal Bench if I use Fable's max mode, but it will cost 10 times as much as Kimi K3. So, is an extra 3% really worth 10 times the net run cost?
 
 {% include figure.liquid
-  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168013/open-weight-agent-evals/optimization-tradeoffs.png"
+  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168013/open-weight-agent-evals/optimization-tradeoffs.png" width="1600" height="960"
   alt="Evaluation score and cost tradeoffs across open-weight models"
   class="img-fluid rounded z-depth-1"
 %}
@@ -118,7 +118,7 @@ The best first method for breaking down failure patterns is by task. We had a to
 When we compared our traces with those of agents that did not have the same bloat, the gap was not spread evenly across the benchmark. It was confined to a small set of tasks. In one run, about 250K tokens came from just 15 of 89 tasks, and the net token total was 450 million tokens, so roughly 55% of the tokens came from just 17% of the tasks.
 
 {% include figure.liquid
-  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168014/open-weight-agent-evals/token-bloat-tasks.png"
+  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168014/open-weight-agent-evals/token-bloat-tasks.png" width="1600" height="897"
   alt="Token usage concentrated in a small subset of Terminal-Bench tasks"
   class="img-fluid rounded z-depth-1"
 %}
@@ -151,7 +151,7 @@ A classic example was an experiment in which we added tool-bloat truncation to s
 With one truncation clamp, we saw that it improved MiniMax M2.7 by 13.5 points and GLM-5.1 by 9 points. But it also hurt DeepSeek Flash by 6.7 points and DeepSeek Pro by 4.5. So the same change had opposite effects on different models.
 
 {% include figure.liquid
-  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168015/open-weight-agent-evals/truncation-results.png"
+  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168015/open-weight-agent-evals/truncation-results.png" width="1600" height="898"
   alt="Open-weight model score changes after adding tool-output truncation"
   class="img-fluid rounded z-depth-1"
 %}
@@ -182,7 +182,7 @@ Here is one concrete example from our GLM-5.2 runs using the same build on two p
 - OpenRouter general routing at medium reasoning: 55/89 tasks, 61.8%.
 
 {% include figure.liquid
-  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168016/open-weight-agent-evals/provider-comparison.png"
+  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168016/open-weight-agent-evals/provider-comparison.png" width="1600" height="898"
   alt="GLM-5.2 evaluation comparison across providers"
   class="img-fluid rounded z-depth-1"
 %}
@@ -198,7 +198,7 @@ When it comes to thinking, the general belief is that more is better. This is no
 Opus 5's FrontierCode result is a classic counterexample to the idea that more thinking leads to better results.
 
 {% include figure.liquid
-  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168017/open-weight-agent-evals/frontiercode-reasoning.png"
+  path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1786168017/open-weight-agent-evals/frontiercode-reasoning.png" width="1030" height="1526"
   alt="Opus 5 FrontierCode results by reasoning effort"
   class="img-fluid rounded z-depth-1"
 %}

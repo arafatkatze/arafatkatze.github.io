@@ -25,6 +25,15 @@ body.fixed-top-nav {
 body.sticky-bottom-footer {
   // Remove padding below footer.
   padding-bottom: 0;
+  // Keep the footer at the bottom of the window on short pages.
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  > main {
+    flex: 1 0 auto;
+    width: 100%;
+  }
 }
 
 .container {
@@ -35,6 +44,7 @@ body.sticky-bottom-footer {
 .profile {
   img {
     width: 100%;
+    height: auto;
   }
 }
 

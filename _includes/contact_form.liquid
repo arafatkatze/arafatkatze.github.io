@@ -4,29 +4,39 @@
 </button>
 
 <!-- Contact Modal -->
-<div id="contactModal" class="contact-modal" onclick="closeContactModalOutside(event)">
+<div
+  id="contactModal"
+  class="contact-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="contactModalTitle"
+  aria-hidden="true"
+  onclick="closeContactModalOutside(event)"
+>
   <div class="contact-modal-content">
     <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
 
     <!-- Form State -->
     <div id="contactFormState">
-      <h4 class="contact-modal-title">Get in Touch</h4>
-      <p class="contact-modal-subtitle">
-        Never hesitate to say hello, who knows it might change both of our lives. 
-      </p>
+      <h4 class="contact-modal-title" id="contactModalTitle">Get in Touch</h4>
+      <p class="contact-modal-subtitle">Never hesitate to say hello, who knows it might change both of our lives.</p>
       <form id="contactForm" class="contact-form">
         <div class="form-group">
+          <label class="sr-only" for="contactEmail">Your email</label>
           <input
             type="email"
             name="email"
             id="contactEmail"
             class="form-control contact-input"
             placeholder="Your email"
+            autocomplete="email"
+            aria-describedby="emailError"
             required
           >
-          <span id="emailError" class="contact-error" style="display: none;">Please enter a valid email address</span>
+          <span id="emailError" class="contact-error" role="alert" style="display: none;">Please enter a valid email address</span>
         </div>
         <div class="form-group">
+          <label class="sr-only" for="contactMessage">Your message</label>
           <textarea
             name="message"
             id="contactMessage"
@@ -51,8 +61,13 @@
 </div>
 
 <script>
+  var contactModalOpener = null;
+
   function openContactModal() {
-    document.getElementById('contactModal').classList.add('open');
+    var modal = document.getElementById('contactModal');
+    contactModalOpener = document.activeElement;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
     // Reset to form state when opening
     document.getElementById('contactFormState').style.display = 'block';
@@ -61,12 +76,40 @@
     document.getElementById('emailError').style.display = 'none';
     document.getElementById('submitError').style.display = 'none';
     document.getElementById('contactEmail').classList.remove('input-error');
+    // Move keyboard focus into the dialog (after it becomes visible)
+    setTimeout(function () {
+      document.getElementById('contactEmail').focus();
+    }, 50);
   }
 
   function closeContactModal() {
-    document.getElementById('contactModal').classList.remove('open');
+    var modal = document.getElementById('contactModal');
+    if (!modal.classList.contains('open')) return;
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    // Return focus to whatever opened the dialog
+    if (contactModalOpener && contactModalOpener.focus) contactModalOpener.focus();
+    contactModalOpener = null;
   }
+
+  // Keep Tab / Shift+Tab inside the dialog while it is open
+  document.getElementById('contactModal').addEventListener('keydown', function (event) {
+    if (event.key !== 'Tab') return;
+    var focusable = Array.prototype.filter.call(this.querySelectorAll('button, input, textarea, a[href]'), function (el) {
+      return !el.disabled && el.offsetParent !== null;
+    });
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
 
   function closeContactModalOutside(event) {
     if (event.target.id === 'contactModal') {

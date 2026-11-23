@@ -31,7 +31,9 @@
     if (!projects.length) return;
 
     var bySlug = {};
-    projects.forEach(function (p) { bySlug[p.slug] = p; });
+    projects.forEach(function (p) {
+      bySlug[p.slug] = p;
+    });
 
     var imageEl = document.getElementById("photo-lightbox-image");
     var counterEl = document.getElementById("photo-lightbox-counter");
@@ -46,7 +48,9 @@
         var params = new URLSearchParams(window.location.search);
         var slug = params.get("project");
         if (slug && bySlug[slug]) return slug;
-      } catch (e) { /* no-op */ }
+      } catch (e) {
+        /* no-op */
+      }
       return projects[0].slug;
     }
 
@@ -55,7 +59,9 @@
         var url = new URL(window.location.href);
         url.searchParams.set("project", slug);
         window.history.replaceState({}, "", url.toString());
-      } catch (e) { /* no-op */ }
+      } catch (e) {
+        /* no-op */
+      }
     }
 
     function renderGrid(project) {
@@ -74,7 +80,7 @@
         var img = document.createElement("img");
         img.className = "photo-gallery__image";
         img.src = src;
-        img.alt = "Photograph " + (idx + 1);
+        img.alt = project.title + ", photograph " + (idx + 1);
         img.loading = "lazy";
         img.decoding = "async";
         fig.appendChild(img);
@@ -156,7 +162,7 @@
       current = index;
       imageEl.src = activeImages[index];
       imageEl.alt = "Photograph " + (index + 1) + " of " + activeImages.length;
-      counterEl.textContent = (index + 1) + " / " + activeImages.length;
+      counterEl.textContent = index + 1 + " / " + activeImages.length;
       lightbox.hidden = false;
       requestAnimationFrame(function () {
         lightbox.setAttribute("data-open", "true");
@@ -202,9 +208,18 @@
     document.addEventListener("keydown", function (event) {
       if (lightbox.getAttribute("data-open") !== "true") return;
       switch (event.key) {
-        case "Escape":   event.preventDefault(); closeLightbox(); break;
-        case "ArrowLeft":  event.preventDefault(); step(-1); break;
-        case "ArrowRight": event.preventDefault(); step(1); break;
+        case "Escape":
+          event.preventDefault();
+          closeLightbox();
+          break;
+        case "ArrowLeft":
+          event.preventDefault();
+          step(-1);
+          break;
+        case "ArrowRight":
+          event.preventDefault();
+          step(1);
+          break;
       }
     });
 
@@ -273,17 +288,23 @@
     pillsContainer.addEventListener("keydown", function (event) {
       var pill = event.target.closest(".photo-gallery__pill");
       if (!pill) return;
-      var pills = Array.prototype.slice.call(
-        pillsContainer.querySelectorAll(".photo-gallery__pill")
-      );
+      var pills = Array.prototype.slice.call(pillsContainer.querySelectorAll(".photo-gallery__pill"));
       var idx = pills.indexOf(pill);
       if (idx < 0) return;
       var next = null;
       switch (event.key) {
-        case "ArrowRight": next = pills[(idx + 1) % pills.length]; break;
-        case "ArrowLeft":  next = pills[(idx - 1 + pills.length) % pills.length]; break;
-        case "Home":       next = pills[0]; break;
-        case "End":        next = pills[pills.length - 1]; break;
+        case "ArrowRight":
+          next = pills[(idx + 1) % pills.length];
+          break;
+        case "ArrowLeft":
+          next = pills[(idx - 1 + pills.length) % pills.length];
+          break;
+        case "Home":
+          next = pills[0];
+          break;
+        case "End":
+          next = pills[pills.length - 1];
+          break;
       }
       if (next) {
         event.preventDefault();

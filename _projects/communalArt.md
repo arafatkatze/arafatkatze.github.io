@@ -15,7 +15,7 @@ For me, the first dimension of art is looking at something that inspires a visce
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 800px;">
   {% include figure.html
-     path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946943/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg_tudmz2.webp"
+     path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946943/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg_tudmz2.webp" width="960" height="760"
      title="example image"
      class="img-fluid rounded z-depth-1"
      max_width="250px" %}
@@ -31,7 +31,7 @@ So when life gives you a pretty half-painted T-shirt, what do you do? You either
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 800px;">
   {% include figure.html
-     path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg"
+     path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1762946968/z7ywvQIcQdi_NtCWaTpGJQ_h4cthb.jpg" width="1347" height="1293"
      title="example image"
      class="img-fluid rounded z-depth-1"
      max_width="250px" %}
@@ -75,11 +75,11 @@ This project grew:
         {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768106232/2026-01-02_09-30-48_642_2_rrey1r.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768106227/2025-12-30_09-09-11_765_2_vn9drv.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1768106227/2025-12-30_09-09-11_765_2_vn9drv.png" width="1800" height="2005" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797412/2026-01-19_19-50-16_763_mgvxvq.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797412/2026-01-19_19-50-16_763_mgvxvq.png" width="1800" height="2400" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 
 </div>
@@ -90,11 +90,11 @@ I also learned that you can draw cute if you really really tried
 
 <div class="row">
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797231/2026-02-10_21-37-17_079_jsgss7.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797231/2026-02-10_21-37-17_079_jsgss7.png" width="1800" height="2400" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797226/2026-01-01_18-20-24_194_xtqb79.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1770797226/2026-01-01_18-20-24_194_xtqb79.png" width="1800" height="2400" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 
 </div>

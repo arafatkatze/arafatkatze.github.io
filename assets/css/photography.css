@@ -6,16 +6,15 @@
  * Responsive full-bleed grid (3 -> 2 -> 1 column) with a click-to-zoom modal.
  */
 
-/* Break out of the Bootstrap .container that wraps page content so the
- * gallery can fill the full viewport width. */
+/* Gallery pages share one wide column (1200px, same as /reading/), so the
+ * page title lines up with the grid instead of sitting in the narrower text
+ * column above an edge-to-edge grid. */
+.container:has(.photo-gallery) {
+  max-width: 1200px;
+}
+
 .photo-gallery {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  padding: 0 clamp(0.5rem, 1.2vw, 1.25rem) 4rem;
+  padding: 0 0 4rem;
   box-sizing: border-box;
 }
 
@@ -214,7 +213,11 @@
 .photo-gallery__frame:hover,
 .photo-gallery__frame:focus-visible {
   opacity: 0.92;
-  outline: none;
+}
+
+.photo-gallery__frame:focus-visible {
+  outline: 3px solid var(--global-theme-color, #b509ac);
+  outline-offset: 2px;
 }
 
 .photo-gallery__image {

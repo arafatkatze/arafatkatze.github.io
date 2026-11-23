@@ -15,7 +15,7 @@ I want to find "My person", I really want to. I was looking so hard that it actu
 I accidentally stumbled upon a post from one of my favorite authors, Ava from [BookBear Express](https://www.avabear.xyz/):
 
 <div class="col-sm mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1760332858/1_syukzp.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1800/v1760332858/1_syukzp.png" width="1178" height="596" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
 [BookBear Express](https://www.avabear.xyz/) has been one of my favorite blogs for many years. The ideas from it have helped me tremendously in my relationships and how I lived and how I met people with grace and love. I also think that it taught me a lot of self-compassion and made me slightly more self-adjusted both romantically and career-wise in other ways. The purpose of this event was to find a ton of readers of [BookBear Express](https://www.avabear.xyz/) and then try to pair them with each other. Hopefully some of them get married, and I get invited to a wedding.
@@ -24,7 +24,7 @@ So I just DM'd her to become a self-appointed tech support for this. To make thi
 We gathered roughly 105 people and 80 of them showed up to the event which was incredible. We had cards built out for all of them
 
 <div class="col-sm mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1760332858/2_zhbbye.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1800/v1760332858/2_zhbbye.png" width="1152" height="896" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
 The cards looked like this(name changed).
@@ -34,7 +34,7 @@ One person they were least compatible with
 We were now going to tell you which is which.
 
 <div class="col-sm mt-3 mt-md-0">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1760332858/3_rgtiln.png" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1800/v1760332858/3_rgtiln.png" width="1152" height="896" title="example image" class="img-fluid rounded z-depth-1" %}
 </div>
 
 The truth is, what people say they want and what they actually want are very different things. Matchmaking, like everything else here, is a little bit of math and a lot of magic. By keeping this element of surprise, we added that magic.
