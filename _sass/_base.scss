@@ -633,7 +633,7 @@ footer.sticky-bottom {
   border-top: 1px solid var(--global-divider-color);
   padding-top: 28px;
   padding-bottom: 28px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 
   .container {
     text-align: center;
@@ -3079,7 +3079,7 @@ html[data-theme="dark"] .bento-tile.image {
   display: block;
   color: inherit !important;
   margin-top: 0.15rem;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
 }
 
 // /ai/ profile page
@@ -3158,25 +3158,9 @@ iframe.video-embed {
     margin-right: auto;
   }
 
+  // Text keeps the site's standard type (size, weight and line height are
+  // inherited from the body); only the column width is set here.
   article {
-    font-size: 1.125rem;
-    font-weight: 400;
-    line-height: 1.7;
-
-    @media (max-width: 575.98px) {
-      font-size: 1.0625rem;
-      line-height: 1.65;
-    }
-
-    p,
-    li {
-      font-weight: inherit;
-    }
-
-    p {
-      margin-bottom: 1.25rem;
-    }
-
     img {
       max-width: 100%;
     }
