@@ -55,21 +55,15 @@
   {% else %}
     <iframe
       src="{{ include.path }}"
-      {% if include.class %}
-        class="{{ include.class }}"
-      {% endif %}
+      class="video-embed{% if include.class %} {{ include.class }}{% endif %}"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       allowfullscreen
       {% if include.width %}
         width="{{ include.width }}"
-      {% else %}
-        width="auto"
       {% endif %}
       {% if include.height %}
         height="{{ include.height }}"
-      {% else %}
-        height="auto"
       {% endif %}
       {% if include['min-width'] %}
         min-width="{{ include.min-width }}"
