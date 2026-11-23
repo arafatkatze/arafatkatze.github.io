@@ -68,4 +68,4 @@ jobs:
           fail: true
           failIfEmpty: false
           # These source templates contain Liquid-generated links. The rendered-site check validates their output instead.
-          args: --user-agent 'curl/7.54' --exclude-path blog/index.html --exclude-path README.md --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --exclude-path _books/the_godfather.md --verbose --no-progress ${{ steps.changed-content.outputs.files }}
+          args: --user-agent 'curl/7.54' --exclude-path blog/index.html --exclude-path README.md --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _includes/figure.html --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --exclude-path _books/the_godfather.md --verbose --no-progress ${{ steps.changed-content.outputs.files }}
