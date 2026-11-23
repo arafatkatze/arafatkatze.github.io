@@ -101,10 +101,11 @@
       .book-cover {
         flex-shrink: 0;
 
+        // Fixed 2:3 box, so cards do not resize as covers load.
         img {
+          display: block;
           width: 100px;
-          height: auto;
-          max-height: 155px;
+          height: 150px;
           object-fit: cover;
           border-radius: 3px;
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);

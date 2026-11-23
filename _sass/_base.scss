@@ -1765,7 +1765,24 @@ html[data-theme="dark"] {
     li {
       margin-bottom: 1rem;
 
+      // Thumbnails fill their column but never exceed it (they are ~1000px
+      // wide at source and used to push the page sideways on small screens).
       .preview {
+        display: block;
+        width: 100%;
+        max-width: 220px;
+        height: auto;
+      }
+
+      // Let the columns shrink below their content so a long BibTeX line
+      // scrolls inside its block instead of widening the page.
+      .row > [class*="col"] {
+        min-width: 0;
+      }
+
+      pre {
+        max-width: 100%;
+        overflow-x: auto;
       }
 
       .abbr {

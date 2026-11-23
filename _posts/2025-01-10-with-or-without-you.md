@@ -29,7 +29,7 @@ So for my case: One circle is the dirtbag travelers who spend every spare dollar
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
       {% include figure.html
      path="https://res.cloudinary.com/dozxd4znm/image/upload/v1766714080/venndiagram_ew1e1g.png" width="1800" height="1615"
-     title="example image"
+     alt="Venn diagram of overlapping circles labelled Dirtbag Travellers, Skiers, AI Nerds, Gym Bros and Philosophy Nerds, with Ara in the middle"
      class="img-fluid rounded z-depth-1"
      max_width="50px" %}
 </div>

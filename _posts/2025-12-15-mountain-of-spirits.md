@@ -12,7 +12,7 @@ I'm not a woo-woo person. I don't really believe in spirits or mysticism in gene
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
       {% include figure.html
      path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1800/v1766712820/manitonga_ukgdy8.png" width="1800" height="2553"
-     title="example image"
+     alt="Hand-lettered sign in French and English saying the Algonquin called Mont-Tremblant the mountain of the spirits"
      class="img-fluid rounded z-depth-1"
      max_width="50px" %}
 </div>
@@ -22,7 +22,7 @@ After living here for a couple of weeks, I'm starting to believe it. I don't kno
 Is it actually a mountain of spirits? Am I talking to them? Is this some heroic dose of ayahuasca disguised as a ski lift? I'll never know. But I had the time of my life here.
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1766713078/sunlight-min_moztiz.png" width="1800" height="2400" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/v1766713078/sunlight-min_moztiz.png" width="1800" height="2400" alt="Sun breaking through fog over snow-covered trees on the mountain" class="img-fluid rounded z-depth-1" %}
 </div>
 
 All year, my life felt like a race. And even at the ski hill the race didn't stop. I was still working hard, I remember texting my colleagues in between runs and I had to force myself to not check slack too often but something was really different . The common phrase I hear is "I pulled out of my mind into my body," a phrase used by a lot of health freaks. That was probably true, but I think I remember something else. I'm not quite sure how to describe it other than this odd sense of feeling that everything is complete and I want nothing more.
@@ -30,7 +30,7 @@ All year, my life felt like a race. And even at the ski hill the race didn't sto
 This is it, it's a good life, this is the best time, I want to be here, I'm happy. But if it all ends, that's great, and if it all goes on forever, that's great too. Everything happening is fine, and the other things that could happen like for example, this chairlift falling down and me coming to my end are also perfectly fine.
 
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
-    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1800/v1766713080/chateau-min_ytomax.png" width="1800" height="2400" title="example image" class="img-fluid rounded z-depth-1" %}
+    {% include figure.html path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1800/v1766713080/chateau-min_ytomax.png" width="1800" height="2400" alt="Snow-covered resort village at Mont-Tremblant under a blue sky" class="img-fluid rounded z-depth-1" %}
 </div>
 
 Maybe I didn't learn anything here. Maybe that's the point.
@@ -50,7 +50,7 @@ So I'm done trying to earn joy. I'm just going to live it.
 <div class="col-sm mt-3 mt-md-0 mx-auto" style="max-width: 520px;">
       {% include figure.html
      path="https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto,c_limit,w_1800/v1766712478/tearhappy_wey27v.png" width="1800" height="2301" 
-     title="example image"
+     alt="Ara grinning in a ski helmet and goggles, with snowy trees behind him"
      class="img-fluid rounded z-depth-1"
      max_width="50px" %}
 </div>
