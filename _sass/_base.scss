@@ -3047,3 +3047,31 @@ html[data-theme="dark"] .bento-tile.image {
     font-size: 0.9em;
   }
 }
+
+// Video embeds: keep YouTube/Vimeo players at 16:9 at every width.
+// (.img-fluid sets height: auto, which collapses an iframe to its 150px default.)
+iframe.video-embed,
+iframe[src*="youtube.com/embed"],
+iframe[src*="youtube-nocookie.com/embed"],
+iframe[src*="player.vimeo.com"] {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0;
+}
+
+iframe.video-embed {
+  width: 100%;
+}
+
+.video-wrap {
+  max-width: 880px;
+  margin: 2rem auto 3rem;
+
+  figure {
+    margin: 0;
+  }
+}

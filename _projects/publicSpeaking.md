@@ -5,10 +5,6 @@ description: Talks and conference videos on AI agents, evals, and machine learni
 img: https://res.cloudinary.com/dozxd4znm/image/upload/q_auto,f_auto/v1794860189/site/public-speaking/thumbnail.jpg
 importance: 1
 category: work
-_styles: >
-  .talk-video { max-width: 960px; margin: 1.5rem auto 2.5rem; }
-  .talk-video figure { margin: 0; }
-  .talk-video iframe { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 0; }
 ---
 
 I love getting on stage to share lessons from building production AI systems and open-source machine learning tools. These are my talks over the years, from AI agents and evals to bringing machine learning to the Ruby and Go communities.
@@ -17,7 +13,7 @@ I love getting on stage to share lessons from building production AI systems and
 
 My most recent talk asks what to work on once frontier labs solve coding. I trace how coding agents got here and where recursive self-improvement takes them next, connecting the feedback loops across evals, agent harnesses, inference and training, and separate measured progress from hype so you can find the real bottlenecks and pick problems that will last.
 
-<div class="talk-video">
+<div class="video-wrap">
     {% include video.liquid path="https://www.youtube.com/embed/iK9gmxXyBR0" class="img-fluid rounded z-depth-1" title="Pick Problems That Survive When AI Solves Coding - Ara Khan, Cline" %}
 </div>
 
@@ -25,7 +21,7 @@ My most recent talk asks what to work on once frontier labs solve coding. I trac
 
 This talk argues that benchmark numbers deserve skepticism, and so does judging models on "vibes" alone. I walk through a three-zone failure-analysis framework for pulling concrete improvements out of broken benchmarks. Cline climbed from 43% to 57% on Terminal Bench through harness fixes and prompt engineering, all while keeping the same model.
 
-<div class="talk-video">
+<div class="video-wrap">
     {% include video.liquid path="https://www.youtube.com/embed/QuuIywMG4s8" class="img-fluid rounded z-depth-1" title="Evals Are Broken, Use Them Anyway - Ara Khan, Cline" %}
 </div>
 
@@ -33,7 +29,7 @@ This talk argues that benchmark numbers deserve skepticism, and so does judging 
 
 A talk on why most teams over-engineer their agents. I lay out four levels of agent maturity and five rules for writing your own agent code, argue that the best agents are simple state machines with pruned prompts, and make the case for Kanban boards as the right UX for managing many parallel, inference-bound agents.
 
-<div class="talk-video">
+<div class="video-wrap">
     {% include video.liquid path="https://www.youtube.com/embed/yUmS-F9IX90" class="img-fluid rounded z-depth-1" title="Don't Build Slop (4 Levels of AI Agent Maturity) - Ara Khan, Cline" %}
 </div>
 
